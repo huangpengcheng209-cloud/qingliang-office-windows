@@ -1,0 +1,23 @@
+diff --git a/DesktopEditor/xml/src/xmllight_private.h b/DesktopEditor/xml/src/xmllight_private.h
+--- a/DesktopEditor/xml/src/xmllight_private.h
++++ b/DesktopEditor/xml/src/xmllight_private.h
+@@ -32,6 +32,7 @@
+ #ifndef _BUILD_XMLLIGHT_PRIVATE_CROSSPLATFORM_H_
+ #define _BUILD_XMLLIGHT_PRIVATE_CROSSPLATFORM_H_
+ 
++// Modified by Qingliang community, 2026-10-22: accept either encoding quote.
+ #include "../../common/File.h"
+ #include "../../common/StringExt.h"
+ #include "../../../UnicodeConverter/UnicodeConverter.h"
+@@ -123,8 +124,9 @@
+             std::string encoding;
+             if (pos_find_encoding != std::string::npos)
+             {
+-                pos_find_encoding = start_stream.find("\"", pos_find_encoding);
+-                size_t pos_find_encoding_end = start_stream.find("\"", pos_find_encoding + 1);
++                pos_find_encoding = start_stream.find_first_of("\"'", pos_find_encoding + 9);
++                size_t pos_find_encoding_end = pos_find_encoding == std::string::npos
++                    ? std::string::npos : start_stream.find(start_stream[pos_find_encoding], pos_find_encoding + 1);
+                 if (pos_find_encoding_end != std::string::npos)
+                 {
+                     encoding = start_stream.substr(pos_find_encoding + 1, pos_find_encoding_end - pos_find_encoding - 1);

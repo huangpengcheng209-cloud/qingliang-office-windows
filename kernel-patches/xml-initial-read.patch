@@ -1,0 +1,21 @@
+diff --git a/DesktopEditor/xml/src/xmldom.cpp b/DesktopEditor/xml/src/xmldom.cpp
+--- a/DesktopEditor/xml/src/xmldom.cpp
++++ b/DesktopEditor/xml/src/xmldom.cpp
+@@ -29,6 +29,7 @@
+  * terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+  *
+  */
++// Modified by Qingliang community, 2026-10-22: reject an initial XML reader failure.
+ #include "../include/xmlutils.h"
+ #include "./xmllight_private.h"
+ #include <list>
+@@ -232,7 +233,8 @@
+ 
+ 		void Parse()
+ 		{
+-			ReadNextNode();
++			if (!ReadNextNode())
++				return;
+ 
+ 			WriteElement();
+ 

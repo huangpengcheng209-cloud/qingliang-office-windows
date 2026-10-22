@@ -1,0 +1,1176 @@
+{
+  "repository": "https://github.com/ONLYOFFICE/core",
+  "revision": "b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b",
+  "profile": "Windows x64 Release, core/Common/kernel.pro; 47 upstream compile units",
+  "sources": [
+    "OfficeUtils/src/OfficeUtils.cpp",
+    "OfficeUtils/src/ZipBuffer.cpp",
+    "OfficeUtils/src/ZipUtilsCP.cpp",
+    "OfficeUtils/src/zlib_addon.c",
+    "OfficeUtils/src/zlib-1.2.11/contrib/minizip/ioapi.c",
+    "OfficeUtils/src/zlib-1.2.11/contrib/minizip/miniunz.c",
+    "OfficeUtils/src/zlib-1.2.11/contrib/minizip/minizip.c",
+    "OfficeUtils/src/zlib-1.2.11/contrib/minizip/mztools.c",
+    "OfficeUtils/src/zlib-1.2.11/contrib/minizip/unzip.c",
+    "OfficeUtils/src/zlib-1.2.11/contrib/minizip/zip.c",
+    "OfficeUtils/src/zlib-1.2.11/contrib/minizip/ioapibuf.c",
+    "OfficeUtils/src/zlib-1.2.11/contrib/minizip/iowin32.c",
+    "OfficeUtils/src/zlib-1.2.11/adler32.c",
+    "OfficeUtils/src/zlib-1.2.11/compress.c",
+    "OfficeUtils/src/zlib-1.2.11/crc32.c",
+    "OfficeUtils/src/zlib-1.2.11/deflate.c",
+    "OfficeUtils/src/zlib-1.2.11/gzclose.c",
+    "OfficeUtils/src/zlib-1.2.11/gzlib.c",
+    "OfficeUtils/src/zlib-1.2.11/gzread.c",
+    "OfficeUtils/src/zlib-1.2.11/gzwrite.c",
+    "OfficeUtils/src/zlib-1.2.11/infback.c",
+    "OfficeUtils/src/zlib-1.2.11/inffast.c",
+    "OfficeUtils/src/zlib-1.2.11/inflate.c",
+    "OfficeUtils/src/zlib-1.2.11/inftrees.c",
+    "OfficeUtils/src/zlib-1.2.11/trees.c",
+    "OfficeUtils/src/zlib-1.2.11/uncompr.c",
+    "OfficeUtils/src/zlib-1.2.11/zutil.c",
+    "DesktopEditor/xml/build/qt/libxml2_all.c",
+    "DesktopEditor/xml/build/qt/libxml2_all2.c",
+    "DesktopEditor/xml/src/xmlwriter.cpp",
+    "DesktopEditor/xml/src/xmllight.cpp",
+    "DesktopEditor/xml/src/xmldom.cpp",
+    "DesktopEditor/graphics/TemporaryCS.cpp",
+    "DesktopEditor/graphics/BaseThread.cpp",
+    "DesktopEditor/graphics/BaseThreadMonitor.cpp",
+    "DesktopEditor/graphics/Timer.cpp",
+    "DesktopEditor/common/Path.cpp",
+    "DesktopEditor/common/StringBuilder.cpp",
+    "DesktopEditor/common/StringExt.cpp",
+    "DesktopEditor/common/StringUTF32.cpp",
+    "DesktopEditor/common/ByteBuilder.cpp",
+    "DesktopEditor/common/Base64.cpp",
+    "DesktopEditor/common/File.cpp",
+    "DesktopEditor/common/StreamWriter.cpp",
+    "DesktopEditor/common/Directory.cpp",
+    "DesktopEditor/common/SystemUtils.cpp",
+    "DesktopEditor/common/ProcessEnv.cpp"
+  ],
+  "include_directories": [
+    "OfficeUtils/src/zlib-1.2.11/contrib/minizip",
+    "OfficeUtils/src/zlib-1.2.11",
+    "OfficeUtils/src",
+    "DesktopEditor/xml/libxml2/include",
+    "DesktopEditor/xml/libxml2/include/libxml",
+    "DesktopEditor/xml/build/qt"
+  ],
+  "defines": [
+    "UNICODE",
+    "_UNICODE",
+    "WIN32",
+    "_ENABLE_EXTENDED_ALIGNED_STORAGE",
+    "WIN64",
+    "KERNEL_USE_DYNAMIC_LIBRARY_BUILDING",
+    "INTVER=9.4.0.129",
+    "WIN_INTVER=9,4,0,129",
+    "COPYRIGHT_YEAR=2026",
+    "_WIN32",
+    "NOMINMAX",
+    "_WIN64",
+    "WINDOWS_IGNORE_PACKING_MISMATCH",
+    "BUILD_ZLIB_AS_SOURCES",
+    "HAVE_VA_COPY",
+    "LIBXML_READER_ENABLED",
+    "LIBXML_PUSH_ENABLED",
+    "LIBXML_HTML_ENABLED",
+    "LIBXML_XPATH_ENABLED",
+    "LIBXML_OUTPUT_ENABLED",
+    "LIBXML_C14N_ENABLED",
+    "LIBXML_SAX1_ENABLED",
+    "LIBXML_TREE_ENABLED",
+    "LIBXML_XPTR_ENABLED",
+    "IN_LIBXML",
+    "LIBXML_STATIC",
+    "XML_ERROR_DISABLE_MODE",
+    "NDEBUG",
+    "QT_NO_DEBUG",
+    "QT_PLUGIN"
+  ],
+  "system_libraries": [
+    "Rpcrt4.lib",
+    "Shell32.lib",
+    "ole32.lib",
+    "advapi32.lib",
+    "Ws2_32.lib"
+  ],
+  "files": [
+    {
+      "file": "Common/base.pri",
+      "sha256": "f1f2e61d665847180ce3441ca5f6578ef54679f352ea45fad6a4ef0ed8e8b0ab",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/kernel.pro",
+      "sha256": "c3eb93ecf93271a9bf3dfe2b44c67ec80efe61ee528461f8606c615ef21f1881",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/kernel_config.h",
+      "sha256": "3c302c650aceb006c5adbe7a577ca3e744b3380c788c6cecca6049c1125ade82",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/Base64.cpp",
+      "sha256": "5bd3c312fb5760ea029c021f9556daa7d450ef3e8243434d2e2dbf8b84407d00",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/Base64.h",
+      "sha256": "488e4c786e60d9b9d286239caa4c8dd25e3c7700560cb84f2489dc914b08ba49",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/ByteBuilder.cpp",
+      "sha256": "040fb781e2eac17851ae3fae7ef58da41370b2be2bebd466e8057980848ef48b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/ByteBuilder.h",
+      "sha256": "2679ceef1f891e894b473f05287eaa437fa23a374122345f44c910d86baede7c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/CPEncodings/CodePage.h",
+      "sha256": "0df3768ab2e4ce41c3c9e8618746a7de6f4db2b01595b1a7d5fcb2af1be0896c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/CPEncodings/CodePage1361.h",
+      "sha256": "630bfadbda4b9f7498d4491bde2ce2627ac9444fc14126deca163a84c97b9299",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/CPEncodings/CodePage932.h",
+      "sha256": "31410a2f742807e58845b00f9f71d43a1181403f74ea917061a6729ff56df670",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/CPEncodings/CodePage936.h",
+      "sha256": "a316d9067befb78d5aef5b5b2c32d72ce50c34f40682465164fe47cb25f00256",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/CPEncodings/CodePage949.h",
+      "sha256": "4eeaaf47641f9ea035418ca21b911b7e123c0f50fd47b6142d5f64e038579630",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/CPEncodings/CodePage950.h",
+      "sha256": "3702171502348bb130596840f5702b26b8e90fe90ebd4be3a749b377f2a6fcd3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/Directory.cpp",
+      "sha256": "04342e8e0105f9996e53583888f014de866b4f3afc9ed53e6796d1a1efe8faec",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/Directory.h",
+      "sha256": "1f04c2980beb109d9e10184d691b5ba639d2cbfb3b24cb1c25b1f1e71ef76941",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/File.cpp",
+      "sha256": "9667018281ca33cf3d60e1668cabf138f0a6c12ba8c3060788c52142e1efdb9b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/File.h",
+      "sha256": "3a88bf55cd542286fb1ff6ed32a8618cfa8c4b0f371c2326c35b73949a43acb7",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/Path.cpp",
+      "sha256": "ea2ea8fd23365108bf1dab95c5bc011a60efda3f786d560caa49925fed2f2459",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/Path.h",
+      "sha256": "67c5c2cafad94d8720b748075a83a5a57d453f2f467bb0795cd5c8e4a4b37aef",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/ProcessEnv.cpp",
+      "sha256": "1bc193a45125c658cc186651d1e3b97c9c7bab6c73827893430c80a2b05077ac",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/ProcessEnv.h",
+      "sha256": "a67978be93286efe25b6d060a17b8432c323078eb0fd1c616ca6899bc9486a5b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/StreamWriter.cpp",
+      "sha256": "1a7e33796a1680013454910035d238a5a00554d99db4dd5c6c858dcb820d53b2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/StreamWriter.h",
+      "sha256": "40c69872b1af42a6f67c98a2d86dff3396bf960a58dfe56c4ba59dda5c74a12e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/StringBuilder.cpp",
+      "sha256": "aec756f14d69cbb93c5d11bb11758a9a2cd5f7ee2ee6bf0106701cfac4f73877",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/StringBuilder.h",
+      "sha256": "4258162a2d7fb130053ddf6daa05f583037af22468145f85cb0962030b1ff26c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/StringExt.cpp",
+      "sha256": "d971bef6740d8f469406b136395399211bdaee0b65dfac60081376394264d0ee",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/StringExt.h",
+      "sha256": "dc5b3f73cc9c02379e5f8c9eb7079fa1b16b7916cbf3541ea5eb1464c713869e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/StringUTF32.cpp",
+      "sha256": "9ed3b749e108618dcf01650ff773369bcc2198937bd4662a9ea629b2087f62ec",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/StringUTF32.h",
+      "sha256": "0a89fc453582016f5e5fe79b97b4380f1775f158e3e100d857cdf5a991ba523b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/SystemUtils.cpp",
+      "sha256": "2f95c28d6071675186d4b81ea1016e1bb61de6af2fe7109640e75dac34fc823e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/SystemUtils.h",
+      "sha256": "b9bd0b7b335d6657ad6e3e808b604743ee8ea9053535c0ae2299a25cddf69e77",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/Types.h",
+      "sha256": "a1814edd3453e0119f00a69ea935fbd09c6c1514c71464bf1754cdf40579f813",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/base_export.h",
+      "sha256": "acd4247950f2e48f16cb8a98c42eae3ac38c6e1952cea83cf591f633d46717f8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/graphics/BaseThread.cpp",
+      "sha256": "7cd5fe8dd95e5da50384af171eabda526b9973779af4f12def0afa06f5bcbcad",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/graphics/BaseThread.h",
+      "sha256": "d55935aac8b3c695397ff51e59293875a6699c617ff19a7e9225992c4ce2366b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/graphics/BaseThreadMonitor.cpp",
+      "sha256": "95d240fb79b480745a4642b9e9d2a5cf9616e5384bad46b4a98e611a88548057",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/graphics/BaseThreadMonitor.h",
+      "sha256": "ff2a7dc4ae280304d3a84795c004e2eaae3e137e364f9c0fadee2b966b6fb17c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/graphics/TemporaryCS.cpp",
+      "sha256": "ab8db7518b13e92bd314728bb4b0fbeec3a890a0bf0e1f52b1bcc2fa4a90d7e8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/graphics/TemporaryCS.h",
+      "sha256": "fd8088bc0dc0b2d988aeddb76181c99059db18f8bb7b2ace19e9a0fc50c17aba",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/graphics/Timer.cpp",
+      "sha256": "10f9208ab08e1fcd3d599cd64d21b35b0ea8312a80683a55934bc72321b6d0b9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/graphics/Timer.h",
+      "sha256": "67960b40ba194ca1f56f9ea7cf595463a762dcd657937b56fa22c343f8f07868",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/build/qt/config.h",
+      "sha256": "db17448560456bee20027663398525905e169ee26699a3db8197a4e0e774fc8f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/build/qt/libxml2.pri",
+      "sha256": "b2816479d6246e1cbaad62995f093dcc0cf0bf668f7805956857cdcc9f984fbb",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/build/qt/libxml2_all.c",
+      "sha256": "be19c44b1872e3a7fec9584a2364b79d8b9adfaa3204ba1f952969829fc0889e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/build/qt/libxml2_all2.c",
+      "sha256": "e67ee4d0e95fc3d3c191f045c585c039a9af90d9c01de58bfd15c71bba2b81fd",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/include/xmlutils.h",
+      "sha256": "8a39348160cb9b7284fed27c3dad89c41f21a9db0d7b671fd992078c225de651",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/include/xmlwriter.h",
+      "sha256": "d3fc40a6bcae320415a10d879ad4e7e9ef293205ead2b47e7fd54c58a170557f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/Copyright",
+      "sha256": "7b5c35a856959625fca9bcedb4f13258a37910a0822aedf29166d3d5ea786951",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/DOCBparser.c",
+      "sha256": "42346a492e846d8fe2315c17b937715a9a3d0c3e3301760d936cfe377416bc7a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/HTMLparser.c",
+      "sha256": "17431cc2ed08c4dbf04fee7ccef98f8574318e04bdc02496c495e864fa47a9ba",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/HTMLtree.c",
+      "sha256": "aa8761a03c62ac8e192525a38fe32c79d748ced8b6ce5997ab9bb98aaddd8e1f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/SAX.c",
+      "sha256": "9dc30a994a7be335b10a0b859e49be710fd46d88200534849944c86a00114724",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/SAX2.c",
+      "sha256": "70d35cac27d32e694fc0c82e21944d83638f85f2053ec78f5a56e2c379e44a3b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/buf.c",
+      "sha256": "bc24d74252dfe36524c01a2e456aa2ed847f2b6dd5e90f13ca18f879bda0ee4d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/buf.h",
+      "sha256": "d701a859427f48b4ce79c656bab9b50c1fdeef73e4bddd67d52a9cbe2c330e3b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/c14n.c",
+      "sha256": "599a03d16149b9a3bfcc0e76ab73328d5cfbde3ace42613204dfd93cb7e6f934",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/catalog.c",
+      "sha256": "d385fbee29f14e293a47208ed83fd621d7c36f2d92f7cbe618dc95b08ae9ea74",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/chvalid.c",
+      "sha256": "df484fe7fa36cba85a7fcf6cba62f407acc6422777ebc777f88f6cc9ae3ecc60",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/debugXML.c",
+      "sha256": "a3e1fb241d99b7059e2ec1d2151137bc45bf153247c0f0702246d1bcbfdfccbc",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/dict.c",
+      "sha256": "35a04dc8b833115ae5373c37dff5a80f62b1686946a9437e4a5623797b0de768",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/elfgcchack.h",
+      "sha256": "be716711f6e6f840fd601c6dabe1d1a43f900e1e153863d635fa1fb05e483a23",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/enc.h",
+      "sha256": "2e4703cebc4cb634b95c55453eb058de42a8d9a544e5c22a7a6671dacda111da",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/encoding.c",
+      "sha256": "792bdb6be37302d91b20bf52b54af0c96bccf7ebf22a31e70d7e7cda7faa0684",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/entities.c",
+      "sha256": "981218a64e81bcd43eed681eaeab6e8cd5b2839682d36984d7037df82bac0aa1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/error.c",
+      "sha256": "f3a08da4807a6b0989b4945889c39f591fd9f13c972245962005179d8f33e10c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/globals.c",
+      "sha256": "bf05a34bfbccd461da7ce14b745ec85b517d3357003494ec140f1d452f56f8f7",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/hash.c",
+      "sha256": "0a64999a07cae1fb45bc1625e24a2d279468865e1bb15d99f81f9df533adc427",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/DOCBparser.h",
+      "sha256": "0b8f7fc0d332417a5e068a5bdd5760161f889d35d9b51e417a0b929a4884e237",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/HTMLparser.h",
+      "sha256": "93ada6a9919c28042b2f131692f05e39e83cb90762401fa510c22e13631b6a86",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/HTMLtree.h",
+      "sha256": "48fc581f9f995517c696e9637919184875210f7fc8ca2a3737d96527fc32a30d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/SAX.h",
+      "sha256": "7ebd478d350a640927d2b7b688de5f50662aeac95551cbbdb52b3e61bb268a46",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/SAX2.h",
+      "sha256": "f0b80f8cce626e114111311983a649f2336222243bb4a259a592570e8ed3a08f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/c14n.h",
+      "sha256": "f40c16acf1c473619f06a137271130dda67b09944349fd3d9775130f0a2885e8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/catalog.h",
+      "sha256": "46d1a9c243acc9a38461c05d072d5aa673e947ad20d5d09e218c143752bffa4e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/chvalid.h",
+      "sha256": "95d21132a972c443fc4d41e495ca47b629eab885e8d4be3d522ccf481051f177",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/debugXML.h",
+      "sha256": "51d555d783cd92ec97d5cc8e0e7cd95b86ae286b8e28602f003947985d440c93",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/dict.h",
+      "sha256": "d5c68f7b7929929f8aaafac177668bce7bb396d048cec969078d8c47720d5ee2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/encoding.h",
+      "sha256": "bcc8b2642ab683b0dbcca0334dfb6dae65167fb7e4ae0c4db8a319bea84ab614",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/entities.h",
+      "sha256": "cef73b1f9595079d6c8b2fd6db6ca92c7e5f8a9d884d7fd0dcca14c3101df35a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/globals.h",
+      "sha256": "b034ba3e8d0d9ef7c6c7481ac25e50b0ae9ad6156ed48b25d9a8f98476310476",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/hash.h",
+      "sha256": "db345e7916f04aa60c7614309c8a4855349042db485529c217e78b03ce62e262",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/list.h",
+      "sha256": "67a7066c751a32be0cb0d9afd940219a41b9a2ca790d12f20839cd78f3d9ad4f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/nanoftp.h",
+      "sha256": "6cd5ef7897ffb02920d316629dcc2ac00db4b1ed885a2eda74e55693a5bb7459",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/nanohttp.h",
+      "sha256": "47bfa9d098e2a1ef1a2f239e26c4755d4a5635531f7ebdc531ecb1dad55f5c84",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/parser.h",
+      "sha256": "190512ac317231ece0b9e6f3cd19de5ec6a8fbdf5f2eb6185e31cb0eae24c224",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/parserInternals.h",
+      "sha256": "65ccf4c5e277d1fad0af5d6efc7c9d7a22bd33e1b703d9369ae3b57d2b48077a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/pattern.h",
+      "sha256": "d680bb6bca3d1737d96d6660c9f8f3b92a81f547e8137f1356df917341637f1c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/relaxng.h",
+      "sha256": "a1091ecf42e4ff7e891bd9f9fdba1dccbee0c553214d728797876f4049a75065",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/schemasInternals.h",
+      "sha256": "147768d06295ce390a82b961cccbcabec4507071d3fd2ec3f59c122cc9a4b970",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/schematron.h",
+      "sha256": "1357648cc55c28180cec794abd8bd54250e1b5b80555fd44776da50656379975",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/threads.h",
+      "sha256": "cdc861d7e39ac17d1724e800113a96b3ae782d6e0a15b465172feb57ff503447",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/tree.h",
+      "sha256": "4e862a407479b297cff35b0d4fc2d9f70ac3d18e90049c6d96e204fc25f513e1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/uri.h",
+      "sha256": "1eb5dc339cfef9f2791a61dfaf85d531e550e5921dee39bb83d1258dccc97185",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/valid.h",
+      "sha256": "48626d12b9ddebe3e0bd4ec8439593f9d6fbb6a101c04288eb764d649f019221",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xinclude.h",
+      "sha256": "5eb02b427d51afe653e8785b42fc5e1e1b42f30d690605f686df6cea020541bb",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xlink.h",
+      "sha256": "276d260b71456d971d0f41f81804e728d46e9d3181fff692bdfe6b18c12e0ad9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlIO.h",
+      "sha256": "b2a2184ec9f71dde4b5bac8d676f514a77cb955d445369daddf8757512e277b8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlautomata.h",
+      "sha256": "5d13007461d3f5b7ad1500f0fd870ef789e82b6e495e1b4cf02d9c72983add9b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlerror.h",
+      "sha256": "48e0a937d26dae37f266fcdf23fe11e37eaa56386edaebc499fec1b5998b7f53",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlexports.h",
+      "sha256": "4483df67b5ef4229a41b60e2bb5f06b66d4e7b33d31629d7673dd3a01901e28c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlmemory.h",
+      "sha256": "5e2edbc467e5d137a6482300f007fda59b3376720fd5410b2bce763697a29340",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlmodule.h",
+      "sha256": "08965935b941018e9414b2362234af83efc416da8d778cd30602ff3917f05970",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlreader.h",
+      "sha256": "1878b67dedbc041257077e5b2d01571b04c4898204aaa3f04b2e36270b01b81a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlregexp.h",
+      "sha256": "710e5763924e28e9ce49034dd1a18e64b34c33b2cd9e4bdddf4ff9fc4af4a409",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlsave.h",
+      "sha256": "af2dac7a4fb3daeba3b0fc960d826d1125874153eae245e0708b9909601df4fe",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlschemas.h",
+      "sha256": "2c2bcfe962292544e7110d68f4185bb57f2f4564c8f7f90d74fdf4e705f706ff",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlschemastypes.h",
+      "sha256": "e0cd5ec92eeb0a7aa4a4df662883d17732157b750b9fdfd8fecb6a9f298eb12a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlstring.h",
+      "sha256": "e2030019b4ec0dca96f5f26d233ea6b8baff1ec62069e408d5fc8896a8e1e2e3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlunicode.h",
+      "sha256": "1c984069f6c07842099b04ba2871b251b0e6a5effe39275245f4ca672fa7ad7e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlversion.h",
+      "sha256": "22eb1dbdbb8338bdda965b2f1bf792df20ad8ac58db812945034aab44c7d12dc",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xmlwriter.h",
+      "sha256": "dbda097c21bae9ad5d958e07020721bae34b1210a00a10b9d54824310af66371",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xpath.h",
+      "sha256": "ced096ded0f6835fe8fc2b2472a3debe1721fe0e92ee9a4678af93e82a263ab6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xpathInternals.h",
+      "sha256": "73b09bc042b12bbe8c0127934e6f50e6469b26e809ca7b59322b340724679ce6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/libxml/xpointer.h",
+      "sha256": "d77d49c1a414ff0c4f7b667b9cbd97a806f3f5c5a9ec9d5227ab11f799d1afca",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/win32config.h",
+      "sha256": "69c8935739027bd1d3362291b8ef1aa465edd4a5c7d9b8fe49294054b40797aa",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/include/wsockcompat.h",
+      "sha256": "7938fd43c1c6ce6f143c2a908810407e9096f09e3c897cc4fb29163fb6c49580",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/legacy.c",
+      "sha256": "3fbdf763c9156efd9dd8d5bc8383ddbe4801e1c8b30f9a3709c5929be0b59fdc",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/libxml.h",
+      "sha256": "ab02a6a8e22816bd84d1856b799d607c9057e9fca81a36631b073a9e4635353b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/list.c",
+      "sha256": "e81d45bf22daa3e0b0bc6c030310db51a9b53b5bc75eeedcf6fa4d871a896446",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/nanoftp.c",
+      "sha256": "e4f03fde619bbb6ae2b4ca2fb75b853ebeea2023aa70949fbc7d65a3618224f4",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/nanohttp.c",
+      "sha256": "e85b63e22e4bdd69525367e5586a4447f0ff57c1efe11d9baab8524690218284",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/parser.c",
+      "sha256": "592d8b162b8c8eedd39afe857653eadbe091236430ff83f8f7dc20b3f0f32a4e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/parserInternals.c",
+      "sha256": "13689d41fb9a07e11a41aef78434f16c3e654d0f496ffa0fda101f5483fd1133",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/pattern.c",
+      "sha256": "22124fa5397ef0cd3aa9f8153a52982edc7db782788edf3002a11648857451f4",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/relaxng.c",
+      "sha256": "214c60f3138d29fbfdd462aa092b13eb5f79dec9465cfe731eb2551d992e0672",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/save.h",
+      "sha256": "370957f58a22230e90114b2a6b14c3d0c4fa9fcdfd54438a32bb9055499472c9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/schematron.c",
+      "sha256": "cd6b4187140f3fc91a22e8686d3e2b98fe0efff5573f0f3df91804b5aaec70f3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/threads.c",
+      "sha256": "12d12953b6bed87455cf1481c7588fb3817f6f5e12696a09a79c2925665c91d0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/timsort.h",
+      "sha256": "6893647f4d66ce86bcf6824a537e41bd062d1583f20fcacdf8de15d222f4ec1b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/tree.c",
+      "sha256": "50c4f865ab09a728a812c4b9dc4008aa593ecd35478c1f92d3700fe9f000c60b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/trio.h",
+      "sha256": "f1ea54059ff74f9ab1c221d411ff409d48c930851dc0467b24833fc9efe04280",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/triodef.h",
+      "sha256": "5debc8f6796b0820c22a5a3993057c20c33f50e9be74c3e499e26633b5ca3691",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/trionan.c",
+      "sha256": "9f6ccedeea3c4e0785efd1125e056aa27596e31e4e563d899caa5b669e0d0bf8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/trionan.h",
+      "sha256": "5f333376b779da572a3a86986ed4678c4bcbee8eadfa5fa8bf84dcc6fc57be71",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/uri.c",
+      "sha256": "8f3cfa4d6585a147976e05e792ae12e78e254c52720a6e64fa4150f19e3026dc",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/valid.c",
+      "sha256": "43bac9af845d8cdc8a883791c523fc944861f526e0cd21ec53e62e58f4431391",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xinclude.c",
+      "sha256": "f9a754daf762d0293f8b9ed54eb14ab418a75998851552f1d432edc4bd9747b1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xlink.c",
+      "sha256": "613eff61852f3c1089bbb36bed7a463da75720a24226c916baabf77be1ce0810",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xmlIO.c",
+      "sha256": "17f161e8a358c05b5191a612d8a236849cb94e45a3b09d6dd0937015649b087b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xmlmemory.c",
+      "sha256": "9a887513fdd05fb538f1fe5a83fea2cf1b55f3758221467087f2ae8df9b0cf6f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xmlmodule.c",
+      "sha256": "b989e3a6b6fc6931cf55e71b34b4d22e52686499bd894fdad13987c9c2d4ba56",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xmlreader.c",
+      "sha256": "706491cd9e52bfaca7f3d4373978e88f747c077185e3e884c54d117072af2cf0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xmlregexp.c",
+      "sha256": "b130a64a742a27d831e0ece0a130ba5963211ade5678d1d970980e0a88c5fe87",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xmlsave.c",
+      "sha256": "aeaa165480a236f89de14a4c55dcda6c603a17a30009707a8cb9e8242608bae6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xmlschemas.c",
+      "sha256": "385a602fad74a071106c69cce7af6496113e80f1bc871ceb12006cbd84437f51",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xmlschemastypes.c",
+      "sha256": "31dd8d9b5db026b276248045b03208909126631be2ff8ce8b9dec7d26b4877a8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xmlstring.c",
+      "sha256": "aac6e275128770df53b6968d1b63aa54fd0906f0af0e3d8c626a1bf1bedef6d0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xmlunicode.c",
+      "sha256": "412f737e3ec917e7bbf213b72b3a9cfa50679075b1bb824d7faebe8f4bb68c9e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xmlwriter.c",
+      "sha256": "74d296819cdc3f9943601119944e4a49ecfee64680a05eb5867807e1c936f7e1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xpath.c",
+      "sha256": "3b52757d65aeb8b3657a8238edd663c3dbf657cd86421665c88c6463cb208571",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xpointer.c",
+      "sha256": "d3dd404aae1c4e13abc47f7376f9ad700052f052f338a1db65bf19febc986311",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/libxml2/xzlib.h",
+      "sha256": "96a4373d9e4a23efbccce1209ce41fcc16e1ed39ab82d0e3532d7cd44c2b9fd4",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/src/xmldom.cpp",
+      "sha256": "03104a5d6a289a919891b91ac493182634e1b39a2eddf3567998e8a872d9ad70",
+      "origin": "community-overlay",
+      "base_sha256": "ec94a9a5f26cc101f06015bcfea0695cc8a5db2ad001da0889f2adb808552fa0",
+      "patch": "kernel-patches/xml-initial-read.patch",
+      "patch_sha256": "18aa69228fe072ddf45f7bbdd86fe312d86bac2ff177326fd116aa1cbf80d930",
+      "modified_source": "kernel-sources/core/DesktopEditor/xml/src/xmldom.cpp"
+    },
+    {
+      "file": "DesktopEditor/xml/src/xmllight.cpp",
+      "sha256": "dfa1c55078aec39d52e94502c05191db102f10e8f4778a4b87a6287d9e9fe37c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/src/xmllight_private.h",
+      "sha256": "baa1ecb7760df61f81259162854c28f43c535c8424808800735ceef8cef856a7",
+      "origin": "community-overlay",
+      "base_sha256": "25d8ad86776980138c29a8e0b5785301c826210297a341771c54d8acca776e69",
+      "patch": "kernel-patches/xml-encoding-quotes.patch",
+      "patch_sha256": "daf53f269fd1ad4339d62935a1c56f1c8b3e4d3a797262e06f5a2a1b6ce7229c",
+      "modified_source": "kernel-sources/core/DesktopEditor/xml/src/xmllight_private.h"
+    },
+    {
+      "file": "DesktopEditor/xml/src/xmlwriter.cpp",
+      "sha256": "a87a248f38e8deccf618e8824a6baabd5b1a00a0f97ce1bd026a995f6d830711",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "LICENSE.txt",
+      "sha256": "57c8ff33c9c0cfc3ef00e650a1cc910d7ee479a8bc509f6c9209a7c2a11399d6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OdfFile/Common/logging.h",
+      "sha256": "cf57a7bdb21e8995e8e08232dcdcfb27585ff6e1d543959fff59fe914f86e240",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/OfficeUtils.pri",
+      "sha256": "bab82d95446ae4150176801e102c4f593b1c70782cc52f25fb1b302a04c719e2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/OfficeUtils.cpp",
+      "sha256": "cb39bbe6aff3cc056e579a55ca737adb2a3eca38181e994395c046703a03cc29",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/OfficeUtils.h",
+      "sha256": "a506d58ab7c0f5c5f0131244d4c958d4d92591e971034aa990d1f672785b9d39",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/OfficeUtilsCommon.h",
+      "sha256": "8ff4a37230ab1cfd0d3dadeb724cf07141a108a915b0e6ec2bd815ac44c52e4a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/ZipBuffer.cpp",
+      "sha256": "793e663946aab43f32ee9c5d744922ac71081218c450560786d7e4f4dcc74567",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/ZipBuffer.h",
+      "sha256": "3fcfa65cb2c797e826756c0ec440673edf91634eae8b9a339499d1f8329bd03e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/ZipFolder.h",
+      "sha256": "66ffa3a0e06f6a3560125a3c8c536adaf2b61927865de901d9de92a8f607def5",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/ZipUtilsCP.cpp",
+      "sha256": "ef41e99739b7f1e3a8b4821a723cdd7bf1f72b8b019270570c8c71d64a5f14b2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/ZipUtilsCP.h",
+      "sha256": "b03cce3b03c34794ee1e7c1d458d6aad87119f3db8fb2700b362f22a04c174b7",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/README",
+      "sha256": "7960b6b1cc63e619abb77acaea5427159605afee8c8b362664f4effc7d7f7d15",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/adler32.c",
+      "sha256": "d7f1b6e44fee20ab41cef1d650776a039a2348935eb96bcbd294a4096139be3a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/compress.c",
+      "sha256": "5c11e1fc22e219cb986f6fa9e4ba939315227e84aef042737d38ec668b89b6d2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/crypt.h",
+      "sha256": "8e872b60255b8447da99885c7159c2e1f1bb8143523bdbe71784e60f98bfd67b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/ioapi.c",
+      "sha256": "66b39c27042f6ad12cc12efb0c82cdf100c6640b5fa959b8b866e252966113a9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/ioapi.h",
+      "sha256": "8655408534b78dc0889a45f9359fc6d2d5c8e8d8443b81ede596f954c720ef48",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/ioapibuf.c",
+      "sha256": "b682088380f0620dbb38e5ae7ceea082b226155ec476c5bdf44309c1600e57c5",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/ioapibuf.h",
+      "sha256": "beb2e70b32cfd352dbf3fe6f46f150f51d9e45ca76f9d5d395114e7fe62a688c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/iowin32.c",
+      "sha256": "87c4fee994532cd87097425f4c91d40935231e152a47f26c148eacdb7466751b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/iowin32.h",
+      "sha256": "586f22b9c3c64da253ce2b518e0fad61f19a7b47b289fc704cc9708242294c49",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/miniunz.c",
+      "sha256": "b452e2f60d143442737b378fb65cf40df23eb4be9ecbaa7d93566c3acf6238fe",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/minizip.c",
+      "sha256": "15a1584d036ce3954f2682f71018feb92bec4a4becfca282e22c7f684f295fa4",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/mztools.c",
+      "sha256": "cd887c4af6d20823bd15f24008b10acf01969b4165d7848656bde843a92428d7",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/mztools.h",
+      "sha256": "6f82c52279e8f79165f4446be652e5741a49992ac58632470335aa34c564072a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/unzip.c",
+      "sha256": "235cfd14f44f660e840fe9009c87c96af299109a2584a009dcf12350c1cf7099",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/unzip.h",
+      "sha256": "d8dc58fc0121b6a4b98f3028205bb253f956b1ddf791e9ced3cf44892502a01f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/zip.c",
+      "sha256": "00f403cb7810578b4b2687dd55fb132c850c3630fba2f3704a8ab896fcc8209a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/contrib/minizip/zip.h",
+      "sha256": "96163fc140e4bf08752e014d20a1eac3f5adcdc408366f6d79c1895f2599cf08",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/crc32.c",
+      "sha256": "a04af273e83ecc351bf3794974ab2098d8d960df4044b7b44734c41443ee26d0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/crc32.h",
+      "sha256": "407af59d0abfea84a6507c603eb29809411797f98249614fe76a661def783ce1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/deflate.c",
+      "sha256": "11fd6b0328b65c4ad4b5c204d892a97a9083628a7e77dc47836c8e0c799f8da0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/deflate.h",
+      "sha256": "0ca7fb0cf1dd63001c6e9e4ff93c8dbff2fe521199be51a4dda38a11b44919f6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/gzclose.c",
+      "sha256": "94446cf8cde67c30e64d0a335b0c941fd3fbad2e77f30180d12e61f9c2a5a6b8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/gzguts.h",
+      "sha256": "1ef4741cf10441feeca5c8dde2b6c754f0cbd96fcae697d54a604757289a5e9b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/gzlib.c",
+      "sha256": "5daf11e44149e0aba2956d35f73f04f35dca99c3dfa43f5ad43ec20b336e4a1b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/gzread.c",
+      "sha256": "6f928512cb1792cfeab31a51ff0b211814d2e455bc75290eb31079dc1e5ad2ec",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/gzwrite.c",
+      "sha256": "ba3b7b7ad2ff7ef0c19319b8408c333491a4cd495da55d0b156bc73d9ddb4df4",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/infback.c",
+      "sha256": "abe44873b5af2ea68ea1d281d915b2800f1832f846d2c05442a4711adbe6f269",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/inffast.c",
+      "sha256": "4d496ab2a3d29df5fadc3dbff6067e039806aaceae6cfcd09ea77d46c2b848fd",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/inffast.h",
+      "sha256": "7d8c1c873ce9bc346ad6005bb9d75cce5c6352aaf7395385be216a9452a34908",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/inffixed.h",
+      "sha256": "237ba710f090e432b62ebf963bee8b302867e9691406b2d3f8ee89ee7bfef9b0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/inflate.c",
+      "sha256": "8e7dca2d89a47cfdb3c360019c9a1148a26c73e256ecfd5e5d6837231ef48705",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/inflate.h",
+      "sha256": "8ec9ac297790276f7e46a961d4c6f9f944fb1dec92401339ec2666973cc5983c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/inftrees.c",
+      "sha256": "1960ca67384376f65b6ce8c08fdb501f8eb33923e11ef5f61a855708c6cb0a8a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/inftrees.h",
+      "sha256": "c510b36402784b1f898be3b049b923469aa92701de2d9195aed19f6b65c0dce2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/trees.c",
+      "sha256": "f2a5f949ea70dde7c23a54c793aeed630a03df4bb72417cd3aa008000c44699b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/trees.h",
+      "sha256": "bb0a9d3ca88ee00c81adb7c636e73b97085f6ef1b52d6d58edbe2b6dc3adeb4d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/uncompr.c",
+      "sha256": "31922aa982ee12fd28d1ce5fe6a94a3f07c2a941c821b566a881ca21845cdfaf",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/zconf.h",
+      "sha256": "9c0087f31cd45fe4bfa0ca79b51df2c69d67c44f2fbb2223d7cf9ab8d971c360",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/zlib.h",
+      "sha256": "06ea0a2f6267eae6f66f1eeb1d7933083452a6fa8327438db807a0cf8102672c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/zutil.c",
+      "sha256": "f7fdc9ef326a2683eb33c794face54e83c751ec17f3d1ba581847a62af36ddcd",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib-1.2.11/zutil.h",
+      "sha256": "9ac7f47f28c4de4e6d7307b0d4584bec7a24a57ddca16894e2ad5f5aa84e6bde",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib_addon.c",
+      "sha256": "7a919ab691336cd6650f53008af2ee486b5888f25ba267aefa8836f6064a22c6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeUtils/src/zlib_addon.h",
+      "sha256": "f494b1682f61c09f2dd11347fa2710db4a7ab96966f9ede93b4c83c1e52f2d8d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "UnicodeConverter/UnicodeConverter.h",
+      "sha256": "9dd1187cca3a5329fee27a089097fdeebfe0a52f68631cd9f5856df656bffeed",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "UnicodeConverter/UnicodeConverter_Encodings.h",
+      "sha256": "1e79888805d455b09cf2efb4a379ed23ec3195ef54b59e2398993b75f8e16d26",
+      "origin": "pinned-upstream"
+    }
+  ]
+}

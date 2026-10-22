@@ -28,6 +28,8 @@ jobs:
         run: python tools/verify_sources.py
       - name: Check dependency source and patch lock
         run: python tools/build_dependencies.py verify
+      - name: Check pinned kernel inputs and separate fixes
+        run: python tools/build_kernel.py verify
       - name: Test preservation and tamper detection
         env:
           QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-tests
@@ -49,7 +51,7 @@ jobs:
         run: python tools/build_windows.py save-transaction --work-dir "${{ runner.temp }}/qingliang-native-build"
 
   unicode-dependencies:
-    name: Windows ICU and UnicodeConverter source build
+    name: Windows ICU, UnicodeConverter and kernel source build
     runs-on: windows-latest
     timeout-minutes: 30
     env:
@@ -60,3 +62,5 @@ jobs:
           persist-credentials: false
       - name: Prepare pinned Boost and ICU, compile ICU and UnicodeConverter, run native tests
         run: python tools/build_dependencies.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"
+      - name: Compile the pinned kernel with new dependencies and run linked file, ZIP and XML tests
+        run: python tools/build_kernel.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"

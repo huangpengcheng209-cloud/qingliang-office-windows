@@ -21,6 +21,8 @@ python tools/prepare_sources.py --target D:\CodexCache\qingliang-community-sourc
 
 ## Windows 编译现状
 
+内核阶段入口为 `tools/build_kernel.py build --work-dir D:\CodexCache\qingliang-community-dependencies`：复用固定依赖构建树，编译 47 个上游编译单元，链接新依赖并运行 18 项文件/ZIP/XML 测试。详细输入、独立补丁和边界见 KERNEL-BUILD.md。
+
 新增可移植入口是 `tools/build_windows.py save-transaction`，可独立编译公开 Win32 保存事务组件并运行 14 个场景，完整步骤见 PORTABLE-BUILD.md。它不需要旧机 Office 支持库，也不依赖 Qt/CEF/VLC；这是首个组件的构建闭环，尚不是完整应用构建入口。
 
 原构建使用 Visual Studio 2022 Build Tools/MSVC、Qt 5.15.2 msvc2019_64、Git、Python 和 Node.js；CEF 150.0.22/Chromium 150.0.7871.256 及其他支持库来自固定材料。核心脚本见 historical-build/scripts/build_windows_components.py、build_word_sdk_windows.py，以及 historical-build/publication/ 下 CEF 适配和 SDK 构建工具。
