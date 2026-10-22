@@ -16,3 +16,5 @@
 2026-10-22 新增依赖开发补丁：UnicodeConverter 的两个解码入口调整 UTF-16 输出容量，以修复所测 UTF-32 补充平面字符往返失败。原开发者为 Ascensio System SIA，本修改由氢量办公社区项目维护；完整修改文件位于 dependency-sources/，差异与身份位于 dependency-patches/ 和 dependencies.lock.json。该修改遵循原程序适用许可，独立于原 win.22 冻结源码清单。本仓库未分发新构建的 ICU 或 UnicodeConverter 二进制。
 
 2026-10-22 新增内核开发补丁：XML 编码声明接受单/双引号，DOM 在首次读取失败时不再创建节点。原开发者为 Ascensio System SIA，本修改由氢量办公社区项目维护；完整修改文件、原许可和修改日期保留于 kernel-sources/，差异与身份位于 kernel-patches/ 和 kernel.inputs.lock.json。内核还编入上游所附 zlib/libxml2，输入清单保留其许可文件；各自声明继续适用。本阶段未发布新内核二进制或应用安装包。
+
+2026-10-22 云端回归新增 ZIP 文件名修复：OfficeUtils 的目录、单文件及内存写入统一使用 UTF-8 标记，相关读取按标记解码，并保留无标记条目的 OEM 回退。完整修改文件位于 kernel-sources/core/OfficeUtils/src/ZipUtilsCP.cpp，独立补丁与来源身份见 kernel-patches/zip-unicode-names.patch 和内核清单；原许可及修改日期保留。

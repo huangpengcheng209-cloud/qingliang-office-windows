@@ -61,7 +61,8 @@ std::string zip_entry(const fs::path& archive, const std::wstring& name) {
 }
 
 int wmain(int argc, wchar_t** argv) {
-    if (argc != 3) return 2;
+    if (argc != 4) return 2;
+    const fs::path external_fixtures = fs::absolute(argv[3]);
     const fs::path root = fs::absolute(argv[1]);
     require(fs::is_directory(root) && fs::is_empty(root), "Fixture root must be empty");
     unsigned passed = 0, failed = 0;
@@ -129,16 +130,16 @@ int wmain(int argc, wchar_t** argv) {
     });
     test(L"zip-unicode-entry", [](const fs::path& dir) {
         const std::string contents = "Unicode entry content";
-        const auto archive = make_zip(dir, L"报告.xml", contents);
-        require(zip_entry(archive, L"报告.xml") == contents, "Unicode ZIP entry differs");
+        const auto archive = make_zip(dir, L"报告\U0001F600.xml", contents);
+        require(zip_entry(archive, L"报告\U0001F600.xml") == contents, "Unicode ZIP entry differs");
     });
     test(L"zip-extract", [](const fs::path& dir) {
-        const auto archive = make_zip(dir, L"document.xml", "<root>office</root>");
+        const auto archive = make_zip(dir, L"报告\U0001F600.xml", "<root>office</root>");
         const auto destination = dir / L"unzip";
         require(CreateDirectoryW(destination.c_str(), nullptr) != FALSE, "Cannot create extraction directory");
         COfficeUtils office;
         require(office.ExtractToDirectory(archive.wstring(), destination.wstring(), nullptr, 0) == S_OK, "ZIP extraction failed");
-        require(read_kernel(destination / L"document.xml") == "<root>office</root>", "Extracted content differs");
+        require(read_kernel(destination / L"报告\U0001F600.xml") == "<root>office</root>", "Extracted content differs");
     });
     test(L"xml-unicode", [](const fs::path&) {
         XmlUtils::CXmlNode node;
@@ -196,6 +197,49 @@ int wmain(int argc, wchar_t** argv) {
         const auto archive = make_zip(dir, L"content.xml", xml);
         XmlUtils::CXmlNode node;
         require(node.FromXmlStringA(zip_entry(archive, L"content.xml")) && node.GetText() == L"中文 \U0001F600", "Encoding-file-ZIP-XML chain differs");
+    });
+    test(L"external-utf8-zip", [&](const fs::path& dir) {
+        const auto archive = dir / L"external.zip";
+        fs::copy_file(external_fixtures / L"utf8-entry.zip", archive);
+        require(zip_entry(archive, L"报告\U0001F600.xml") == "external UTF-8 archive", "External UTF-8 ZIP differs");
+    });
+    test(L"legacy-unflagged-zip", [&](const fs::path& dir) {
+        const auto archive = dir / L"legacy.zip";
+        fs::copy_file(external_fixtures / L"legacy-entry.zip", archive);
+        require(zip_entry(archive, L"legacy.txt") == "legacy entry", "Legacy unflagged ZIP differs");
+    });
+    test(L"single-file-unicode-zip", [](const fs::path& dir) {
+        const auto input = dir / L"报告\U0001F600.xml";
+        const auto archive = dir / L"single.zip";
+        write_kernel(input, "single Unicode file");
+        COfficeUtils office;
+        require(office.CompressFileOrDirectory(input.wstring(), archive.wstring()) == S_OK, "Single-file ZIP failed");
+        require(zip_entry(archive, input.filename().wstring()) == "single Unicode file", "Single-file ZIP entry differs");
+    });
+    test(L"memory-unicode-zip", [](const fs::path& dir) {
+        struct State { bool supplied = false; unsigned received = 0; bool correct = false; std::string data = "memory Unicode entry"; } state;
+        const auto source = [](std::wstring& name, BYTE*& data, long& size, void* context) -> bool {
+            auto& value = *static_cast<State*>(context);
+            if (value.supplied) return false;
+            value.supplied = true;
+            name = L"报告\U0001F600.xml";
+            data = reinterpret_cast<BYTE*>(value.data.data());
+            size = static_cast<long>(value.data.size());
+            return true;
+        };
+        const auto receive = [](const std::wstring& name, BYTE* data, const long& size, void* context) {
+            auto& value = *static_cast<State*>(context);
+            ++value.received;
+            value.correct = name == L"报告\U0001F600.xml" && std::string(reinterpret_cast<char*>(data), size) == value.data;
+        };
+        const auto archive = dir / L"memory.zip";
+        COfficeUtils office;
+        bool result = false;
+        require(office.CompressFilesFromMemory(archive.wstring(), source, &state, -1, &result) == S_OK && result, "Memory ZIP write failed");
+        require(zip_entry(archive, L"报告\U0001F600.xml") == state.data, "Memory ZIP entry differs");
+        result = false;
+        require(office.ExtractFilesToMemory(archive.wstring(), receive, &state, &result) == S_OK && result, "Memory ZIP read failed");
+        require(state.received == 1 && state.correct, "Memory ZIP callback differs");
     });
     std::ofstream output(fs::path(argv[2]), std::ios::binary | std::ios::trunc);
     output << "{\"passed\":" << passed << ",\"failed\":" << failed << "}\n";

@@ -1,0 +1,119 @@
+diff --git a/OfficeUtils/src/ZipUtilsCP.cpp b/OfficeUtils/src/ZipUtilsCP.cpp
+--- a/OfficeUtils/src/ZipUtilsCP.cpp
++++ b/OfficeUtils/src/ZipUtilsCP.cpp
+@@ -29,7 +29,9 @@
+  * terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+  *
+  */
++// Modified by Qingliang community, 2026-10-22: UTF-8 ZIP entry names independent of OEM code page.
+ #include "ZipUtilsCP.h"
++#include <vector>
+ #include <memory>
+ #include <algorithm>
+ #include "../../DesktopEditor/common/Directory.h"
+@@ -205,6 +207,24 @@
+ 		return unicode_to_ascii(sVal.c_str());
+ #endif
+ 	}
++	static std::wstring archive_entry_name(unzFile file)
++	{
++		unz_file_info info = {};
++		if (UNZ_OK != unzGetCurrentFileInfo(file, &info, NULL, 0, NULL, 0, NULL, 0))
++			return std::wstring();
++		std::vector<char> name(info.size_filename + 1, 0);
++		if (UNZ_OK != unzGetCurrentFileInfo(file, &info, name.data(), (uLong)name.size(), NULL, 0, NULL, 0))
++			return std::wstring();
++		return (info.flag & 2048)
++			? NSFile::CUtf8Converter::GetUnicodeStringFromUTF8((BYTE*)name.data(), info.size_filename)
++			: codepage_issue_fixFromOEM(name.data());
++	}
++	static int open_utf8_zip_entry(zipFile file, const std::wstring& name, const zip_fileinfo* info, int method, int level)
++	{
++		const std::string utf8 = NSFile::CUtf8Converter::GetUtf8StringFromUnicode2(name.c_str(), (LONG)name.size());
++		return zipOpenNewFileInZip4(file, utf8.c_str(), info, NULL, 0, NULL, 0, NULL,
++			method, level, 0, -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY, NULL, 0, 0, 2048);
++	}
+ 	static void change_file_date( const wchar_t *filename, uLong dosdate, tm_unz tmu_date );
+ 	static int do_extract_currentfile( unzFile uf, const wchar_t* unzip_dir, const int* popt_extract_without_path, int* popt_overwrite, const char* password, bool is_replace_slash = false );
+ 	static int do_extract( unzFile uf, const wchar_t* unzip_dir, int opt_extract_without_path, int opt_overwrite, const char* password, const OnProgressCallback* progress );
+@@ -478,33 +498,14 @@
+ 
+ 	static bool current_file_is_find(unzFile uf, const wchar_t *filename)
+ 	{
+-		char filename_inzip[256];
+-		int err = UNZ_OK;
+-
+-		unz_file_info file_info;
+-
+-		err = unzGetCurrentFileInfo(uf, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
+-
+-		std::wstring filenameW = codepage_issue_fixFromOEM(filename_inzip);
+-
+-		//todooo есть ли необходимость свести все к нижнему ???
+-		if (wcscmp(filename, filenameW.c_str()) == 0)
+-			return true;
+-
+-		return false;
++		return archive_entry_name(uf) == filename;
+ 	}
+ 
+ 	/*========================================================================================================*/
+ 
+ 	static const std::wstring get_filename_from_unzfile(unzFile unzip_file_handle)
+ 	{
+-		char filename_inzip[256];
+-		int err = UNZ_OK;
+-
+-		if (UNZ_OK == unzGetCurrentFileInfo(unzip_file_handle, NULL, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0))
+-			return codepage_issue_fixFromOEM(filename_inzip);
+-
+-		return std::wstring(L"");
++		return archive_entry_name(unzip_file_handle);
+ 	}
+ 
+ 	/*========================================================================================================*/
+@@ -583,9 +584,7 @@
+ 			BYTE* pData = new BYTE[oFile.GetFileSize()];
+ 			if (oFile.ReadFile(pData, oFile.GetFileSize(), dwSizeRead))
+ 			{
+-				std::string zipFileNameA = codepage_issue_fixToOEM(zip_file_name);
+-
+-				err = zipOpenNewFileInZip( zf, zipFileNameA.c_str(), zi_new, NULL, 0, NULL, 0, NULL, method, compressionLevel );
++				err = open_utf8_zip_entry(zf, zip_file_name, zi_new, method, compressionLevel);
+ 				err = zipWriteInFileInZip( zf, pData, dwSizeRead );
+ 				err = zipCloseFileInZip( zf );
+ 			}
+@@ -760,9 +759,7 @@
+ 					if (zf)
+ 					{
+ 						wstring zipFileName = NSFile::GetFileName(inputFile);
+-						std::string zipFileNameA = codepage_issue_fixToOEM(zipFileName);
+-
+-						err = zipOpenNewFileInZip( zf, zipFileNameA.c_str(), zi_new, NULL, 0, NULL, 0, NULL, method, compressionLevel );
++						err = open_utf8_zip_entry(zf, zipFileName, zi_new, method, compressionLevel);
+ 						err = zipWriteInFileInZip( zf, pData, dwSizeRead );
+ 						err = zipCloseFileInZip( zf );
+ 						err = zipClose( zf, NULL );
+@@ -994,8 +991,7 @@
+ 			std::wstring in_zip_filename;
+ 			while(callback(in_zip_filename, pData, nSize, pParam))
+ 			{
+-				std::string in_zip_filenameA = codepage_issue_fixToOEM(in_zip_filename);
+-				if (ZIP_OK != zipOpenNewFileInZip( zip_file_handle, in_zip_filenameA.c_str(), NULL, NULL, 0, NULL, 0, NULL, Z_DEFLATED, compression_level ) ||
++				if (ZIP_OK != open_utf8_zip_entry(zip_file_handle, in_zip_filename, NULL, Z_DEFLATED, compression_level) ||
+ 						ZIP_OK != zipWriteInFileInZip(zip_file_handle, pData, nSize) ||
+ 						ZIP_OK != zipCloseFileInZip(zip_file_handle))
+ 				{
+@@ -1030,10 +1026,9 @@
+ 			}
+ 			do
+ 			{
+-				char filename_inzip[256];
+ 				unz_file_info file_info;
+-				unzGetCurrentFileInfo(unzip_file_handle, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
+-				std::wstring filenameW = codepage_issue_fixFromOEM(filename_inzip);
++				unzGetCurrentFileInfo(unzip_file_handle, &file_info, NULL, 0, NULL, 0, NULL, 0);
++				std::wstring filenameW = archive_entry_name(unzip_file_handle);
+ 				std::transform(filenameW.begin(), filenameW.end(), filenameW.begin(), ::tolower);
+ 				if (isAny || NSFile::GetFileExtention(filenameW) == searchExt)
+ 				{

@@ -150,9 +150,9 @@ def compile_kernel(work, core, lock, vs_root=None):
     result_path = work / 'kernel-test-result.json'
     if result_path.exists():
         result_path.unlink()
-    execute([str(executable), str(fixtures), str(result_path)], output, env, log)
+    execute([str(executable), str(fixtures), str(result_path), str(ROOT / 'tests/fixtures')], output, env, log)
     result = json.loads(result_path.read_text('utf-8'))
-    if result != {'passed': 18, 'failed': 0}:
+    if result != {'passed': 22, 'failed': 0}:
         raise RuntimeError('Kernel integration suite did not fully pass')
     dumpbin = shutil.which('dumpbin.exe', path=env['PATH'])
     imports = subprocess.check_output([dumpbin, '/nologo', '/dependents', str(output / 'kernel.dll')], env=env)
@@ -160,6 +160,8 @@ def compile_kernel(work, core, lock, vs_root=None):
     report = {'compile_units': len(lock['sources']), 'pinned_input_files': len(lock['files']),
               'native_tests': result, 'core_revision': lock['revision'],
               'kernel_input_manifest_sha256': sha(ROOT / 'kernel.inputs.lock.json'),
+              'native_test_source_sha256': sha(fixture_source),
+              'fixture_sha256': {name: sha(ROOT / 'tests/fixtures' / name) for name in ('utf8-entry.zip', 'legacy-entry.zip')},
               'kernel_dll_sha256': sha(output / 'kernel.dll'), 'kernel_import_library_sha256': sha(output / 'kernel.lib'),
               'unicode_converter_dll_sha256': sha(output / 'UnicodeConverter.dll'),
               'icu_common_dll_sha256': sha(output / 'icuuc74.dll'), 'icu_data_dll_sha256': sha(output / 'icudt74.dll'),

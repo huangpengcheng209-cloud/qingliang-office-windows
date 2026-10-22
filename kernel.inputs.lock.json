@@ -934,8 +934,12 @@
     },
     {
       "file": "OfficeUtils/src/ZipUtilsCP.cpp",
-      "sha256": "ef41e99739b7f1e3a8b4821a723cdd7bf1f72b8b019270570c8c71d64a5f14b2",
-      "origin": "pinned-upstream"
+      "sha256": "d516bb1fa1f924ac2a642afbd2f1fd28f630592efde842d86145b6bca1778550",
+      "origin": "community-overlay",
+      "base_sha256": "ef41e99739b7f1e3a8b4821a723cdd7bf1f72b8b019270570c8c71d64a5f14b2",
+      "patch": "kernel-patches/zip-unicode-names.patch",
+      "patch_sha256": "c97b1208c230c3e125a5906845b38eac15c7660419e37db54946a7aaedb586b5",
+      "modified_source": "kernel-sources/core/OfficeUtils/src/ZipUtilsCP.cpp"
     },
     {
       "file": "OfficeUtils/src/ZipUtilsCP.h",
