@@ -2144,11 +2144,11 @@
     },
     {
       "file": "Common/Network/FileTransporter/src/FileTransporter_win.cpp",
-      "sha256": "5a63b558df4cd0d8a25a11b8df51227d6473234134ca5cbd4ca7f117705d69ef",
+      "sha256": "7e7876b6fb168996717f69320ae9575aa1273f0238d85c3305e028fd094fa63b",
       "origin": "community-overlay",
       "base_sha256": "6d4350b00ed3c01d266dc9a1e2eedccc21883b4d4c6a43a2e850b954e978abb1",
       "patch": "transport-patches/windows-transfer-results.patch",
-      "patch_sha256": "4e8e504b899ee38683d7fdb75cafa9132463bf2cad60af2b8171f795f81b25e2",
+      "patch_sha256": "ab6ec6474ec6fa703a71b3b8f55dcd20aa04cf2ff78dae3564a958c2ca59f970",
       "modified_source": "transport-sources/core/Common/Network/FileTransporter/src/FileTransporter_win.cpp"
     },
     {
