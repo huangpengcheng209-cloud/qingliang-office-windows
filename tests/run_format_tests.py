@@ -33,7 +33,12 @@ def main():
     result={'passed':sum(r['passed'] for r in details),'failed':sum(not r['passed'] for r in details)}
     (a.work_dir/'format-native-cases.json').write_text(json.dumps(details,indent=2),'utf-8')
     result_path.write_text(json.dumps(result),'utf-8');print(json.dumps(result),flush=True)
-    if result['failed']:raise RuntimeError('Native format cases failed; outputs retained')
+    if result['failed']:
+        # build_windows.execute prints a bounded tail on failure. Keep the case
+        # identity, timeout or native exit code in that tail, not just the total.
+        for entry in details:
+            if not entry['passed']:print('FORMAT_FAILURE '+json.dumps(entry,ensure_ascii=True),flush=True)
+        raise RuntimeError('Native format cases failed; outputs retained')
 
 
 if __name__=='__main__':main()

@@ -78,5 +78,15 @@ class FormatToolTests(unittest.TestCase):
             driver.main()
         self.assertEqual(json.loads((self.root/'format-test-result.json').read_text('utf-8')),{'passed':0,'failed':36})
 
+    def test_native_failure_diagnostics_include_case_and_exit_code(self):
+        outcomes=[SimpleNamespace(returncode=0,stdout='PASS\n',stderr='') for _ in driver.CASES]
+        outcomes[13]=SimpleNamespace(returncode=2,stdout='',stderr='native fixture error')
+        with patch.object(sys,'argv',['run_format_tests.py','--exe',str(self.root/'test.exe'),'--work-dir',str(self.root)]),patch.object(driver.subprocess,'run',side_effect=outcomes),patch('builtins.print') as output,self.assertRaisesRegex(RuntimeError,'cases failed'):
+            driver.main()
+        failed=[args[0][0] for args in output.call_args_list if str(args[0][0]).startswith('FORMAT_FAILURE ')]
+        self.assertEqual(len(failed),1)
+        entry=json.loads(failed[0].removeprefix('FORMAT_FAILURE '))
+        self.assertEqual((entry['case'],entry['exit_code'],entry['stderr']),(13,2,'native fixture error'))
+
 
 if __name__=='__main__':unittest.main()
