@@ -1,0 +1,56 @@
+{
+  "core_revision": "b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b",
+  "scope": "Read-only graphics prerequisite audit; not a complete source closure or build",
+  "project_inputs": [
+    {
+      "file": "DesktopEditor/graphics/pro/graphics.pro",
+      "sha256": "4c87694015f7c2fb1083ef3b7891153db9cef897bf1e18775f34bf9b420077cf"
+    },
+    {
+      "file": "DesktopEditor/graphics/pro/fontengine.pri",
+      "sha256": "efb5de8162b8da83fbfbf18a2da4866465898e104ee2851be7ae71fc049cec97"
+    },
+    {
+      "file": "DesktopEditor/graphics/pro/textshaper.pri",
+      "sha256": "dd9ad7c90ccdbad7cad071d754641918e5f4b72c105dd136242fce551277143c"
+    },
+    {
+      "file": "Common/3dParty/harfbuzz/make.py",
+      "sha256": "7cddddbdfdf49a248abd84d930b25fe7a4fa4118c847757824873909b979c1fb"
+    },
+    {
+      "file": "Common/3dParty/heif/heif.pri",
+      "sha256": "680e90115f10deb44d2bbf7c34eae68e5291e8291b2895b26dbb477a2236f42d"
+    },
+    {
+      "file": "Common/3dParty/brotli/brotli.pri",
+      "sha256": "0456cfeeb0591a5e45958016ccebf02dc2f3a685d90c42e6be1634409c5d455f"
+    }
+  ],
+  "full_graphics_built": false,
+  "qmake_profile": "Windows x64 Release, vs2019, VisualStudioVersion=17.0",
+  "qmake_preprocessing_return_code": 0,
+  "preprocessing_incomplete": true,
+  "diagnostic": "Cannot read Common/3dParty/harfbuzz/harfbuzz.pri",
+  "observed_compile_entries_before_missing_generated_inputs": 434,
+  "compile_entry_count_is_complete": false,
+  "harfbuzz": {
+    "url": "https://github.com/harfbuzz/harfbuzz",
+    "revision": "894a1f72ee93a1fd8dc1d9218cb3fd8f048be29a",
+    "upstream_setup_script": "Common/3dParty/harfbuzz/make.py",
+    "required_core_patch": "Common/3dParty/harfbuzz/patch/hb-ft.cc.patch",
+    "generated_pri_prepared": false,
+    "built_here": false
+  },
+  "heif": {
+    "required_libraries": [
+      "x265-static",
+      "libde265",
+      "heif"
+    ],
+    "source_identity_and_build_closure_completed_here": false,
+    "old_baseline_libraries_reused": false
+  },
+  "graphics_features_removed": false,
+  "next_step": "Prepare pinned HarfBuzz sources and downstream patch/project generation, then HEIF codec build closure before full graphics compilation"
+}

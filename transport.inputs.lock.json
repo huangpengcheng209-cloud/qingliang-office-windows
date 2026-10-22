@@ -1,0 +1,2383 @@
+{
+  "repository": "https://github.com/ONLYOFFICE/core",
+  "revision": "b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b",
+  "profiles": {
+    "network": {
+      "sources": [
+        "Common/Network/FileTransporter/src/FileTransporter.cpp",
+        "Common/Network/FileTransporter/src/Session.cpp",
+        "Common/Network/FileTransporter/src/manager.cpp",
+        "Common/Network/FileTransporter/src/FileTransporter_win.cpp"
+      ],
+      "include_directories": [],
+      "defines": [
+        "UNICODE",
+        "_UNICODE",
+        "WIN32",
+        "_ENABLE_EXTENDED_ALIGNED_STORAGE",
+        "WIN64",
+        "INTVER=9.4.0.129",
+        "WIN_INTVER=9,4,0,129",
+        "COPYRIGHT_YEAR=2026",
+        "_WIN32",
+        "NOMINMAX",
+        "_WIN64",
+        "WINDOWS_IGNORE_PACKING_MISMATCH",
+        "KERNEL_USE_DYNAMIC_LIBRARY_BUILDING",
+        "NDEBUG"
+      ]
+    },
+    "crypto": {
+      "sources": [
+        "Common/3dParty/cryptopp/cryptlib.cpp",
+        "Common/3dParty/cryptopp/cpu.cpp",
+        "Common/3dParty/cryptopp/integer.cpp",
+        "Common/3dParty/cryptopp/3way.cpp",
+        "Common/3dParty/cryptopp/adler32.cpp",
+        "Common/3dParty/cryptopp/algebra.cpp",
+        "Common/3dParty/cryptopp/algparam.cpp",
+        "Common/3dParty/cryptopp/allocate.cpp",
+        "Common/3dParty/cryptopp/arc4.cpp",
+        "Common/3dParty/cryptopp/aria.cpp",
+        "Common/3dParty/cryptopp/aria_simd.cpp",
+        "Common/3dParty/cryptopp/ariatab.cpp",
+        "Common/3dParty/cryptopp/asn.cpp",
+        "Common/3dParty/cryptopp/authenc.cpp",
+        "Common/3dParty/cryptopp/base32.cpp",
+        "Common/3dParty/cryptopp/base64.cpp",
+        "Common/3dParty/cryptopp/basecode.cpp",
+        "Common/3dParty/cryptopp/bfinit.cpp",
+        "Common/3dParty/cryptopp/blake2.cpp",
+        "Common/3dParty/cryptopp/blake2s_simd.cpp",
+        "Common/3dParty/cryptopp/blake2b_simd.cpp",
+        "Common/3dParty/cryptopp/blowfish.cpp",
+        "Common/3dParty/cryptopp/blumshub.cpp",
+        "Common/3dParty/cryptopp/camellia.cpp",
+        "Common/3dParty/cryptopp/cast.cpp",
+        "Common/3dParty/cryptopp/casts.cpp",
+        "Common/3dParty/cryptopp/cbcmac.cpp",
+        "Common/3dParty/cryptopp/ccm.cpp",
+        "Common/3dParty/cryptopp/chacha.cpp",
+        "Common/3dParty/cryptopp/chacha_simd.cpp",
+        "Common/3dParty/cryptopp/chacha_avx.cpp",
+        "Common/3dParty/cryptopp/chachapoly.cpp",
+        "Common/3dParty/cryptopp/cham.cpp",
+        "Common/3dParty/cryptopp/cham_simd.cpp",
+        "Common/3dParty/cryptopp/channels.cpp",
+        "Common/3dParty/cryptopp/cmac.cpp",
+        "Common/3dParty/cryptopp/crc.cpp",
+        "Common/3dParty/cryptopp/crc_simd.cpp",
+        "Common/3dParty/cryptopp/darn.cpp",
+        "Common/3dParty/cryptopp/default.cpp",
+        "Common/3dParty/cryptopp/des.cpp",
+        "Common/3dParty/cryptopp/dessp.cpp",
+        "Common/3dParty/cryptopp/dh.cpp",
+        "Common/3dParty/cryptopp/dh2.cpp",
+        "Common/3dParty/cryptopp/dll.cpp",
+        "Common/3dParty/cryptopp/donna_32.cpp",
+        "Common/3dParty/cryptopp/donna_64.cpp",
+        "Common/3dParty/cryptopp/donna_sse.cpp",
+        "Common/3dParty/cryptopp/dsa.cpp",
+        "Common/3dParty/cryptopp/eax.cpp",
+        "Common/3dParty/cryptopp/ec2n.cpp",
+        "Common/3dParty/cryptopp/ecp.cpp",
+        "Common/3dParty/cryptopp/eccrypto.cpp",
+        "Common/3dParty/cryptopp/eprecomp.cpp",
+        "Common/3dParty/cryptopp/elgamal.cpp",
+        "Common/3dParty/cryptopp/emsa2.cpp",
+        "Common/3dParty/cryptopp/esign.cpp",
+        "Common/3dParty/cryptopp/files.cpp",
+        "Common/3dParty/cryptopp/filters.cpp",
+        "Common/3dParty/cryptopp/fips140.cpp",
+        "Common/3dParty/cryptopp/gcm.cpp",
+        "Common/3dParty/cryptopp/gcm_simd.cpp",
+        "Common/3dParty/cryptopp/gf256.cpp",
+        "Common/3dParty/cryptopp/gf2_32.cpp",
+        "Common/3dParty/cryptopp/gf2n.cpp",
+        "Common/3dParty/cryptopp/gf2n_simd.cpp",
+        "Common/3dParty/cryptopp/gfpcrypt.cpp",
+        "Common/3dParty/cryptopp/gost.cpp",
+        "Common/3dParty/cryptopp/gzip.cpp",
+        "Common/3dParty/cryptopp/hc128.cpp",
+        "Common/3dParty/cryptopp/hc256.cpp",
+        "Common/3dParty/cryptopp/hex.cpp",
+        "Common/3dParty/cryptopp/hight.cpp",
+        "Common/3dParty/cryptopp/hmac.cpp",
+        "Common/3dParty/cryptopp/hrtimer.cpp",
+        "Common/3dParty/cryptopp/ida.cpp",
+        "Common/3dParty/cryptopp/idea.cpp",
+        "Common/3dParty/cryptopp/iterhash.cpp",
+        "Common/3dParty/cryptopp/kalyna.cpp",
+        "Common/3dParty/cryptopp/kalynatab.cpp",
+        "Common/3dParty/cryptopp/keccak.cpp",
+        "Common/3dParty/cryptopp/keccak_core.cpp",
+        "Common/3dParty/cryptopp/keccak_simd.cpp",
+        "Common/3dParty/cryptopp/lea.cpp",
+        "Common/3dParty/cryptopp/lea_simd.cpp",
+        "Common/3dParty/cryptopp/lsh256.cpp",
+        "Common/3dParty/cryptopp/lsh256_sse.cpp",
+        "Common/3dParty/cryptopp/lsh256_avx.cpp",
+        "Common/3dParty/cryptopp/lsh512.cpp",
+        "Common/3dParty/cryptopp/lsh512_sse.cpp",
+        "Common/3dParty/cryptopp/lsh512_avx.cpp",
+        "Common/3dParty/cryptopp/luc.cpp",
+        "Common/3dParty/cryptopp/mars.cpp",
+        "Common/3dParty/cryptopp/marss.cpp",
+        "Common/3dParty/cryptopp/md2.cpp",
+        "Common/3dParty/cryptopp/md4.cpp",
+        "Common/3dParty/cryptopp/md5.cpp",
+        "Common/3dParty/cryptopp/misc.cpp",
+        "Common/3dParty/cryptopp/modes.cpp",
+        "Common/3dParty/cryptopp/mqueue.cpp",
+        "Common/3dParty/cryptopp/mqv.cpp",
+        "Common/3dParty/cryptopp/nbtheory.cpp",
+        "Common/3dParty/cryptopp/neon_simd.cpp",
+        "Common/3dParty/cryptopp/oaep.cpp",
+        "Common/3dParty/cryptopp/osrng.cpp",
+        "Common/3dParty/cryptopp/padlkrng.cpp",
+        "Common/3dParty/cryptopp/panama.cpp",
+        "Common/3dParty/cryptopp/pch.cpp",
+        "Common/3dParty/cryptopp/pkcspad.cpp",
+        "Common/3dParty/cryptopp/poly1305.cpp",
+        "Common/3dParty/cryptopp/polynomi.cpp",
+        "Common/3dParty/cryptopp/power7_ppc.cpp",
+        "Common/3dParty/cryptopp/power8_ppc.cpp",
+        "Common/3dParty/cryptopp/power9_ppc.cpp",
+        "Common/3dParty/cryptopp/ppc_simd.cpp",
+        "Common/3dParty/cryptopp/pssr.cpp",
+        "Common/3dParty/cryptopp/pubkey.cpp",
+        "Common/3dParty/cryptopp/queue.cpp",
+        "Common/3dParty/cryptopp/rabin.cpp",
+        "Common/3dParty/cryptopp/randpool.cpp",
+        "Common/3dParty/cryptopp/rabbit.cpp",
+        "Common/3dParty/cryptopp/rc2.cpp",
+        "Common/3dParty/cryptopp/rc5.cpp",
+        "Common/3dParty/cryptopp/rc6.cpp",
+        "Common/3dParty/cryptopp/rdrand.cpp",
+        "Common/3dParty/cryptopp/rdtables.cpp",
+        "Common/3dParty/cryptopp/rijndael.cpp",
+        "Common/3dParty/cryptopp/rijndael_simd.cpp",
+        "Common/3dParty/cryptopp/ripemd.cpp",
+        "Common/3dParty/cryptopp/rng.cpp",
+        "Common/3dParty/cryptopp/rsa.cpp",
+        "Common/3dParty/cryptopp/rw.cpp",
+        "Common/3dParty/cryptopp/safer.cpp",
+        "Common/3dParty/cryptopp/salsa.cpp",
+        "Common/3dParty/cryptopp/scrypt.cpp",
+        "Common/3dParty/cryptopp/seal.cpp",
+        "Common/3dParty/cryptopp/seed.cpp",
+        "Common/3dParty/cryptopp/serpent.cpp",
+        "Common/3dParty/cryptopp/sha.cpp",
+        "Common/3dParty/cryptopp/sha_simd.cpp",
+        "Common/3dParty/cryptopp/sha3.cpp",
+        "Common/3dParty/cryptopp/shacal2.cpp",
+        "Common/3dParty/cryptopp/shacal2_simd.cpp",
+        "Common/3dParty/cryptopp/shake.cpp",
+        "Common/3dParty/cryptopp/shark.cpp",
+        "Common/3dParty/cryptopp/sharkbox.cpp",
+        "Common/3dParty/cryptopp/simeck.cpp",
+        "Common/3dParty/cryptopp/simon.cpp",
+        "Common/3dParty/cryptopp/simon128_simd.cpp",
+        "Common/3dParty/cryptopp/simple.cpp",
+        "Common/3dParty/cryptopp/skipjack.cpp",
+        "Common/3dParty/cryptopp/sm3.cpp",
+        "Common/3dParty/cryptopp/sm4.cpp",
+        "Common/3dParty/cryptopp/sm4_simd.cpp",
+        "Common/3dParty/cryptopp/sosemanuk.cpp",
+        "Common/3dParty/cryptopp/speck.cpp",
+        "Common/3dParty/cryptopp/speck128_simd.cpp",
+        "Common/3dParty/cryptopp/square.cpp",
+        "Common/3dParty/cryptopp/squaretb.cpp",
+        "Common/3dParty/cryptopp/sse_simd.cpp",
+        "Common/3dParty/cryptopp/strciphr.cpp",
+        "Common/3dParty/cryptopp/tea.cpp",
+        "Common/3dParty/cryptopp/tftables.cpp",
+        "Common/3dParty/cryptopp/threefish.cpp",
+        "Common/3dParty/cryptopp/tiger.cpp",
+        "Common/3dParty/cryptopp/tigertab.cpp",
+        "Common/3dParty/cryptopp/ttmac.cpp",
+        "Common/3dParty/cryptopp/tweetnacl.cpp",
+        "Common/3dParty/cryptopp/twofish.cpp",
+        "Common/3dParty/cryptopp/vmac.cpp",
+        "Common/3dParty/cryptopp/wake.cpp",
+        "Common/3dParty/cryptopp/whrlpool.cpp",
+        "Common/3dParty/cryptopp/xed25519.cpp",
+        "Common/3dParty/cryptopp/xtr.cpp",
+        "Common/3dParty/cryptopp/xtrcrypt.cpp",
+        "Common/3dParty/cryptopp/xts.cpp",
+        "Common/3dParty/cryptopp/zdeflate.cpp",
+        "Common/3dParty/cryptopp/zinflate.cpp",
+        "Common/3dParty/cryptopp/zlib.cpp",
+        "OfficeCryptReader/source/ECMACryptFile.cpp",
+        "OfficeCryptReader/source/CryptTransform.cpp"
+      ],
+      "include_directories": [
+        "Common/3dParty/boost/boost_1_72_0"
+      ],
+      "defines": [
+        "WIN32",
+        "_ENABLE_EXTENDED_ALIGNED_STORAGE",
+        "WIN64",
+        "CRYPTOPPLIB_LIBRARY",
+        "INTVER=9.4.0.129",
+        "WIN_INTVER=9,4,0,129",
+        "COPYRIGHT_YEAR=2026",
+        "_WIN32",
+        "NOMINMAX",
+        "_WIN64",
+        "WINDOWS_IGNORE_PACKING_MISMATCH",
+        "CRYPTOPP_DISABLE_ASM",
+        "DISABLE_TYPE_MISMATCH",
+        "BOOST_USE_WINDOWS_H",
+        "BOOST_WINAPI_NO_REDECLARATIONS",
+        "NDEBUG",
+        "QT_NO_DEBUG"
+      ],
+      "declared_source_count": 182
+    }
+  },
+  "files": [
+    {
+      "file": "Common/3dParty/boost/boost.pri",
+      "sha256": "32a7684163defc424b8509e198267e47b28273f3283d170c2d88170aacefb67a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/3way.cpp",
+      "sha256": "fef5d0d0c595d748d1ac83bc06a63d4146f5bb156f965412bf0f38b602a997ec",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/3way.h",
+      "sha256": "3aaac95e6daad92761ce39af53816359e50b1c3f175470bb55e1a24f1bcbc06c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/License.txt",
+      "sha256": "78e4010b682cb94187fe0b57e50116d0ba271ef81104d1ddb35c80c3d81e3169",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/Readme.txt",
+      "sha256": "8cfb5024ba4a044d0c965cfec2f5bac0470b31e3b9384f9f241354ad2ea11804",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/adler32.cpp",
+      "sha256": "957a7578004a497a39f31728ffc4951b8a8fb4c093daedf800cc3ebaef1da104",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/adler32.h",
+      "sha256": "d76cc75fa2d11ce6b8c9faf1aa0c7afc3dee472f0c85b1216d3d13ef20026f75",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/adv_simd.h",
+      "sha256": "e294893aef28ae67753db82f072edeaa00ae3362e8b8a7ac5f505de89f39e936",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/aes.h",
+      "sha256": "fbd98402a8ddab54389a433c5685356bf3d3ad2ae37747c242a593667379a683",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/aes_armv4.h",
+      "sha256": "5669a82f2ced23e509432ed0eb5eb535e7a8472d3d6ffb5d2350c14d08e83b60",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/algebra.cpp",
+      "sha256": "14a7fe7fc3f3d1bd73d2d3ad4be38b5289866010c862d46e9146b021be7f5f82",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/algebra.h",
+      "sha256": "0fa07cf7037c0efba9514265c815cac8bfab2047b64b3b6ffca89a84140039f1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/algparam.cpp",
+      "sha256": "21507624ed28b946e58c22e55b2821a053490b06d449d2f6948493a23e1c300a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/algparam.h",
+      "sha256": "e469f4fabc94836a535c494e3715bb9935d7e4366a0d88be862419c6874ede71",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/allocate.cpp",
+      "sha256": "4e6292d0ed37add783db8bac1f1629176691b80d5a931160d092495746594cfa",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/allocate.h",
+      "sha256": "2398b1372372e89165593985ab922e5f82da61b6697565dc0d0999e66eaa2a70",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/arc4.cpp",
+      "sha256": "98e03dd9f06488e91af211fdac8380ebc07d83c58a31d99a9b93acf97aea5af0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/arc4.h",
+      "sha256": "a6f149aabf6480a9670026b44c7e5cb4d79c71532fbdb0334d2eff52fa87873f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/argnames.h",
+      "sha256": "4fa6995e67001c2b744d64e2f7f36629cf489be21f1ff242fbc13da43df59769",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/aria.cpp",
+      "sha256": "ef67ace1395458fa1f064d783800949af7bc6e935a925957525b72a8ecd8b9b2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/aria.h",
+      "sha256": "b1424bd2e63bcd053b1d198f4328079ea6b58fe90fba45b3ae3c37f9eddd16d8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/aria_simd.cpp",
+      "sha256": "b3781026994eac53a9c1663e570e5703d7000906e500ac4f0f1d09fcbe1e7a6a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ariatab.cpp",
+      "sha256": "1c8f0402a9dd052af8b3411ed19dfe925392e1858eb3d04c4dd14876c5e0a420",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/arm_simd.h",
+      "sha256": "ecc34e24361449d84814d381534ac0b38fb64dc29fdf859f86825ec615736a2d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/asn.cpp",
+      "sha256": "027e98ca8a716caf01304289eb99e29eade4c3ad12aa9bb2c53cbf5493340a1e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/asn.h",
+      "sha256": "02342f81bbc4df78aeb3604c70ba4cbab6aff33846f15b204442364e8e055134",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/authenc.cpp",
+      "sha256": "874379099fe9a4fd75987475eb06cfa2c6dc57913dd7b6b9ac5b8fc8ff99fc66",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/authenc.h",
+      "sha256": "4bada51b1be71e453bff1da0e59e6511e2d73d36093591729b44fa4c5acf5f33",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/base32.cpp",
+      "sha256": "8fbba9fc82360ae4b15cdf2c6b4a2a9307ed3779c47814308c7710ef093b7b39",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/base32.h",
+      "sha256": "0e3bbf43ab9fa0967062679dd9e8ce1a60ddb884188133cdd5e0a6c82ad22463",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/base64.cpp",
+      "sha256": "9e5ae66bb025b19c8e25cec10f306583d870fb21f66a0d59cc0afaa234622603",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/base64.h",
+      "sha256": "3a3a539c8f3ba7d6d8fdec4a2fb6fa9bb7cc4d4e735d25c527cf21dcfd64bafa",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/basecode.cpp",
+      "sha256": "2d039183e72a26ce75116a9d7dd807e9e503eb26cf5bc6ac93ccd1270fd06a69",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/basecode.h",
+      "sha256": "00483175aa5484357b4c154f16b8fbaf795f04ae0a9d01da4d503a585c285db7",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/bench.h",
+      "sha256": "06cb87f74268ab36256b5dec859067f04d1ccf51769f6eff55933b4fd0f3fc65",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/bfinit.cpp",
+      "sha256": "e54b7fa9598d2c892dabc86fa383297f64d1dc3f22c74260799fae13bb9e146e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/blake2.cpp",
+      "sha256": "37326171c65c5a3f15ab07bb93aaed374f76503df1b2e6d0e65671604f7b73c1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/blake2.h",
+      "sha256": "4e30eb67a1118f9e0e85e39b4014c15a71114e326b49031526c7cf660314ebfa",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/blake2b_simd.cpp",
+      "sha256": "96491a7d6f306321d30fc3adf58ecd3c89d91142eb8c112bcc2be1777fe7fad2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/blake2s_simd.cpp",
+      "sha256": "6ad29a2de06d7d36255af7153ed0376e4f8a25fc1fd5040a3113b253b024e223",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/blowfish.cpp",
+      "sha256": "2bd7702aed49ebe0418c12d85e3f8e324939c6f3efc5f7f09d1fc04e3c1ce96c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/blowfish.h",
+      "sha256": "f46768a1572caa2dce8543598c77347e0c9bba06a60fd114bbd9be57b79d1a74",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/blumshub.cpp",
+      "sha256": "cdbd91aca8f04e72ab5d4bcc9350a88acbd2eca2e8a3024bcc53f6d77f2b131c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/blumshub.h",
+      "sha256": "3b74d26795ec54e156099634a1a9f24ba6f1cc87deb4a4a3e13d6d5d29f9709b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/camellia.cpp",
+      "sha256": "ddfb9a35405ae90f4fdfabaad9fe3f8e7284491d932e67770caba61a8557b5f9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/camellia.h",
+      "sha256": "8be9e9dede172afb6aaccfd85a20a380dd622da6b13e2e6d4f81c54dd627ebc1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cast.cpp",
+      "sha256": "9047725cf66febea8cb67a7619ce30d3216f2d131b488e407a93fcea09b948eb",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cast.h",
+      "sha256": "f83ecb524635e8c8d9fce3cd6fabc800eaf8859895f1a0a3551364a645be5e47",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/casts.cpp",
+      "sha256": "b7cb8f88226b0e424eb53581d29963ad0e0e323fdd1f75ba097f7aa8a9cf5db3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cbcmac.cpp",
+      "sha256": "1679c5473dd0844dbd590a33f7104c7ca13a30fe7be1a8fe8ce130733d38e6e3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cbcmac.h",
+      "sha256": "9b6bb61a7fc8443e1dcd747f7d6f8523cf50c8f04480312e4afa50a4511c04c9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ccm.cpp",
+      "sha256": "d0244924e37cda0771f1e7075a08e37e183b21d8c6286d78f1007567e21595dd",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ccm.h",
+      "sha256": "941f749d7b55a2d4a8eb38c4f8b29131a541a5898c9e55a262e166988db54d54",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/chacha.cpp",
+      "sha256": "e96714b793093393b8a9574c3ada33a7a62932c29f910e147b1638f7295c5fdc",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/chacha.h",
+      "sha256": "0d163c1e8003824a39c39f71d87365966c9c215ce029c9d70e45d5c032eb8446",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/chacha_avx.cpp",
+      "sha256": "9d0d3c4d96e44931b99ed7c3027c90a97c764309b836c8396b179c7a75c4edd4",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/chacha_simd.cpp",
+      "sha256": "e48f1e6939cb725aed64456aadf605d6c290552d36437683b46f7825dd347938",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/chachapoly.cpp",
+      "sha256": "4b9c0f3c2ebe01f9a20a4b86991e02801e40d7608162b77240d526283b859684",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/chachapoly.h",
+      "sha256": "8fad229761f2d57c48ed776907733e703d2c3b147dec26d29d89b4edcf199ab5",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cham.cpp",
+      "sha256": "01beeecfc53fb8dc6f17d7d4f493363ea7877efe25e7bc97b1d620cd1cd8ab70",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cham.h",
+      "sha256": "e706ea4f13f7f855071c6fd7e6c68436160a7ae832d923b5d862a0cb49eb2ca2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cham_simd.cpp",
+      "sha256": "b02a332c80fd385018ca7df3e4a0ed4713684e2042072a81e7653805874481ee",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/channels.cpp",
+      "sha256": "80b98d1053ee6d2a8cb9113562f08f9a4e8650521e81aa3eab9fc63b872a9676",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/channels.h",
+      "sha256": "490b946d47884497404834fccbef521d3b8778249d31a94b21b787e1e3bdd616",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cmac.cpp",
+      "sha256": "f4e95b5a37780cfac0f83743b494787a31d64fbd160c06f79aa40a504d8ffadf",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cmac.h",
+      "sha256": "6f18a4d19bdfef6cd856aa951f6442f92a4f06c12172d7f319ff720eab563293",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/config.h",
+      "sha256": "641a512721c40a6778dfcc143b611c6204f38916bae55d391e2c74c18b70b2f6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/config_align.h",
+      "sha256": "e551c89d807d6987b44b6b6493dc597ea454fad888e80582fed20e37032eb8cd",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/config_asm.h",
+      "sha256": "f2200dd13eaced3f89f5918ed44b65324d61f35f6d8e03cd06b8438e03588615",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/config_cpu.h",
+      "sha256": "178565071ff4fd17ea499049ea693b3f28aa21a40de88bd43173f91970e778f1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/config_cxx.h",
+      "sha256": "1d0d607bf4faa57a19fb4e3ec0c453d31a704d2b23d3c108ceaf7e93292b16ef",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/config_dll.h",
+      "sha256": "b80ed00da8e5907d3715e27ba4e297b843350c2e3ee7e3c9618fb175c6969811",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/config_int.h",
+      "sha256": "f750f9bc802a6932f721bf88d4d92745460b7b61519015b4ac60ee4e321cd45f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/config_misc.h",
+      "sha256": "e7299c54554c0ed7cd11dda70266b8c4447a202e9eb29b591b530ad37afa650f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/config_ns.h",
+      "sha256": "b14aa825f566484f4799a9c4c074737160cbbfc12860417b5bbb1f4145dd2d31",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/config_os.h",
+      "sha256": "d943ce14a16ca5fb6577812bf434b654978f45ec86272a32839be8f9715ea368",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/config_ver.h",
+      "sha256": "0975fc34134bdc17fb413edb9af7a34d1388d1c21a9d545207d2f497344c5015",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cpu.cpp",
+      "sha256": "663d09ec9e944c56515469991ba11e5bfe3b0dac445a1bcec23ba55bc95c13ca",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cpu.h",
+      "sha256": "8d10bef55a6fbc03c67719cf3c4f531a7cb5d2398e032d8710623fc833087c4c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/crc.cpp",
+      "sha256": "126ac626f7d73659224351f5e64574c111113bff1ddf9a6c6c12e82946255f08",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/crc.h",
+      "sha256": "f5942df1452b7b079fbbb311eddd308e463aa3e12a498b36a99941c722de165f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/crc_simd.cpp",
+      "sha256": "19beee148e9e2c6c2c6c8d8c09f340a7e0b6201edd9fcc1dcc2b505905f25bda",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cryptlib.cpp",
+      "sha256": "8969994d41454d0691fff848fbb77a8afdae0f16e04fb3f6d16dfa1469fe3051",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/cryptlib.h",
+      "sha256": "7974971cdd2267d34ba9838ebbb6b42aef5771b7f723c4af86759715d8759a24",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/darn.cpp",
+      "sha256": "628a92a9cd8144d74997e12396cb92580a9f84222d171de95579acff369ba50b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/darn.h",
+      "sha256": "5d8548353dc9194fb90bb2b1e4aa63888ca9a71f191c02f22d71bfc033ca777c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/default.cpp",
+      "sha256": "e83e2920b38231915884392fcd8df4c301719a03645060e51ff49196e83abc33",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/default.h",
+      "sha256": "9ac911b54b1c8b1de26fa25f26f7f45de89bc343f4f5360baa7621554ff60acd",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/des.cpp",
+      "sha256": "2fc335258bdb611f603323aa6627464bcb91adb25d1418089c02ecc0164b52c9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/des.h",
+      "sha256": "8817b65797a372ea80b84478b4f70bd6368d69fdeedaa3cf18ea45072c3e25e8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/dessp.cpp",
+      "sha256": "0e7fbcc4f7c4f5afd07a4dd4252089d5bc40919f88ec00365dc593003e4e0f88",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/dh.cpp",
+      "sha256": "8332c649a88d49e3b32bad26b8d703e614a086017da5636653146ed040f7e09b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/dh.h",
+      "sha256": "78dfba43ffdb7ca8d88a813bcebcfe9826d7b33a3c686ead784361d010794dc9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/dh2.cpp",
+      "sha256": "2b8906dff7146c31510b42d4f1e02d398080109c47d0807ff490b355aaa9d55f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/dh2.h",
+      "sha256": "3ba72b26fafa33411e18eccefb7ef2cddbca708cdacd717fa13dffc35068247a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/dll.cpp",
+      "sha256": "12f4d429d0b0f778647d54a4a892a9851f64a67d3c7123c124644362b6238132",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/dll.h",
+      "sha256": "d7e9b85de027c4286ab4d4e37627e6d365ca7f734ae06c9942eebf05a26b7841",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/dmac.h",
+      "sha256": "bb8266c478eccae5092a30b2e744659659ca7265ce02f8bd83c8708b44286026",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/donna.h",
+      "sha256": "4d041f33dd08ba1bcbf33990b742000d9495195622e870c1b3ef9104e8e50b9b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/donna_32.cpp",
+      "sha256": "6f922a25a4926fcf4d74ccf22c27d9339352594c74c7d8bdcb5e61c2967c3ad5",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/donna_32.h",
+      "sha256": "b06e84532278d5eb5660bfb894423142ff5e8a7c251a2cad3d65f4ceab402702",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/donna_64.cpp",
+      "sha256": "1c5a5f416483e05df5cb4ddbb3e8663de31c16b5d3a256d64b843eec8ff58795",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/donna_64.h",
+      "sha256": "f66fe0a4cd4ff89d58005804765e1997db5c1eb4b321758ce5ad9537b49e2545",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/donna_sse.cpp",
+      "sha256": "7403dc20753484d00cf4a39abcb376df88a687e1e934f4ea0e0e47a4ba41fb8a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/donna_sse.h",
+      "sha256": "ab3514c0c701e048995b5e96aa469b86ab76e9c8997e2b64d265f00e10e4e611",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/drbg.h",
+      "sha256": "528847f4bcabaf23210000f2b1b9bc30d6221ad4101e502b3efca6abe000c3cf",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/dsa.cpp",
+      "sha256": "9c951f8775b1948926a685a7dabf461a4dda0a644e996b9861207ea2aaacb1c5",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/dsa.h",
+      "sha256": "dd14f3d0da7088aa41c246d9e0734fa7e6f2d724c058b43893d24f3c2bf737d3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/eax.cpp",
+      "sha256": "c1e3fe8d1b1eb93675b91c6449a7ef7ff1f6210cab7029e92c4da74fbff0addd",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/eax.h",
+      "sha256": "3726989bd2763cc5230fc858252729e7b2e3f34d29f99dc9866af6c0ecbcd18b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ec2n.cpp",
+      "sha256": "60079abffa8da4ed555df9f9cabfe6d953ee997d88c9526d0fcea7ac1a4560b8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ec2n.h",
+      "sha256": "8287270a76e6a3098b5f2f6a74083a0173c18cfee61c7e5848c603023fb7548b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/eccrypto.cpp",
+      "sha256": "0ac73da459d1481109cffc9bea342d9ded8e62830996742a741879c18d73e02b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/eccrypto.h",
+      "sha256": "557bfe3381d57450273d59c3d574da31e91c40260937c00ccbeba7fbc5bd39da",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ecp.cpp",
+      "sha256": "61c7483715d3656747e60027de2384c6bdc6c1c77341aba8a4f5e8f511b44a76",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ecp.h",
+      "sha256": "c7eb3b10b9648aa5f5965f8091fa0888fbf2f17661e9aaaed9f54dfaebe39a58",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ecpoint.h",
+      "sha256": "45a944a5148c1b5c5c9bb73ee7662b77fde98cc096968e9bc69542277eab7fef",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/elgamal.cpp",
+      "sha256": "46d787f461d5edcc630bef20cc78e65f89eaaad2a40825a088dc8bbbadaf7a8e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/elgamal.h",
+      "sha256": "5452d9b2fc473b86ab51e73f18abde375b96f793986ffcc97c1a71adcadaa729",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/emsa2.cpp",
+      "sha256": "8d773227785241fcd51a027e8a6972ad8e7c5373919dcefc93901a8c360349cf",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/emsa2.h",
+      "sha256": "d6fad095beaa915b7fc655394fcf80eb7cb5ad143b6a54d5d3adbd2d91557f04",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/eprecomp.cpp",
+      "sha256": "e2604aa31dde66f16ec9536fdd1389480b14b9912bdd3710833625baf7373c40",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/eprecomp.h",
+      "sha256": "fe015d5043877c3f55e13dd90be9b39eeac9434a4f6c757e08693c74c5cee9d3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/esign.cpp",
+      "sha256": "9a0e05e1dc53b282805b810c065155ec636ebd61c7471901f91f50bf3ac9ae3a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/esign.h",
+      "sha256": "6a6c1ed9804cff1ef77b439bf36b1ff44d7269258247a35c011a068c59876b26",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/factory.h",
+      "sha256": "db03524ab5fe084736a9a7353b4831b3df072e3b06872eb777975170220884a8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/fhmqv.h",
+      "sha256": "791462f5e17d7d2340d928ada424ff4f6c3d7f29871f749977829eb80303aa63",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/files.cpp",
+      "sha256": "533cd0d100704b74ffc8ce092d5f994dc4f7034b81f284c6948265be35a9db6b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/files.h",
+      "sha256": "b41d43ee146e1d42476547ee68b7714ef301f549d2efe587e3e7221ca461019f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/filters.cpp",
+      "sha256": "59950604937de17c29e3a5222e20883571b3c42061b435e5a1d2f405cc8e3752",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/filters.h",
+      "sha256": "783038cf6411bcddcd92c0b900cbfbb4c9038dbfe828ae8fda444313215cf4a9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/fips140.cpp",
+      "sha256": "fbf6cc4cf9b53828828c2de7e9963c9a82ef4f43fcf8819b61c0f2369774eae1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/fips140.h",
+      "sha256": "cb4042de79c44789f6730c331dab5cb2ad6d10730e24557084f363c0daf71f34",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/fltrimpl.h",
+      "sha256": "fa048ff39522725d1cb35b84386c056d50bebd62ad4f9b372a000488679b80f4",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gcm.cpp",
+      "sha256": "012313e0497d246cc69ae6410c4182001a648a566384d1c531af46d05d634c67",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gcm.h",
+      "sha256": "8d0ffdd323475799dfa029ef8b8af4ed556e06194ee4162a5b34ca3b38335cf2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gcm_simd.cpp",
+      "sha256": "217197afcf41e31cd341b5d39517f907e991230087a82674ddf6a9da1bc9c6fe",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gf256.cpp",
+      "sha256": "b118433b877e8869c0850b4f6a013b0b164d2f47f8e63ef43b93b946a4afb343",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gf256.h",
+      "sha256": "5802332c695788d09e19c0070ad34d0059e716c9cf0559ca41cf34f62a1d7b81",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gf2_32.cpp",
+      "sha256": "4bc175a7196822dff73b3e224f0c755d884cdf38fa4dd94a7c67e4771fb05ba1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gf2_32.h",
+      "sha256": "c0076464597ca949be1bf38f84ff787b9b8683d30cc9d12c19d9e89319d42dec",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gf2n.cpp",
+      "sha256": "b471622dc3cd36f2b8631d8793d0d460491a77d347fa0419698c35c85b88f038",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gf2n.h",
+      "sha256": "7dc08a44fb00987f707c2e382731edd4d6340c1df48aed95ba63806c659764a6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gf2n_simd.cpp",
+      "sha256": "92eb7b2d477573a01bd5323ceba6d104177051cc316d9b95e4cd32e22dc51f70",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gfpcrypt.cpp",
+      "sha256": "4788bc96a2877e9b85447a995924548c9bf1931e4ae977099ef2d58cfea3f09e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gfpcrypt.h",
+      "sha256": "a2a6d18da165c3006cfaa463b5dc4bb62147ac180e37862ca53df08f39a731a3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gost.cpp",
+      "sha256": "060a605f0a8415b5ed54c251bb9b44a6132d18e63b087bab78eb0f4601c95748",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gost.h",
+      "sha256": "24c5a7be88608b61220b207c9f001f46dd125e9a749e0cce9d063af490cccaa8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gzip.cpp",
+      "sha256": "495ddc7d4f3bf9c0e959061054b5e6138555f8223f93b04f67888ea4479b6287",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/gzip.h",
+      "sha256": "90e7962529aca3f55a931843a5bfbbafefcf3dd266a01e51761a73f700e1e76e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hashfwd.h",
+      "sha256": "4f9435013967091b562b5b70b0e3ce9aba7266303ec01d4d7ac61fdf08ff3272",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hc128.cpp",
+      "sha256": "44c32dc286576e49de99e8c6f9eaee33d86c70d289841dfd7a1f50e466d2953b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hc128.h",
+      "sha256": "9258172884249e8f15df97946a52c7d26037ae3d14aee8439b278eb7f0d7d1f6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hc256.cpp",
+      "sha256": "ae21a47c57e8733e75c12d8524e54b2305fa8aee6a846955dd558668e78a17a7",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hc256.h",
+      "sha256": "dc5803d7ce95927886418ffd3b92146c1d464bfddba61fe4712606fc33fca088",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hex.cpp",
+      "sha256": "bb9335e316f846033ae64e137bf26f4b73cd9c0d13096b764890994d9aa4ed7a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hex.h",
+      "sha256": "c2d77dcba2ae606bfbe05375435a43e2172b3b036290424d57cf310d12d5d7d1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hight.cpp",
+      "sha256": "3b36bb2620349114c3553dfdd7ac2c739f255f81db1f5cb3e18df0aaa7cfe01a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hight.h",
+      "sha256": "d860c14be330e4e114feb4b95019b0d279d49ccc2018ae9b00a6591d0f1cf749",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hkdf.h",
+      "sha256": "1ccedcd401635ac077d895f147ef142645ad7216205d4adf46899e35e8222b5b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hmac.cpp",
+      "sha256": "d23396f06ff9ba290677784f37bf38b287d5061973d13b5b31756115dd91974e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hmac.h",
+      "sha256": "f8becd33fc708ac1bbcc1929d34fb0f8f7f7b7592f52bc5d8e985d862c0e8cbb",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hmqv.h",
+      "sha256": "f97427c87aa5a9f8ce2d8bb631cc854d75f2a93b562a513b31a9be16f3cd708d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hrtimer.cpp",
+      "sha256": "6bfa9fcf5c4a5b99ca6f380ef0572e96b51f1fcbc97e796bc5f17363e3459b96",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/hrtimer.h",
+      "sha256": "ca877f129cbd6e71f2035e7ebc5be6517e8b7d9684f229086bd24417c1fc75fa",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ida.cpp",
+      "sha256": "6524d3a0be17efeb026ea5387914770ee11021ccd6e3a37139e12bb50e19bb72",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ida.h",
+      "sha256": "28b9c57524d910343e83cf7dca2be687801158dd04ec7509e2ec7e52de66d79c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/idea.cpp",
+      "sha256": "5e0583bad4cc6a46832a5164158e16ab1a28374c791ad6fc2f98fa88d52a1f2a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/idea.h",
+      "sha256": "a90a911df449766c7c54f53fae500175650169be64a80f32030eb0b059681158",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/integer.cpp",
+      "sha256": "cd59aee00b965cf1aaf2baada3742dbee73083d42cfc22cf39d526e646a22ecb",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/integer.h",
+      "sha256": "c193d6b49bcda35ff05ad5fb01fb77dcea3c22588d15d82825bb8002a3741c0a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/iterhash.cpp",
+      "sha256": "08d66f455bbbe86b3032c428809b133791a46b5a5d1e9bd53d2ebb40fe07ee6a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/iterhash.h",
+      "sha256": "397298f1eadcfe7165f8b86670a7879641244e7a48aab62fe910dd3fc6eb3ff5",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/kalyna.cpp",
+      "sha256": "3d9e74f01234ae690442f0a73d690dad6fdd4cf00ec450301b2f69c11e34ab50",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/kalyna.h",
+      "sha256": "bce807fde38a49d44b5297f89e3b3014f6e590c8c85b3434f1e7b93e373807bc",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/kalynatab.cpp",
+      "sha256": "4c186d7ae11907759d91f4a6a2fb2f950556fc4e495e0df715a8d12e83a1d88e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/keccak.cpp",
+      "sha256": "c57dbf4e1b0a1d35b3f906bd633cfb1005ec8da551645ab08c62bedf5c311447",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/keccak.h",
+      "sha256": "a75a62e2fc700387f1e405fe941cf75d39d9e07e94d46cf5cc711d460ce670e3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/keccak_core.cpp",
+      "sha256": "a4cf559ea756ef4bf039f0bbc97f59037dd296dedc9401e3e9d33a81e769c85a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/keccak_simd.cpp",
+      "sha256": "a6c383a85a21c642b217387502b0e2fc35744116556f06cf34d2ad5d3a55ca3f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/lea.cpp",
+      "sha256": "4264aadee25b504d80f071f49484bac234d5477fa3468f7570ae67016dfab744",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/lea.h",
+      "sha256": "e80ee0af1f8659ce69dbe0872ed1037821decb316c21f26fee120ee44f3427cb",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/lea_simd.cpp",
+      "sha256": "1841f7a96a68349c3e52bddb8fd3f446cc3b3a22747dd80225f47e16577cee56",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/lsh.h",
+      "sha256": "e86cd73c272785854dd6dd0738560da2e2e8df3e8071a8e1be487c1d809482d1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/lsh256.cpp",
+      "sha256": "b418094484b8b5c04c25476a40d793c32b39fd49a4030c682d554bdc207bd470",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/lsh256_avx.cpp",
+      "sha256": "28d756e018c716ee7da9acc5dd8431f6f49455db13c9f1c509b519238a817ac3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/lsh256_sse.cpp",
+      "sha256": "530ddbd6ac29cf759355e5cb1d1fa84b98b148a223e3b16db7623b9721f2d906",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/lsh512.cpp",
+      "sha256": "b7a4b13fc25f1d211cda71336c104cd3821caddec570fc09e577a5ccd595f6ca",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/lsh512_avx.cpp",
+      "sha256": "7c867835b9dde2c288d974036e95d2fd14a532771289ef680356473c10795e5b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/lsh512_sse.cpp",
+      "sha256": "06b4e86a17a02d331839e5fa9bb44c239bc39071f5068064a02316ea49fc63c6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/lubyrack.h",
+      "sha256": "2c8122e1e722e09ec54366755ba030ef7aac4f480b9d58ba77f006c2360e7de6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/luc.cpp",
+      "sha256": "5442e353024a62f942b56a4d79e3f6edfbb6169622aacf3b10d2c8a05549ebf6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/luc.h",
+      "sha256": "27fa6d8678ea7b5645a3dfae90a09ccd2976ab2ce0793340271d3a9dd3781230",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/mars.cpp",
+      "sha256": "87e5d61c8b54025479bfe50ca4a8228cb3ed87a79c4a1bde749e61981acbfcf1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/mars.h",
+      "sha256": "446094ab5a35051ca32cda9af496b2968736c7c15d15520037a70304bf6ad382",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/marss.cpp",
+      "sha256": "2003ac72500d317833125b61f7baf5b2e47a84771b27c7180235b0ef6b402e84",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/md2.cpp",
+      "sha256": "126935fa20c8fece1ceda83ad0c29fa252efa4322e9250e041c4d83d314c37a9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/md2.h",
+      "sha256": "4504957d3d3c15f984875aebd6f0834531d904238e55aacfe1af4965fe57c6da",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/md4.cpp",
+      "sha256": "41511709211b6e58e531e3a02d8669ef5d321083161374792b094b648acd9aed",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/md4.h",
+      "sha256": "6e6fcd3e93f5ee257b13649e24751b3d8286da4df85bdbe7dbbd9855e32db13a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/md5.cpp",
+      "sha256": "1c37bd8007999e8e945c56eaff23e0f50ee7610d2a3aa5879fd8bfaa775b952c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/md5.h",
+      "sha256": "f7b01aa448c8f94d7712ac4a0cc2f1f66601e82018e1544c03031bc6190b4111",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/mdc.h",
+      "sha256": "8cc71aecafe6d5257ee1991dcd924d22e7ea6aa7e0f46ad2cb255fdba938cd50",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/mersenne.h",
+      "sha256": "de62d303aa69baf1bfb9e468b16abd09567e784f97d872d12684bf9bb0307b27",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/misc.cpp",
+      "sha256": "f3d1ffa588ea3959fc7b091ace8f7ab2ed1257fa00f00d871033e25fa4b1786a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/misc.h",
+      "sha256": "2ca9d53494ceada2f2c5bd5d40237f99f56b602c676177a6889f55f1fbbb850e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/modarith.h",
+      "sha256": "c70de520a347297cb06d5077970009be46ba8767f7021287e603ea99d790a1aa",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/modes.cpp",
+      "sha256": "db26c6a04ecc2fa66da95bb25757f88f4257742cc708b201fbbf5bd90a69d70b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/modes.h",
+      "sha256": "18b2ab60cca2156f0c71314272d527894b09ddf3a3d2b8ced58fc9cf4a309fda",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/modexppc.h",
+      "sha256": "e5e670383b1ccf6d9a50b7dc9a3db4169ed7a11e7f7efb75097000cad5d50010",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/mqueue.cpp",
+      "sha256": "24080f81287114e36e64ea777a1764c9a0b939aab2ad74e90ac880ae757bd25b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/mqueue.h",
+      "sha256": "dd95c25b41b7f750346585e648e4c59a2d585058df808f466a5e763c2a2e1a55",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/mqv.cpp",
+      "sha256": "5519f94f1dbcdeaa4abdfcb0e12f7829d69092cb15c674271d4102ea45af9941",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/mqv.h",
+      "sha256": "5f21393a759eb2d591ea11dcf6c7f59c6802f88fff08290640a6f3805c6c4164",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/naclite.h",
+      "sha256": "8043f8b8ffd8525529e29440e80ce1ff7f123029e5851401f173b3e7d4b9b432",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/nbtheory.cpp",
+      "sha256": "3d66b9ee885ef47f46095771a858854f3fcb90f7df7f5fc60c5826dfc5b3f745",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/nbtheory.h",
+      "sha256": "781c763f7e436eda426e98b917c43137309bf04ece038853df45dc6a04b19cfb",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/neon_simd.cpp",
+      "sha256": "5aa62583d082f14864ed9851ce770bfae43185d97eaf7d59d11b4af361a1cf3d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/nr.h",
+      "sha256": "7de74e051dfcce09c36f9c2de5aec79c21cc1923fe1c088afb7b31e427e1c83c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/oaep.cpp",
+      "sha256": "476dcc655fdf0fb6b6774d1803db16c6dbe4a0375ab3b2580937fbf644cd100e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/oaep.h",
+      "sha256": "649e1487e1e4ed6a05e4d0e38dc45ae97309d988d9bfbbcde3ffc1d6f4c70d83",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/oids.h",
+      "sha256": "73acadb1ada29b97697bc4e01ef3c43cb821a9fd8069b069d230dac713b8bed5",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/osrng.cpp",
+      "sha256": "1ac932dc2ec74d79e70d4fafc524533b1ddee6d1eea275ca981ad6ab25944acb",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/osrng.h",
+      "sha256": "778f531a084bcdced976ece487b1f333d424c026826efa44d67f6bff2612ba25",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ossig.h",
+      "sha256": "3b702f8b2f37eed7e1c8cd9a3da3d1fd11d16d1cd7f13b80e459d5e4da5f87e0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/padlkrng.cpp",
+      "sha256": "cffd224ceb6bb6e9364c28a6250900acb77ff2a8aefa4d48003d19000cccc2f8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/padlkrng.h",
+      "sha256": "b5b56766bb439530e2a60a8865ebb620db11dd5daafc04200802531349f4c1ed",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/panama.cpp",
+      "sha256": "98745c0f4b5a57c5700cbd0b46df4fad9022c49d716520ad4f022708d21b4b60",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/panama.h",
+      "sha256": "87068334b3a97f91f6c17c26cd9facd5a0564ff09ded55ec2cec70d3a91ea8c0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/pch.cpp",
+      "sha256": "f1a03d6510be0ca46b84609263a9ca9167fbe905a7c07e40bcc0b07658e1eaff",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/pch.h",
+      "sha256": "d629cfec26c9317f637137f137550f6f8138292acfd677baf0a986a1db80056b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/pkcspad.cpp",
+      "sha256": "f0786eee9a3aba0370e7fb2d8343ee1e32d537bad2d669484df7875c067a0a43",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/pkcspad.h",
+      "sha256": "7a5dd58c5e1139d9ed06113a5a162d33033ffc9ad3770602eb45a3f65c7b3cc3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/poly1305.cpp",
+      "sha256": "7df6d8e7219b5b193bf31d0b625b796a984e1616746f1b1c98280875a51e2c7d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/poly1305.h",
+      "sha256": "5f38eef3cc7a184ba92b5e6557cb7231697555ab672642d15dbf13d1a4ab3d36",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/polynomi.cpp",
+      "sha256": "b1799513631ecbfba41aef724732db682c8b56aded84ae44088bbdc063045bce",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/polynomi.h",
+      "sha256": "f049a0f741dbeb8b9d226ff1e6fb2285e821621f2bba63f2ee998789b1a79749",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/power7_ppc.cpp",
+      "sha256": "c1ae6ba7e91140bf2c6d8de1fd205e2e5031381b0b0833103cccbb7b05fbff13",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/power8_ppc.cpp",
+      "sha256": "6c11354133906c14a5e41e3a3ded8d296c6bc55c62e5fd652c07b6d9d3991373",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/power9_ppc.cpp",
+      "sha256": "fe705925eef95f600a4fe6fa8b584b4b6c0335ba7615bd56d0d937a19fa6227b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ppc_simd.cpp",
+      "sha256": "04b7d8dc1c08c4db3d43afef33f26e61e4e0bc58dc1f8ab52cdf7e5b25d8159e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ppc_simd.h",
+      "sha256": "18db2b551602a69da1d60470ee1d54c9b0a132130ae1dafb1acf6e492da85669",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/project/cryptopp.pro",
+      "sha256": "f09e9db0987afff434407aab7ad38bffac74be327619dc8b7776ff39f7306766",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/pssr.cpp",
+      "sha256": "d55494ef51bee6a2cfba418e9df23cb9b32ac3d8550d28bf2224b781cb18e0d1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/pssr.h",
+      "sha256": "da35c6f2774d2e0f808e18f2570716aa9fe52629a28eada2f0c6e8b54ad6fdaa",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/pubkey.cpp",
+      "sha256": "b17a3489cdf95de395c3cdedb7cf5c83b31c4f671b0b3a99de255f43a6933387",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/pubkey.h",
+      "sha256": "fb1c3698057c97fa24bc4ec53250d74183bc06df1e602580095238a7de8c22df",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/pwdbased.h",
+      "sha256": "4907df966318a8abcee0ebf4cd6856d7ff0f3f1079f03dfc40de1ec66826c97b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/queue.cpp",
+      "sha256": "981ee488bb3fe0f09468b40e8958030ce3be285cf38e2eb5dd5fcc470a54042a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/queue.h",
+      "sha256": "7a223d51a78bea39e6a7bdd02ae58cabfdda561e81e461550d240c47f8bd0264",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rabbit.cpp",
+      "sha256": "e1de82ff4f66db861370e95d9b8a77f2155c9dd5f9e9e45ea69efcdaea529e67",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rabbit.h",
+      "sha256": "ed9c26d0e187e6f7156408640eb9a52abf254f7722218045ec5925c2ec6822f0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rabin.cpp",
+      "sha256": "ed022010d4a184f20dabbc452ef6cc2fb7c76ed8d5000ad93a334a201992d41c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rabin.h",
+      "sha256": "bee7deae016366b830af6e1b16b3b322d00949bcc12e6785249b12d6148f1e7c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/randpool.cpp",
+      "sha256": "cd6616f333a775a0567cebd86e14a4b70ca30b9b37092f2a9295d0d2f0f294e4",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/randpool.h",
+      "sha256": "1d29d8662ebab0da03dc7782e886df16656549ae7c89983c53d89f4779e6785b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rc2.cpp",
+      "sha256": "d643bf5ec7577b91f767e5edbe3e3b5cda26c2d18d2b6cc1d2c46c7349c54dda",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rc2.h",
+      "sha256": "4394b964909a1b00bbe78cda1d09b748c08477e30d1838fe6e6838edd1dea7ed",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rc5.cpp",
+      "sha256": "94a5806c0b4c742c15cd98618d143d4443425f3b891690716380930bfa92da0d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rc5.h",
+      "sha256": "24b9c5cbb6c53a555de3818685bb64536a7cd0b159aa00d27a19afae75c86843",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rc6.cpp",
+      "sha256": "086412e8601c9a78d2a8a9aef374ba86b1d31096e0062a33638a498d3a2b4d2d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rc6.h",
+      "sha256": "5ba46ae7ee816f086a6c5b3137dcc3c0de463820984afd7996c3736665413b86",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rdrand.cpp",
+      "sha256": "f33fa139fad0f4a56f2b6d70f5d536c0bdb3486eed8ed91e530a6ee992afef51",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rdrand.h",
+      "sha256": "877f17b9f0add7687cdeef4e25d56478c2cda0121a40d8f7a6a0f411c4542a07",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rdtables.cpp",
+      "sha256": "0b0ae9f5fd3934bd02d47fd7c0ae54f999470d6cd0dc1845399e46fa83b08437",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/resource.h",
+      "sha256": "b0b742a57b5f70e66b8f3b10ab0f38b294844161cbdb9e46d7aa2ad7d07b1547",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rijndael.cpp",
+      "sha256": "1c70e11fc735506296fab0e10c789e146400f6ae65b7d34c3f1a3f592f50f970",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rijndael.h",
+      "sha256": "d82187fd5e08a45a74e9aac8a0b9197856ff879d072cdad8b204e6915fbabb4a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rijndael_simd.cpp",
+      "sha256": "b94ae14b46d2a37ec862aa6b884580f6e32e07c76776e522c37737c2e2b98f1c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ripemd.cpp",
+      "sha256": "81644d8b6747edf8082fdc737010ec582086b11781d56603b2e534970cb8a73d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ripemd.h",
+      "sha256": "a67caf739d0a921d13ebca20f8d5c2c81fa9239f3298c8e61f6b1f473493bc92",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rng.cpp",
+      "sha256": "788893f969a2bf55f214d076015ed6ff66e16a48defbe0f3d93bde6fec6f3b75",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rng.h",
+      "sha256": "40f2532cf14e950080bb1ba1383c52a2e5af0ab09779de89524f066735b6fa2b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rsa.cpp",
+      "sha256": "b97112655c794864dff4824e3098c8eddc4e5866afde5b89c92cbb3c98521b4e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rsa.h",
+      "sha256": "91bf3d65990bf2c268bad1297851950c536390fbc2ceadf1cc5a10c60bdec655",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rw.cpp",
+      "sha256": "5b7584381c34437dff6a1a63e1374aa30b5c3bd5ffbbb1af9d2f5bd3c9140972",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/rw.h",
+      "sha256": "1943c2c2b9d7762359a41c278c39fa56fff82dcd78cfdce169a7ab0a217fb788",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/safer.cpp",
+      "sha256": "15b48f5d44e481798759f1dff685d1246a0d99ad474cfa0d0cdbb5d4c75e4a0b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/safer.h",
+      "sha256": "d063649760f216c8aeacad4d1887b522f13a1a857c7721c55b779930be5ff51d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/salsa.cpp",
+      "sha256": "732c38aefa2ca8b4f8681b7d766b4a627288a69900bfd95d251bb6939b52b41c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/salsa.h",
+      "sha256": "f6710ea1a18a7fdfcf392b6c62764c2eb93cc1adb9cce70fd7c650a6c41318d8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/scrypt.cpp",
+      "sha256": "cdf51f0c047cb99e29b3b50b5e6fcbfc971425c764f43c1fe16a32938b9df10e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/scrypt.h",
+      "sha256": "9059348ca615b81fe045e3116726801dfc9914d2da3b53d5efcc9b0b6181e85f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/seal.cpp",
+      "sha256": "5ad15729d16754917ffbf7b322cce8e5292caa510e0db639194c0dfc10abe97b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/seal.h",
+      "sha256": "e5a3127f74f7b88afaba90476b7827c2b43a9a99d1b592b63e86eb81ab1a9b20",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/secblock.h",
+      "sha256": "18c55359ef2889d58670a91decc471738aadb66a0d00f456004b891534953ed3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/secblockfwd.h",
+      "sha256": "3f3472c812f24cf60ad1b726a2bcfa0268a29c8da235bee6eb3eac10d58fe3d1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/seckey.h",
+      "sha256": "54204f1ae34214150d0087043c19e25e83abe010837ef214a232891598501cfa",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/seed.cpp",
+      "sha256": "345449ef7266398928956b557be89c214e4f09de234c2645ff1bb02abaf2bccd",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/seed.h",
+      "sha256": "e9860c2e73708327ad079a3308948ef6e1b3ec47a43ce0bb0e2e886d12de8711",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/serpent.cpp",
+      "sha256": "8e687dd787c0242be61f8601d2c745f35402166ebc75559ef304c9968f8e7e2a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/serpent.h",
+      "sha256": "4e6a4745075334a394a037e94c9a448de587ad0adeb0ebf7dc066a9aceaf7f20",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/serpentp.h",
+      "sha256": "0409bf8eb413b401032257b4ee030756700b0beacd43ca2960180624df4c5898",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sha.cpp",
+      "sha256": "bfd99e69175ae3e8aadc07f703fffbd81e01854f44bb6fca90c73b81a3f84b62",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sha.h",
+      "sha256": "9d9cb08b466b520a21a9549ce438aba5f4c0479e46240a4c4f9160a930962d7c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sha1_armv4.h",
+      "sha256": "823379478bf075220310503eb69dc978b512aa33f516f48ca32c92b565227bbf",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sha256_armv4.h",
+      "sha256": "71d25db014054f78209bf95f402da894c9f29e0af008ffd6bf3f1534701bb195",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sha3.cpp",
+      "sha256": "44c1a1b3c7f49aee802b6c9a6b14a5132822ed3e9be52a16741b26816bc5ee2f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sha3.h",
+      "sha256": "9b4c5ca3328f5160bd0f42b2e509ff86ea7a019e1f4ad7c907030eac78321734",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sha512_armv4.h",
+      "sha256": "82b26f11b238e78d37228ddf906eb49c124fddeac661723c8a61997bac39181d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sha_simd.cpp",
+      "sha256": "475091239577e16c7e38d2dff61244e8854d0ecebc3e75a68fcf244baf2c653f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/shacal2.cpp",
+      "sha256": "6da5eb856682f6a223ed2c2b04b339914df88ced03cff467b51f6d7b0118ad0b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/shacal2.h",
+      "sha256": "57a321786e83f6723260511ce703579ad2d6974873a52e3f4fdaa9f2c8daa680",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/shacal2_simd.cpp",
+      "sha256": "206160779c0d7ea1d796c534b53417f650a5c64d6c9b8659754353ac755b9d78",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/shake.cpp",
+      "sha256": "68a8fdfafc4958948b4589fbdc7b745680a0a45358bce486e83d6e824fbe1227",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/shake.h",
+      "sha256": "66cae3278ba2e14ee9a4335ce858e7ca0057ad494dc7bd24e5d90c0d76334028",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/shark.cpp",
+      "sha256": "b7edd724e01a0734328f7c162b7206a5d06811e850fdd47e4f3c1c9eefd41959",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/shark.h",
+      "sha256": "918cf1d24fc2a1d022e98c7db61d789612c9f68d3816c0e54a2f8c0056cd2a50",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sharkbox.cpp",
+      "sha256": "d3984d6f64e070b4a87abf5f81edb6e4b5e855e5ede26aee65a1ba4e26104ea2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/simeck.cpp",
+      "sha256": "3f4d6df7a7412a8826c72da28d2a8eb5798277b686750181e9cad32655611738",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/simeck.h",
+      "sha256": "c8107eb71b7691fda53ca283c243efad2e1f22945b1aac96de2988119abf31e5",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/simon.cpp",
+      "sha256": "dd8891756d16f547c56e36fc7458bc380939e2c5b48dd2e75259fcf4ffa4d75c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/simon.h",
+      "sha256": "f099a51acf7f05fccdb688732b72d85ce9f32ea8e13570319798683931bc197d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/simon128_simd.cpp",
+      "sha256": "557fdccebfc3e09ed8a81870b9c8dd66c721385da9118e75713ddf3f2cc495e1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/simple.cpp",
+      "sha256": "3c5332c67c8f2c574d4d21b37b3b368a1ce953b4c4074590fbb864b3c4dc0179",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/simple.h",
+      "sha256": "41a165d3b4ffce87755b28b878e08503d571558cffe5877b7e00cb84226ef373",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/siphash.h",
+      "sha256": "a486d7e2ac5ab5676fe6a1770c23d32f9c5148adce06953128b6e2aa7402c6a0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/skipjack.cpp",
+      "sha256": "646042d7ac1e9a92af5894899d744912c6d8ff9f2cc36ce647cc84c631db8b08",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/skipjack.h",
+      "sha256": "12f9c2b27c911573a2ee35a40e570c67b8ff2819261d266a0ea0ef0f57497d48",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sm3.cpp",
+      "sha256": "bfd7783113ac9baa819c81a7e506640b43f23be63f8aceb58ac0f00cb39d9dcb",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sm3.h",
+      "sha256": "9a6122c9df510fb0a801309fb3770f0a2a87c978f9cf13ec4739b18058e67b91",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sm4.cpp",
+      "sha256": "3ac67e0e35a554b73ffb4bb4c7100901759f7d6862476943729483676916e7d9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sm4.h",
+      "sha256": "2b17ac244216cf9d48d4e014557e3c4e023d461c91119244c825d2a57c8cf15c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sm4_simd.cpp",
+      "sha256": "c3615df7944331bf5e66aa96338b2c8376c4ce8bb92bae30585360c8cb6f25e7",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/smartptr.h",
+      "sha256": "a2d6f834c9e2890943a203ce7397976d8618e62c3d56f6a6afa456ffdc22e879",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sosemanuk.cpp",
+      "sha256": "c1d43527704a2207164553a7945839a82c22b483dcd9de2f56e8bce0b9674567",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sosemanuk.h",
+      "sha256": "5eaa8173fa4f31adc550f8c3acec1a62e4d636a773da8dc48cce8e5c21b2392d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/speck.cpp",
+      "sha256": "0ebb11dbbc5af58196a8f87406bd36a436f55e98c78ff25b33ebccac5c82189b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/speck.h",
+      "sha256": "5c4a102757460f8b915e33861b5dbe7a42517de32d3e18122ba8c06aa35388a4",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/speck128_simd.cpp",
+      "sha256": "6f954254fe56503b1b53ec2a0eb092063bf45d20d4e96cc6bbffe43887d54113",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/square.cpp",
+      "sha256": "7e9ef014273075490cef6107c9186ac40074f274f64764536f60ea7ac31267af",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/square.h",
+      "sha256": "aa8bdc637649497f38a7fddcdab48fc2145dbc5d21c9859acf984d87f1d7f717",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/squaretb.cpp",
+      "sha256": "7bfb9f2457f1d21d1511be8d1ea13240721cb2f0c74cba8c82bd2eec6d68f4c2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/sse_simd.cpp",
+      "sha256": "67ebd7e88a8eeb5b2f1337f978428a74258eb8bf2ca25273cb01817ad9d87bd9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/stdcpp.h",
+      "sha256": "70238c1ea31b97a92ae0af30da6a7cc3984692384c018b7ff270d5e0b857ea54",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/strciphr.cpp",
+      "sha256": "99fbfdc1ef98620020be27828b6f90229ed0be14b525362f1482b35eccd09e67",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/strciphr.h",
+      "sha256": "afc19eaeb53bdb4f6b5d6650d2e06173023750606376e0c31c19835077c1be8b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/tea.cpp",
+      "sha256": "5b05d17e81dc7b7c5b891e9bff9dfdebd0afe70d0d00aa42747ff3d0f748617e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/tea.h",
+      "sha256": "d5f44d2dff2f3a234b1ab6ab3adf871f1f89fc0c5cb9434a34adbca322f09909",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/tftables.cpp",
+      "sha256": "ac9df225d1d9de68d1398845ced31eb26568fc5f089d87b20a3c1cd7fae2c7eb",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/threefish.cpp",
+      "sha256": "b99d407ca161ac2250e82ffb70ef978ebafaea33db462531ed40e33e3a45e9d8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/threefish.h",
+      "sha256": "efe9ed72a30f117f38595590f5e18bd13df8c11a6d74de2fb2c284c30d99ac1f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/tiger.cpp",
+      "sha256": "72b83979afcd4418ed3ee28c25405338bcf113361f6fff2393de7baddba93b9f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/tiger.h",
+      "sha256": "7a2e48142eba28901708a622439f62aa582e0a85dd9da98b9dc6df54c876f9ee",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/tigertab.cpp",
+      "sha256": "46b902411353cd553418e5bcd5a8434e255b176bd6bf43486bc8dd1599da385b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/trap.h",
+      "sha256": "a82a30348451a7d113ddea392d03b834085802dd05c12c265546d3b90599403f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/trunhash.h",
+      "sha256": "5461ae770e851be7ffdde01b22b72659a84e38e65c802c5511d3f0c44a9898bf",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ttmac.cpp",
+      "sha256": "91391bb2b14289e7646a89166a214d7677cbb6c1fa38d1007c20633b82fb7db6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/ttmac.h",
+      "sha256": "6bc7dc6cea15b95583a75ce2eaf53ac3134a8468a6817c2de327dc34c8fad961",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/tweetnacl.cpp",
+      "sha256": "be92a75286e4df6838d54f135b5841dfe69de69054a511bf8760fd9cdd34cacf",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/tweetnacl.h",
+      "sha256": "87c9c56072632ed3ad9f0584d4fe3054c9be56460ead54fa58ea6c915a511023",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/twofish.cpp",
+      "sha256": "0e62ecf88caf7cb99b1e87e1a2566562f5c602af71a527597cdc4c9ca6bf773a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/twofish.h",
+      "sha256": "889e90bb4a2bd042655c770ccce81acf8078a628a87a315506384109b1743bf1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/validate.h",
+      "sha256": "21d93c8d408fdd5901a4e341532eb00649829364950f599ebf29550556735b60",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/vmac.cpp",
+      "sha256": "e39e24d59d124583f31ed42f9e2bc5c60f96d5217bd05cdda8518e6e76c827e8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/vmac.h",
+      "sha256": "443f541a213ab4879b6f5e3c7dbe5237da538a0d3afe3d6c4ec51c7efac7d4dc",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/wake.cpp",
+      "sha256": "bc87d289485e16eff2317d02d162333b4d7a6a71acf37d2d8db92637d0c7f03d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/wake.h",
+      "sha256": "dcfd5c541eb29830215ab08e4716ecf9f18aab41c031ee1178d3628ed0319e6d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/whrlpool.cpp",
+      "sha256": "5f826d399f181206d3444501e45365622bb85483d8dd649f7f84bc11732620be",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/whrlpool.h",
+      "sha256": "7ef54e4eef73d1612d3ce2cc7b5b39eb4fc1b984ad2bbd4b1c59fe965b68f5fb",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/words.h",
+      "sha256": "e468a278d6673ba9dbc40e5cc43cbf275f993308f3e19b2af7c7150e80f87598",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/xed25519.cpp",
+      "sha256": "fefbb6e61521cc98c7dc490337574aa1cac3134f593382c008f757119341c5a8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/xed25519.h",
+      "sha256": "a024bd52f7e18592b3f426cfee59745937241540739825255cb6acad2a29e209",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/xtr.cpp",
+      "sha256": "6368e4104c59839bcc6365c27fd7a833fe347cf4f7fb1415f00ab9b25c536a6e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/xtr.h",
+      "sha256": "fc0401bb87f04010fa78dd1cbc39c69ad0de0ee3427f4b01a55a9ab250f10676",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/xtrcrypt.cpp",
+      "sha256": "f8221928265ca8349df808f3772de4876b8f4ef16342f8f1d0bb558e98d3652b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/xtrcrypt.h",
+      "sha256": "57bfad4f3dfe3f313911ff13c87b43908ca8d56edc4d1781276f5cff3e84be16",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/xts.cpp",
+      "sha256": "becb4b1971a430a4874cf9b16a3d0ef6cababc53ff6dfae95b3e27344c6da2a0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/xts.h",
+      "sha256": "8969d9e8326b49bc3cce16a05e337df38e4407b408631253fa18ad5dcc23def0",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/zdeflate.cpp",
+      "sha256": "e4e4333e91004f5ef858441ced5f1cc5c087d9bd83b68a295bc3b9c37fc7b289",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/zdeflate.h",
+      "sha256": "1bb756f1a4b430d2c2e1957e084d88996c7e0c3574ee95c509f273abd9e571f9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/zinflate.cpp",
+      "sha256": "69a78f46971be824b8d5c1400d6bd92d20a74bbb7156f77692674ded75677caa",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/zinflate.h",
+      "sha256": "feae95f0b04806ed296fa0ab4f6b15df611cb2f33b72ca5476d0e0f14592029c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/zlib.cpp",
+      "sha256": "42c6725da8fbe1247afe1fc3af8ff2f7762afd73b0352417066979f425b4cc56",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/cryptopp/zlib.h",
+      "sha256": "3b452e4f9f9d3788290923f9d0a446ad18180a88033df2304b318e3df8b5d21e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/3dParty/pole/pole.h",
+      "sha256": "e32b779a34d4750336a41331f071642615aad841290ae07e01b271520af3498a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/Network/FileTransporter/filetransporter.pri",
+      "sha256": "d255a02ef855a30773b50b8763a0459c6beb19ac3de2a6a1140375b4a4a2521c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/Network/FileTransporter/include/FileTransporter.h",
+      "sha256": "a59814c2e08187f54edd8df52e1f4fb5a8ecd46538293fb4f6024aa05d42b8a6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/Network/FileTransporter/include/manager.h",
+      "sha256": "cc0dbb0caf015f655592116141847c672dc418550b620b6b9a9e5a4704b0e2cc",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/Network/FileTransporter/src/FileTransporter.cpp",
+      "sha256": "eb591853e3e6a8cef478bae5247d87b299d1235ef6379625a15f155f375ecc51",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/Network/FileTransporter/src/FileTransporter_private.h",
+      "sha256": "ef0316166f5d17a0c783a9c49db1b72610c29f941b46350b885d04d261d1def2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/Network/FileTransporter/src/FileTransporter_win.cpp",
+      "sha256": "5a63b558df4cd0d8a25a11b8df51227d6473234134ca5cbd4ca7f117705d69ef",
+      "origin": "community-overlay",
+      "base_sha256": "6d4350b00ed3c01d266dc9a1e2eedccc21883b4d4c6a43a2e850b954e978abb1",
+      "patch": "transport-patches/windows-transfer-results.patch",
+      "patch_sha256": "4e8e504b899ee38683d7fdb75cafa9132463bf2cad60af2b8171f795f81b25e2",
+      "modified_source": "transport-sources/core/Common/Network/FileTransporter/src/FileTransporter_win.cpp"
+    },
+    {
+      "file": "Common/Network/FileTransporter/src/Session.cpp",
+      "sha256": "3c89151fb8fa911da366585aa3c9cf3339a95d42879fb820f0c9fcafa9fe8e01",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/Network/FileTransporter/src/Session.h",
+      "sha256": "367935f28afbe2e7e47b8507708615e9e44c73d816bec67089dc859ad3673c8c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/Network/FileTransporter/src/manager.cpp",
+      "sha256": "04bc0d86e871623c244eacedda252e66edbe21fff031d4abdf6fceb894d56a7e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/Network/FileTransporter/src/transport_external.h",
+      "sha256": "22c54ab5c4ae045b7c732a48c136bf128305f7f25ff01eff77bc0c5ab65108b4",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/Network/network.pro",
+      "sha256": "e905e4ef20004ff5878e143a8c069dc0e5db998b841fbd1c902e5dc4af496ba1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/base.pri",
+      "sha256": "f1f2e61d665847180ce3441ca5f6578ef54679f352ea45fad6a4ef0ed8e8b0ab",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/RBTree/action.h",
+      "sha256": "126822b7ea6f5f59a9c3a218a6a64810c978b0dcf6e9b4efa7e62fa324ece2c2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/RBTree/irbnode.h",
+      "sha256": "18cadb7caf4f0c003c5d2a3263823ad4bd414b875463c3056e74c08711846310",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/Stream/stream.h",
+      "sha256": "74f1e07411d0dd7e30c736065390f4cdaf709318a1f9902c193f22b2f9436d46",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/cfexception.h",
+      "sha256": "40525da94d8380a09e0b6865d6ba1757494a6285de3dbaa5d7d19d5924aed9d9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/cfitem.h",
+      "sha256": "cd8d19299927eb1b74aa18169c95ac8ea2ef2c6b062a057974684bd31ee7f18a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/cfstorage.h",
+      "sha256": "3b7a02cdf889b20516e4a97b3acb6955e224d7b08ef361c3a850662787684a8a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/cfstream.h",
+      "sha256": "d8b0224680896c0237b6790dcc3138f0420eb050a7e41f25da6b25da78206090",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/compoundfile.h",
+      "sha256": "1b564fca0553b1f950b7c471f391c8b8bcdf48211ebd4fb058fcb2cd835714b4",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/guid.h",
+      "sha256": "868ecd728030cfd2596c895c504a5d77fb2a1d073abefd625bebf1c0045c8123",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/idirectoryentry.h",
+      "sha256": "09c714ce96d9960177b0a7ee7bcce9790496884c1e8fd383673f13dcfb4c1a07",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/kernel_config.h",
+      "sha256": "3c302c650aceb006c5adbe7a577ca3e744b3380c788c6cecca6049c1125ade82",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/Base64.h",
+      "sha256": "488e4c786e60d9b9d286239caa4c8dd25e3c7700560cb84f2489dc914b08ba49",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/File.h",
+      "sha256": "3a88bf55cd542286fb1ff6ed32a8618cfa8c4b0f371c2326c35b73949a43acb7",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/ProcessEnv.h",
+      "sha256": "a67978be93286efe25b6d060a17b8432c323078eb0fd1c616ca6899bc9486a5b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/StringBuilder.h",
+      "sha256": "4258162a2d7fb130053ddf6daa05f583037af22468145f85cb0962030b1ff26c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/StringExt.h",
+      "sha256": "dc5b3f73cc9c02379e5f8c9eb7079fa1b16b7916cbf3541ea5eb1464c713869e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/SystemUtils.h",
+      "sha256": "b9bd0b7b335d6657ad6e3e808b604743ee8ea9053535c0ae2299a25cddf69e77",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/Types.h",
+      "sha256": "a1814edd3453e0119f00a69ea935fbd09c6c1514c71464bf1754cdf40579f813",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/base_export.h",
+      "sha256": "acd4247950f2e48f16cb8a98c42eae3ac38c6e1952cea83cf591f633d46717f8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/graphics/BaseThread.h",
+      "sha256": "d55935aac8b3c695397ff51e59293875a6699c617ff19a7e9225992c4ce2366b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/graphics/TemporaryCS.h",
+      "sha256": "fd8088bc0dc0b2d988aeddb76181c99059db18f8bb7b2ace19e9a0fc50c17aba",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/include/xmlutils.h",
+      "sha256": "8a39348160cb9b7284fed27c3dad89c41f21a9db0d7b671fd992078c225de651",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/xml/include/xmlwriter.h",
+      "sha256": "d3fc40a6bcae320415a10d879ad4e7e9ef293205ead2b47e7fd54c58a170557f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "LICENSE.txt",
+      "sha256": "57c8ff33c9c0cfc3ef00e650a1cc910d7ee479a8bc509f6c9209a7c2a11399d6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "MsBinaryFile/Common/Base/FormatUtils.h",
+      "sha256": "9e198423d265059e6f514322618910724858a053635507a416986bc5a0049f9e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "MsBinaryFile/Common/Base/utf8.h",
+      "sha256": "f26a2ceced41121ee83505905900e00d53f03dffed8ad68aed28b805d0adf3b1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "MsBinaryFile/DocFile/IBinaryReader.h",
+      "sha256": "90d2cb9015ca3e7f15903db8ef3f3846be478ab558b9ade043cfd47d713d1c6c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "MsBinaryFile/DocFile/MemoryStream.h",
+      "sha256": "ff2abe3c5ab139e464ac2087a3a2fe2906967a82f53849333cb52b59694962b5",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OOXML/Base/Base.h",
+      "sha256": "366a2d5744e023832a1c3df27d402a185e527e3a55d3f4fe8ef2201b632b5438",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OOXML/Base/Types_32.h",
+      "sha256": "994d3aa9256f86b0b6ced7c582c314ac06a0bf6d796836c519127bb1208a3798",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OOXML/Base/unicode_util.h",
+      "sha256": "9573afd3921454176f9844bacdcab36676f3f78d8f0c659693e514776b0844f8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OdfFile/Common/logging.h",
+      "sha256": "cf57a7bdb21e8995e8e08232dcdcfb27585ff6e1d543959fff59fe914f86e240",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeCryptReader/source/CryptTransform.cpp",
+      "sha256": "1ec23a281a3d2f4d2fd52faa66d48dca2c4ccd6e632177e0e26bf23c5c216ff3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeCryptReader/source/CryptTransform.h",
+      "sha256": "fd5de406ccac40adb87869778282956062476560576e4f1e3340a0c95e017ac3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeCryptReader/source/ECMACryptFile.cpp",
+      "sha256": "20947da614622913da81c80d8146b967741398c9e4e4d89291d1090fdb5c835b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeCryptReader/source/ECMACryptFile.h",
+      "sha256": "3d6b92731cc74addccb1438fbc32c56b41095965ff026ec80bf538e6a03da4ff",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OfficeCryptReader/source/simple_xml_writer.h",
+      "sha256": "0809da3cabbedf83d52ee4759f1bd1a41e016a3b08eb0e2e7462385bbd700c5b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "UnicodeConverter/UnicodeConverter.h",
+      "sha256": "9dd1187cca3a5329fee27a089097fdeebfe0a52f68631cd9f5856df656bffeed",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "UnicodeConverter/UnicodeConverter_Encodings.h",
+      "sha256": "1e79888805d455b09cf2efb4a379ed23ec3195ef54b59e2398993b75f8e16d26",
+      "origin": "pinned-upstream"
+    }
+  ],
+  "network_backend": "Windows URLMon/WinINet (upstream default, no support_web_socket)",
+  "crypto_asm_enabled": false,
+  "scope": "Kernel network and full upstream CryptoPPLib profile including OfficeCryptReader wrappers; full x2t not built"
+}

@@ -32,6 +32,8 @@ jobs:
         run: python tools/build_kernel.py verify
       - name: Check x2t prerequisite inputs and separate fixes
         run: python tools/build_x2t_dependencies.py verify
+      - name: Check network and crypto source inputs
+        run: python tools/build_transport.py verify
       - name: Test preservation and tamper detection
         env:
           QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-tests
@@ -53,7 +55,7 @@ jobs:
         run: python tools/build_windows.py save-transaction --work-dir "${{ runner.temp }}/qingliang-native-build"
 
   unicode-dependencies:
-    name: Windows dependencies, kernel and x2t prerequisites
+    name: Windows dependency, kernel, network and crypto builds
     runs-on: windows-latest
     timeout-minutes: 30
     env:
@@ -68,3 +70,5 @@ jobs:
         run: python tools/build_kernel.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"
       - name: Build Boost Regex, DateTime and CompoundFileLib, test Windows OLE interoperability
         run: python tools/build_x2t_dependencies.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"
+      - name: Build kernel network and CryptoPPLib, test loopback HTTP and Windows CNG interoperability
+        run: python tools/build_transport.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"

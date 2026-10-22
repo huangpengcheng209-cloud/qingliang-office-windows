@@ -21,6 +21,8 @@ python tools/prepare_sources.py --target D:\CodexCache\qingliang-community-sourc
 
 ## Windows 编译现状
 
+网络/加密入口是 `tools/build_transport.py build --work-dir D:\CodexCache\qingliang-community-dependencies`，构建 kernel_network、CryptoPPLib 并运行 20 项 HTTP/CNG/Office 数据包装器测试；步骤与图形库前置缺项见 NETWORK-CRYPTO-BUILD.md。
+
 x2t 首组前置库入口为 `tools/build_x2t_dependencies.py build --work-dir D:\CodexCache\qingliang-community-dependencies`，构建 Boost.Regex/DateTime 和 CompoundFileLib，并运行 21 项原生/Windows OLE 检查；详见 X2T-DEPENDENCIES.md。这仍不是 x2t 可执行文件构建入口。
 
 内核阶段入口为 `tools/build_kernel.py build --work-dir D:\CodexCache\qingliang-community-dependencies`：复用固定依赖构建树，编译 47 个上游编译单元，链接新依赖并运行 22 项文件/ZIP/XML 测试。详细输入、独立补丁和边界见 KERNEL-BUILD.md。
