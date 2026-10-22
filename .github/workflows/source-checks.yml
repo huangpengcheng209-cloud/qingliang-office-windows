@@ -42,6 +42,8 @@ jobs:
         run: python tools/build_graphics.py verify
       - name: Check VBA and text format inputs and parser fixes
         run: python tools/build_formats.py verify
+      - name: Check DOCX conversion and HTML support inputs
+        run: python tools/build_docx.py verify
       - name: Test preservation and tamper detection
         env:
           QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-tests
@@ -65,7 +67,7 @@ jobs:
   unicode-dependencies:
     name: Windows dependency, kernel, network, crypto, graphics and format builds
     runs-on: windows-2022
-    timeout-minutes: 30
+    timeout-minutes: 60
     env:
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
@@ -88,3 +90,5 @@ jobs:
         run: python tools/build_graphics.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"
       - name: Build VBA and text format archives, run isolated parser and text IO tests
         run: python tools/build_formats.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"
+      - name: Build DOCX and shared format dependencies, test actual TXT and DOCX files
+        run: python tools/build_docx.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"

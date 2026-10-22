@@ -73,3 +73,6 @@
 - 提供源码版本标签，便于引用、下载和复核；不附带应用安装包。
 
 原应用修改及验收范围见 docs/STATUS.md；后续计划见 docs/ROADMAP.md。
+# TXT/DOCX 转换开发预览（2026-10-22）
+
+新增 `win22-docx-text-preview` 源码阶段：构建 217 个格式支持单元，提供 UTF-8 TXT↔普通 DOCX 命令行转换和 23 项真实文件检查。修复 XML 特殊字符、制表符和表格多余空列，补齐 XLS 包含路径与固定 Gumbo 适配；本机另完成 5 项 python-docx 交叉检查。原冻结 96 文件与五份累计补丁不变。完整 x2t、桌面应用和安装包仍未交付；详见 docs/DOCX-BUILD.md。

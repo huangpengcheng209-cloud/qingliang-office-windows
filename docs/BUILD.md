@@ -44,3 +44,6 @@ x2t 首组前置库入口为 `tools/build_x2t_dependencies.py build --work-dir D
 ## VBA 与文本前置阶段
 
 完整格式静态库及 POLE/Unicode 支持共 13 单元已构建，36 项底层解析和文本读写场景本机通过；源码、补丁、命令及仍未链接的完整格式转换范围见 [FORMAT-BUILD.md](FORMAT-BUILD.md)。
+# TXT/DOCX 后续构建
+
+在已有 VBA/文本及全部前置依赖的同一构建目录继续运行 `python tools/build_docx.py build --work-dir D:\CodexCache\qingliang-community-build`，可构建实际 TXT↔DOCX 命令行预览。完整步骤和输入限制见 [DOCX-BUILD.md](DOCX-BUILD.md)；它尚不是完整 x2t 或桌面应用构建。

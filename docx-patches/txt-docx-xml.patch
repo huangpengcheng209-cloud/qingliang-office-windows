@@ -1,0 +1,36 @@
+--- a/TxtFile/Source/ConvertTxt2Docx.cpp
++++ b/TxtFile/Source/ConvertTxt2Docx.cpp
+@@ -1,4 +1,5 @@
+-﻿/*
++﻿// Modified 2026-10-22: escape UTF-8 text and place tab elements inside runs.
++/*
+  * (c) Copyright Ascensio System SIA 2010-2023
+  *
+  * This program is a free software product. You can redistribute it and/or
+@@ -29,7 +30,8 @@
+  * terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+  *
+  */
+-#include "ConvertTxt2Docx.h"
++#include "ConvertTxt2Docx.h"
++#include "../../OOXML/Base/Unit.h"
+ #include "TxtFormat/File.h"
+ 
+ #include "../../OOXML/DocxFormat/Document.h"
+@@ -191,14 +193,14 @@
+                     stringWriter.WriteString("\" w:cs=\"");
+                     stringWriter.WriteString(fontName);
+                     stringWriter.WriteString("\"/></w:rPr><w:t xml:space=\"preserve\">");
+-                    stringWriter.WriteString(segment.c_str());
++                    stringWriter.WriteString(XmlUtils::EncodeXmlString(segment).c_str());
+                     stringWriter.WriteString("</w:t></w:r>");
+                 }
+ 
+                 if (pos == std::string::npos)
+                     break;
+ 
+-                stringWriter.WriteString("<w:tab/>");
++                stringWriter.WriteString("<w:r><w:tab/></w:r>");
+                 start = pos + 1;
+             }
+ 

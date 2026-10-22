@@ -30,3 +30,4 @@
 2026-10-22 新增内核开发补丁：XML 编码声明接受单/双引号，DOM 在首次读取失败时不再创建节点。原开发者为 Ascensio System SIA，本修改由氢量办公社区项目维护；完整修改文件、原许可和修改日期保留于 kernel-sources/，差异与身份位于 kernel-patches/ 和 kernel.inputs.lock.json。内核还编入上游所附 zlib/libxml2，输入清单保留其许可文件；各自声明继续适用。本阶段未发布新内核二进制或应用安装包。
 
 2026-10-22 云端回归新增 ZIP 文件名修复：OfficeUtils 的目录、单文件及内存写入统一使用 UTF-8 标记，相关读取按标记解码，并保留无标记条目的 OEM 回退。完整修改文件位于 kernel-sources/core/OfficeUtils/src/ZipUtilsCP.cpp，独立补丁与来源身份见 kernel-patches/zip-unicode-names.patch 和内核清单；原许可及修改日期保留。
+2026-10-22 TXT/DOCX 转换阶段：完整修改文件与差异位于 docx-sources/、docx-patches/，固定输入见 docx.inputs.lock.json。XLS 相对包含路径、TXT XML 写入和表格文本转换的原开发者为 Ascensio System SIA，社区修改日期及原声明继续保留；表格修复另继承原冻结修改，未改写 sources/。Gumbo 的 unsigned-char 适配来自固定 ONLYOFFICE 获取脚本，保留 Google 原作者及 Apache 2.0 声明。新增原生适配入口与 Python 包装器适用本项目主程序许可。Gumbo、md4c 的原许可正文分别保留于 licenses/docx/gumbo/、licenses/docx/md4c/；Katana 许可沿用原固定图形归档。各第三方许可独立适用。本阶段仍只发布源码，不发布 DLL、转换器二进制或应用安装包。

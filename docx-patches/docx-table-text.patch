@@ -1,0 +1,34 @@
+--- a/TxtFile/Source/ConvertDocx2Txt.cpp
++++ b/TxtFile/Source/ConvertDocx2Txt.cpp
+@@ -1,4 +1,5 @@
+-﻿/*
++﻿// Modified 2026-10-22: emit one table separator per cell, not per property or paragraph.
++/*
+  * (c) Copyright Ascensio System SIA 2010-2023
+  *
+  * This program is a free software product. You can redistribute it and/or
+@@ -124,6 +125,10 @@
+ 	{
+ 		return converter_->m_outputFile.write(path);
+ 	}
++	bool Converter::writeCodePage(const std::wstring& path, int encoding) const
++	{
++		return converter_->m_outputFile.writeCodePage(path, encoding);
++	}
+ 
+ 	bool Converter::writeUtf8(const std::wstring & path) const
+ 	{
+@@ -271,10 +276,9 @@
+ 				for (size_t j = 0; cell && j < cell->m_arrItems.size(); ++j)
+ 				{
+ 					convert(cell->m_arrItems[j], textOut, false, pDocument, pNumbering, pStyles);
+-					if (textOut.empty()) textOut.push_back(L"");
+-
+-					textOut.back() += L" |";
+-				}
++				}
++				if (textOut.empty()) textOut.push_back(L"");
++				textOut.back() += L" |";
+ 			}break;
+ 			case OOX::et_w_tr:
+ 			{

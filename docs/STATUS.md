@@ -90,6 +90,14 @@
 
 原生程序使用新生成的库和 Windows IStorage 样本，运行底层 VBA 流解析和文本读写，不执行宏。完整 VBA XML、TXT↔DOCX 仍依赖尚未链接的 OOXML/DOCX 支持，本阶段未将静态库生成等同于真实格式转换、完整 x2t、桌面应用或安装器验收。见 FORMAT-BUILD.md。
 
+## TXT 与 DOCX 实际文件转换（2026-10-22）
+
+补齐 DOCX/PPTX/XLSB/XLS、旧 DOC、RTF、HTML 和二进制文档的传递依赖，共构建 217 个编译单元。输入清单包含 6357 个 core 与 1428 个 Boost 文件，另固定 Katana/Gumbo/md4c 归档；未删减格式分支。Python 入口校验离线普通 DOCX 包，原生程序调用 ONLYOFFICE 完整 CTxtXmlFile 路径生成和读取文档。
+
+本机 23 项真实文件测试全部通过，另由 python-docx 1.2.0 / lxml 6.0.2 完成 5 项双向交叉检查。修复 TXT 特殊字符未转义、制表符 XML 位置和表格单元格属性造成的多余分隔符，并公开上游 XLS 包含路径修复和 Gumbo 适配。新表格修改单独继承冻结文件，原 96 文件及五份补丁仍保持原字节。工具测试共 93 项，本机 92 通过、1 项权限跳过；云端结果见 Actions。
+
+这提供受限 TXT↔DOCX 命令行转换；完整 x2t、VBA XML 导出、桌面 GUI 和安装包仍待后续构建或验收。外部关系、加密、UTF-16 XML 和复杂文档功能不在本预览验收范围。具体命令及限制见 DOCX-BUILD.md。
+
 ## 已知不足
 
 - 部分脚注、合并/嵌套表格的内容标记落页仍与完整参考存在差异。

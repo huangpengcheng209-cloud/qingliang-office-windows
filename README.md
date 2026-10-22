@@ -20,7 +20,9 @@ HEIF 阶段增加 x265/libde265/libheif 固定源码构建，以及单独的 YCb
 
 绘图阶段已编译并链接固定 Windows 工程全部 515 个 C/C++ 单元，修复 HEIF 透明度和 SVG 内存加载问题，21 项原生运行检查本机通过。输入、补丁与完整修改文件见 `graphics.inputs.lock.json`、`graphics-patches/`、`graphics-sources/`；[构建说明](docs/GRAPHICS-BUILD.md)记录范围与命令。
 
-VBA/文本前置阶段已生成 4+7 单元静态库及两个 POLE/Unicode 支持单元，36 项底层流解析和文本读写场景本机通过。修复与固定输入见 `format-patches/`、`format-sources/`、`formats.inputs.lock.json`；完整 VBA XML 导出及 TXT↔DOCX 转换仍需 DOCX 格式支持库。
+VBA/文本前置阶段已生成 4+7 单元静态库及两个 POLE/Unicode 支持单元，36 项底层流解析和文本读写场景本机通过。修复与固定输入见 `format-patches/`、`format-sources/`、`formats.inputs.lock.json`；完整 VBA XML 导出仍待验证。
+
+TXT↔DOCX 阶段已补齐并构建 217 个格式支持单元，可通过命令行生成真实 DOCX 和提取正文/表格。23 项实际文件测试及本机 5 项 python-docx 独立交叉检查通过；修复特殊字符、制表符和表格空列问题。命令、输入限制和验证范围见 [DOCX-BUILD.md](docs/DOCX-BUILD.md)。
 
 ## 当前内容
 
@@ -42,6 +44,7 @@ VBA/文本前置阶段已生成 4+7 单元静态库及两个 POLE/Unicode 支持
 | [docs/HEIF-BUILD.md](docs/HEIF-BUILD.md) | x265/libde265/libheif 源码构建、16 项 HEIC 像素/元数据/错误场景与本机独立解码比对 |
 | [docs/GRAPHICS-BUILD.md](docs/GRAPHICS-BUILD.md) | 完整绘图 DLL 源码构建、编译器实际输入审计及 21 项原生渲染检查 |
 | [docs/FORMAT-BUILD.md](docs/FORMAT-BUILD.md) | VBA/文本静态库、36 项隔离解析和文本读写检查及完整转换边界 |
+| [docs/DOCX-BUILD.md](docs/DOCX-BUILD.md) | TXT↔DOCX 命令行预览、217 单元格式依赖和 23 项实际文件检查 |
 | [docs/STATUS.md](docs/STATUS.md) | 已有验收范围与已知问题 |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | 从源码预览到可安装 Beta 的交付顺序 |
 | [CHANGELOG.md](CHANGELOG.md) | 源码版本及固定标签说明 |
