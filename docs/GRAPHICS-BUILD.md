@@ -30,9 +30,11 @@ python tools/build_graphics.py build --work-dir D:\CodexCache\qingliang-communit
 
 ## 21 项原生运行检查
 
-测试实际加载新绘图 DLL，覆盖工厂/BGRA 目标、矩形/描边、透明混合、仿射变换和奇偶填充；PNG 中文/emoji 文件路径与逐像素读回、JPEG 有界误差、BMP、缩放、内存 PNG、坏图片拒绝和格式检测；官方 HEIC 样本导入及自生成 HEIC 的每像素 Alpha；固定 Latin 字体、通过绘图 DLL 的 HarfBuzz RTL 字形与位置桥接并栅格输出阿拉伯文；SVG CSS 样式解析、Windows GDI 生成的 EMF 解析与栅格输出，以及 Hyphen 内存词典和断字。
+测试实际加载新绘图 DLL，覆盖工厂/BGRA 目标、矩形/描边、透明混合、仿射变换和奇偶填充；PNG 中文/emoji 文件路径与逐像素读回、JPEG 有界误差、BMP、缩放、内存 PNG、坏图片拒绝和格式检测；官方 HEIC 样本导入及自生成 HEIC 的每像素 Alpha；固定 Latin 字体、通过绘图 DLL 的 HarfBuzz RTL 字形与位置桥接并栅格输出阿拉伯文；SVG CSS 样式解析、Windows GDI 生成的 EMF 解析、精确蓝色像素及白色背景核对，以及 Hyphen 内存词典和断字。
 
 首轮 13/20，既有接口坐标、颜色及行方向断言不准确，也暴露上述两个实际缺陷；校正接口断言并修复缺陷后，增加桥接/断字覆盖，最终 21/21。失败输出单独保留。人工查看过绘图和文字输出，未据此宣称 Office 文档排版或应用 GUI 验收通过。
+
+检查样本还发现测试调用 EMF 绘制时遗漏 `SetSwapRGB(false)`，未采用产品自身栅格导出的颜色设置，蓝色被写成红色。按原有调用约定配置后，增加蓝色像素及白色背景断言，21 项重新通过；没有为此修改厂商绘图代码。
 
 工作目录内保留 `graphics-build.log`、`graphics-build-report.json`、`graphics-compiler-inputs.json`、`graphics-runtime-imports.json`、`graphics-test-result.json`、原生输出和生成样本。GitHub Actions 在同一 Windows-2022 工作目录顺序构建全部前置库及绘图 DLL，并执行相同 21 项场景。
 

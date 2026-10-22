@@ -129,9 +129,9 @@ static int run(const std::filesystem::path& out,const std::filesystem::path& sou
     auto emf=out/L"vector.emf";RECT bounds={0,0,10000,10000};auto dc=CreateEnhMetaFileW(nullptr,emf.c_str(),&bounds,L"Qingliang\0integration-test\0\0");
     bool emfOk=dc!=nullptr;
     if(dc){RECT box={10,10,90,90};auto brush=CreateSolidBrush(RGB(0,0,255));FillRect(dc,&box,brush);DeleteObject(brush);auto handle=CloseEnhMetaFile(dc);emfOk=handle!=nullptr;if(handle)DeleteEnhMetaFile(handle);}
-    CBgraFrame emfRaster;frame(emfRaster,100,100);auto er=renderer(emfRaster);auto em=MetaFile::Create(fonts);
+    CBgraFrame emfRaster;frame(emfRaster,100,100);auto er=renderer(emfRaster);er->SetSwapRGB(false);auto em=MetaFile::Create(fonts);
     emfOk=emfOk&&em->LoadFromFile(emf.c_str())&&em->DrawOnRenderer(er,0,0,100,100);
-    check("Windows EMF creation parsing and raster",emfOk&&dark(emfRaster,0,100)>100);
+    check("Windows EMF blue pixels and white background",emfOk&&color(emfRaster,10,10,0,0,255)&&color(emfRaster,80,80,255,255,255));
     em->Release();er->Release();emfRaster.SaveFile((out/L"emf.png").wstring(),_CXIMAGE_FORMAT_PNG);fonts->Release();
     NSHyphen::CEngine hyphen;
     const std::string dictionary="UTF-8\nLEFTHYPHENMIN 1\nRIGHTHYPHENMIN 1\na1b\n";
