@@ -1,5 +1,7 @@
 # 社区版下一步
 
+2026-10-22 HEIF 阶段：已构建固定 x265/libde265/libheif，并完成 16 项 HEIC 场景及本机 FFmpeg 独立像素核对；修复解码 YCbCr 时不必要的 RGB 往返。下一段将字体和 HEIF 输入接入完整图形工程，补齐其余实际编译/链接缺项，再推进 x2t。详见 HEIF-BUILD.md。
+
 2026-10-22 字体阶段：已完成 FreeType/zlib、Brotli decoder 和固定适配 HarfBuzz 的 136 单元构建，补齐 `harfbuzz.pri`，32 项原生场景本机通过。下一段处理固定 x265 4.1、libde265 1.0.16、libheif 1.18.2 的来源与构建闭包，再推进完整图形库和 x2t。版本来自固定 build_tools 的 HEIF 配置，尚未据此宣称源码已准备或编译通过；详见 FONT-BUILD.md。
 
 2026-10-22 网络/加密阶段：继续构建 kernel_network 和 CryptoPPLib，完成 20 项本机下载、CNG 比对和 Office ECMA 数据包装器检查。下一段补齐固定 HarfBuzz 源码、下游补丁和工程生成，再处理 HEIF 编解码依赖并推进完整图形库；详见 NETWORK-CRYPTO-BUILD.md。完整 x2t 尚未生成。

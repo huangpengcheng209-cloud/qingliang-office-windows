@@ -1,5 +1,7 @@
 # 来源、修改及许可声明
 
+2026-10-22 HEIF 依赖阶段：固定 x265/libde265/libheif 官方源码，复现 ONLYOFFICE 的 x265 版本读取适配；新增 libheif YCbCr 输出路径修复，避免无损图像经历有损 RGB 往返。原 libheif 作者为 Dirk Farin 等，社区修改日期及原 LGPL 版权/免责声明保留于 heif-sources/ 的完整文件，差异和输入身份见 heif-patches/、heif.inputs.lock.json。x265 及其子组件、libde265 和 libheif 各适用原有许可，正文由固定归档保留，不统一改成主程序许可。样本和新静态库二进制未随本仓库分发。
+
 2026-10-22 字体依赖阶段：按固定 ONLYOFFICE core 的原有脚本复现 HarfBuzz `hb-ft.cc` 字符映射适配，保留原块、版权与许可，独立补丁及完整源码见 font-patches/、font-sources/。原 HarfBuzz 作者及其 Old MIT 许可继续保留；ONLYOFFICE 适配来源和固定身份见 fonts.inputs.lock.json。Brotli、FreeType、zlib 仍各适用原许可。FreeType 原 vendored 目录未包含其引用的许可正文，已从官方 2.10.4 对应提交补齐到 licenses/fonts/freetype/。官方归档中的测试字体未随本仓库发布，也未将字体许可改成主程序许可。本阶段未发布字体库二进制。
 
 2026-10-22 Windows 传输开发补丁：处理已确认零长度 HTTP 响应的目标文件、让未实现上传返回明确失败，并请求不写持久下载缓存。原开发者为 Ascensio System SIA，修改由氢量办公社区维护，完整文件/原许可/修改日期保留于 transport-sources/，差异及身份见 transport-patches/、transport.inputs.lock.json。CryptoPP 厂商源码及自己的 License.txt/Readme.txt 保留在输入清单中；各自许可继续适用。本阶段未发布新二进制。

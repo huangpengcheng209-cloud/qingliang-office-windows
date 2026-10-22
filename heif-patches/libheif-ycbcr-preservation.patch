@@ -1,0 +1,17 @@
+--- a/Common/3dParty/heif/libheif/libheif/context.cc
++++ b/Common/3dParty/heif/libheif/libheif/context.cc
+@@ -1,3 +1,4 @@
++// Modified 2026-10-22 by Qingliang community: preserve decoded YCbCr without a lossy RGB round trip.
+ /*
+  * HEIF codec.
+  * Copyright (c) 2017 Dirk Farin <dirk.farin@gmail.com>
+@@ -1491,7 +1492,8 @@
+     if (alphaImage) {
+       // no color conversion required
+     }
+-    else {
++    else if (!(out_colorspace == heif_colorspace_YCbCr &&
++               img->get_colorspace() == heif_colorspace_YCbCr)) {
+       heif_colorspace target_colorspace = (out_colorspace == heif_colorspace_undefined ?
+                                            img->get_colorspace() :
+                                            out_colorspace);

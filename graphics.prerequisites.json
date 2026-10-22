@@ -1,6 +1,6 @@
 {
   "core_revision": "b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b",
-  "scope": "Historical read-only graphics prerequisite audit, with verified font-stage follow-up; full graphics not built",
+  "scope": "Historical graphics prerequisite audit with verified font and HEIF follow-ups; full graphics not built",
   "project_inputs": [
     {
       "file": "DesktopEditor/graphics/pro/graphics.pro",
@@ -50,11 +50,24 @@
       "libde265",
       "heif"
     ],
-    "source_identity_and_build_closure_completed_here": false,
-    "old_baseline_libraries_reused": false
+    "source_identity_and_build_closure_completed_here": true,
+    "old_baseline_libraries_reused": false,
+    "source_manifest": "heif.inputs.lock.json",
+    "built_here": true,
+    "native_tests": {
+      "passed": 16,
+      "failed": 0
+    },
+    "compile_units": {
+      "x265": 52,
+      "libde265": 61,
+      "libheif": 39
+    },
+    "av1_decoder_available": false,
+    "full_graphics_link_tested": false
   },
   "graphics_features_removed": false,
-  "next_step": "Prepare pinned HEIF codec build closure and source-build x265/libde265/libheif before full graphics compilation",
+  "next_step": "Integrate verified font and HEIF inputs into the full graphics project; resolve remaining compile/link inputs, then build x2t",
   "font_stage": {
     "freetype_compile_units": 51,
     "brotli_compile_units": 10,

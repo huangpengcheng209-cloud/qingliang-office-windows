@@ -21,6 +21,8 @@ python tools/prepare_sources.py --target D:\CodexCache\qingliang-community-sourc
 
 ## Windows 编译现状
 
+HEIF 前置库入口为 `tools/build_heif.py build --work-dir D:\CodexCache\qingliang-community-dependencies`，在同一树构建 x265/libde265/libheif，运行 16 项 HEIC 场景；需要 VS2022 和 CMake >=3.21,<4，详见 HEIF-BUILD.md。字体前置库入口为 `tools/build_fonts.py build`，命令与 32 项场景见 FONT-BUILD.md。完整图形库尚未编译链接。
+
 网络/加密入口是 `tools/build_transport.py build --work-dir D:\CodexCache\qingliang-community-dependencies`，构建 kernel_network、CryptoPPLib 并运行 20 项 HTTP/CNG/Office 数据包装器测试；步骤与图形库前置缺项见 NETWORK-CRYPTO-BUILD.md。
 
 x2t 首组前置库入口为 `tools/build_x2t_dependencies.py build --work-dir D:\CodexCache\qingliang-community-dependencies`，构建 Boost.Regex/DateTime 和 CompoundFileLib，并运行 21 项原生/Windows OLE 检查；详见 X2T-DEPENDENCIES.md。这仍不是 x2t 可执行文件构建入口。

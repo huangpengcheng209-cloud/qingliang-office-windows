@@ -1,0 +1,12 @@
+--- a/Common/3dParty/heif/x265_git/source/cmake/Version.cmake
++++ b/Common/3dParty/heif/x265_git/source/cmake/Version.cmake
+@@ -53,7 +53,8 @@
+     message(STATUS "GIT_EXECUTABLE ${GIT_EXECUTABLE}")
+     if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../.git)
+         set(GIT_ARCHETYPE "0")
+-    elseif(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../x265Version.txt)
++    endif()
++    if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../x265Version.txt)
+         set(GIT_ARCHETYPE "1")
+     endif()
+ endif(GIT_FOUND)

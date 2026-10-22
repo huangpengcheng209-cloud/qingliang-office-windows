@@ -1,5 +1,12 @@
 # 源码版本记录
 
+## win22-heif-preview
+
+- 固定三个官方源码归档、994 个文件，构建 x265/libde265/libheif 共 152 个 C/C++ 单元，沿用上游 Windows HEVC 静态库配置。
+- 单独保留上游 x265 版本读取适配；新增 libheif YCbCr 像素保留修复，避免无损输出经 RGB 往返丢失像素。
+- 16 项本机原生场景通过；另用 FFmpeg 独立解码自生成 HEIC，11520 字节与输入和新库解码结果全部相同。原冻结 96 文件不变。
+- 工具测试共 65 项，本机 64 项通过、1 项因 Windows 符号链接权限跳过。CI 加入同工作树顺序 HEIF 构建；完整图形、x2t、编辑器和安装包尚未生成。
+
 ## win22-font-shaping-preview
 
 - 固定 536 个 core 输入、两个官方归档及 444 个选定归档输入，从源码构建 FreeType/zlib、Brotli decoder、HarfBuzz，共 136 个编译单元。
