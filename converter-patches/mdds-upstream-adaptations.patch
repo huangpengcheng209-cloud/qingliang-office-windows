@@ -1,0 +1,26 @@
+--- a/Common/3dParty/apple/mdds/include/mdds/global.hpp
++++ b/Common/3dParty/apple/mdds/include/mdds/global.hpp
+@@ -1,3 +1,4 @@
++// Adapted 2026-10-23 by Qingliang community: reproduce the pinned ONLYOFFICE Apple import adaptation.
+ /*************************************************************************
+  *
+  * Copyright (c) 2008-2020 Kohei Yoshida
+@@ -78,6 +79,18 @@
+ #endif
+ #endif
+ 
++#if __cplusplus < 201703L
++#ifndef _MSC_VER
++namespace std {
++  template<bool __v>
++  using bool_constant = integral_constant<bool, __v>;
++
++  template <class... _Types>
++  using void_t = void;
++}
++#endif
++#endif
++
+ namespace mdds {
+ 
+ class general_error : public ::std::exception

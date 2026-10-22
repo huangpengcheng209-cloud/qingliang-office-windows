@@ -44,6 +44,8 @@ jobs:
         run: python tools/build_formats.py verify
       - name: Check DOCX conversion and HTML support inputs
         run: python tools/build_docx.py verify
+      - name: Check complete converter, V8, SDKJS and separate fixes
+        run: python tools/build_converter.py verify
       - name: Test preservation and tamper detection
         env:
           QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-tests
@@ -65,9 +67,9 @@ jobs:
         run: python tools/build_windows.py save-transaction --work-dir "${{ runner.temp }}/qingliang-native-build"
 
   unicode-dependencies:
-    name: Windows dependency, kernel, network, crypto, graphics and format builds
+    name: Windows dependencies, formats and complete x2t converter
     runs-on: windows-2022
-    timeout-minutes: 60
+    timeout-minutes: 150
     env:
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
@@ -92,3 +94,34 @@ jobs:
         run: python tools/build_formats.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"
       - name: Build DOCX and shared format dependencies, test actual TXT and DOCX files
         run: python tools/build_docx.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"
+      - name: Prepare independent Office and PDF readers
+        shell: pwsh
+        run: |
+          $validation = Join-Path '${{ runner.temp }}' 'qingliang-validation'
+          python -m venv $validation
+          & (Join-Path $validation 'Scripts/python.exe') -m pip install --disable-pip-version-check -r tests/converter-requirements.txt
+      - name: Build complete converter with source-built V8 and SDK scripts, test Office and PDF files
+        shell: pwsh
+        run: |
+          $validation = Join-Path '${{ runner.temp }}' 'qingliang-validation/Scripts/python.exe'
+          $java21 = Join-Path $env:JAVA_HOME_21_X64 'bin/java.exe'
+          python tools/build_converter.py build --work-dir '${{ runner.temp }}/qingliang-dependency-build' --test-python $validation --java $java21
+      - name: Print converter results
+        if: always()
+        shell: pwsh
+        run: |
+          $build = Join-Path '${{ runner.temp }}' 'qingliang-dependency-build'
+          Get-ChildItem -LiteralPath $build -Filter '*test-result.json' | ForEach-Object { Write-Output $_.Name; Get-Content -LiteralPath $_.FullName }
+          $cases = Join-Path $build 'converter-native-cases.json'
+          if (Test-Path -LiteralPath $cases) { Get-Content -LiteralPath $cases }
+      - name: Preserve converter evidence and failure logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: converter-evidence
+          retention-days: 7
+          if-no-files-found: ignore
+          path: |
+            ${{ runner.temp }}/qingliang-dependency-build/converter-*.json
+            ${{ runner.temp }}/qingliang-dependency-build/converter-*.log
+            ${{ runner.temp }}/qingliang-dependency-build/converter-fixtures/*.png

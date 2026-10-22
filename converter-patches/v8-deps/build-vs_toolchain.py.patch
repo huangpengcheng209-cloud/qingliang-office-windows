@@ -1,0 +1,13 @@
+--- a/Common/3dParty/v8_89/v8/build/vs_toolchain.py
++++ b/Common/3dParty/v8_89/v8/build/vs_toolchain.py
+@@ -410,8 +410,8 @@
+   debug_files = [('dbghelp.dll', False), ('dbgcore.dll', True)]
+   # The UCRT is not a redistributable component on arm64.
+   if target_cpu != 'arm64':
+-    debug_files.extend([('api-ms-win-downlevel-kernel32-l2-1-0.dll', False),
+-                        ('api-ms-win-eventing-provider-l1-1-0.dll', False)])
++    debug_files.extend([('api-ms-win-downlevel-kernel32-l2-1-0.dll', True),
++                        ('api-ms-win-eventing-provider-l1-1-0.dll', True)])
+   for debug_file, is_optional in debug_files:
+     full_path = os.path.join(win_sdk_dir, 'Debuggers', target_cpu, debug_file)
+     if not os.path.exists(full_path):

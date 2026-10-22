@@ -1,0 +1,15 @@
+--- a/Common/3dParty/v8_89/v8/build/toolchain/win/tool_wrapper.py
++++ b/Common/3dParty/v8_89/v8/build/toolchain/win/tool_wrapper.py
+@@ -141,10 +141,11 @@
+     # Read output one line at a time as it shows up to avoid OOM failures when
+     # GBs of output is produced.
+     for line in link.stdout:
++      line = line.decode("mbcs", errors="replace")
+       if (not line.startswith('   Creating library ') and
+           not line.startswith('Generating code') and
+           not line.startswith('Finished generating code')):
+-        print(line)
++        print(line, end="")
+     return link.wait()
+ 
+   def ExecAsmWrapper(self, arch, *args):

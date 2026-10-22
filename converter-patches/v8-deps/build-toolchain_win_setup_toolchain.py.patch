@@ -1,0 +1,11 @@
+--- a/Common/3dParty/v8_89/v8/build/toolchain/win/setup_toolchain.py
++++ b/Common/3dParty/v8_89/v8/build/toolchain/win/setup_toolchain.py
+@@ -173,7 +173,7 @@
+     # Explicitly specifying the SDK version to build with to avoid accidentally
+     # building with a new and untested SDK. This should stay in sync with the
+     # packaged toolchain in build/vs_toolchain.py.
+-    args.append('10.0.19041.0')
++    args.append(os.environ.get('WINDOWSSDKVERSION', '10.0.19041.0').rstrip('\\/'))
+     variables = _LoadEnvFromBat(args)
+   return _ExtractImportantEnvironment(variables)
+ 

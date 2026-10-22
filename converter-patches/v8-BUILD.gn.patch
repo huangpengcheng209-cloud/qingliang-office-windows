@@ -1,0 +1,12 @@
+--- a/Common/3dParty/v8_89/v8/BUILD.gn
++++ b/Common/3dParty/v8_89/v8/BUILD.gn
+@@ -2025,6 +2025,9 @@
+   configs = [ ":internal_config" ]
+ 
+   sources = [ "src/base/platform/wrappers.h" ]
++  if (is_win) {
++    sources += [ "src/base/platform/wrappers.cc" ]
++  }
+ }
+ 
+ # This is split out to share basic headers with Torque.

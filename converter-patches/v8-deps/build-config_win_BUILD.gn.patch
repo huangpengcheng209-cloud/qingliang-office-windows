@@ -1,0 +1,11 @@
+--- a/Common/3dParty/v8_89/v8/build/config/win/BUILD.gn
++++ b/Common/3dParty/v8_89/v8/build/config/win/BUILD.gn
+@@ -486,7 +486,7 @@
+       configs = [ ":dynamic_crt" ]
+     } else {
+       # Desktop Windows: static CRT.
+-      configs = [ ":static_crt" ]
++      configs = [ ":dynamic_crt" ]
+     }
+   }
+ }

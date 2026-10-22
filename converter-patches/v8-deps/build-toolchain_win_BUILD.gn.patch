@@ -1,0 +1,13 @@
+--- a/Common/3dParty/v8_89/v8/build/toolchain/win/BUILD.gn
++++ b/Common/3dParty/v8_89/v8/build/toolchain/win/BUILD.gn
+@@ -91,6 +91,10 @@
+     env = invoker.environment
+ 
+     cl = invoker.cl
++    if (!is_clang) {
++      normalize_msvc = rebase_path("//build/toolchain/win/msvc_output.py", root_build_dir)
++      cl = "$python_path $normalize_msvc --source-sha256=ac5e31db9a8d0ebd8e12b93ae63419044dfd66535d8596d47192b6c6698258d6 " + cl
++    }
+ 
+     if (use_lld) {
+       if (host_os == "win") {

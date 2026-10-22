@@ -1,5 +1,13 @@
 # 源码版本记录
 
+## win22-x2t-preview
+
+- 增加完整 Windows x2t 构建入口、16 个格式/渲染工程的 721 次编译、OpenSSL/V8 源码构建，以及固定 Closure 编译的四套 SDKJS。
+- 独立公开 Apple 导入适配、V8/Chromium 现代 Windows 构建适配、ODS 选区属性及 XLSX 相邻内联文本保留修复；原 96 文件和五份累计补丁不变。
+- 本机 25 项实际文件检查通过，共 38 次转换；以 python-docx、openpyxl、python-pptx、PyMuPDF 独立读取输出，覆盖中文和三类办公文档转 PDF，并检查三个样本页。
+- 审计 MSVC 及 V8 Ninja 实际输入，固定辅助工具、SDKJS 和测试字体来源；CI 在同一 Windows 目录中顺序重建全部依赖和转换器。
+- 本批只发布源码预览；桌面编辑器、GUI、安装器和全部格式路径未完成验收。
+
 ## win22-vba-text-preview
 
 - 固定 561 个 core 输入和 872 个 Boost 输入，生成完整 VbaFormatLib（4 单元）及 TxtXmlFormatLib（7 单元），另编译 POLE/Unicode 两个支持单元。

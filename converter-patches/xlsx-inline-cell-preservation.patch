@@ -1,0 +1,27 @@
+--- a/OOXML/XlsxFormat/Worksheets/SheetData.cpp
++++ b/OOXML/XlsxFormat/Worksheets/SheetData.cpp
+@@ -1,4 +1,5 @@
+-﻿/*
++﻿// Modified 2026-10-23 by Qingliang community: never compress inline text or formulas as empty cells.
++/*
+  * (c) Copyright Ascensio System SIA 2010-2023
+  *
+  * This program is a free software product. You can redistribute it and/or
+@@ -4702,7 +4703,7 @@
+         }
+         bool CRow::compressCell(CCell* pCell)
+         {
+-            if(!pCell->m_oValue.IsInit() && !pCell->m_oFormula.IsInit() && !m_arrItems.empty())
++            if(!pCell->m_oValue.IsInit() && !pCell->m_oFormula.IsInit() && !pCell->m_oRichText.IsInit() && !m_arrItems.empty())
+             {
+                 auto prevCell = m_arrItems.back();
+                 if(!prevCell->m_oRepeated.IsInit())
+@@ -4710,7 +4711,7 @@
+                     prevCell->m_oRepeated = 1;
+                 }
+ 
+-                if(!prevCell->m_oValue.IsInit())
++                if(!prevCell->m_oValue.IsInit() && !prevCell->m_oFormula.IsInit() && !prevCell->m_oRichText.IsInit())
+                 {
+                     if((!prevCell->m_oCol.IsInit()&& !pCell->m_oCol.IsInit())
+                         ||(prevCell->m_oCol.IsInit()&& pCell->m_oCol.IsInit() && (prevCell->m_oCol.get() + prevCell->m_oRepeated.get()) == pCell->m_oCol.get()))

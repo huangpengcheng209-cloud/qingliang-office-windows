@@ -35,7 +35,7 @@ x2t 首组前置库入口为 `tools/build_x2t_dependencies.py build --work-dir D
 
 历史脚本保留原机器路径、环境依赖和打包前提，**不是可直接运行的一键构建入口**。直接执行其中打包脚本可能指向原项目目录；请先阅读并将路径调整到自己的隔离工作目录。源码准备工具也不下载原机器的私有文件或本地基线。
 
-尚缺可从全新 Windows 环境完整执行的依赖准备和构建流程。原应用重建了修改组件，未从源码重建全部 Qt/CEF/V8 及未修改支持库。VLC 历史 x64 补丁、静态库精确版本和选择条件尚待核清。故当前没有完整离线依赖包、干净机器构建保证或安装器下载。
+整套桌面应用仍缺完整的干净环境构建流程。历史应用仅重建了修改组件；后续社区阶段已另行源码构建 V8 和完整转换器，Qt/CEF、桌面宿主及其余依赖仍需对应。VLC 历史 x64 补丁、静态库精确版本和选择条件尚待核清。当前没有完整离线依赖包、桌面应用干净构建保证或安装器下载。
 
 ## 完整绘图 DLL 阶段
 
@@ -47,3 +47,7 @@ x2t 首组前置库入口为 `tools/build_x2t_dependencies.py build --work-dir D
 # TXT/DOCX 后续构建
 
 在已有 VBA/文本及全部前置依赖的同一构建目录继续运行 `python tools/build_docx.py build --work-dir D:\CodexCache\qingliang-community-build`，可构建实际 TXT↔DOCX 命令行预览。完整步骤和输入限制见 [DOCX-BUILD.md](DOCX-BUILD.md)；它尚不是完整 x2t 或桌面应用构建。
+
+## 完整 x2t 后续构建
+
+前序阶段完成后，继续在同一目录运行 `python tools/build_converter.py build --work-dir D:\CodexCache\qingliang-community-build --test-python <独立读取器环境的 python.exe>`。该入口源码构建剩余格式/渲染库、OpenSSL、V8、完整 x2t 和四套 SDKJS，并执行 25 项真实文件检查。Java/Node、固定读取器、来源审计及范围见 [CONVERTER-BUILD.md](CONVERTER-BUILD.md)；桌面程序和安装器仍需后续工作。

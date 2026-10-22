@@ -1,0 +1,16 @@
+--- a/Common/3dParty/apple/glm/glm/detail/func_common.inl
++++ b/Common/3dParty/apple/glm/glm/detail/func_common.inl
+@@ -1,3 +1,4 @@
++// Adapted 2026-10-23 by Qingliang community: reproduce the pinned ONLYOFFICE Apple import adaptation.
+ /// @ref core
+ /// @file glm/detail/func_common.inl
+ 
+@@ -345,7 +346,7 @@
+ 		template<int c>
+ 		GLM_FUNC_QUALIFIER GLM_CONSTEXPR static vec<L, T, Q> call(vec<L, T, Q> const& a)
+ 		{
+-			vec<L, T, Q> v;
++			vec<L, T, Q> v{};
+ 			for (int i = 0; i < L; ++i)
+ 				v[i] = a[c];
+ 			return v;

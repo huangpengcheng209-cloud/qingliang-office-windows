@@ -1,5 +1,7 @@
 # 来源、修改及许可声明
 
+2026-10-23 完整转换器阶段：原 Ascensio System SIA 的 ODS 选区写入和 XLSX 空白压缩代码分别修复为合法 `pane` 属性及文本/公式单元格保留；完整文件、修改日期和原声明位于 converter-sources/core/，补丁位于 converter-patches/。Apple 导入依赖按固定 ONLYOFFICE 脚本复现适配，GLM、MDDS、librevenge、libodfgen、libetonyek 继续适用各自原许可。V8/Chromium 构建适配保留原版权，OpenSSL/V8/ICU、Jinja2/MarkupSafe/zlib 等外部源码的版本和许可输入由 converter.inputs.lock.json 保留，不统一改为主程序许可。构建辅助工具按固定官方地址获取，不随源码发布其二进制。Noto CJK 测试字体沿用 SIL OFL，原许可见 licenses/Noto-CJK-LICENSE.txt；字体仅在构建缓存下载，不安装系统字体。原 96 文件身份保持不变，本阶段未分发 DLL、转换器软件 Release 或桌面安装器。
+
 2026-10-22 VBA/文本前置阶段：新增 VBA 流解压和游标边界修复，以及文本空读行数、大端输出不再改动输入的修复。原软件开发者 Ascensio System SIA，社区修改日期 2026-10-22；原版权及许可保留于 format-sources/ 的三个完整文件，差异和来源身份见 format-patches/、formats.inputs.lock.json。POLE/Unicode 支持使用固定 core 及既有冻结修改，原作者和各自许可继续适用。本阶段未分发新库或测试程序二进制，不执行宏代码。
 
 2026-10-22 绘图阶段：固定 Katana/Hyphen 源码，复现 ONLYOFFICE 的 Katana tokenizer/parser/foundation 适配，保留 MIT 原文与版权；完整修改文件及差异见 graphics-sources/katana/、graphics-patches/。Katana 原许可、Hyphen 的 GPL/LGPL/MPL 选择及其模式文件例外说明保留于 licenses/graphics/，不统一改为主程序许可。新增 HEIF 辅助 Alpha 和 SVG 内存读取修复由氢量办公社区维护，原 Ascensio System SIA 代码身份及原有声明保留，修改日期为 2026-10-22；详见 graphics.inputs.lock.json。原 win.22 冻结 96 文件不变，本阶段未分发新增二进制。

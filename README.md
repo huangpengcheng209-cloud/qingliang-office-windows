@@ -10,7 +10,7 @@
 
 后续内核开发的两份 XML 修复和一份 ZIP 文件名修复见 `kernel-sources/` 和 `kernel-patches/`；`kernel.inputs.lock.json` 锁定 47 个编译单元及 213 个输入，同样独立于冻结基线。
 
-x2t 前置库阶段新增两份复合存储修复，完整文件和差异见 `x2t-sources/`、`x2t-patches/`，输入由 `x2t.inputs.lock.json` 锁定；完整转换器仍在推进。
+x2t 前置库阶段新增两份复合存储修复，完整文件和差异见 `x2t-sources/`、`x2t-patches/`，输入由 `x2t.inputs.lock.json` 锁定；完整转换器的后续结果见下文。
 
 网络/加密阶段另有一份 Windows 传输结果修复，完整文件和差异见 `transport-sources/`、`transport-patches/`，输入由 `transport.inputs.lock.json` 锁定；图形库后续构建状态见 `graphics.prerequisites.json`。
 
@@ -23,6 +23,8 @@ HEIF 阶段增加 x265/libde265/libheif 固定源码构建，以及单独的 YCb
 VBA/文本前置阶段已生成 4+7 单元静态库及两个 POLE/Unicode 支持单元，36 项底层流解析和文本读写场景本机通过。修复与固定输入见 `format-patches/`、`format-sources/`、`formats.inputs.lock.json`；完整 VBA XML 导出仍待验证。
 
 TXT↔DOCX 阶段已补齐并构建 217 个格式支持单元，可通过命令行生成真实 DOCX 和提取正文/表格。23 项实际文件测试及本机 5 项 python-docx 独立交叉检查通过；修复特殊字符、制表符和表格空列问题。命令、输入限制和验证范围见 [DOCX-BUILD.md](docs/DOCX-BUILD.md)。
+
+2026-10-23 已从固定源码构建完整 **x2t 转换器**，补齐 721 次格式/渲染编译、V8、OpenSSL 和四套 SDKJS 脚本。本机 25 项实际文件检查通过，覆盖 TXT↔DOCX、CSV/XLSX、ODT/ODS/ODP 往返及 DOCX/XLSX/PPTX→PDF；使用独立库读取结果。另修复 XLSX 相邻文本单元格丢失和 ODS 选区属性问题。入口与边界见 [CONVERTER-BUILD.md](docs/CONVERTER-BUILD.md)；桌面编辑器及安装器仍待构建。
 
 ## 当前内容
 
@@ -45,6 +47,7 @@ TXT↔DOCX 阶段已补齐并构建 217 个格式支持单元，可通过命令�
 | [docs/GRAPHICS-BUILD.md](docs/GRAPHICS-BUILD.md) | 完整绘图 DLL 源码构建、编译器实际输入审计及 21 项原生渲染检查 |
 | [docs/FORMAT-BUILD.md](docs/FORMAT-BUILD.md) | VBA/文本静态库、36 项隔离解析和文本读写检查及完整转换边界 |
 | [docs/DOCX-BUILD.md](docs/DOCX-BUILD.md) | TXT↔DOCX 命令行预览、217 单元格式依赖和 23 项实际文件检查 |
+| [docs/CONVERTER-BUILD.md](docs/CONVERTER-BUILD.md) | 完整 x2t、V8、SDKJS 源码构建和 25 项真实文件检查 |
 | [docs/STATUS.md](docs/STATUS.md) | 已有验收范围与已知问题 |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | 从源码预览到可安装 Beta 的交付顺序 |
 | [CHANGELOG.md](CHANGELOG.md) | 源码版本及固定标签说明 |
