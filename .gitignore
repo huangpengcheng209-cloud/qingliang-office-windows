@@ -3,6 +3,7 @@ __pycache__/
 /work/
 /upstream/
 /artifacts/
+/deliverables/
 .env
 .env.*
 *.pfx
