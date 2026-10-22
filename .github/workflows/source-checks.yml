@@ -20,7 +20,6 @@ jobs:
     timeout-minutes: 15
     env:
       PYTHONDONTWRITEBYTECODE: '1'
-      QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-tests
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -28,6 +27,8 @@ jobs:
       - name: Check source and patch hashes
         run: python tools/verify_sources.py
       - name: Test preservation and tamper detection
+        env:
+          QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-tests
         run: python -m unittest discover -s tests -v
       - name: Verify patches against pinned public upstream files
         run: python tools/verify_patches.py --cache "${{ runner.temp }}/qingliang-selected-bases"
