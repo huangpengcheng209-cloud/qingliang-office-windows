@@ -32,6 +32,14 @@
 
 构建工具额外有七项路径/工作目录保护及只读审计测试，与此前 13 项测试合计 20 项，本机通过。冻结归档的八项选定引擎输入中有三项缺失：Boost 头文件、ICU 头文件和 UnicodeConverter 导入库。旧机目录中的对应文件存在，未据此将完整构建状态标为通过。
 
+## ICU / UnicodeConverter 依赖链（2026-10-22）
+
+新增 dependencies.lock.json 和 build_dependencies.py，固定 Boost/ICU 官方归档、四个上游源文件及单独 UTF-32 修复补丁。使用一份固定源码/构建目录，从 ICU 74.2 源码构建所需库和工具，以同一发行包的预打包 Unicode 数据生成数据 DLL，随后编译 UnicodeConverter DLL 与导入库；未使用旧 Office 基线 DLL。
+
+首次编码测试 12/14，UTF-32LE/BE 含 emoji 时失败，原日志保留。单独修复两个解码入口容量后，本机 14/14；覆盖 Boost 头文件算法、UTF-8/16/32、GBK、Shift-JIS、Windows-1251/1252 和 SASLprep。构建与审计工具测试共 28 项，本机通过；GitHub 新增独立 Windows 依赖构建作业，实际结果见 Actions。
+
+原冻结归档中的三个缺项，在附加依赖工作目录中已具备相应头文件或源构建导入库；审计区分“原归档包含”与“另行准备”。完整 qmake 工程尚未接入该目录，完整应用构建、GUI、其他支持库和 VLC 源码对应仍未完成。
+
 ## 已知不足
 
 - 部分脚注、合并/嵌套表格的内容标记落页仍与完整参考存在差异。

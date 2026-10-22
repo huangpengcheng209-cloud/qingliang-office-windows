@@ -12,3 +12,5 @@
 保留版权、许可、免责和来源声明，并显著标记修改日期。修改版交互界面须提供清晰可访问的法律声明，说明原开发者、修改版本及许可入口。代码许可不授予上游商标使用权。
 
 原 Windows 应用涉及 Qt、CEF/Chromium、VLC、Boost、ICU、字体、字典和 OCR 等依赖。本次源码仓库未包含对应运行时二进制，也不声称依赖源码已全部闭合。再次分发应用前仍须逐项核对实际所用组件、对应源码和适用条件。
+
+2026-10-22 新增依赖开发补丁：UnicodeConverter 的两个解码入口调整 UTF-16 输出容量，以修复所测 UTF-32 补充平面字符往返失败。原开发者为 Ascensio System SIA，本修改由氢量办公社区项目维护；完整修改文件位于 dependency-sources/，差异与身份位于 dependency-patches/ 和 dependencies.lock.json。该修改遵循原程序适用许可，独立于原 win.22 冻结源码清单。本仓库未分发新构建的 ICU 或 UnicodeConverter 二进制。

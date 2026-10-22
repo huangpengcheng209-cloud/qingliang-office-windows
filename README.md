@@ -6,6 +6,8 @@
 
 本仓库以“固定上游版本 + 累计补丁 + 完整修改文件”的方式提供源码。`sources/` 中可直接浏览本项目修改的 **96 个程序源码文件**；未经修改的上游源码通过 `upstream.lock.json` 锁定到公开 Git 提交。这里没有包含另一条正在开发的自研闭源路线。
 
+后续依赖开发另含一份 UnicodeConverter UTF-32 修复，完整文件见 `dependency-sources/`，身份与补丁见 `dependencies.lock.json`；它不改写上述 win.22 冻结基线。
+
 ## 当前内容
 
 | 路径 | 用途 |
@@ -18,6 +20,7 @@
 | [historical-build/](historical-build/) | 冻结快照中的相关构建脚本，仅作为原环境参考 |
 | [docs/BUILD.md](docs/BUILD.md) | 获取源码、构建边界与依赖说明 |
 | [docs/PORTABLE-BUILD.md](docs/PORTABLE-BUILD.md) | Windows 原生保存组件的独立编译与 14 项运行测试 |
+| [docs/DEPENDENCY-BUILD.md](docs/DEPENDENCY-BUILD.md) | Boost/ICU 固定源码准备、ICU/UnicodeConverter 源码编译和编码测试 |
 | [docs/STATUS.md](docs/STATUS.md) | 已有验收范围与已知问题 |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | 从源码预览到可安装 Beta 的交付顺序 |
 | [CHANGELOG.md](CHANGELOG.md) | 源码版本及固定标签说明 |
@@ -36,7 +39,7 @@ python tools/prepare_sources.py --target D:\CodexCache\qingliang-community-sourc
 
 补丁检查命令仅下载受修改文件对应的固定上游原文，并验证五份补丁的应用结果，无需复制完整上游。最后一条命令下载锁定的九个公开上游版本，并应用五份累计补丁，逐一核对 96 个修改文件的 SHA256。只写入明确指定的工作目录，不安装软件、不编译、不启动办公程序。目标内已有不同来源、不同提交或无法识别的修改时会停止。完整九仓库准备命令尚未在全新联网环境完成端到端验证；检查范围见 `docs/STATUS.md`。
 
-GitHub Actions 在 Windows 和 Linux 上自动执行源码、补丁及保护行为检查；另有 Windows 作业实际编译公开的保存事务组件并运行 14 个原生场景。这不包含完整应用编译或 GUI 验收。最初固定源码版本见 [win22-source-preview](https://github.com/huangpengcheng209-cloud/qingliang-office-windows/tree/win22-source-preview)，新增构建入口见 [可移植构建说明](docs/PORTABLE-BUILD.md)。
+GitHub Actions 在 Windows 和 Linux 上自动执行源码、补丁及保护行为检查；Windows 作业分别编译保存事务组件和 ICU/UnicodeConverter，各运行 14 个原生场景。这不包含完整应用编译或 GUI 验收。最初固定源码版本见 [win22-source-preview](https://github.com/huangpengcheng209-cloud/qingliang-office-windows/tree/win22-source-preview)，构建入口见[保存组件说明](docs/PORTABLE-BUILD.md)与[依赖构建说明](docs/DEPENDENCY-BUILD.md)。
 
 Windows 开发者可先验证不依赖原机 Office 支持库的原生组件：
 

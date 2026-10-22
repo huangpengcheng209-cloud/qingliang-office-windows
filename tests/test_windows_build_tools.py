@@ -65,5 +65,22 @@ class WindowsBuildToolTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             engine_audit(self.root, source_archive=self.root / 'frozen.zip')
 
+    def test_prepared_dependencies_remain_distinct_from_source_inputs(self):
+        source = self.root / 'empty-source'
+        source.mkdir()
+        dependencies = self.root / 'dependency-build'
+        for name in ['sources/boost/boost_1_72_0/boost/version.hpp',
+                     'sources/icu/icu/source/common/unicode/utypes.h', 'bin/UnicodeConverter.lib']:
+            path = dependencies / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b'fixture')
+        report = engine_audit(source, dependency_work_dir=dependencies)
+        self.assertEqual(report['missing_file_inputs'], 5)
+        prepared = [row for row in report['checks'] if row.get('prepared_dependency_available')]
+        self.assertEqual(len(prepared), 3)
+        self.assertTrue(all(not row['source_input_available'] for row in prepared))
+        self.assertFalse(report['full_app_build_ready'])
+        self.assertFalse(report['prepared_dependency_wired_into_full_engine'])
+
 if __name__ == '__main__':
     unittest.main()

@@ -74,6 +74,7 @@ def owned_work_directory(work):
 def execute(command, work, env, log):
     with log.open('ab') as stream:
         stream.write(('\nCOMMAND ' + repr(command) + '\n').encode('utf-8'))
+        stream.flush()
         offset = stream.tell()
         result = subprocess.run(command, cwd=work, env=env, stdout=stream, stderr=stream)
     if result.returncode:
@@ -130,7 +131,7 @@ def build_save_transaction(work, vs_root=None):
         os.close(fd)
         lock.unlink()
 
-def engine_audit(source_root=None, qt_root=None, source_archive=None):
+def engine_audit(source_root=None, qt_root=None, source_archive=None, dependency_work_dir=None):
     if (source_root is None) == (source_archive is None):
         raise ValueError('Select exactly one prepared source root or frozen source archive')
     if source_root is not None:
@@ -140,6 +141,13 @@ def engine_audit(source_root=None, qt_root=None, source_archive=None):
         with zipfile.ZipFile(source_archive) as archive:
             archive_names = set(archive.namelist())
     checks = []
+    prepared_paths = {}
+    if dependency_work_dir is not None:
+        prepared_paths = {
+            'Boost headers': dependency_work_dir / 'sources/boost/boost_1_72_0/boost/version.hpp',
+            'ICU headers': dependency_work_dir / 'sources/icu/icu/source/common/unicode/utypes.h',
+            'UnicodeConverter import library': dependency_work_dir / 'bin/UnicodeConverter.lib',
+        }
     for name, relative, purpose in [
         ('core kernel project', 'core/Common/kernel.pro', 'kernel qmake project'),
         ('desktop shell project', 'desktop-apps/win-linux/ASCDocumentEditor.pro', 'desktop application qmake project'),
@@ -151,7 +159,13 @@ def engine_audit(source_root=None, qt_root=None, source_archive=None):
         ('CEF 150 build selection', 'desktop-sdk/ChromiumBasedEditors/lib/cef_pri_150/cef_sources.pri', 'generated CEF source group'),
     ]:
         available = ('upstream/' + relative in archive_names) if archive_names is not None else (source_root / relative).is_file()
-        checks.append({'name': name, 'available': available, 'relative_path': relative, 'purpose': purpose})
+        item = {'name': name, 'available': available, 'source_input_available': available,
+                'relative_path': relative, 'purpose': purpose}
+        if name in prepared_paths:
+            item['prepared_dependency_available'] = prepared_paths[name].is_file()
+            item['prepared_path'] = str(prepared_paths[name])
+            item['available'] = available or item['prepared_dependency_available']
+        checks.append(item)
     if qt_root:
         checks.append({'name': 'Qt qmake', 'available': (qt_root / 'bin/qmake.exe').is_file(),
                        'relative_path': str(qt_root / 'bin/qmake.exe'), 'purpose': 'Qt 5.15.2 MSVC x64 qmake'})
@@ -162,6 +176,7 @@ def engine_audit(source_root=None, qt_root=None, source_archive=None):
     ]
     return {'scope': 'read-only selected full-engine input audit', 'input_kind': 'archive' if source_archive is not None else 'directory', 'checks': checks,
             'missing_file_inputs': sum(not x['available'] for x in checks), 'remaining_blockers': blockers,
+            'prepared_dependency_wired_into_full_engine': False,
             'full_app_build_ready': False, 'build_performed': False}
 
 def main():
@@ -175,12 +190,13 @@ def main():
     inputs.add_argument('--source-root', type=Path, help='Prepared DesktopEditors source root')
     inputs.add_argument('--source-archive', type=Path, help='Frozen snapshot with upstream/<module>/ archive paths; read without extracting')
     audit.add_argument('--qt-root', type=Path)
+    audit.add_argument('--dependency-work-dir', type=Path, help='Optional prepared dependency workspace; recorded separately from original source contents')
     audit.add_argument('--report', type=Path)
     args = parser.parse_args()
     if args.command == 'save-transaction':
         build_save_transaction(args.work_dir, args.vs_root)
     else:
-        result = engine_audit(args.source_root, args.qt_root, args.source_archive)
+        result = engine_audit(args.source_root, args.qt_root, args.source_archive, args.dependency_work_dir)
         if args.report:
             args.report.parent.mkdir(parents=True, exist_ok=True)
             args.report.write_text(json.dumps(result, indent=2), 'utf-8')

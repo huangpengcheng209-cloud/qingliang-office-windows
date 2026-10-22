@@ -1,0 +1,24 @@
+--- a/UnicodeConverter/UnicodeConverter.cpp
++++ b/UnicodeConverter/UnicodeConverter.cpp
+@@ -221,7 +221,9 @@
+ 					const char* source = sInput;
+ 					const char* sourceLimit = source + nInputLen;
+ 
+-					unsigned int uBufSize = (nInputLen / (uint8_t)ucnv_getMinCharSize(conv));
++					// UTF-32 supplementary characters need two UTF-16 units per scalar.
++					// Input byte count bounds the UTF-16 capacity for these supported converters.
++					unsigned int uBufSize = nInputLen;
+ 
+ 					UChar* targetStart = new UChar[uBufSize * sizeof(UChar)];
+ 					if (targetStart)
+@@ -276,7 +278,9 @@
+ 					const char* source = sInput;
+ 					const char* sourceLimit = source + nInputLen;
+ 
+-					unsigned int uBufSize = (nInputLen / (uint8_t)ucnv_getMinCharSize(conv));
++					// UTF-32 supplementary characters need two UTF-16 units per scalar.
++					// Input byte count bounds the UTF-16 capacity for these supported converters.
++					unsigned int uBufSize = nInputLen;
+ 
+ 					UChar* targetStart = new UChar[uBufSize * sizeof(UChar)];
+ 					if (targetStart)

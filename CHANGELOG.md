@@ -1,5 +1,12 @@
 # 源码版本记录
 
+## win22-unicode-deps-preview
+
+- 固定 Boost 1.72.0、ICU 74.2 官方源码归档及四个上游 UnicodeConverter 文件的来源与 SHA256。
+- 新增独立依赖准备/构建入口，源码构建 ICU 和 UnicodeConverter DLL/导入库，不使用旧 Office 基线 DLL。
+- 原生测试首次 12/14；单独修复 UTF-32 emoji 输出容量后，本机 14/14。补丁与完整修改源码独立保留，原 win.22 的 96 文件清单不变。
+- 工具测试共 28 项；新增 GitHub Windows 全新环境依赖构建作业。完整应用和安装包仍未构建验收。
+
 ## win22-native-save-preview
 
 - 新增显式工作目录、自动 MSVC 定位和并发保护的 Windows 原生构建入口。

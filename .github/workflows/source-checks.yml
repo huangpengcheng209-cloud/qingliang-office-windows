@@ -26,6 +26,8 @@ jobs:
           persist-credentials: false
       - name: Check source and patch hashes
         run: python tools/verify_sources.py
+      - name: Check dependency source and patch lock
+        run: python tools/build_dependencies.py verify
       - name: Test preservation and tamper detection
         env:
           QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-tests
@@ -45,3 +47,16 @@ jobs:
           persist-credentials: false
       - name: Compile published save component and run real file tests
         run: python tools/build_windows.py save-transaction --work-dir "${{ runner.temp }}/qingliang-native-build"
+
+  unicode-dependencies:
+    name: Windows ICU and UnicodeConverter source build
+    runs-on: windows-latest
+    timeout-minutes: 30
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Prepare pinned Boost and ICU, compile ICU and UnicodeConverter, run native tests
+        run: python tools/build_dependencies.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"

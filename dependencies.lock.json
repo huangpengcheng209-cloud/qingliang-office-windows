@@ -1,0 +1,50 @@
+{
+  "boost": {
+    "version": "1.72.0",
+    "archive": "boost_1_72_0.7z",
+    "url": "https://archives.boost.io/release/1.72.0/source/boost_1_72_0.7z",
+    "sha256": "247a91dd7e4d9dd3c4b954b532fbc167ba62dc15ab834e5ad893d7c3f9eb5f0f",
+    "format": "7z",
+    "root": "boost_1_72_0"
+  },
+  "icu": {
+    "version": "74.2",
+    "archive": "icu4c-74_2-src.zip",
+    "url": "https://github.com/unicode-org/icu/releases/download/release-74-2/icu4c-74_2-src.zip",
+    "sha256": "b22e94977a82aac7ebe269ee00bc2d3164bd4495cafcb9e0b2109ab7fac2a37d",
+    "format": "zip",
+    "root": "icu"
+  },
+  "unicode_converter": {
+    "repository": "https://github.com/ONLYOFFICE/core",
+    "revision": "b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b",
+    "files": [
+      {
+        "file": "UnicodeConverter/UnicodeConverter.cpp",
+        "sha256": "cd689fc15ef9c30645c4d88db59a63cc981dfd8906023bb5b290decc819423be"
+      },
+      {
+        "file": "UnicodeConverter/UnicodeConverter.h",
+        "sha256": "9dd1187cca3a5329fee27a089097fdeebfe0a52f68631cd9f5856df656bffeed"
+      },
+      {
+        "file": "UnicodeConverter/UnicodeConverter_Encodings.h",
+        "sha256": "1e79888805d455b09cf2efb4a379ed23ec3195ef54b59e2398993b75f8e16d26"
+      },
+      {
+        "file": "DesktopEditor/common/base_export.h",
+        "sha256": "acd4247950f2e48f16cb8a98c42eae3ac38c6e1952cea83cf591f633d46717f8"
+      }
+    ],
+    "patches": [
+      {
+        "file": "UnicodeConverter/UnicodeConverter.cpp",
+        "base_sha256": "cd689fc15ef9c30645c4d88db59a63cc981dfd8906023bb5b290decc819423be",
+        "result_sha256": "08b88d5ef80f99c21e1a926f28ca3c3f3ae12867272dcc97fa86d6e6e3062e05",
+        "patch": "dependency-patches/unicode-utf32-capacity.patch",
+        "patch_sha256": "67260a6c3ff1672b1bb260ed168245886efa805fb0f22451d468141843a96edc",
+        "modified_source": "dependency-sources/core/UnicodeConverter/UnicodeConverter.cpp"
+      }
+    ]
+  }
+}
