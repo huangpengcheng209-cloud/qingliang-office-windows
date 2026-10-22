@@ -578,5 +578,12 @@
       "sha256": "7c3fdee278ee9c9c87e9abd4fab1bf930d63b498e36d8024973bb191e0b7dbea",
       "base_sha256": "bd7b388399f10e9d926878c65823f65d365a0444fc8a8c60ef14d66ce46fbdcf"
     }
-  ]
+  ],
+  "patch_sha256": {
+    "core": "d5e9b63968ceadbe33ab02d92b4b5e93ad22070fd4553beaa95213cdc38bac3f",
+    "desktop-apps": "086ba993f42727e873ddbea5dbb7a902d3278b71954aa0dcd104e8d140ded9a8",
+    "desktop-sdk": "d964380a08bb7dc57cecee50b2b4d6bf15457f311b4a994f65597ceb40cf28a7",
+    "sdkjs": "5bffcb1b7b04e5c78e5de7c26ccd634356384909e4682113928b1bd5854ccc98",
+    "web-apps": "40f59494f7885d265e776db8d4c22c74cc5c579fc8a4d5adcedb79992cba3eb6"
+  }
 }

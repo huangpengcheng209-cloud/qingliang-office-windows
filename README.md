@@ -1,5 +1,7 @@
 # 氢量办公社区版 · 开发预览
 
+[![源码自动检查](https://github.com/huangpengcheng209-cloud/qingliang-office-windows/actions/workflows/source-checks.yml/badge.svg)](https://github.com/huangpengcheng209-cloud/qingliang-office-windows/actions/workflows/source-checks.yml)
+
 基于 ONLYOFFICE Desktop Editors 9.4.0.129 修改的 Windows 办公项目，当前公开源码基线为 **9.4.0.129-win.22**（修改版日期 2026-10-16；社区仓库整理日期 2026-10-22）。原软件由 **Ascensio System SIA** 开发；本项目是独立维护的修改版，并非 ONLYOFFICE 官方发行，也未获得上游背书。
 
 本仓库以“固定上游版本 + 累计补丁 + 完整修改文件”的方式提供源码。`sources/` 中可直接浏览本项目修改的 **96 个程序源码文件**；未经修改的上游源码通过 `upstream.lock.json` 锁定到公开 Git 提交。这里没有包含另一条正在开发的自研闭源路线。
@@ -16,6 +18,8 @@
 | [historical-build/](historical-build/) | 冻结快照中的相关构建脚本，仅作为原环境参考 |
 | [docs/BUILD.md](docs/BUILD.md) | 获取源码、构建边界与依赖说明 |
 | [docs/STATUS.md](docs/STATUS.md) | 已有验收范围与已知问题 |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | 从源码预览到可安装 Beta 的交付顺序 |
+| [CHANGELOG.md](CHANGELOG.md) | 源码版本及固定标签说明 |
 | [NOTICE.md](NOTICE.md) | 来源、版权、许可证及第三方说明 |
 
 ## 获取及检查源码
@@ -24,10 +28,14 @@
 
 ```powershell
 python tools/verify_sources.py
+python -m unittest discover -s tests -v
+python tools/verify_patches.py --cache D:\CodexCache\qingliang-community-patch-bases
 python tools/prepare_sources.py --target D:\CodexCache\qingliang-community-source
 ```
 
-第二条命令下载锁定的九个公开上游版本，并应用五份累计补丁，逐一核对 96 个修改文件的 SHA256。只写入明确指定的工作目录，不安装软件、不编译、不启动办公程序。目标内已有不同来源、不同提交或无法识别的修改时会停止。该命令尚未在全新联网环境完成端到端验证；本地已验证的内容见 `docs/STATUS.md`。
+补丁检查命令仅下载受修改文件对应的固定上游原文，并验证五份补丁的应用结果，无需复制完整上游。最后一条命令下载锁定的九个公开上游版本，并应用五份累计补丁，逐一核对 96 个修改文件的 SHA256。只写入明确指定的工作目录，不安装软件、不编译、不启动办公程序。目标内已有不同来源、不同提交或无法识别的修改时会停止。完整九仓库准备命令尚未在全新联网环境完成端到端验证；检查范围见 `docs/STATUS.md`。
+
+GitHub Actions 在 Windows 和 Linux 上自动执行源码、补丁及保护行为检查；这是源码检查，不包含应用编译或 GUI 验收。固定源码版本入口见 [win22-source-preview](https://github.com/huangpengcheng209-cloud/qingliang-office-windows/tree/win22-source-preview)。
 
 ## 版本范围
 

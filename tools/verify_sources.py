@@ -15,9 +15,9 @@ def safe_relative(value):
         raise ValueError(f'Unsafe relative path: {value}')
     return path
 
-def verify():
-    lock = json.loads((ROOT / 'upstream.lock.json').read_text('utf-8'))
-    manifest = json.loads((ROOT / 'source-manifest.json').read_text('utf-8'))
+def verify(root=ROOT):
+    lock = json.loads((root / 'upstream.lock.json').read_text('utf-8'))
+    manifest = json.loads((root / 'source-manifest.json').read_text('utf-8'))
     indexed = {x['repository']: x for x in lock}
     if len(indexed) != len(lock):
         raise ValueError('Duplicate upstream repository')
@@ -35,22 +35,28 @@ def verify():
             raise ValueError('Unknown module or duplicate source')
         safe_relative(name)
         seen.add((module, name))
-        if sha(ROOT / 'sources' / module / name) != row['sha256']:
+        if sha(root / 'sources' / module / name) != row['sha256']:
             raise ValueError(f'Source hash mismatch: {module}/{name}')
         groups.setdefault(module, set()).add(name)
-    actual = {(p.relative_to(ROOT / 'sources').parts[0], '/'.join(p.relative_to(ROOT / 'sources').parts[1:]))
-              for p in (ROOT / 'sources').rglob('*') if p.is_file()}
+    actual = {(p.relative_to(root / 'sources').parts[0], '/'.join(p.relative_to(root / 'sources').parts[1:]))
+              for p in (root / 'sources').rglob('*') if p.is_file()}
     if actual != seen:
         raise ValueError('Unlisted source files')
+    patch_hashes = manifest['patch_sha256']
+    if set(patch_hashes) != set(groups):
+        raise ValueError('Patch hash module mismatch')
     for module, expected in groups.items():
-        data = (ROOT / 'patches' / (module + '.patch')).read_text('utf-8')
+        patch = root / 'patches' / (module + '.patch')
+        if sha(patch) != patch_hashes[module]:
+            raise ValueError(f'Patch hash mismatch: {module}')
+        data = patch.read_text('utf-8')
         paths = set(re.findall(r'^diff --git a/(.+) b/\1$', data, re.M))
         if paths != expected:
             raise ValueError(f'Patch/source path mismatch: {module}')
-    for row in json.loads((ROOT / 'historical-build/manifest.json').read_text('utf-8')):
+    for row in json.loads((root / 'historical-build/manifest.json').read_text('utf-8')):
         name = row['archive_path'].removeprefix('windows-build/')
         safe_relative(name)
-        if sha(ROOT / 'historical-build' / name) != row['sha256']:
+        if sha(root / 'historical-build' / name) != row['sha256']:
             raise ValueError(f'Historical input hash mismatch: {name}')
     return lock, manifest, groups
 

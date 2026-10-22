@@ -10,10 +10,14 @@
 
 ```powershell
 python tools/verify_sources.py
+python -m unittest discover -s tests -v
+python tools/verify_patches.py --cache D:\CodexCache\qingliang-community-patch-bases
 python tools/prepare_sources.py --target D:\CodexCache\qingliang-community-source
 ```
 
 目标目录必须由调用者明确选择。工具不会覆盖提交不同或包含未知修改的既有仓库；补丁已经应用且修改文件哈希一致时可重复运行。上游 Git 子模块的已知 dirty 状态不会被当作程序文件修改。不同于一次完整构建，这只准备锁定源码和本项目修改。
+
+`verify_patches.py` 仅下载 96 个修改文件中已有上游原文的部分，核对原文哈希，在专属缓存工作目录应用五份累计补丁，再核对最终 96 个文件哈希。新文件没有上游原文，直接由补丁创建。它不下载完整九仓库、嵌套依赖或二进制支持库。CI 在 Windows/Linux 上运行上述源码检查及保护行为测试，不运行最后一条完整准备命令，不编译应用。
 
 ## Windows 编译现状
 
