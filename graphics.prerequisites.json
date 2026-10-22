@@ -1,6 +1,6 @@
 {
   "core_revision": "b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b",
-  "scope": "Historical graphics prerequisite audit with verified font and HEIF follow-ups; full graphics not built",
+  "scope": "Complete pinned Windows graphics C/C++ build and native rendering checks",
   "project_inputs": [
     {
       "file": "DesktopEditor/graphics/pro/graphics.pro",
@@ -27,13 +27,8 @@
       "sha256": "0456cfeeb0591a5e45958016ccebf02dc2f3a685d90c42e6be1634409c5d455f"
     }
   ],
-  "full_graphics_built": false,
+  "full_graphics_built": true,
   "qmake_profile": "Windows x64 Release, vs2019, VisualStudioVersion=17.0",
-  "qmake_preprocessing_return_code": 0,
-  "preprocessing_incomplete": true,
-  "diagnostic": "Cannot read Common/3dParty/harfbuzz/harfbuzz.pri",
-  "observed_compile_entries_before_missing_generated_inputs": 434,
-  "compile_entry_count_is_complete": false,
   "harfbuzz": {
     "url": "https://github.com/harfbuzz/harfbuzz",
     "revision": "894a1f72ee93a1fd8dc1d9218cb3fd8f048be29a",
@@ -64,10 +59,10 @@
       "libheif": 39
     },
     "av1_decoder_available": false,
-    "full_graphics_link_tested": false
+    "full_graphics_link_tested": true
   },
   "graphics_features_removed": false,
-  "next_step": "Integrate verified font and HEIF inputs into the full graphics project; resolve remaining compile/link inputs, then build x2t",
+  "next_step": "Complete remaining format-library inputs, build x2t and verify real document conversion; then desktop application and installer",
   "font_stage": {
     "freetype_compile_units": 51,
     "brotli_compile_units": 10,
@@ -77,7 +72,26 @@
       "failed": 0
     },
     "generated_project_source": "font-sources/core/Common/3dParty/harfbuzz/harfbuzz.pri",
-    "full_graphics_link_tested": false,
+    "full_graphics_link_tested": true,
     "woff2_font_tested": false
+  },
+  "source_manifest": "graphics.inputs.lock.json",
+  "compile_units": 515,
+  "source_inputs": 1853,
+  "boost_inputs": 260,
+  "support_archive_inputs": 231,
+  "native_tests": {
+    "passed": 21,
+    "failed": 0
+  },
+  "compiler_locked_header_reads_local": 1438,
+  "qt_runtime_used": false,
+  "old_baseline_libraries_reused": false,
+  "historical_initial_preprocessing": {
+    "qmake_preprocessing_return_code": 0,
+    "preprocessing_incomplete": true,
+    "diagnostic": "Cannot read Common/3dParty/harfbuzz/harfbuzz.pri",
+    "observed_compile_entries_before_missing_generated_inputs": 434,
+    "compile_entry_count_is_complete": false
   }
 }

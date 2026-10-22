@@ -1,0 +1,34 @@
+--- a/DesktopEditor/raster/heif/heif.cpp
++++ b/DesktopEditor/raster/heif/heif.cpp
+@@ -1,3 +1,4 @@
++// Modified 2026-10-22 by Qingliang community: preserve decoded HEIF alpha.
+ #include "heif.h"
+ #include "../../common/File.h"
+ 
+@@ -120,6 +121,11 @@
+ 		int width = heif_image_get_primary_width(img);
+ 		int height = heif_image_get_primary_height(img);
+ 
++		int stride_A = 0;
++		const BYTE* source_A = heif_image_get_plane_readonly(img, heif_channel_Alpha, &stride_A);
++		if (heif_image_handle_has_alpha_channel(handle) && (!source_A || stride_A < width))
++			return false;
++
+ 		int stride_R, stride_G, stride_B;
+ 		const BYTE* source_R = heif_image_get_plane_readonly(img, heif_channel_R, &stride_R);
+ 		const BYTE* source_G = heif_image_get_plane_readonly(img, heif_channel_G, &stride_G);
+@@ -140,12 +146,13 @@
+ 			const BYTE* row_R = source_R + i * stride_R;
+ 			const BYTE* row_G = source_G + i * stride_G;
+ 			const BYTE* row_B = source_B + i * stride_B;
++			const BYTE* row_A = source_A ? source_A + i * stride_A : nullptr;
+ 			for (size_t j = 0; j < width; ++j)
+ 			{
+ 				data[(i * width + j) * 4 + (isRGBA ? 0 : 2)] = row_R[j];
+ 				data[(i * width + j) * 4 + 1] = row_G[j];
+ 				data[(i * width + j) * 4 + (isRGBA ? 2 : 0)] = row_B[j];
+-				data[(i * width + j) * 4 + 3] = 255;
++				data[(i * width + j) * 4 + 3] = row_A ? row_A[j] : 255;
+ 			}
+ 		}
+ 

@@ -1,5 +1,7 @@
 # 来源、修改及许可声明
 
+2026-10-22 绘图阶段：固定 Katana/Hyphen 源码，复现 ONLYOFFICE 的 Katana tokenizer/parser/foundation 适配，保留 MIT 原文与版权；完整修改文件及差异见 graphics-sources/katana/、graphics-patches/。Katana 原许可、Hyphen 的 GPL/LGPL/MPL 选择及其模式文件例外说明保留于 licenses/graphics/，不统一改为主程序许可。新增 HEIF 辅助 Alpha 和 SVG 内存读取修复由氢量办公社区维护，原 Ascensio System SIA 代码身份及原有声明保留，修改日期为 2026-10-22；详见 graphics.inputs.lock.json。原 win.22 冻结 96 文件不变，本阶段未分发新增二进制。
+
 2026-10-22 HEIF 依赖阶段：固定 x265/libde265/libheif 官方源码，复现 ONLYOFFICE 的 x265 版本读取适配；新增 libheif YCbCr 输出路径修复，避免无损图像经历有损 RGB 往返。原 libheif 作者为 Dirk Farin 等，社区修改日期及原 LGPL 版权/免责声明保留于 heif-sources/ 的完整文件，差异和输入身份见 heif-patches/、heif.inputs.lock.json。x265 及其子组件、libde265 和 libheif 各适用原有许可，正文由固定归档保留，不统一改成主程序许可。样本和新静态库二进制未随本仓库分发。
 
 2026-10-22 字体依赖阶段：按固定 ONLYOFFICE core 的原有脚本复现 HarfBuzz `hb-ft.cc` 字符映射适配，保留原块、版权与许可，独立补丁及完整源码见 font-patches/、font-sources/。原 HarfBuzz 作者及其 Old MIT 许可继续保留；ONLYOFFICE 适配来源和固定身份见 fonts.inputs.lock.json。Brotli、FreeType、zlib 仍各适用原许可。FreeType 原 vendored 目录未包含其引用的许可正文，已从官方 2.10.4 对应提交补齐到 licenses/fonts/freetype/。官方归档中的测试字体未随本仓库发布，也未将字体许可改成主程序许可。本阶段未发布字体库二进制。

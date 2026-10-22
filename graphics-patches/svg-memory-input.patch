@@ -1,0 +1,55 @@
+--- a/DesktopEditor/raster/Metafile/svg/CSvgFile.cpp
++++ b/DesktopEditor/raster/Metafile/svg/CSvgFile.cpp
+@@ -1,3 +1,4 @@
++// Modified 2026-10-22 by Qingliang community: implement bounded SVG memory loading.
+ #include "CSvgFile.h"
+ 
+ #include "SvgObjects/CContainer.h"
+@@ -20,7 +21,8 @@
+ bool CSvgFile::ReadFromBuffer(BYTE *pBuffer, unsigned int unSize)
+ {
+ 	Clear();
+-	return false;
++	SVG::CSvgParser oSvgParser(m_pFontManager);
++	return oSvgParser.LoadFromBuffer(pBuffer, unSize, m_pContainer, this);
+ }
+ 
+ bool CSvgFile::ReadFromWString(const std::wstring &wsContext)
+--- a/DesktopEditor/raster/Metafile/svg/CSvgParser.h
++++ b/DesktopEditor/raster/Metafile/svg/CSvgParser.h
+@@ -1,3 +1,4 @@
++// Modified 2026-10-22 by Qingliang community: expose the internal SVG byte-buffer parser.
+ #ifndef CSVGPARSER_H
+ #define CSVGPARSER_H
+ 
+@@ -19,6 +20,7 @@
+ 
+ 		void SetFontManager(NSFonts::IFontManager* pFontManager);
+ 
++		bool LoadFromBuffer(const BYTE* pBuffer, unsigned int unSize, CGraphicsContainer*& pContainer, CSvgFile* pFile) const;
+ 		bool LoadFromFile(const std::wstring& wsFile, CGraphicsContainer*& pContainer, CSvgFile* pFile) const;
+ 		bool LoadFromString(const std::wstring& wsContent, CGraphicsContainer*& pContainer, CSvgFile* pFile) const;
+ 
+--- a/DesktopEditor/raster/Metafile/svg/CSvgParser.cpp
++++ b/DesktopEditor/raster/Metafile/svg/CSvgParser.cpp
+@@ -1,3 +1,4 @@
++// Modified 2026-10-22 by Qingliang community: share SVG file and memory encoding handling.
+ #include "CSvgParser.h"
+ 
+ #include <algorithm>
+@@ -82,6 +83,15 @@
+ 		std::string sXml;
+ 		if (!NSFile::CFileBinary::ReadAllTextUtf8A(wsFile, sXml))
+ 			return false;
++
++		return LoadFromBuffer(reinterpret_cast<const BYTE*>(sXml.data()), static_cast<unsigned int>(sXml.size()), pContainer, pFile);
++	}
++
++	bool CSvgParser::LoadFromBuffer(const BYTE* pBuffer, unsigned int unSize, CGraphicsContainer*& pContainer, CSvgFile* pFile) const
++	{
++		if (NULL == pBuffer || 0 == unSize || NULL == pFile)
++			return false;
++		std::string sXml(reinterpret_cast<const char*>(pBuffer), unSize);
+ 
+ 		size_t unFoundBegin = sXml.find("<svg");
+ 

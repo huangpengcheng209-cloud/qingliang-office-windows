@@ -12,11 +12,13 @@
 
 x2t 前置库阶段新增两份复合存储修复，完整文件和差异见 `x2t-sources/`、`x2t-patches/`，输入由 `x2t.inputs.lock.json` 锁定；完整转换器仍在推进。
 
-网络/加密阶段另有一份 Windows 传输结果修复，完整文件和差异见 `transport-sources/`、`transport-patches/`，输入由 `transport.inputs.lock.json` 锁定；图形库缺项见 `graphics.prerequisites.json`。
+网络/加密阶段另有一份 Windows 传输结果修复，完整文件和差异见 `transport-sources/`、`transport-patches/`，输入由 `transport.inputs.lock.json` 锁定；图形库后续构建状态见 `graphics.prerequisites.json`。
 
 字体阶段公开了 HarfBuzz 的固定 ONLYOFFICE 适配和生成工程输入，见 `font-sources/`、`font-patches/`、`fonts.inputs.lock.json`；FreeType、Brotli 和 HarfBuzz 的构建与验证见下表。
 
 HEIF 阶段增加 x265/libde265/libheif 固定源码构建，以及单独的 YCbCr 像素保留修复；输入与完整修改文件见 `heif.inputs.lock.json`、`heif-patches/`、`heif-sources/`。
+
+绘图阶段已编译并链接固定 Windows 工程全部 515 个 C/C++ 单元，修复 HEIF 透明度和 SVG 内存加载问题，21 项原生运行检查本机通过。输入、补丁与完整修改文件见 `graphics.inputs.lock.json`、`graphics-patches/`、`graphics-sources/`；[构建说明](docs/GRAPHICS-BUILD.md)记录范围与命令。
 
 ## 当前内容
 
@@ -36,6 +38,7 @@ HEIF 阶段增加 x265/libde265/libheif 固定源码构建，以及单独的 YCb
 | [docs/NETWORK-CRYPTO-BUILD.md](docs/NETWORK-CRYPTO-BUILD.md) | 网络/CryptoPPLib 源码构建、20 项本机 HTTP/Windows CNG 运行测试和图形库缺项 |
 | [docs/FONT-BUILD.md](docs/FONT-BUILD.md) | FreeType/Brotli/HarfBuzz 源码构建、上游字形/位置预期比对和 32 项运行测试 |
 | [docs/HEIF-BUILD.md](docs/HEIF-BUILD.md) | x265/libde265/libheif 源码构建、16 项 HEIC 像素/元数据/错误场景与本机独立解码比对 |
+| [docs/GRAPHICS-BUILD.md](docs/GRAPHICS-BUILD.md) | 完整绘图 DLL 源码构建、编译器实际输入审计及 21 项原生渲染检查 |
 | [docs/STATUS.md](docs/STATUS.md) | 已有验收范围与已知问题 |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | 从源码预览到可安装 Beta 的交付顺序 |
 | [CHANGELOG.md](CHANGELOG.md) | 源码版本及固定标签说明 |
@@ -54,7 +57,7 @@ python tools/prepare_sources.py --target D:\CodexCache\qingliang-community-sourc
 
 补丁检查命令仅下载受修改文件对应的固定上游原文，并验证五份补丁的应用结果，无需复制完整上游。最后一条命令下载锁定的九个公开上游版本，并应用五份累计补丁，逐一核对 96 个修改文件的 SHA256。只写入明确指定的工作目录，不安装软件、不编译、不启动办公程序。目标内已有不同来源、不同提交或无法识别的修改时会停止。完整九仓库准备命令尚未在全新联网环境完成端到端验证；检查范围见 `docs/STATUS.md`。
 
-GitHub Actions 在 Windows 和 Linux 上自动执行源码、补丁及保护行为检查；Windows 作业编译保存事务组件和 ICU/UnicodeConverter，各运行 14 个原生场景，并继续编译内核、执行 22 个联合场景，再构建 x2t 首组前置库、运行 21 个场景，以及网络/加密库的 20 个场景、字体库的 32 个场景和 HEIF 库的 16 个场景。这不包含完整应用编译或 GUI 验收。最初固定源码版本见 [win22-source-preview](https://github.com/huangpengcheng209-cloud/qingliang-office-windows/tree/win22-source-preview)，构建入口见[保存组件说明](docs/PORTABLE-BUILD.md)、[依赖构建说明](docs/DEPENDENCY-BUILD.md)与[内核构建说明](docs/KERNEL-BUILD.md)。
+GitHub Actions 在 Windows 和 Linux 上自动执行源码、补丁及保护行为检查；Windows 作业编译保存事务组件和 ICU/UnicodeConverter，各运行 14 个原生场景，并继续编译内核、执行 22 个联合场景，再构建 x2t 首组前置库、运行 21 个场景，以及网络/加密库的 20 个场景、字体库的 32 个场景、HEIF 库的 16 个场景和绘图 DLL 的 21 个场景。这不包含完整应用编译或 GUI 验收。最初固定源码版本见 [win22-source-preview](https://github.com/huangpengcheng209-cloud/qingliang-office-windows/tree/win22-source-preview)，构建入口见[保存组件说明](docs/PORTABLE-BUILD.md)、[依赖构建说明](docs/DEPENDENCY-BUILD.md)与[内核构建说明](docs/KERNEL-BUILD.md)。
 
 Windows 开发者可先验证不依赖原机 Office 支持库的原生组件：
 
