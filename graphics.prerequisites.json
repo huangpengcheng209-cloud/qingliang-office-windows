@@ -1,6 +1,6 @@
 {
   "core_revision": "b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b",
-  "scope": "Read-only graphics prerequisite audit; not a complete source closure or build",
+  "scope": "Historical read-only graphics prerequisite audit, with verified font-stage follow-up; full graphics not built",
   "project_inputs": [
     {
       "file": "DesktopEditor/graphics/pro/graphics.pro",
@@ -39,8 +39,10 @@
     "revision": "894a1f72ee93a1fd8dc1d9218cb3fd8f048be29a",
     "upstream_setup_script": "Common/3dParty/harfbuzz/make.py",
     "required_core_patch": "Common/3dParty/harfbuzz/patch/hb-ft.cc.patch",
-    "generated_pri_prepared": false,
-    "built_here": false
+    "generated_pri_prepared": true,
+    "built_here": true,
+    "source_manifest": "fonts.inputs.lock.json",
+    "compile_units": 75
   },
   "heif": {
     "required_libraries": [
@@ -52,5 +54,17 @@
     "old_baseline_libraries_reused": false
   },
   "graphics_features_removed": false,
-  "next_step": "Prepare pinned HarfBuzz sources and downstream patch/project generation, then HEIF codec build closure before full graphics compilation"
+  "next_step": "Prepare pinned HEIF codec build closure and source-build x265/libde265/libheif before full graphics compilation",
+  "font_stage": {
+    "freetype_compile_units": 51,
+    "brotli_compile_units": 10,
+    "harfbuzz_compile_units": 75,
+    "native_tests": {
+      "passed": 32,
+      "failed": 0
+    },
+    "generated_project_source": "font-sources/core/Common/3dParty/harfbuzz/harfbuzz.pri",
+    "full_graphics_link_tested": false,
+    "woff2_font_tested": false
+  }
 }

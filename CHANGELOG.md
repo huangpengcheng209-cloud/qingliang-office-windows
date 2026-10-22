@@ -1,5 +1,12 @@
 # 源码版本记录
 
+## win22-font-shaping-preview
+
+- 固定 536 个 core 输入、两个官方归档及 444 个选定归档输入，从源码构建 FreeType/zlib、Brotli decoder、HarfBuzz，共 136 个编译单元。
+- 将固定 ONLYOFFICE 的 HarfBuzz 字符映射适配转换为独立可审计补丁，提供完整修改文件和稳定生成的 75 单元 qmake 输入；保留原冻结 96 文件身份。
+- 32 项本机原生测试通过，包括 20 个固定上游字形/位置预期和 12 个字体、桥接、栅格及 Brotli 场景。首轮阿拉伯文断言过窄，改用上下文字形替换和 RTL 簇顺序核对，没有因此修改厂商库算法。
+- 工具检查共 58 项，本机 57 项通过、1 项因 Windows 符号链接权限跳过；CI 在同一 VS2022 工作树中顺序构建字体依赖。HEIF、完整图形库、x2t 和安装包仍未构建。
+
 ## win22-network-crypto-preview
 
 - 固定 427 个输入，从源码构建 Windows kernel_network（4 单元）和完整上游 CryptoPPLib 工程（181 个去重单元）。

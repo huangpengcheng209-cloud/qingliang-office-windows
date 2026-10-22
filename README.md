@@ -14,6 +14,8 @@ x2t 前置库阶段新增两份复合存储修复，完整文件和差异见 `x2
 
 网络/加密阶段另有一份 Windows 传输结果修复，完整文件和差异见 `transport-sources/`、`transport-patches/`，输入由 `transport.inputs.lock.json` 锁定；图形库缺项见 `graphics.prerequisites.json`。
 
+字体阶段公开了 HarfBuzz 的固定 ONLYOFFICE 适配和生成工程输入，见 `font-sources/`、`font-patches/`、`fonts.inputs.lock.json`；FreeType、Brotli 和 HarfBuzz 的构建与验证见下表。
+
 ## 当前内容
 
 | 路径 | 用途 |
@@ -30,6 +32,7 @@ x2t 前置库阶段新增两份复合存储修复，完整文件和差异见 `x2
 | [docs/KERNEL-BUILD.md](docs/KERNEL-BUILD.md) | 内核源码构建与新依赖链接、22 项文件/ZIP/XML 运行测试 |
 | [docs/X2T-DEPENDENCIES.md](docs/X2T-DEPENDENCIES.md) | Boost.Regex/DateTime、CompoundFileLib 构建及 21 项运行/Windows OLE 互操作测试 |
 | [docs/NETWORK-CRYPTO-BUILD.md](docs/NETWORK-CRYPTO-BUILD.md) | 网络/CryptoPPLib 源码构建、20 项本机 HTTP/Windows CNG 运行测试和图形库缺项 |
+| [docs/FONT-BUILD.md](docs/FONT-BUILD.md) | FreeType/Brotli/HarfBuzz 源码构建、上游字形/位置预期比对和 32 项运行测试 |
 | [docs/STATUS.md](docs/STATUS.md) | 已有验收范围与已知问题 |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | 从源码预览到可安装 Beta 的交付顺序 |
 | [CHANGELOG.md](CHANGELOG.md) | 源码版本及固定标签说明 |
@@ -48,7 +51,7 @@ python tools/prepare_sources.py --target D:\CodexCache\qingliang-community-sourc
 
 补丁检查命令仅下载受修改文件对应的固定上游原文，并验证五份补丁的应用结果，无需复制完整上游。最后一条命令下载锁定的九个公开上游版本，并应用五份累计补丁，逐一核对 96 个修改文件的 SHA256。只写入明确指定的工作目录，不安装软件、不编译、不启动办公程序。目标内已有不同来源、不同提交或无法识别的修改时会停止。完整九仓库准备命令尚未在全新联网环境完成端到端验证；检查范围见 `docs/STATUS.md`。
 
-GitHub Actions 在 Windows 和 Linux 上自动执行源码、补丁及保护行为检查；Windows 作业编译保存事务组件和 ICU/UnicodeConverter，各运行 14 个原生场景，并继续编译内核、执行 22 个联合场景，再构建 x2t 首组前置库、运行 21 个场景，以及网络/加密库的 20 个场景。这不包含完整应用编译或 GUI 验收。最初固定源码版本见 [win22-source-preview](https://github.com/huangpengcheng209-cloud/qingliang-office-windows/tree/win22-source-preview)，构建入口见[保存组件说明](docs/PORTABLE-BUILD.md)、[依赖构建说明](docs/DEPENDENCY-BUILD.md)与[内核构建说明](docs/KERNEL-BUILD.md)。
+GitHub Actions 在 Windows 和 Linux 上自动执行源码、补丁及保护行为检查；Windows 作业编译保存事务组件和 ICU/UnicodeConverter，各运行 14 个原生场景，并继续编译内核、执行 22 个联合场景，再构建 x2t 首组前置库、运行 21 个场景，以及网络/加密库的 20 个场景和字体库的 32 个场景。这不包含完整应用编译或 GUI 验收。最初固定源码版本见 [win22-source-preview](https://github.com/huangpengcheng209-cloud/qingliang-office-windows/tree/win22-source-preview)，构建入口见[保存组件说明](docs/PORTABLE-BUILD.md)、[依赖构建说明](docs/DEPENDENCY-BUILD.md)与[内核构建说明](docs/KERNEL-BUILD.md)。
 
 Windows 开发者可先验证不依赖原机 Office 支持库的原生组件：
 

@@ -1,5 +1,7 @@
 # 来源、修改及许可声明
 
+2026-10-22 字体依赖阶段：按固定 ONLYOFFICE core 的原有脚本复现 HarfBuzz `hb-ft.cc` 字符映射适配，保留原块、版权与许可，独立补丁及完整源码见 font-patches/、font-sources/。原 HarfBuzz 作者及其 Old MIT 许可继续保留；ONLYOFFICE 适配来源和固定身份见 fonts.inputs.lock.json。Brotli、FreeType、zlib 仍各适用原许可。FreeType 原 vendored 目录未包含其引用的许可正文，已从官方 2.10.4 对应提交补齐到 licenses/fonts/freetype/。官方归档中的测试字体未随本仓库发布，也未将字体许可改成主程序许可。本阶段未发布字体库二进制。
+
 2026-10-22 Windows 传输开发补丁：处理已确认零长度 HTTP 响应的目标文件、让未实现上传返回明确失败，并请求不写持久下载缓存。原开发者为 Ascensio System SIA，修改由氢量办公社区维护，完整文件/原许可/修改日期保留于 transport-sources/，差异及身份见 transport-patches/、transport.inputs.lock.json。CryptoPP 厂商源码及自己的 License.txt/Readme.txt 保留在输入清单中；各自许可继续适用。本阶段未发布新二进制。
 
 2026-10-22 x2t 前置库开发补丁：CompoundFileLib 修复读取缓冲区长度、跨扇区目标偏移和提交扇区遍历数量。原开发者为 Ascensio System SIA，修改由氢量办公社区维护；完整文件、修改日期和原声明保留于 x2t-sources/，差异和身份见 x2t-patches/、x2t.inputs.lock.json，遵循原适用许可。Boost 原始源码及许可由固定官方归档提供。本阶段未发布新增静态库或测试程序二进制。

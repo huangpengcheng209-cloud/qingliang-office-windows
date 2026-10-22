@@ -34,6 +34,8 @@ jobs:
         run: python tools/build_x2t_dependencies.py verify
       - name: Check network and crypto source inputs
         run: python tools/build_transport.py verify
+      - name: Check font archives, adaptation and generated project inputs
+        run: python tools/build_fonts.py verify
       - name: Test preservation and tamper detection
         env:
           QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-tests
@@ -55,7 +57,7 @@ jobs:
         run: python tools/build_windows.py save-transaction --work-dir "${{ runner.temp }}/qingliang-native-build"
 
   unicode-dependencies:
-    name: Windows dependency, kernel, network and crypto builds
+    name: Windows dependency, kernel, network, crypto and font builds
     runs-on: windows-2022
     timeout-minutes: 30
     env:
@@ -72,3 +74,5 @@ jobs:
         run: python tools/build_x2t_dependencies.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"
       - name: Build kernel network and CryptoPPLib, test loopback HTTP and Windows CNG interoperability
         run: python tools/build_transport.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"
+      - name: Build FreeType, Brotli and patched HarfBuzz, compare pinned upstream shaping goldens
+        run: python tools/build_fonts.py build --work-dir "${{ runner.temp }}/qingliang-dependency-build"

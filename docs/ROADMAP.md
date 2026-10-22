@@ -1,5 +1,7 @@
 # 社区版下一步
 
+2026-10-22 字体阶段：已完成 FreeType/zlib、Brotli decoder 和固定适配 HarfBuzz 的 136 单元构建，补齐 `harfbuzz.pri`，32 项原生场景本机通过。下一段处理固定 x265 4.1、libde265 1.0.16、libheif 1.18.2 的来源与构建闭包，再推进完整图形库和 x2t。版本来自固定 build_tools 的 HEIF 配置，尚未据此宣称源码已准备或编译通过；详见 FONT-BUILD.md。
+
 2026-10-22 网络/加密阶段：继续构建 kernel_network 和 CryptoPPLib，完成 20 项本机下载、CNG 比对和 Office ECMA 数据包装器检查。下一段补齐固定 HarfBuzz 源码、下游补丁和工程生成，再处理 HEIF 编解码依赖并推进完整图形库；详见 NETWORK-CRYPTO-BUILD.md。完整 x2t 尚未生成。
 
 2026-10-22 x2t 首组前置库：新增 Boost.Regex/DateTime 和 CompoundFileLib 源码构建，21 项运行及 Windows OLE 互操作检查本机通过。后续继续补齐图形、网络、格式解析/渲染库并接入完整转换器；本批尚未生成 x2t。见 X2T-DEPENDENCIES.md。
