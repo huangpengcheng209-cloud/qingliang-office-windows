@@ -32,3 +32,16 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Verify patches against pinned public upstream files
         run: python tools/verify_patches.py --cache "${{ runner.temp }}/qingliang-selected-bases"
+
+  native-save:
+    name: Windows native save component
+    runs-on: windows-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Compile published save component and run real file tests
+        run: python tools/build_windows.py save-transaction --work-dir "${{ runner.temp }}/qingliang-native-build"
