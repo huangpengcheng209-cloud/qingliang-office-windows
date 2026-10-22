@@ -1,5 +1,7 @@
 # 来源、修改及许可声明
 
+2026-10-22 x2t 前置库开发补丁：CompoundFileLib 修复读取缓冲区长度、跨扇区目标偏移和提交扇区遍历数量。原开发者为 Ascensio System SIA，修改由氢量办公社区维护；完整文件、修改日期和原声明保留于 x2t-sources/，差异和身份见 x2t-patches/、x2t.inputs.lock.json，遵循原适用许可。Boost 原始源码及许可由固定官方归档提供。本阶段未发布新增静态库或测试程序二进制。
+
 原软件：ONLYOFFICE Desktop Editors，开发者 Ascensio System SIA。
 本项目：氢量办公 Windows 修改版 9.4.0.129-win.22，修改版日期 2026-10-16，社区源码整理日期 2026-10-22。仓库维护者 GitHub 账号为 huangpengcheng209-cloud。
 

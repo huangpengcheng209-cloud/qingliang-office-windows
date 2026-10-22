@@ -1,0 +1,415 @@
+{
+  "repository": "https://github.com/ONLYOFFICE/core",
+  "revision": "b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b",
+  "scope": "x2t direct prerequisites: CompoundFileLib and Boost.Regex/DateTime; not a complete converter build",
+  "sources": [
+    "Common/cfcpp/RBTree/rbtree.cpp",
+    "Common/cfcpp/Stream/fstream_utils.cpp",
+    "Common/cfcpp/Stream/stream_utils.cpp",
+    "Common/cfcpp/cfitem.cpp",
+    "Common/cfcpp/cfstorage.cpp",
+    "Common/cfcpp/cfstream.cpp",
+    "Common/cfcpp/compoundfile.cpp",
+    "Common/cfcpp/directoryentry.cpp",
+    "Common/cfcpp/header.cpp",
+    "Common/cfcpp/sector.cpp",
+    "Common/cfcpp/sectorcollection.cpp",
+    "Common/cfcpp/streamrw.cpp",
+    "Common/cfcpp/streamview.cpp"
+  ],
+  "files": [
+    {
+      "file": "Common/3dParty/boost/boost.pri",
+      "sha256": "32a7684163defc424b8509e198267e47b28273f3283d170c2d88170aacefb67a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/base.pri",
+      "sha256": "f1f2e61d665847180ce3441ca5f6578ef54679f352ea45fad6a4ef0ed8e8b0ab",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/RBTree/action.h",
+      "sha256": "126822b7ea6f5f59a9c3a218a6a64810c978b0dcf6e9b4efa7e62fa324ece2c2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/RBTree/irbnode.h",
+      "sha256": "18cadb7caf4f0c003c5d2a3263823ad4bd414b875463c3056e74c08711846310",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/RBTree/rbtree.cpp",
+      "sha256": "435aa82aae0b66ab3f74b7ed9e04287885eb5e0c9f201db5096fcf637300f4b8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/RBTree/rbtree.h",
+      "sha256": "c3255c69c6cfda29b6ed5270a7f2308f0831a5f70ed9d55bd54721794f8cc32d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/RBTree/rbtreeexception.h",
+      "sha256": "075583fa21b378075222e8536e3f67586f4c0285e16a4ed2ab34a50f92016bfc",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/Stream/fstream_utils.cpp",
+      "sha256": "6bc13fe1f271fc80c4f660a70eb01c5cf81d81c811411aabd0c5ddbe8fae885e",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/Stream/fstream_utils.h",
+      "sha256": "252d5c864f0f238343be132951b1f7ea92dd774cd1806a7f020f9b2d40bbd646",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/Stream/fstream_wrapper.h",
+      "sha256": "1411ff8002d07e335a5d913170632a960d7b60581381c20eea98d7ba31c5b29b",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/Stream/stream.h",
+      "sha256": "74f1e07411d0dd7e30c736065390f4cdaf709318a1f9902c193f22b2f9436d46",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/Stream/stream_utils.cpp",
+      "sha256": "102a4d33e579fa6ed4d017f9f8382f9a808de77c350ef025c6cd22170a36247d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/Stream/stream_utils.h",
+      "sha256": "d9b19f37aacdcb75ed373a76ebc0abc59d2da6b43a6b60f201750402301373d1",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/cfcpp.pro",
+      "sha256": "3e2aca6df85003c33de2688f12f64fb8a9f7dd6e76040fd72fea1dd898ac098f",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/cfexception.h",
+      "sha256": "40525da94d8380a09e0b6865d6ba1757494a6285de3dbaa5d7d19d5924aed9d9",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/cfitem.cpp",
+      "sha256": "f8e67097e3ebf3991a85c126cd359ae51c6395f8fbbc967ec68116079a672f2a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/cfitem.h",
+      "sha256": "cd8d19299927eb1b74aa18169c95ac8ea2ef2c6b062a057974684bd31ee7f18a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/cfstorage.cpp",
+      "sha256": "d12aae3b9a7a96d8fa481e531ac557ed1c501d2f87aba3e9348e8a204b428555",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/cfstorage.h",
+      "sha256": "3b7a02cdf889b20516e4a97b3acb6955e224d7b08ef361c3a850662787684a8a",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/cfstream.cpp",
+      "sha256": "f5adfaf940075ec8a0f3f41e776b908bf9dc66b66721223c811a12f8d7981516",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/cfstream.h",
+      "sha256": "d8b0224680896c0237b6790dcc3138f0420eb050a7e41f25da6b25da78206090",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/compoundfile.cpp",
+      "sha256": "536ac60b65128fd633852878623083967fce72118d49b1564e093b9df1d278c2",
+      "origin": "community-overlay",
+      "base_sha256": "b80d4f6f95a395caedd04f05d196404e72658a5da8552710045243e282872212",
+      "patch": "x2t-patches/compound-read-buffer.patch",
+      "modified_source": "x2t-sources/core/Common/cfcpp/compoundfile.cpp",
+      "patch_sha256": "652537088106a48aed8923aa9aa7d2d2f95fe6f0ee6efbf6d9a698cbc101b7d2"
+    },
+    {
+      "file": "Common/cfcpp/compoundfile.h",
+      "sha256": "1b564fca0553b1f950b7c471f391c8b8bcdf48211ebd4fb058fcb2cd835714b4",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/compoundfile_impl.h",
+      "sha256": "eb57f7b2b0ca86a5f109c19ab4b6a4cbcf11d3d6e12c111fa17f6b1d8b1cc709",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/directoryentry.cpp",
+      "sha256": "b3c73037d2a1e525617cc3a2dc17cb361ed9be3468bc161787b65ef0061223b3",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/directoryentry.h",
+      "sha256": "6484ae0a9c4bae8d034ba1baf9a57fba0efb9fffef62ba6c7b5c1ad8957a207d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/event.h",
+      "sha256": "90f46983cfffa0c67361bc93a36bb70f7f0eb4eed639caec4af60e86741ba4c2",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/guid.h",
+      "sha256": "868ecd728030cfd2596c895c504a5d77fb2a1d073abefd625bebf1c0045c8123",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/header.cpp",
+      "sha256": "058188c95913a6bc1a9457e49b35302b70525e9fe97d8b8c215dd25edd2a0984",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/header.h",
+      "sha256": "ae462471736d050f77ce6992b491530d79167c2649655c1cbe8e2a5ed1af5cac",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/idirectoryentry.h",
+      "sha256": "09c714ce96d9960177b0a7ee7bcce9790496884c1e8fd383673f13dcfb4c1a07",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/sector.cpp",
+      "sha256": "583e84958cf0a157326c1941c60e911bff0118c5326280a87dfe724495c15b26",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/sector.h",
+      "sha256": "53f3b57216f31ee4bc72ef82563999f5585edb61c9dcc3a77ec886a550ee5edf",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/sectorcollection.cpp",
+      "sha256": "6b70729a5a4e264604457efb3096b3682c69a81a559b081a9b003e93d936c97d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/sectorcollection.h",
+      "sha256": "5b9346bac9138ebff06b7b2250a0af3bd86e5a041f70199abcbfe9adc76ca49d",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/slist.h",
+      "sha256": "0973a66c59d40ea76171e8948ff11867c2a3ce91cd40f97d1dc82e65bb83d08c",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/streamrw.cpp",
+      "sha256": "926622785bdc6fcba15e58a3da7fbdf8ca40b8e8e212d9b584073b345e316306",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/streamrw.h",
+      "sha256": "8d2df1816bf162b9664de3c1b0a0a3edb4292cd6d316c45228d134e6cf932975",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/streamview.cpp",
+      "sha256": "9969a3dfe8603b7ce719eaa10e187d498cd11aa8953086d9cbec6775bc5802c1",
+      "origin": "community-overlay",
+      "base_sha256": "9d3fa60e4edadb6a616a4150f597016b82fc441dbac29253e0b69d1e6e32e03e",
+      "patch": "x2t-patches/compound-read-offset.patch",
+      "modified_source": "x2t-sources/core/Common/cfcpp/streamview.cpp",
+      "patch_sha256": "aca3ae1bbc3a14bc9c763187d75737c94170cb37b35a9941163d78e8d5d8bd6d"
+    },
+    {
+      "file": "Common/cfcpp/streamview.h",
+      "sha256": "08d4eae72dee0b639c4cf2686668148ff9d190badfcd1982051759f5240487be",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/cfcpp/svector.h",
+      "sha256": "4046cf88485d741d3a037a9de8933068cbdeca3df696428c2f4bcbf881a6f8aa",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "Common/kernel_config.h",
+      "sha256": "3c302c650aceb006c5adbe7a577ca3e744b3380c788c6cecca6049c1125ade82",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/Base64.h",
+      "sha256": "488e4c786e60d9b9d286239caa4c8dd25e3c7700560cb84f2489dc914b08ba49",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/File.h",
+      "sha256": "3a88bf55cd542286fb1ff6ed32a8618cfa8c4b0f371c2326c35b73949a43acb7",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/Types.h",
+      "sha256": "a1814edd3453e0119f00a69ea935fbd09c6c1514c71464bf1754cdf40579f813",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "DesktopEditor/common/base_export.h",
+      "sha256": "acd4247950f2e48f16cb8a98c42eae3ac38c6e1952cea83cf591f633d46717f8",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "LICENSE.txt",
+      "sha256": "57c8ff33c9c0cfc3ef00e650a1cc910d7ee479a8bc509f6c9209a7c2a11399d6",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "OOXML/Base/Types_32.h",
+      "sha256": "994d3aa9256f86b0b6ced7c582c314ac06a0bf6d796836c519127bb1208a3798",
+      "origin": "pinned-upstream"
+    },
+    {
+      "file": "X2tConverter/build/Qt/X2tConverter.pri",
+      "sha256": "38938ce803a82b9de1918b7670bff7ef427a47c7a2252ad739c8ca78e32c595d",
+      "origin": "pinned-upstream"
+    }
+  ],
+  "boost": {
+    "version": "1.72.0",
+    "regex_sources": [
+      "libs/regex/src/c_regex_traits.cpp",
+      "libs/regex/src/cpp_regex_traits.cpp",
+      "libs/regex/src/cregex.cpp",
+      "libs/regex/src/fileiter.cpp",
+      "libs/regex/src/icu.cpp",
+      "libs/regex/src/instances.cpp",
+      "libs/regex/src/posix_api.cpp",
+      "libs/regex/src/regex.cpp",
+      "libs/regex/src/regex_debug.cpp",
+      "libs/regex/src/regex_raw_buffer.cpp",
+      "libs/regex/src/regex_traits_defaults.cpp",
+      "libs/regex/src/static_mutex.cpp",
+      "libs/regex/src/w32_regex_traits.cpp",
+      "libs/regex/src/wc_regex_traits.cpp",
+      "libs/regex/src/wide_posix_api.cpp",
+      "libs/regex/src/winstances.cpp",
+      "libs/regex/src/usinstances.cpp"
+    ],
+    "date_time_sources": [
+      "libs/date_time/src/gregorian/greg_month.cpp",
+      "libs/date_time/src/gregorian/greg_weekday.cpp",
+      "libs/date_time/src/gregorian/date_generators.cpp"
+    ],
+    "files": [
+      {
+        "file": "libs/regex/src/c_regex_traits.cpp",
+        "sha256": "301d4717413524ab4edd713b7aef9bab5cf336db9a10a74b04a37248a4b38e9a"
+      },
+      {
+        "file": "libs/regex/src/cpp_regex_traits.cpp",
+        "sha256": "1d9b4254f7e4141e35ae7a735334a2e5c4bb03f7a6b52798ad04a5e418aa510a"
+      },
+      {
+        "file": "libs/regex/src/cregex.cpp",
+        "sha256": "b6f1c9b12ab16b21f922c102d1331b7d0239d46c5e54abab9bfdadcc76e3f09e"
+      },
+      {
+        "file": "libs/regex/src/fileiter.cpp",
+        "sha256": "b5ae43c3df6bc550c20cd502bc703cd2e3ff55c32557616e207a4b68fa147894"
+      },
+      {
+        "file": "libs/regex/src/icu.cpp",
+        "sha256": "e2fb0b7deda3f949caddc51e87f0e92a1ef2cb2e657faf58dc5f21ae244e7db0"
+      },
+      {
+        "file": "libs/regex/src/instances.cpp",
+        "sha256": "44e69a60e7643db548f2c7c1fdae2807d2b8409f206cd1fe80620ae6b42d5371"
+      },
+      {
+        "file": "libs/regex/src/posix_api.cpp",
+        "sha256": "f1c14a77a28ae71e9fc505eb639fa8e89f947657434c061e1ee4d451672fb2bd"
+      },
+      {
+        "file": "libs/regex/src/regex.cpp",
+        "sha256": "dac6a3d27d1d4cc5c6c4aba373a6d06088457f243c13938cb1e67cb753e3f43b"
+      },
+      {
+        "file": "libs/regex/src/regex_debug.cpp",
+        "sha256": "6d6aab5e67262b7f490b8867494807d6b900970bcbb3ab18238efc5fa1a60fb9"
+      },
+      {
+        "file": "libs/regex/src/regex_raw_buffer.cpp",
+        "sha256": "08c0f37f1ab7dd030afeeb99950fca4cbee1a2b22fb91b75b1962245279f1d2b"
+      },
+      {
+        "file": "libs/regex/src/regex_traits_defaults.cpp",
+        "sha256": "c25ae38a7a657d53675396a6788ead6041063f7617d07e0df2172c125d5d80e1"
+      },
+      {
+        "file": "libs/regex/src/static_mutex.cpp",
+        "sha256": "2b4df9c4f2a199029abfb13a6268895751254865fe7f39ed6ba023d11baadb1c"
+      },
+      {
+        "file": "libs/regex/src/w32_regex_traits.cpp",
+        "sha256": "67d9fd37fb31dbfcae5f0b143bc6e27e778f31e9d9c6122e9ae16df005c596e2"
+      },
+      {
+        "file": "libs/regex/src/wc_regex_traits.cpp",
+        "sha256": "5928f3c462fbb1eb3cf8cf9038a08a44909bd42079cbaca0ee2e22e3d9a4c982"
+      },
+      {
+        "file": "libs/regex/src/wide_posix_api.cpp",
+        "sha256": "10deb427079d9e6b82a90db9bc9f9080688f6c883641cc1087371350ceeeb5df"
+      },
+      {
+        "file": "libs/regex/src/winstances.cpp",
+        "sha256": "9b47ac0e3a57e0cd1c97e0f0d31ae1551b59a69b0ad046c1867e7b7ed7f59004"
+      },
+      {
+        "file": "libs/regex/src/usinstances.cpp",
+        "sha256": "3474f72c83badfd1f3f50cc6318a7b0bdedea9506bef54be2027c9504a172db7"
+      },
+      {
+        "file": "libs/date_time/src/gregorian/greg_month.cpp",
+        "sha256": "e56755d7ebe2ab4230a47d84d243f0c80e2f3d45550159f287ead45fb86920dd"
+      },
+      {
+        "file": "libs/date_time/src/gregorian/greg_weekday.cpp",
+        "sha256": "cc20ecea5cd8cd46015e23b3c7cf72703a1ad5db7fce496387f1bd01c4f61c7b"
+      },
+      {
+        "file": "libs/date_time/src/gregorian/date_generators.cpp",
+        "sha256": "c95b3c0714fd5883fb5b798f4e2caa1b8cb810a09fb9933cb3cd003b0a2313bc"
+      },
+      {
+        "file": "libs/regex/build/Jamfile.v2",
+        "sha256": "596914705d63905e1392432e81d4486bebcc86955a6ad4abdcfd63e350315e31"
+      },
+      {
+        "file": "libs/date_time/build/Jamfile.v2",
+        "sha256": "060ff4190dda06d36495dd0865e2f2ec255440c68febefe9494ae8fae497d67c"
+      },
+      {
+        "file": "LICENSE_1_0.txt",
+        "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+      },
+      {
+        "file": "boost/version.hpp",
+        "sha256": "301cf84cf1a25516e333c2c26b57267d7aa95b4276086b4842c6ed50bbb47c0e"
+      }
+    ],
+    "icu_regex_enabled": false,
+    "date_time_defines": [
+      "DATE_TIME_INLINE"
+    ]
+  },
+  "defines": [
+    "WIN32",
+    "_WIN32",
+    "_WIN64",
+    "UNICODE",
+    "_UNICODE",
+    "NOMINMAX",
+    "KERNEL_USE_DYNAMIC_LIBRARY",
+    "_CRT_SECURE_NO_WARNINGS",
+    "BOOST_ALL_NO_LIB"
+  ]
+}

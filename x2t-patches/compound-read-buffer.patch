@@ -1,0 +1,37 @@
+diff --git a/Common/cfcpp/compoundfile.cpp b/Common/cfcpp/compoundfile.cpp
+--- a/Common/cfcpp/compoundfile.cpp
++++ b/Common/cfcpp/compoundfile.cpp
+@@ -29,6 +29,7 @@
+  * terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+  *
+  */
++// Modified by Qingliang community, 2026-10-22: correct compound stream read buffer and commit sector count.
+ #include "compoundfile_impl.h"
+ #include "directoryentry.h"
+ #include "cfexception.h"
+@@ -208,7 +209,7 @@
+     bool gap = true;
+ 
+ 
+-    for (_INT32 i = 0; i < (int)sectors.largeArraySlices.size(); i++)
++    for (_INT32 i = 0; i < sectors.Count(); i++)
+     {
+         std::shared_ptr<Sector> sector = sectors[i];
+ 
+@@ -1628,14 +1629,14 @@
+                             zeroQueue,
+                             sourceStream);
+ 
+-        result.reserve(de.lock()->getSize());
++        result.resize(static_cast<size_t>(de.lock()->getSize()));
+         miniView.read(reinterpret_cast<char*>(result.data()), result.size());
+     }
+     else
+     {
+         StreamView sView(GetSectorChain(de.lock()->getStartSetc(), SectorType::Normal), GetSectorSize(), de.lock()->getSize(), zeroQueue, sourceStream);
+ 
+-        result.reserve((int)de.lock()->getSize());
++        result.resize(static_cast<size_t>(de.lock()->getSize()));
+ 
+         sView.read(reinterpret_cast<char*>(result.data()), result.size());
+ 

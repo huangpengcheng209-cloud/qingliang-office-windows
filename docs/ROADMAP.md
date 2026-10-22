@@ -1,5 +1,7 @@
 # 社区版下一步
 
+2026-10-22 x2t 首组前置库：新增 Boost.Regex/DateTime 和 CompoundFileLib 源码构建，21 项运行及 Windows OLE 互操作检查本机通过。后续继续补齐图形、网络、格式解析/渲染库并接入完整转换器；本批尚未生成 x2t。见 X2T-DEPENDENCIES.md。
+
 本路线针对公开的 win.22 修改版，另一条独立实现路线不在此仓库内。
 
 | 顺序 | 交付 | 验收条件 |

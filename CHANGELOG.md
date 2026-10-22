@@ -1,5 +1,12 @@
 # 源码版本记录
 
+## win22-x2t-prerequisites-preview
+
+- 源码构建 Boost.Regex（17 单元）、Boost.DateTime（3 单元）和 CompoundFileLib（13 单元），固定 49 个 core 输入及 Boost 源码/工程身份。
+- 两份单独补丁修复复合流读取长度、跨扇区复制偏移和提交遗漏扇区的问题，保留原冻结版本身份。
+- 本机 21 项原生场景通过，包含 Windows IStorage/IStream 双向互操作；样本不是实际 Office 文档。
+- 工具测试共 42 项，本机 41 项通过、1 项因符号链接权限跳过；CI 加入顺序前置库构建，尚无完整 x2t 或应用安装包。
+
 ## win22-kernel-preview
 
 - 按上游 Windows 内核工程固定 47 个编译单元和 213 个输入，直接使用 MSVC 编译，并链接新构建的 UnicodeConverter/ICU。

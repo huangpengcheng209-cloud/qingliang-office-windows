@@ -1,0 +1,29 @@
+diff --git a/Common/cfcpp/streamview.cpp b/Common/cfcpp/streamview.cpp
+--- a/Common/cfcpp/streamview.cpp
++++ b/Common/cfcpp/streamview.cpp
+@@ -29,6 +29,7 @@
+  * terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+  *
+  */
++// Modified by Qingliang community, 2026-10-22: correct compound stream read buffer/offset.
+ #include "streamview.h"
+ #include "cfexception.h"
+ #include <cmath>
+@@ -157,7 +158,7 @@
+         {
+             nToRead = sectorSize;
+             char* src = reinterpret_cast<char*>(sectorChain[sectorIndex]->GetData().data());
+-            char* dst = buffer + offset + nToRead;
++            char* dst = buffer + offset + nRead;
+             std::copy(src, src + nToRead, dst);
+ 
+             nRead += nToRead;
+@@ -168,7 +169,7 @@
+ 
+         if (nToRead != 0)
+         {
+-            if (sectorIndex > (int)sectorChain.size()) throw CFCorruptedFileException("The file is probably corrupted.");
++            if (sectorIndex >= (int)sectorChain.size()) throw CFCorruptedFileException("The file is probably corrupted.");
+             char* src = reinterpret_cast<char*>(sectorChain[sectorIndex]->GetData().data());
+             char* dst = buffer + offset + nRead;
+             std::copy(src, src + nToRead, dst);
