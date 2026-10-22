@@ -1,0 +1,1165 @@
+diff --git a/Common/3dParty/pole/pole.cpp b/Common/3dParty/pole/pole.cpp
+index fbbd2a4b..d710722a 100644
+--- a/Common/3dParty/pole/pole.cpp
++++ b/Common/3dParty/pole/pole.cpp
+@@ -1282,21 +1282,21 @@ void DirTree::debug()
+   {
+     DirEntry* e = entry( i );
+     if( !e ) continue;
+-    std::cout << i << ": ";
+-	if( !e->valid ) std::cout << L"INVALID ";
++    std::wcout << i << L": ";
++	if( !e->valid ) std::wcout << L"INVALID ";
+     std::wcout << e->name << L" ";
+-    if( e->dir ) std::cout << L"(Dir) ";
+-    else std::cout << L"(File) ";
+-    std::cout << e->size << L" ";
+-	std::cout << L"s:" << e->start << L" ";
+-    std::cout << L"(";
+-    if( e->child == End ) std::cout << L"-"; else std::cout << e->child;
+-    std::cout << " ";
+-    if( e->prev == End ) std::cout << L"-"; else std::cout << e->prev;
+-    std::cout << L":";
+-    if( e->next == End ) std::cout << L"-"; else std::cout << e->next;
+-    std::cout << L")";    
+-    std::cout << std::endl;
++    if( e->dir ) std::wcout << L"(Dir) ";
++    else std::wcout << L"(File) ";
++    std::wcout << e->size << L" ";
++	std::wcout << L"s:" << e->start << L" ";
++    std::wcout << L"(";
++    if( e->child == End ) std::wcout << L"-"; else std::wcout << e->child;
++    std::wcout << L" ";
++    if( e->prev == End ) std::wcout << L"-"; else std::wcout << e->prev;
++    std::wcout << L":";
++    if( e->next == End ) std::wcout << L"-"; else std::wcout << e->next;
++    std::wcout << L")";
++    std::wcout << std::endl;
+   }
+ }
+ 
+diff --git a/Common/OfficeFileFormatChecker2.cpp b/Common/OfficeFileFormatChecker2.cpp
+index 17393689..e4873693 100644
+--- a/Common/OfficeFileFormatChecker2.cpp
++++ b/Common/OfficeFileFormatChecker2.cpp
+@@ -837,6 +837,24 @@ bool COfficeFileFormatChecker::isOfficeFile(const std::wstring &_fileName)
+ 		}
+ 	}
+ 
++	// A ZIP container that could not be opened/classified must not fall through
++	// to the extension-based TXT/CSV defaults. On Windows an editor can hold a
++	// write-capable handle: the byte probe still succeeds, while minizip's
++	// stricter sharing mode rejects the archive. Treating its compressed bytes
++	// as text otherwise produces a successful but empty PDF.
++	const bool hasZipSignature = dwDetectdBytes >= 4 &&
++		bufferDetect[0] == 'P' && bufferDetect[1] == 'K' &&
++		((bufferDetect[2] == 3 && bufferDetect[3] == 4) ||
++		 (bufferDetect[2] == 5 && bufferDetect[3] == 6) ||
++		 (bufferDetect[2] == 7 && bufferDetect[3] == 8));
++	if (hasZipSignature)
++	{
++		delete[] bufferDetect;
++		file.CloseFile();
++		nFileType = AVS_OFFICESTUDIO_FILE_OTHER_ZIP;
++		return true;
++	}
++
+ 	//-----------------------------------------------------------------------------------------------
+ 	// others
+ 
+diff --git a/DesktopEditor/agg-2.4/include/agg_basics.h b/DesktopEditor/agg-2.4/include/agg_basics.h
+index 16692bd8..b8cfec74 100644
+--- a/DesktopEditor/agg-2.4/include/agg_basics.h
++++ b/DesktopEditor/agg-2.4/include/agg_basics.h
+@@ -207,7 +207,7 @@ namespace agg
+     {
+         AGG_INLINE static unsigned mul(unsigned a, unsigned b)
+         {
+-            register unsigned q = a * b + (1 << (Shift-1));
++            unsigned q = a * b + (1 << (Shift-1));
+             return (q + (q >> Shift)) >> Shift;
+         }
+     };
+diff --git a/DocxRenderer/src/logic/managers/FontManager.cpp b/DocxRenderer/src/logic/managers/FontManager.cpp
+index 4e40960c..1a7e46a0 100644
+--- a/DocxRenderer/src/logic/managers/FontManager.cpp
++++ b/DocxRenderer/src/logic/managers/FontManager.cpp
+@@ -482,6 +482,16 @@ namespace NSDocxRenderer
+ 		if (CheckFontNameStyle(wsName, L"bold_italic")) { bBold = true; bItalic = true; }
+ 		if (CheckFontNameStyle(wsName, L"boldoblique")) { bBold = true; bItalic = true; }
+ 		if (CheckFontNameStyle(wsName, L"bold_oblique")) { bBold = true; bItalic = true; }
++
++		// The bundled PDF base fonts expose these URW family names. Resolve
++		// them through the existing standard-font aliases before metric matching;
++		// Type 1 fonts without OS/2 metadata otherwise depend on font-list order.
++		if (wsName == L"Nimbus Sans")
++			wsName = L"Helvetica";
++		else if (wsName == L"Nimbus Roman")
++			wsName = L"Times New Roman";
++		else if (wsName == L"Nimbus Mono PS" || wsName == L"Nimbus Mono")
++			wsName = L"Courier New";
+ 	}
+ 	bool CFontSelector::CheckFontNameStyle(std::wstring& wsName, const std::wstring& sStyle)
+ 	{
+diff --git a/MsBinaryFile/DocFile/PropertiesMapping.cpp b/MsBinaryFile/DocFile/PropertiesMapping.cpp
+index 87386acd..3da44715 100644
+--- a/MsBinaryFile/DocFile/PropertiesMapping.cpp
++++ b/MsBinaryFile/DocFile/PropertiesMapping.cpp
+@@ -451,7 +451,12 @@ namespace DocFileFormat
+ 			border->AppendAttribute( space );
+ 			
+ 			XMLTools::XMLAttribute color( L"w:color" );
+-			color.SetValue(brc->getColor());
++			// OOXML ST_HexColor uses RRGGBB; VML still needs the CSS '#'
++			// returned by BorderCode::getColor(), so normalize at this writer.
++			std::wstring borderColor = brc->getColor();
++			if (borderColor.size() == 7 && borderColor[0] == L'#')
++				borderColor.erase(0, 1);
++			color.SetValue(borderColor);
+ 
+ 			border->AppendAttribute( color );
+ 
+diff --git a/MsBinaryFile/DocFile/TableCellPropertiesMapping.cpp b/MsBinaryFile/DocFile/TableCellPropertiesMapping.cpp
+index db5fe6c9..f81d8d3a 100644
+--- a/MsBinaryFile/DocFile/TableCellPropertiesMapping.cpp
++++ b/MsBinaryFile/DocFile/TableCellPropertiesMapping.cpp
+@@ -290,60 +290,12 @@ namespace DocFileFormat
+ 				}
+ 				break;
+ 				case sprmTTableBorders80:
+-				{
+-					const int size = 4;
+-					unsigned char brc80[size];
+-
+-					memcpy(brc80, iter->Arguments, size);
+-					if (!_brcTop)
+-						_brcTop = std::shared_ptr<BorderCode>(new BorderCode(brc80, size));
+-
+-					memcpy(brc80, (iter->Arguments + 4), size);
+-					if (!_brcLeft)
+-						_brcLeft = std::shared_ptr<BorderCode>(new BorderCode(brc80, size));
+-
+-					memcpy(brc80, (iter->Arguments + 8), size);
+-					if (!_brcBottom)
+-						_brcBottom = std::shared_ptr<BorderCode>(new BorderCode(brc80, size));
+-
+-					memcpy(brc80, (iter->Arguments + 12), size);
+-					if (!_brcRight)
+-						_brcRight = std::shared_ptr<BorderCode>(new BorderCode(brc80, size));
+-
+-					//memcpy(brc80, (iter->Arguments + 16), size);
+-					//_brcHorz = std::shared_ptr<BorderCode>(new BorderCode(brc80, size));
+-
+-					//memcpy(brc80, (iter->Arguments + 20), size);
+-					//_brcVert = std::shared_ptr<BorderCode>(new BorderCode(brc80, size));
+-				}break;
+ 				case sprmOldTTableBorders:
+ 				case sprmTTableBorders:
+-				{
+-					const int size = 8;
+-					unsigned char brc[size];
+-
+-					memcpy(brc, iter->Arguments, size);
+-					if (!_brcTop)
+-						_brcTop = std::shared_ptr<BorderCode>(new BorderCode(brc, size));
+-
+-					memcpy(brc, (iter->Arguments + 8), size);
+-					if (!_brcLeft)
+-						_brcLeft = std::shared_ptr<BorderCode>(new BorderCode(brc, size));
+-
+-					memcpy(brc, (iter->Arguments + 16), size);
+-					if (!_brcBottom)
+-						_brcBottom = std::shared_ptr<BorderCode>(new BorderCode(brc, size));
+-
+-					memcpy(brc, (iter->Arguments + 24), size);
+-					if (!_brcRight)
+-						_brcRight = std::shared_ptr<BorderCode>(new BorderCode(brc, size));
+-
+-					//memcpy(brc, (iter->Arguments + 32), size);
+-					//_brcHorz = std::shared_ptr<BorderCode>(new BorderCode(brc, size));
+-
+-					//memcpy(brc, (iter->Arguments + 40), size);
+-					//_brcVert = std::shared_ptr<BorderCode>(new BorderCode(brc, size));
+-				}break;
++					// These describe the table's outer and inside borders, not
++					// four direct borders on every cell. TablePropertiesMapping
++					// writes them once; preserve only real TC/SetBrc overrides here.
++					break;
+ 				case sprmOldTSetBrc:
+ 				case sprmTSetBrc:
+ 				{ //borders (cell definition)
+diff --git a/MsBinaryFile/DocFile/TablePropertiesMapping.cpp b/MsBinaryFile/DocFile/TablePropertiesMapping.cpp
+index ec4c744f..eecb0026 100644
+--- a/MsBinaryFile/DocFile/TablePropertiesMapping.cpp
++++ b/MsBinaryFile/DocFile/TablePropertiesMapping.cpp
+@@ -59,6 +59,7 @@ namespace DocFileFormat
+ 		XMLTools::XMLAttribute	layoutType(L"w:type", L"fixed");
+ 
+ 		_CP_OPT(short) tblIndent;
++		_CP_OPT(short) preferredIndent;
+ 		_CP_OPT(short) gabHalf;
+ 		_CP_OPT(short) marginLeft;
+ 		_CP_OPT(short) marginRight;
+@@ -90,7 +91,7 @@ namespace DocFileFormat
+ 				//first boundary of the TDef and adding the padding of the cells
+ 
+ 				tblIndent = FormatUtils::BytesToInt16(iter->Arguments, 1, iter->argumentsSize);
+-				//If there follows a real sprmTWidthIndent, this value will be overwritten
++				// Keep sprmTWidthIndent separately: it can precede TDefTable.
+ 
+ 				//tblIndent = (std::max)((int)tblIndent,0); //cerere.doc
+ 			}break;
+@@ -131,7 +132,7 @@ namespace DocFileFormat
+ 			}break;
+ 			case sprmTWidthIndent:
+ 			{
+-				tblIndent = FtsWWidth_Indent(iter->Arguments).wWidth;
++				preferredIndent = FtsWWidth_Indent(iter->Arguments).wWidth;
+ 			}break;
+ 			case sprmTIstd:
+ 			case sprmTIstdPermute:
+@@ -162,7 +163,7 @@ namespace DocFileFormat
+ 			{
+ 				if (iter->Arguments[0] == 1)
+ 				{
+-					layoutType.SetValue(L"auto");
++					layoutType.SetValue(L"autofit");
+ 				}
+ 			}break;
+ 			case sprmTCellSpacing:
+@@ -326,11 +327,24 @@ namespace DocFileFormat
+ 			_tblPr->AppendChild(tblW);
+ 		}
+ 
+-		if (tblIndent)
++		if (tblIndent || preferredIndent)
+ 		{
+ 			XMLTools::XMLElement tblInd(L"w:tblInd");
+-
+-			XMLTools::XMLAttribute tblIndW(L"w:w", FormatUtils::IntToWideString(*tblIndent));
++			// TDefTable stores the logical first-cell boundary. DOC's
++			// dxaGapHalf offsets that boundary; OOXML tblInd stores the
++			// preferred table indent. Keep an explicit preferred indent
++			// independent of the order in which TDefTable occurs.
++			// WPS-written DOCs can omit GapHalf and encode the content
++			// offset in the left cell margin instead.
++			int resolvedIndent = preferredIndent ? *preferredIndent : *tblIndent;
++			if (!preferredIndent)
++			{
++				if (gabHalf)
++					resolvedIndent += *gabHalf;
++				else if (marginLeft)
++					resolvedIndent += *marginLeft;
++			}
++			XMLTools::XMLAttribute tblIndW(L"w:w", FormatUtils::IntToWideString(resolvedIndent));
+ 			tblInd.AppendAttribute(tblIndW);
+ 
+ 			XMLTools::XMLAttribute tblIndType(L"w:type", L"dxa");
+diff --git a/MsBinaryFile/XlsFile/Format/Logic/Biff_records/CF12.cpp b/MsBinaryFile/XlsFile/Format/Logic/Biff_records/CF12.cpp
+index 1e389a0e..4b0961e7 100644
+--- a/MsBinaryFile/XlsFile/Format/Logic/Biff_records/CF12.cpp
++++ b/MsBinaryFile/XlsFile/Format/Logic/Biff_records/CF12.cpp
+@@ -216,12 +216,14 @@ void CF12::writeFields(CFRecord& record)
+     auto ccePos = record.getRdPtr();
+ 	if(dxf.dxfn != nullptr)
+ 	{
+-		//todo dxf conversion from global info
+-		if(dxfId_ >= 0 && global_info->arrUserDxfs.size() > dxfId_)
++		std::wstring dxfXml = inlineDxfXml_;
++		if(dxfXml.empty() && dxfId_ >= 0 && global_info->arrUserDxfs.size() > dxfId_)
++			dxfXml = global_info->arrUserDxfs.at(dxfId_);
++		if(!dxfXml.empty())
+ 		{
+ 			OOX::Spreadsheet::CDxf dxfObj;
+ 			XmlUtils::CXmlLiteReader oReader;
+-			if(oReader.FromString(global_info->arrUserDxfs.at(dxfId_)))
++			if(oReader.FromString(dxfXml))
+ 			{
+ 				if(oReader.ReadNextNode())
+ 				{
+@@ -256,7 +258,11 @@ void CF12::writeFields(CFRecord& record)
+ 							{
+ 								fgColor.extType = ExtProp::ForeColor;
+ 								fgColor.extPropData.color.xclrType = 2;
+-								fgColor.extPropData.color.xclrValue = dxfObj.m_oFill->m_oPatternFill->m_oFgColor->m_oRgb->ToInt();
++								const auto& rgb = dxfObj.m_oFill->m_oPatternFill->m_oFgColor->m_oRgb.get();
++								fgColor.extPropData.color.xclrValue = static_cast<_UINT32>(rgb.Get_R()) |
++									(static_cast<_UINT32>(rgb.Get_G()) << 8) |
++									(static_cast<_UINT32>(rgb.Get_B()) << 16) |
++									(static_cast<_UINT32>(rgb.Get_A()) << 24);
+ 							}
+ 
+ 							dxf.dxfn->xfext->mapRgExt.emplace(ExtProp::ForeColor, fgColor);
+@@ -286,7 +292,11 @@ void CF12::writeFields(CFRecord& record)
+ 							{
+ 								bgColor.extType = ExtProp::BackColor;
+ 								bgColor.extPropData.color.xclrType = 2;
+-								bgColor.extPropData.color.xclrValue = dxfObj.m_oFill->m_oPatternFill->m_oBgColor->m_oRgb->ToInt();
++								const auto& rgb = dxfObj.m_oFill->m_oPatternFill->m_oBgColor->m_oRgb.get();
++								bgColor.extPropData.color.xclrValue = static_cast<_UINT32>(rgb.Get_R()) |
++									(static_cast<_UINT32>(rgb.Get_G()) << 8) |
++									(static_cast<_UINT32>(rgb.Get_B()) << 16) |
++									(static_cast<_UINT32>(rgb.Get_A()) << 24);
+ 							}
+ 
+ 							dxf.dxfn->xfext->mapRgExt.emplace(ExtProp::BackColor, bgColor);
+diff --git a/MsBinaryFile/XlsFile/Format/Logic/Biff_records/CF12.h b/MsBinaryFile/XlsFile/Format/Logic/Biff_records/CF12.h
+index 0000b7fc..757c5d27 100644
+--- a/MsBinaryFile/XlsFile/Format/Logic/Biff_records/CF12.h
++++ b/MsBinaryFile/XlsFile/Format/Logic/Biff_records/CF12.h
+@@ -81,6 +81,7 @@ public:
+     bool					fStopIfTrue = 0;
+     int						ipriority_ = 0;
+ 	int						dxfId_ = -1;
++	std::wstring			inlineDxfXml_;
+ 
+ 	BaseObjectPtr			m_CFEx;
+ 	BaseObjectPtr			m_CF12_2;
+diff --git a/MsBinaryFile/XlsFile/Format/Logic/Biff_structures/CellRef.h b/MsBinaryFile/XlsFile/Format/Logic/Biff_structures/CellRef.h
+index b7cde942..e0480dbb 100644
+--- a/MsBinaryFile/XlsFile/Format/Logic/Biff_structures/CellRef.h
++++ b/MsBinaryFile/XlsFile/Format/Logic/Biff_structures/CellRef.h
+@@ -189,17 +189,15 @@ public:
+ 		RwType rw;
+         ColType col = 0;
+ 		rw = row;
+-		auto version = record.getGlobalWorkbookInfo()->Version;
+-		
+-		if (version < 0x0800)
++		if (rel_info == rel_Absent)
+ 		{
+ 			col = column;
+ 		}
+ 		else
+ 		{
+-        	SETBITS(col, 0, 13, column);
+-        	SETBIT(col, 14, colRelative);
+-        	SETBIT(col, 15, rowRelative);
++			SETBITS(col, 0, sizeof(ColType) * 8 - 3, column);
++			SETBIT(col, sizeof(ColType) * 8 - 2, rel_info == rel_PresentQuoted ? fQuoted : colRelative);
++			SETBIT(col, sizeof(ColType) * 8 - 1, rowRelative);
+ 		}
+ 
+ 		record << rw << col;
+diff --git a/MsBinaryFile/XlsFile/Format/Logic/Biff_structures/DVParsedFormula.cpp b/MsBinaryFile/XlsFile/Format/Logic/Biff_structures/DVParsedFormula.cpp
+index 93ee65b8..483c4efc 100644
+--- a/MsBinaryFile/XlsFile/Format/Logic/Biff_structures/DVParsedFormula.cpp
++++ b/MsBinaryFile/XlsFile/Format/Logic/Biff_structures/DVParsedFormula.cpp
+@@ -68,6 +68,18 @@ void DVParsedFormula::load(CFRecord& record, bool bLoad)
+ 		return load(record);
+ 	else
+ 	{
++		// Even an unused DV formula occupies its declared bytes (for example
++		// the second formula in a list validation written by LibreOffice).
++		// Leaving it unread makes the following SqRef parse formula bytes.
++		if (cce <= record.getDataSize() - record.getRdPtr())
++			record.skipNunBytes(cce);
++		if (record.getGlobalWorkbookInfo()->Version == 0x0800)
++		{
++			_UINT32 cb = 0;
++			record >> cb;
++			if (cb <= record.getDataSize() - record.getRdPtr())
++				record.skipNunBytes(cb);
++		}
+ 		cce = 0;
+ 	}
+ }
+diff --git a/MsBinaryFile/XlsFile/Format/Logic/Biff_structures/DXFPat.cpp b/MsBinaryFile/XlsFile/Format/Logic/Biff_structures/DXFPat.cpp
+index 8490931f..ea24ffde 100644
+--- a/MsBinaryFile/XlsFile/Format/Logic/Biff_structures/DXFPat.cpp
++++ b/MsBinaryFile/XlsFile/Format/Logic/Biff_structures/DXFPat.cpp
+@@ -107,7 +107,7 @@ int DXFPat::serialize(std::wostream & stream)
+ 			{
+ 				pFindGradient = parent->xfext->mapRgExt.find(ExtProp::GradientColor);
+ 				pFindBack = parent->xfext->mapRgExt.find(ExtProp::BackColor);
+-				pFindFore = parent->xfext->mapRgExt.find(ExtProp::GradientColor);
++				pFindFore = parent->xfext->mapRgExt.find(ExtProp::ForeColor);
+ 			}
+ 			if (parent->xfext && pFindGradient != parent->xfext->mapRgExt.end())
+ 			{
+diff --git a/OOXML/Binary/Sheets/Reader/CSVReader.cpp b/OOXML/Binary/Sheets/Reader/CSVReader.cpp
+index 9a29b39c..1b388d33 100644
+--- a/OOXML/Binary/Sheets/Reader/CSVReader.cpp
++++ b/OOXML/Binary/Sheets/Reader/CSVReader.cpp
+@@ -203,7 +203,23 @@ int CSVReader::Impl::AddCell(std::wstring &sText, INT nStartCell, std::stack<INT
+ 	pCell->m_oCacheValue = sText; // как есть
+ 
+ 	pCell->setRowCol(nRow, nCol);
+-	result = cellFormatController_->ProcessCellType(pCell, sText, bIsWrap);
++	// CSV has no column schema. Keep zero-padded identifiers and integers
++	// beyond spreadsheet precision as text instead of silently changing them.
++	bool bDigitsOnly = true;
++	for (wchar_t c : sText)
++		if (c < L'0' || c > L'9') { bDigitsOnly = false; break; }
++	if (bDigitsOnly && ((length > 1 && sText[0] == L'0') || length > 15))
++	{
++		pCell->m_oType->SetValue(SimpleTypes::Spreadsheet::celltypeInlineStr);
++		pCell->m_oRichText.Init();
++		OOX::Spreadsheet::CText *pText = new OOX::Spreadsheet::CText();
++		pText->m_sText = sText.substr(0, 32767);
++		pCell->m_oRichText->m_arrItems.push_back(pText);
++		result = length > 32767 ? 1 : 0;
++		if (bIsWrap) pCell->m_oStyle = 1;
++	}
++	else
++		result = cellFormatController_->ProcessCellType(pCell, sText, bIsWrap);
+ 
+ 	oRow.m_arrItems.push_back(pCell);
+ 
+@@ -211,6 +227,8 @@ int CSVReader::Impl::AddCell(std::wstring &sText, INT nStartCell, std::stack<INT
+ }
+ _UINT32 CSVReader::Impl::Read(const std::wstring &sFileName, OOX::Spreadsheet::CXlsx &oXlsx, _UINT32 nCodePage, const std::wstring& sDelimiter, _INT32 lcid, bool readToCache)
+ {
++	if (nCodePage >= UNICODE_CONVERTER_ENCODINGS_COUNT && nCodePage != 1000)
++		return AVS_FILEUTILS_ERROR_CONVERT_PARAMS;
+ 	NSFile::CFileBinary oFile;
+ 	if (false == oFile.OpenFile(sFileName)) return AVS_FILEUTILS_ERROR_CONVERT;
+ 	//-----------------------------------------------------------------------------------
+@@ -273,11 +291,9 @@ _UINT32 CSVReader::Impl::Read(const std::wstring &sFileName, OOX::Spreadsheet::C
+ 		sFileDataW = oUnicodeConverter.toUnicode((const char*)pInputBuffer, nInputBufferSize, oEncodindId.Name);
+ 	}
+ 	//------------------------------------------------------------------------------------------------------------------------------
+-	delete[]pFileData;
+-
+ 	size_t nSize = sFileDataW.length();
+ 
+-	if (nSize < 1 && nInputBufferSize > 0)
++	if (nSize < 1 && nInputBufferSize > 0 && nCodePage < UNICODE_CONVERTER_ENCODINGS_COUNT)
+ 	{//для синхронности вывода превью и нормального результата
+ 		const NSUnicodeConverter::EncodindId& oEncodindId = NSUnicodeConverter::Encodings[nCodePage];
+ 
+@@ -287,6 +303,7 @@ _UINT32 CSVReader::Impl::Read(const std::wstring &sFileName, OOX::Spreadsheet::C
+ 		nSize = sFileDataW.length();
+ 		//return AVS_FILEUTILS_ERROR_CONVERT_ICU;
+ 	}
++	delete[]pFileData;
+ 
+ 	WCHAR wcDelimiterLeading = L'\0';
+ 	WCHAR wcDelimiterTrailing = L'\0';
+diff --git a/OOXML/Binary/Sheets/Writer/CSVWriter.cpp b/OOXML/Binary/Sheets/Writer/CSVWriter.cpp
+index eac77ec3..32294253 100644
+--- a/OOXML/Binary/Sheets/Writer/CSVWriter.cpp
++++ b/OOXML/Binary/Sheets/Writer/CSVWriter.cpp
+@@ -947,7 +947,6 @@ void CSVWriter::Impl::End()
+ 	// Теперь мы пишем как MS Excel (новую строку записываем в файл)
+ 	if (!m_bJSON)
+ 	{
+-		WriteFile(&m_oFile, &m_pWriteBuffer, m_nCurrentIndex, g_sNewLineN, m_nCodePage);
+ 		WriteFile(&m_oFile, &m_pWriteBuffer, m_nCurrentIndex, g_sNewLineN, m_nCodePage, true);
+ 	}
+ 	Close();
+diff --git a/OOXML/DocxFormat/Drawing/Drawing.cpp b/OOXML/DocxFormat/Drawing/Drawing.cpp
+index bb656298..29ca6854 100644
+--- a/OOXML/DocxFormat/Drawing/Drawing.cpp
++++ b/OOXML/DocxFormat/Drawing/Drawing.cpp
+@@ -141,18 +141,18 @@ namespace OOX
+ 			int nCurDepth = oReader.GetDepth();
+ 			while( oReader.ReadNextSiblingNode( nCurDepth ) )
+ 			{
+-				std::wstring sName = oReader.GetName();
+-				if ( _T("wp:align") == sName )
++				std::wstring sName = XmlUtils::GetNameNoNS(oReader.GetName());
++				if ( _T("align") == sName )
+ 				{
+ 					m_oAlign = oReader.GetText2();
+ 					m_bAlign = true;
+ 				}
+-				else if ( _T("wp:posOffset") == sName )
++				else if ( _T("posOffset") == sName )
+ 				{
+ 					m_oPosOffset = oReader.GetText2();
+ 					m_bAlign = false;
+ 				}
+-				else if ( _T("wp14:pctPosHOffset") == sName )
++				else if ( _T("pctPosHOffset") == sName )
+ 				{//Cuaderno del maestro.docx
+ 					m_oPctOffset = oReader.GetText2();
+ 					m_bAlign = false;
+@@ -251,18 +251,18 @@ namespace OOX
+ 			int nCurDepth = oReader.GetDepth();
+ 			while( oReader.ReadNextSiblingNode( nCurDepth ) )
+ 			{
+-				std::wstring sName = oReader.GetName();
+-				if ( _T("wp:align") == sName )
++				std::wstring sName = XmlUtils::GetNameNoNS(oReader.GetName());
++				if ( _T("align") == sName )
+ 				{
+ 					m_oAlign = oReader.GetText2();
+ 					m_bAlign = true;
+ 				}
+-				else if ( _T("wp:posOffset") == sName )
++				else if ( _T("posOffset") == sName )
+ 				{
+ 					m_oPosOffset = oReader.GetText2();
+ 					m_bAlign = false;
+ 				}
+-				else if ( _T("wp14:pctPosVOffset") == sName )
++				else if ( _T("pctPosVOffset") == sName )
+ 				{
+ 					m_oPctOffset = oReader.GetText2();
+ 					m_bAlign = false;
+@@ -528,8 +528,8 @@ namespace OOX
+ 			int nCurDepth = oReader.GetDepth();
+ 			while( oReader.ReadNextSiblingNode( nCurDepth ) )
+ 			{
+-				std::wstring sName = oReader.GetName();
+-				if ( _T("wp:effectExtents") == sName )
++				std::wstring sName = XmlUtils::GetNameNoNS(oReader.GetName());
++				if ( _T("effectExtents") == sName )
+ 					m_oEffectExtent = oReader;
+ 			}
+ 		}
+@@ -624,13 +624,13 @@ namespace OOX
+ 			bool bStart = false;
+ 			while( oReader.ReadNextSiblingNode( nCurDepth ) )
+ 			{
+-				std::wstring sName = oReader.GetName();
+-				if ( _T("wp:start") == sName )
++				std::wstring sName = XmlUtils::GetNameNoNS(oReader.GetName());
++				if ( _T("start") == sName )
+ 				{
+ 					m_oStart = oReader;
+ 					bStart = true;
+ 				}
+-				else if ( bStart && _T("wp:lineTo") == sName )
++				else if ( bStart && _T("lineTo") == sName )
+ 				{
+ 					ComplexTypes::Drawing::CPoint2D *oPoint = new ComplexTypes::Drawing::CPoint2D();
+ 					*oPoint = oReader;
+@@ -710,8 +710,8 @@ namespace OOX
+ 			int nCurDepth = oReader.GetDepth();
+ 			while( oReader.ReadNextSiblingNode( nCurDepth ) )
+ 			{
+-				std::wstring sName = oReader.GetName();
+-				if ( _T("wp:wrapPolygon") == sName )
++				std::wstring sName = XmlUtils::GetNameNoNS(oReader.GetName());
++				if ( _T("wrapPolygon") == sName )
+ 					m_oWrapPolygon = oReader;
+ 			}
+ 		}
+@@ -782,8 +782,8 @@ namespace OOX
+ 			int nCurDepth = oReader.GetDepth();
+ 			while( oReader.ReadNextSiblingNode( nCurDepth ) )
+ 			{
+-				std::wstring sName = oReader.GetName();
+-				if ( _T("wp:wrapPolygon") == sName )
++				std::wstring sName = XmlUtils::GetNameNoNS(oReader.GetName());
++				if ( _T("wrapPolygon") == sName )
+ 					m_oWrapPolygon = oReader;
+ 			}
+ 		}
+@@ -855,8 +855,8 @@ namespace OOX
+ 			int nCurDepth = oReader.GetDepth();
+ 			while( oReader.ReadNextSiblingNode( nCurDepth ) )
+ 			{
+-				std::wstring sName = oReader.GetName();
+-				if ( _T("wp:effectExtent") == sName )
++				std::wstring sName = XmlUtils::GetNameNoNS(oReader.GetName());
++				if ( _T("effectExtent") == sName )
+ 					m_oEffectExtent = oReader;
+ 			}
+ 		}
+@@ -1023,24 +1023,24 @@ namespace OOX
+ 			int nCurDepth = oReader.GetDepth();
+ 			while( oReader.ReadNextSiblingNode( nCurDepth ) )
+ 			{
+-				std::wstring sName = oReader.GetName();
+-				if ( _T("wp:docPr") == sName )
++				std::wstring sName = XmlUtils::GetNameNoNS(oReader.GetName());
++				if ( _T("docPr") == sName )
+ 					m_oDocPr = oReader;
+-				else if ( _T("wp:effectExtent") == sName )
++				else if ( _T("effectExtent") == sName )
+ 					m_oEffectExtent = oReader;
+-				else if ( _T("wp:extent") == sName )
++				else if ( _T("extent") == sName )
+ 					m_oExtent = oReader;
+-				else if ( _T("wp:positionH") == sName )
++				else if ( _T("positionH") == sName )
+ 					m_oPositionH = oReader;
+-				else if ( _T("wp:positionV") == sName )
++				else if ( _T("positionV") == sName )
+ 					m_oPositionV = oReader;
+-				else if ( _T("wp:simplePos") == sName )
++				else if ( _T("simplePos") == sName )
+ 					m_oSimplePos = oReader;
+-				else if ( _T("wp14:sizeRelH") == sName )
++				else if ( _T("sizeRelH") == sName )
+ 					m_oSizeRelH = oReader;
+-				else if ( _T("wp14:sizeRelV") == sName )
++				else if ( _T("sizeRelV") == sName )
+ 					m_oSizeRelV = oReader;
+-				else if ( _T("mc:AlternateContent") == sName )
++				else if ( _T("AlternateContent") == sName )
+ 				//ПРИВЛЕЧЕНИЕ СРЕДСТВ ИЗ МЕСТНЫХ ИСТОЧНИКОВ.docx
+ 				//вариативность на разные версии офиса части параметров - кстати ... это может встретиться в ЛЮБОМ месте
+ 				//todooo сделать чтение не обязательно fallback, по выбору версии нужной нам (w14, ..)
+@@ -1048,8 +1048,8 @@ namespace OOX
+ 					nCurDepth++;
+ 					while( oReader.ReadNextSiblingNode( nCurDepth ) )
+ 					{
+-						std::wstring sName = oReader.GetName();
+-						if ( _T("mc:Fallback") == sName || _T("mc:Choice") == sName )
++						std::wstring sName = XmlUtils::GetNameNoNS(oReader.GetName());
++						if ( _T("Fallback") == sName || _T("Choice") == sName )
+ 						{
+ 							std::wstring strXml = _T("<root xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\">");
+ 								strXml += oReader.GetOuterXml();
+@@ -1072,27 +1072,27 @@ namespace OOX
+ 				}
+ 				else if ( false == m_eWrapType.IsInit() )
+ 				{
+-					if ( _T("wp:wrapNone") == sName )
++					if ( _T("wrapNone") == sName )
+ 					{
+ 						m_oWrapNone = oReader;
+ 						m_eWrapType = anchorwrapNone;
+ 					}
+-					else if ( _T("wp:wrapSquare") == sName )
++					else if ( _T("wrapSquare") == sName )
+ 					{
+ 						m_oWrapSquare = oReader;
+ 						m_eWrapType = anchorwrapSquare;
+ 					}
+-					else if ( _T("wp:wrapThrough") == sName )
++					else if ( _T("wrapThrough") == sName )
+ 					{
+ 						m_oWrapThrough = oReader;
+ 						m_eWrapType = anchorwrapThrough;
+ 					}
+-					else if ( _T("wp:wrapTight") == sName )
++					else if ( _T("wrapTight") == sName )
+ 					{
+ 						m_oWrapTight = oReader;
+ 						m_eWrapType = anchorwrapTight;
+ 					}
+-					else if ( _T("wp:wrapTopAndBottom") == sName )
++					else if ( _T("wrapTopAndBottom") == sName )
+ 					{
+ 						m_oWrapTopAndBottom = oReader;
+ 						m_eWrapType = anchorwrapTopAndBottom;
+@@ -1174,12 +1174,12 @@ namespace OOX
+ 			int nCurDepth = oReader.GetDepth();
+ 			while( oReader.ReadNextSiblingNode( nCurDepth ) )
+ 			{
+-				std::wstring sName = oReader.GetName();
+-				if ( _T("wp:docPr") == sName )
++				std::wstring sName = XmlUtils::GetNameNoNS(oReader.GetName());
++				if ( _T("docPr") == sName )
+ 					m_oDocPr = oReader;
+-				else if ( _T("wp:effectExtent") == sName )
++				else if ( _T("effectExtent") == sName )
+ 					m_oEffectExtent = oReader;
+-				else if ( _T("wp:extent") == sName )
++				else if ( _T("extent") == sName )
+ 					m_oExtent = oReader;
+ 				else
+ 				{
+@@ -1286,14 +1286,14 @@ namespace OOX
+ 			int nCurDepth = oReader.GetDepth();
+ 			while( oReader.ReadNextSiblingNode( nCurDepth ) )
+ 			{
+-				std::wstring sName = oReader.GetName();
+-				if ( _T("wp:inline") == sName )
++				std::wstring sName = XmlUtils::GetNameNoNS(oReader.GetName());
++				if ( _T("inline") == sName )
+ 				{
+ 					m_oInline = new OOX::Drawing::CInline(this->m_pMainDocument);
+ 					m_oInline->fromXML(oReader);
+ 					m_bAnchor = false;
+ 				}
+-				else if ( _T("wp:anchor") == sName )
++				else if ( _T("anchor") == sName )
+ 				{
+ 					m_oAnchor = new OOX::Drawing::CAnchor(this->m_pMainDocument);
+ 					m_oAnchor->fromXML(oReader);
+diff --git a/OOXML/PPTXFormat/Logic/GraphicFrame.cpp b/OOXML/PPTXFormat/Logic/GraphicFrame.cpp
+index 6da2639f..03d7c71d 100644
+--- a/OOXML/PPTXFormat/Logic/GraphicFrame.cpp
++++ b/OOXML/PPTXFormat/Logic/GraphicFrame.cpp
+@@ -173,8 +173,8 @@ namespace PPTX
+ 				int nCurDepth = oReader.GetDepth();
+ 				while( oReader.ReadNextSiblingNode( nCurDepth ) )
+ 				{
+-					std::wstring strName1 = oReader.GetName();
+-					if (strName1 == L"a:graphicData")
++					std::wstring strName1 = XmlUtils::GetNameNoNS(oReader.GetName());
++					if (strName1 == L"graphicData")
+ 					{
+ 						fromXML3(oReader);
+ 					}
+diff --git a/OOXML/XlsxFormat/Table/Tables.cpp b/OOXML/XlsxFormat/Table/Tables.cpp
+index f551efb5..11daad1c 100644
+--- a/OOXML/XlsxFormat/Table/Tables.cpp
++++ b/OOXML/XlsxFormat/Table/Tables.cpp
+@@ -499,7 +499,11 @@ namespace Spreadsheet
+ 		if(m_oId.IsInit())
+ 			ptr->idField = m_oId->GetValue();
+ 		if(m_oName.IsInit())
++		{
+ 			ptr->strFieldName = m_oName.get();
++			// BIFF8 table import reads the displayed header from strCaption.
++			ptr->strCaption = m_oName.get();
++		}
+ 		return XLS::BiffStructurePtr(ptr);
+ 	}
+     void CTableColumn::ReadAttributes(XLS::BaseObjectPtr& obj)
+diff --git a/OOXML/XlsxFormat/Worksheets/ConditionalFormatting.cpp b/OOXML/XlsxFormat/Worksheets/ConditionalFormatting.cpp
+index 107bd901..89e4ee7a 100644
+--- a/OOXML/XlsxFormat/Worksheets/ConditionalFormatting.cpp
++++ b/OOXML/XlsxFormat/Worksheets/ConditionalFormatting.cpp
+@@ -3604,6 +3604,11 @@ XLS::BaseObjectPtr CConditionalFormattingRule::toXLS(const  XLS::CellRef &cellRe
+ 		ptr->dxf.dxfn.reset(new XLS::DXFN);
+ 		ptr->dxfId_ = m_oDxfId->GetValue();
+ 	}
++	else if(!m_oColorScale.IsInit() && !m_oDataBar.IsInit() && !m_oIconSet.IsInit() && m_oDxf.IsInit())
++	{
++		ptr->dxf.dxfn.reset(new XLS::DXFN);
++		ptr->inlineDxfXml_ = m_oDxf->toXML();
++	}
+ 	if(m_oStopIfTrue.IsInit())
+ 		ptr->fStopIfTrue = m_oStopIfTrue->GetValue();
+ 	if(m_oPriority.IsInit())
+diff --git a/OOXML/XlsxFormat/Worksheets/Worksheet.cpp b/OOXML/XlsxFormat/Worksheets/Worksheet.cpp
+index 28269494..11ee5343 100644
+--- a/OOXML/XlsxFormat/Worksheets/Worksheet.cpp
++++ b/OOXML/XlsxFormat/Worksheets/Worksheet.cpp
+@@ -433,12 +433,27 @@ namespace OOX
+ 				m_oHeaderFooter->toXLS(worksheetPtr->m_PAGESETUP);
+ 			if(m_oSheetProtection.IsInit())
+ 				worksheetPtr->m_PROTECTION = m_oSheetProtection->toXLS();
+-			if(!m_arrConditionalFormatting.empty())
++			std::vector<CConditionalFormatting*> xlsConditionalFormatting = m_arrConditionalFormatting;
++			if (xlsConditionalFormatting.empty() && m_oExtLst.IsInit())
++			{
++				// Extension-only rules have no matching legacy rule to merge with.
++				// Keep their condition when writing BIFF8 instead of dropping it.
++				for (auto* extension : m_oExtLst->m_arrExt)
++				{
++					if (!extension) continue;
++					for (auto* formatting : extension->m_arrConditionalFormatting)
++					{
++						if (formatting && formatting->m_oSqRef.IsInit() && !formatting->m_arrItems.empty())
++							xlsConditionalFormatting.push_back(formatting);
++					}
++				}
++			}
++			if(!xlsConditionalFormatting.empty())
+ 			{
+ 				auto condFmts = new XLS::CONDFMTS;
+ 				worksheetPtr->m_CONDFMTS = XLS::BaseObjectPtr(condFmts);
+ 				auto condFmtId = 0;
+-				for(auto i : m_arrConditionalFormatting)
++				for(auto i : xlsConditionalFormatting)
+ 					{
+ 						i->toXLS(worksheetPtr->m_CONDFMTS);
+ 						auto lastCondFmt = static_cast<XLS::CONDFMT12*>(condFmts->m_arCONDFMT.back().get());
+diff --git a/OdfFile/Reader/Converter/xlsx_numFmts.cpp b/OdfFile/Reader/Converter/xlsx_numFmts.cpp
+index f69e8871..b065ca48 100644
+--- a/OdfFile/Reader/Converter/xlsx_numFmts.cpp
++++ b/OdfFile/Reader/Converter/xlsx_numFmts.cpp
+@@ -177,7 +177,7 @@ void xlsx_num_fmts::Impl::serialize(std::wostream & strm) const
+     {
+         CP_XML_NODE (L"numFmts")
+         {
+-            CP_XML_ATTR (L"formatCode", arrFormats.size());
++            CP_XML_ATTR (L"count", arrFormats.size());
+ 			
+ 			for (size_t i = 0; i < arrFormats.size(); ++i)
+ 			{
+diff --git a/OdfFile/Writer/Format/odt_conversion_context.cpp b/OdfFile/Writer/Format/odt_conversion_context.cpp
+index e2cb0be1..10387ae8 100644
+--- a/OdfFile/Writer/Format/odt_conversion_context.cpp
++++ b/OdfFile/Writer/Format/odt_conversion_context.cpp
+@@ -1214,7 +1214,9 @@ void odt_conversion_context::end_field()
+ 	{
+ 		set_field_instr();
+ 	}
+-	if (current_fields.back().status == 1 && false == current_fields.back().in_span && current_fields.back().type < 0xff)
++	// A simple field without a cached run never reaches start_run(). Finish
++	// it here as well, so its pending state cannot escape into the next paragraph.
++	if (current_fields.back().status == 1 && current_fields.back().type < 0xff)
+ 	{
+ 		current_fields.back().status = 2;
+ 
+diff --git a/PdfFile/PdfEditor.cpp b/PdfFile/PdfEditor.cpp
+index 286cb036..0e1dde1f 100644
+--- a/PdfFile/PdfEditor.cpp
++++ b/PdfFile/PdfEditor.cpp
+@@ -1,4 +1,4 @@
+-/*
++﻿/*
+  * (c) Copyright Ascensio System SIA 2010-2023
+  *
+  * This program is a free software product. You can redistribute it and/or
+@@ -4034,8 +4034,10 @@ void CPdfEditor::ClearPage()
+ 	pageRefObj.free();
+ 
+ 	Object oAnnots;
+-	// ВРЕМЕННО удаление Link аннотаций при редактировании
+-	if (pageObj.dictLookup("Annots", &oAnnots)->isArray())
++	// Retain links when replacing page content in the current document.
++	// Split/new-document modes still rebuild annotations through their own path.
++	if ((m_nMode == Mode::Split || m_nMode == Mode::WriteNew) &&
++		pageObj.dictLookup("Annots", &oAnnots)->isArray())
+ 	{
+ 		for (int nIndex = 0; nIndex < oAnnots.arrayGetLength(); ++nIndex)
+ 		{
+diff --git a/RtfFile/Format/RtfChar.cpp b/RtfFile/Format/RtfChar.cpp
+index daf1774f..e3703218 100644
+--- a/RtfFile/Format/RtfChar.cpp
++++ b/RtfFile/Format/RtfChar.cpp
+@@ -258,13 +258,18 @@ std::wstring RtfChar::renderRtfText(const std::wstring& sText)
+ 	{
+ 		int nUnicode = (int)sText[i];
+ 
+-		if (0 < nUnicode && nUnicode <= 0x8000)
++		if (0 < nUnicode && nUnicode < 0x8000)
+ 		{
+ 			sResult += L"\\u" + std::to_wstring(nUnicode) + L"*";
+ 		}
+-		else if (0x8000 < nUnicode && nUnicode <= 0xffff) {
++		else if (0x8000 <= nUnicode && nUnicode <= 0xffff) {
+ 			sResult += L"\\u" + std::to_wstring(nUnicode - 0x10000) + L"*"; //??? font alt name china ALL FONTS NEW.docx (Mekanik LET)
+ 		}
++		else if (nUnicode >= 0x10000 && nUnicode <= 0x10FFFF) {
++			int value = nUnicode - 0x10000;
++			sResult += L"\\u" + std::to_wstring((0xD800 + (value >> 10)) - 0x10000) + L"*";
++			sResult += L"\\u" + std::to_wstring((0xDC00 + (value & 0x3FF)) - 0x10000) + L"*";
++		}
+ 		else {
+ 			sResult += L"\\u9633*";
+ 		}
+diff --git a/RtfFile/Format/RtfReader.cpp b/RtfFile/Format/RtfReader.cpp
+index 8fc48372..95433365 100644
+--- a/RtfFile/Format/RtfReader.cpp
++++ b/RtfFile/Format/RtfReader.cpp
+@@ -107,6 +107,7 @@ RtfAbstractReader::RtfAbstractReader()
+ 	m_bCanStartNewReader = false;
+ 	m_bSkip = false;
+ 	m_nSkipChars = 0;
++	m_nPendingHighSurrogate = 0;
+ 	m_nCurGroups = 1;
+ 	m_oFileWriter = NULL;
+ 	m_bStopReader = false;
+@@ -197,6 +198,11 @@ bool RtfAbstractReader::RtfAbstractReader::Parse(RtfDocument& oDocument, RtfRead
+ 		case RtfToken::GroupEnd:
+ 		{
+ 			ExecuteTextInternal2(oDocument, oReader, m_oTok.Key, m_nSkipChars);
++			if (m_nCurGroups == 1 && m_nPendingHighSurrogate)
++			{
++				ExecuteText(oDocument, oReader, L"\uFFFD");
++				m_nPendingHighSurrogate = 0;
++			}
+ 
+ 			PopState(oDocument, oReader);
+ 		}break;
+@@ -210,6 +216,11 @@ bool RtfAbstractReader::RtfAbstractReader::Parse(RtfDocument& oDocument, RtfRead
+ 			}
+ 			else
+ 			{
++				if (m_nPendingHighSurrogate)
++				{
++					ExecuteText(oDocument, oReader, L"\uFFFD");
++					m_nPendingHighSurrogate = 0;
++				}
+ 				if (true == m_bSkip)
+ 				{
+ 					if (false == ExecuteCommand(oDocument, oReader, m_oTok.Key, m_oTok.HasParameter, m_oTok.Parameter))
+@@ -264,11 +275,35 @@ std::wstring RtfAbstractReader::ExecuteTextInternal(RtfDocument& oDocument, RtfR
+ 	{
+ 		if (true == bHasPar)
+ 		{
+-			if (m_bUseGlobalCodepage && sizeof(wchar_t) != 2)
++			// RTF stores a signed UTF-16 code unit. Preserve its full 16 bits
++			// before widening to the 32-bit wchar_t used on macOS and Linux.
++			unsigned short unit = static_cast<unsigned short>(nPar);
++			if (unit >= 0xD800 && unit <= 0xDBFF)
++			{
++				if (m_nPendingHighSurrogate) sResult += wchar_t(0xFFFD);
++				m_nPendingHighSurrogate = unit;
++			}
++			else if (unit >= 0xDC00 && unit <= 0xDFFF)
++			{
++				if (!m_nPendingHighSurrogate)
++					sResult += wchar_t(0xFFFD);
++				else if (sizeof(wchar_t) == 2)
++				{
++					// Emit a complete UTF-16 pair in one text event on Windows.
++					// Lone units use the same recovery path as the UTF-32 hosts.
++					sResult += wchar_t(m_nPendingHighSurrogate);
++					sResult += wchar_t(unit);
++				}
++				else
++					sResult += wchar_t(0x10000 + ((m_nPendingHighSurrogate - 0xD800) << 10) + unit - 0xDC00);
++				m_nPendingHighSurrogate = 0;
++			}
++			else
+ 			{
+-				nPar = nPar & 0x0FFF;
++				if (m_nPendingHighSurrogate) sResult += wchar_t(0xFFFD);
++				m_nPendingHighSurrogate = 0;
++				sResult += wchar_t(unit);
+ 			}
+-			sResult += wchar_t(nPar);
+ 		}
+ 	}
+ 	else
+@@ -301,6 +336,11 @@ void RtfAbstractReader::ExecuteTextInternal2(RtfDocument& oDocument, RtfReader&
+ 		
+ 		if (false == sResult.empty())
+ 		{
++			if (m_nPendingHighSurrogate)
++			{
++				sResult.insert(sResult.begin(), wchar_t(0xFFFD));
++				m_nPendingHighSurrogate = 0;
++			}
+ 			ExecuteText(oDocument, oReader, sResult);
+ 		}
+ 	}
+diff --git a/RtfFile/Format/RtfReader.h b/RtfFile/Format/RtfReader.h
+index 3fc34515..18690d94 100644
+--- a/RtfFile/Format/RtfReader.h
++++ b/RtfFile/Format/RtfReader.h
+@@ -119,6 +119,7 @@ private:
+ 	bool		m_bCanStartNewReader;
+ 
+ 	int			m_nSkipChars;
++	unsigned short m_nPendingHighSurrogate;
+ 	bool		m_bSkip;
+ 
+ protected: 
+diff --git a/TxtFile/Source/ConvertDocx2Txt.cpp b/TxtFile/Source/ConvertDocx2Txt.cpp
+index 72d59c4a..dec75ace 100644
+--- a/TxtFile/Source/ConvertDocx2Txt.cpp
++++ b/TxtFile/Source/ConvertDocx2Txt.cpp
+@@ -124,6 +124,10 @@ namespace Docx2Txt
+ 	{
+ 		return converter_->m_outputFile.write(path);
+ 	}
++	bool Converter::writeCodePage(const std::wstring& path, int encoding) const
++	{
++		return converter_->m_outputFile.writeCodePage(path, encoding);
++	}
+ 
+ 	bool Converter::writeUtf8(const std::wstring & path) const
+ 	{
+diff --git a/TxtFile/Source/ConvertDocx2Txt.h b/TxtFile/Source/ConvertDocx2Txt.h
+index a8ee8ea2..76ee634f 100644
+--- a/TxtFile/Source/ConvertDocx2Txt.h
++++ b/TxtFile/Source/ConvertDocx2Txt.h
+@@ -46,6 +46,7 @@ namespace Docx2Txt
+ 
+ 		bool read	(const std::wstring& path);
+ 		bool write	(const std::wstring& path);
++		bool writeCodePage(const std::wstring& path, int encoding) const;
+ 
+ 		bool writeUtf8		(const std::wstring& path) const;
+ 		bool writeUnicode	(const std::wstring& path) const;
+diff --git a/TxtFile/Source/TxtFormat/File.cpp b/TxtFile/Source/TxtFormat/File.cpp
+index e393e3f8..26647130 100644
+--- a/TxtFile/Source/TxtFormat/File.cpp
++++ b/TxtFile/Source/TxtFormat/File.cpp
+@@ -171,8 +171,25 @@ namespace Txt
+ 
+ 	bool File::writeCodePage(const std::wstring& filename, int code_page) const
+ 	{
+-		TxtFile file(filename);
+-		return file.writeAnsiOrCodePage(NSEncoding::transformFromUnicode(m_listContent, code_page));
++		if (code_page < 0 || code_page >= UNICODE_CONVERTER_ENCODINGS_COUNT)
++			return false;
++		// Encode the separators with the text too: raw CR/LF bytes are not
++		// valid UTF-16/32 separators. Keep the UTF-8 writer's line semantics.
++		std::wstring content;
++		for (size_t i = 0; i < m_listContent.size(); ++i)
++		{
++			if (i) content += L"\r\n";
++			content += m_listContent[i];
++		}
++		NSUnicodeConverter::CUnicodeConverter converter;
++		const std::string encoded = converter.fromUnicode(content, NSUnicodeConverter::Encodings[code_page].Name);
++		if (!content.empty() && encoded.empty())
++			return false;
++		if (encoded.size() > 0xffffffffu)
++			return false;
++		NSFile::CFileBinary file;
++		if (!file.CreateFileW(filename)) return false;
++		return file.WriteFile(encoded.data(), static_cast<DWORD>(encoded.size()));
+ 	}
+ 
+ 	bool File::writeUtf8(const std::wstring& filename) const
+diff --git a/TxtFile/Source/TxtXmlFile.cpp b/TxtFile/Source/TxtXmlFile.cpp
+index d8c09019..2239c237 100644
+--- a/TxtFile/Source/TxtXmlFile.cpp
++++ b/TxtFile/Source/TxtXmlFile.cpp
+@@ -51,6 +51,7 @@ namespace NSBinPptxRW
+ }
+ 
+ #include "../../Common/OfficeDefines.h"
++#include "../../UnicodeConverter/UnicodeConverter_Encodings.h"
+ #include "../../OOXML/Binary/Document/BinReader/FileWriter.h"
+ 
+ CTxtXmlFile::CTxtXmlFile()
+@@ -139,17 +140,19 @@ _UINT32 CTxtXmlFile::txt_SaveToFile(const std::wstring & sDstFileName, const std
+ 			int encoding, lcid;
+ 			ParseTxtOptions(sXMLOptions, encoding, lcid);
+ 
++			if ((encoding < -1 || encoding >= UNICODE_CONVERTER_ENCODINGS_COUNT) && encoding != EncodingType::Ansi)
++				return AVS_FILEUTILS_ERROR_CONVERT_PARAMS;
+ 			if (encoding == EncodingType::Utf8)
+ 				result = converter.writeUtf8(sDstFileName);
+-			else if (encoding == EncodingType::Unicode)
++			else if (encoding == 48) // UTF-16LE table index (50 is UTF-32LE).
+ 				result = converter.writeUnicode(sDstFileName);
+ 			else if (encoding == EncodingType::Ansi)
+ 				result = converter.writeAnsi(sDstFileName);
+-			else if (encoding == EncodingType::BigEndian)
++			else if (encoding == 49) // UTF-16BE table index (51 is UTF-32BE).
+ 				result = converter.writeBigEndian(sDstFileName);
+-			else if (encoding > 0) //code page
++			else if (encoding >= 0) // encoding table, including index zero
+ 			{
+-				result = converter.write(sDstFileName);
++				result = converter.writeCodePage(sDstFileName, encoding);
+ 			}
+ 			else //auto define
+ 				result = converter.write(sDstFileName);
+@@ -232,6 +235,7 @@ void CTxtXmlFile::CreateDocxEmpty(const std::wstring & _strDirectory, Writers::F
+ 	pDocxWriter->get_style_writers().Write();
+ 	pDocxWriter->get_font_table_writer().Write();
+ 	
++	pDocxWriter->get_settings_writer().AddSetting(Writers::g_string_set_Start + Writers::g_string_set_End);
+ 	pDocxWriter->get_settings_writer().Write();
+ 	pDocxWriter->get_web_settings_writer().Write();
+ 	
+diff --git a/X2tConverter/src/ASCConverters.cpp b/X2tConverter/src/ASCConverters.cpp
+index cc9ebac9..729c4fc7 100644
+--- a/X2tConverter/src/ASCConverters.cpp
++++ b/X2tConverter/src/ASCConverters.cpp
+@@ -943,6 +943,12 @@ namespace NExtractTools
+ 			{
+ 				nRes = xlsx_dir2xlsb(sFrom, sTo, params, convertParams);
+ 			}
++			else if (AVS_OFFICESTUDIO_FILE_SPREADSHEET_XLS == nFormatTo)
++			{
++				// Native editors save Editor.bin through this directory route.
++				// Use the same BIFF8 writer as the XLSX-to-XLS command-line path.
++				nRes = xlsx_dir2xls_dir(sFrom, sTo, params, convertParams);
++			}
+ 			// else if (AVS_OFFICESTUDIO_FILE_SPREADSHEET_CSV == nFormatTo)
+ 			//{
+ 			//	nRes = xlsx_dir2csv(sFrom, sTo, sTemp, params);
+@@ -1679,6 +1685,13 @@ namespace NExtractTools
+ 
+ 	_UINT32 fromInputParams(InputParams& oInputParams)
+ 	{
++		// Validate before direction detection can create origin/settings files.
++		// Keep this check for library callers that construct InputParams directly.
++		const auto isEncodingValid = [](const int* pEncoding) {
++			return !pEncoding || (*pEncoding >= 0 && *pEncoding < UNICODE_CONVERTER_ENCODINGS_COUNT) || *pEncoding == 1000;
++		};
++		if (!isEncodingValid(oInputParams.m_nCsvTxtEncodingFrom) || !isEncodingValid(oInputParams.m_nCsvTxtEncodingTo))
++			return AVS_FILEUTILS_ERROR_CONVERT_PARAMS;
+ 		_CP_LOG << L"start/detect conversion" << std::endl;
+ 		TConversionDirection conversion = oInputParams.getConversionDirection();
+ 		
+@@ -1691,6 +1704,21 @@ namespace NExtractTools
+ 		int nFormatTo = AVS_OFFICESTUDIO_FILE_UNKNOWN;
+ 		if (NULL != oInputParams.m_nFormatTo)
+ 			nFormatTo = *oInputParams.m_nFormatTo;
++		// Direct extension routes return before getConversionDirection fills
++		// these fields. Apply sentinel validation to those routes as well.
++		COfficeFileFormatChecker encodingFormatChecker;
++		if (nFormatFrom == AVS_OFFICESTUDIO_FILE_UNKNOWN && !sFileFrom.empty())
++			nFormatFrom = encodingFormatChecker.GetFormatByExtension(L"." + NSFile::GetFileExtention(sFileFrom));
++		if (nFormatTo == AVS_OFFICESTUDIO_FILE_UNKNOWN && !sFileTo.empty())
++			nFormatTo = encodingFormatChecker.GetFormatByExtension(L"." + NSFile::GetFileExtention(sFileTo));
++
++		// Keep the legacy ANSI CSV reader and TXT writer. The TXT reader
++		// and CSV writer do not support this sentinel as a table index.
++		const bool bCsvTo = nFormatTo == AVS_OFFICESTUDIO_FILE_SPREADSHEET_CSV || nFormatTo == AVS_OFFICESTUDIO_FILE_SPREADSHEET_TSV ||
++			nFormatTo == AVS_OFFICESTUDIO_FILE_SPREADSHEET_SCSV || nFormatTo == AVS_OFFICESTUDIO_FILE_OTHER_JSON;
++		if ((oInputParams.m_nCsvTxtEncodingFrom && *oInputParams.m_nCsvTxtEncodingFrom == 1000 && nFormatFrom == AVS_OFFICESTUDIO_FILE_DOCUMENT_TXT) ||
++			(oInputParams.m_nCsvTxtEncodingTo && *oInputParams.m_nCsvTxtEncodingTo == 1000 && bCsvTo))
++			return AVS_FILEUTILS_ERROR_CONVERT_PARAMS;
+ 
+ 		if (TCD_ERROR == conversion)
+ 		{
+diff --git a/X2tConverter/src/cextracttools.h b/X2tConverter/src/cextracttools.h
+index 5e144e15..a7748349 100644
+--- a/X2tConverter/src/cextracttools.h
++++ b/X2tConverter/src/cextracttools.h
+@@ -42,6 +42,7 @@
+ #include "../../DesktopEditor/common/StringBuilder.h"
+ #include "../../DesktopEditor/doctrenderer/doctrenderer.h"
+ #include "../../DesktopEditor/common/ProcessEnv.h"
++#include "../../UnicodeConverter/UnicodeConverter_Encodings.h"
+ 
+ #include <boost/algorithm/string.hpp>
+ #include <boost/unordered_map.hpp>
+@@ -684,7 +685,10 @@ namespace NExtractTools
+ 						else
+ 						{
+ 							std::wstring sValue;
+-							if (oXmlNode.GetTextIfExist(sValue))
++							const bool bHasText = oXmlNode.GetTextIfExist(sValue);
++							if (!bHasText && _T("m_nCsvTxtEncoding") == sName)
++								return false;
++							if (bHasText)
+ 							{
+ 								if (_T("m_sKey") == sName)
+ 								{
+@@ -728,11 +732,28 @@ namespace NExtractTools
+ 								}
+ 								else if (_T("m_nCsvTxtEncoding") == sName)
+ 								{
++									// This is a table index, not a Windows code page. Do not
++									// let malformed or overflowing text silently become zero.
++									int nEncoding = 0;
++									try
++									{
++										const std::wstring sEncoding = boost::algorithm::trim_copy(sValue);
++										size_t nEnd = 0;
++										nEncoding = std::stoi(sEncoding, &nEnd);
++										if (nEnd != sEncoding.size())
++											return false;
++									}
++									catch (...)
++									{
++										return false;
++									}
++									if ((nEncoding < 0 || nEncoding >= UNICODE_CONVERTER_ENCODINGS_COUNT) && nEncoding != 1000)
++										return false;
+ 									RELEASEOBJECT(m_nCsvTxtEncodingFrom);
+-									m_nCsvTxtEncodingFrom = new int(XmlUtils::GetInteger(sValue));
++									m_nCsvTxtEncodingFrom = new int(nEncoding);
+ 									
+ 									RELEASEOBJECT(m_nCsvTxtEncodingTo);
+-									m_nCsvTxtEncodingTo = new int(XmlUtils::GetInteger(sValue));
++									m_nCsvTxtEncodingTo = new int(nEncoding);
+ 								}
+ 								else if (_T("m_nCsvDelimiter") == sName)
+ 								{
+diff --git a/X2tConverter/src/lib/pdf_image.h b/X2tConverter/src/lib/pdf_image.h
+index 507eb66d..67a5ec2d 100644
+--- a/X2tConverter/src/lib/pdf_image.h
++++ b/X2tConverter/src/lib/pdf_image.h
+@@ -1016,6 +1016,18 @@ namespace NExtractTools
+ 	{
+ 		std::wstring sTo = sTo_;
+ 		_UINT32 nRes = 0;
++		// Cross-platform text reconstruction produces a Word document. Reject
++		// unrelated Office targets before invoking its renderer.
++		if ((nFormatTo & AVS_OFFICESTUDIO_FILE_SPREADSHEET) ||
++			(nFormatTo & AVS_OFFICESTUDIO_FILE_PRESENTATION))
++			return AVS_FILEUTILS_ERROR_CONVERT;
++		// The desktop supplies its generated font cache. A bare CLI invocation
++		// must fail cleanly rather than passing missing font context to DocxRenderer.
++		if (params.getFontPath().empty() &&
++			((nFormatTo & AVS_OFFICESTUDIO_FILE_DOCUMENT) ||
++			 nFormatTo == AVS_OFFICESTUDIO_FILE_OTHER_OOXML || nFormatTo == AVS_OFFICESTUDIO_FILE_OTHER_ODF) &&
++			nFormatTo != AVS_OFFICESTUDIO_FILE_DOCUMENT_TXT)
++			return AVS_FILEUTILS_ERROR_CONVERT;
+ 		NSFonts::IApplicationFonts *pApplicationFonts = createApplicationFonts(params);
+ 
+ 		std::wstring sFrom = sFromSrc;

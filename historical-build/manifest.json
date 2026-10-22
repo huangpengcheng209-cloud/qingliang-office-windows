@@ -1,0 +1,106 @@
+[
+  {
+    "archive_path": "windows-build/scripts/build_path_probe.py",
+    "sha256": "5001c0ce81b8ffa649f593817163985a607d19cf4a681c246a1358e43881b9a6"
+  },
+  {
+    "archive_path": "windows-build/scripts/build_web_controllers.js",
+    "sha256": "6db15b630fe401119734a48fa521655781ed9326e3b3fcbc6e38d101062acf76"
+  },
+  {
+    "archive_path": "windows-build/scripts/build_windows_components.py",
+    "sha256": "d8f5a27a23cb8d044d7447b8700e56d85863c4894bd6a5b3b13dd54c653c8d6c"
+  },
+  {
+    "archive_path": "windows-build/scripts/build_word_sdk_windows.py",
+    "sha256": "9645d2f14f8ea69342788d787e6094edb3f2605abd856d6ed45f1854e2f4dcc7"
+  },
+  {
+    "archive_path": "windows-build/scripts/fetch_dependency_assets.py",
+    "sha256": "736dc3aebbb38c3541fbdff2c9aad7595ae93958afd9c9c3dff1d325a68603e5"
+  },
+  {
+    "archive_path": "windows-build/scripts/fetch_qt_corresponding_source.py",
+    "sha256": "f2b055268a400d9febc9029e316cf2673dbee3b217506ae69dd3ca6509ffe783"
+  },
+  {
+    "archive_path": "windows-build/scripts/integrate_candidate.py",
+    "sha256": "f24380a80579368f6287109ed07d45c413676c0afd5b792f714a81ffc4ade3cf"
+  },
+  {
+    "archive_path": "windows-build/publication/adapt_cef150_browser_frames.py",
+    "sha256": "cf8a7fc29573684ec90906631b9a802078571e303bdda5f7f4083005bf065650"
+  },
+  {
+    "archive_path": "windows-build/publication/adapt_cef150_renderer_frames.py",
+    "sha256": "9138d2d1e47c069af5d8e4683faba6c0ecde136ace7bc2a6fa8dfd0d53337ea6"
+  },
+  {
+    "archive_path": "windows-build/publication/adapt_cef150_renderer_receivers.py",
+    "sha256": "6ad189e2a86b1a04200503a52d27ba58dc5b08bf2ecee8422f273dafcfa2fa71"
+  },
+  {
+    "archive_path": "windows-build/publication/adapt_cef150_view_frame_lookups.py",
+    "sha256": "a9ef88c323fa003515a41adb44151950f59a38dd88ab176d29d1f85a8f0f955d"
+  },
+  {
+    "archive_path": "windows-build/publication/build_cef150_consumers.py",
+    "sha256": "058beeeffa09ad030180bfcc79defe3732ef20810d72d613c227329811c391fb"
+  },
+  {
+    "archive_path": "windows-build/publication/build_cef150_documents_api.js",
+    "sha256": "f2440f6d917583ab89cf4188eabf519ef71e26493d6e5ea0ef6a0934b3094c0b"
+  },
+  {
+    "archive_path": "windows-build/publication/build_cef150_native_sdk.py",
+    "sha256": "aa413f03425fae333f23122f3d2d6f18336d8183643b6e3f46a6127f99ab453d"
+  },
+  {
+    "archive_path": "windows-build/publication/build_docx_renderer.py",
+    "sha256": "254b16d053c2e6cbea7977d59874a560648f0dae68a75fe6d1e53709b0e94d7a"
+  },
+  {
+    "archive_path": "windows-build/publication/build_win14_template_cancel.py",
+    "sha256": "21335e06e0d1d63d086330ee0e6e73e29d55de21555c32a235c48245cc254835"
+  },
+  {
+    "archive_path": "windows-build/publication/cef150-client-handler-construction.patch",
+    "sha256": "6596a5b77d1a37076fdb4820e6a245d2971b6cbabe0ab1f210f5fe6e74c9589d"
+  },
+  {
+    "archive_path": "windows-build/publication/fix_desktop_help_fallback.py",
+    "sha256": "1f8808c3db8139f0bfc7899b8d1598168d6c87011ee6214b60d1b10cab622d81"
+  },
+  {
+    "archive_path": "windows-build/publication/fix_pdf_binary_font_fallback.py",
+    "sha256": "060b4d0c01dfa85685a623d7d94326616a14c9ec7d520492817b3b9dccec70a2"
+  },
+  {
+    "archive_path": "windows-build/publication/integrate_current_editor_sdks.py",
+    "sha256": "98d6b96de3e861cab86ae10b1ed3c1417ccda380b4d14f5e49a1489e23e593ef"
+  },
+  {
+    "archive_path": "windows-build/publication/integrate_current_web_help.py",
+    "sha256": "f9a9601ab9c75bb9695da70d252b69f49f5569dcdfe94ff08cab717b88f374ee"
+  },
+  {
+    "archive_path": "windows-build/publication/package_cef150_release.py",
+    "sha256": "6ffad1b620a6252f50aaf77066ce194ad9576ce89c00b1f7c9f8908c3c76fff8"
+  },
+  {
+    "archive_path": "windows-build/publication/prepare_cef150_build_sources.py",
+    "sha256": "6c1c558eec8653a0211c37f159f2b9f725b72c83efe823543196749b639e4442"
+  },
+  {
+    "archive_path": "windows-build/overrides/ocr/config.json",
+    "sha256": "82072c518cce4bbf78d53bbce84cb9285041db6bff73470e0aaa4a3966c6317a"
+  },
+  {
+    "archive_path": "windows-build/overrides/ocr/index.html",
+    "sha256": "a66d79668628cb15f46da9c412d560b9ea4351c1ccda91145be6e5e93c38da30"
+  },
+  {
+    "archive_path": "windows-build/overrides/ocr/scripts/ocr.js",
+    "sha256": "0d5f8cc31a66362619ed1c41247daabb8abe77544baefede57142522efce01b5"
+  }
+]

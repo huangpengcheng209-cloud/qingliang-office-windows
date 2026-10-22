@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+/work/
+/upstream/
+/artifacts/
+.env
+.env.*
+*.pfx
+*.p12
+*.key

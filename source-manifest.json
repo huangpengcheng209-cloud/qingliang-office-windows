@@ -1,0 +1,582 @@
+{
+  "version": "9.4.0.129-win.22",
+  "source_archive_sha256": "07a95c06fe62a83631965bc0eb21664322f655580d9cf00b15a50154f02ae5e7",
+  "modified_files": [
+    {
+      "repository": "desktop-apps",
+      "file": "common/loginpage/locale/zh-CN.js",
+      "sha256": "c9ead1cd5ef410a6c4abd86a5f499d359d48cc462e69da9ee9a5aa8f6521fafd",
+      "base_sha256": "770e6015f55a37bd48366bffbbceaa6cb64f395a961371ae51903bf7d8fa4194"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "common/loginpage/src/css/component.less",
+      "sha256": "3d63e266c37b8f8b6343f58bf58f0cdd578417287a91bb0b1e6201339774ad1a",
+      "base_sha256": "8573b1fbd6332274335c6f00fb9d226fe7e054dde1d8ff217bb8aac003b5013f"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "common/loginpage/src/css/styles.less",
+      "sha256": "d7773907f0fb22e2bcf8b9bb136f2ac3ec4e02d41d8e263cd0c74eb22c62b992",
+      "base_sha256": "8c9ed042a0cd66fe20397798b595d0d3cbba053b9fa1945073737158b51711ad"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "common/loginpage/src/document-creation-grid.js",
+      "sha256": "f9ab46a218d505c53b5860a1919da17ce16e9838745fe15b91e32d51259e74c1",
+      "base_sha256": "b28dd48a5d22ff368fd3871edaa95b1e8cc9fdca8eb6b60b396b60271f02eaac"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "common/loginpage/src/locale.js",
+      "sha256": "22808fd2e667bababcb0e49695b8b0b283538772b561126c06cc2ac3590df67a",
+      "base_sha256": "eae90c99ac21690d545b1a9a83a21e6e7ffd687e409b7631fa781e7fdc384f7b"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "common/loginpage/src/panelrecent.js",
+      "sha256": "6e342d82e24d1912b1f0c775494586be9c53c945634da1cebad269e3836232bf",
+      "base_sha256": "14b21754f37d6580ec78a53be9fc0167800fceb7ee6862fb3a5874f855bed206"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "common/loginpage/src/panels.js",
+      "sha256": "d8524ac49b0ee097beeb5c751d6ae38f08a823a0537a87d4a76ec81153b03203",
+      "base_sha256": "f9ad62d1c6d08cdcf5a04ce58ec2990b179ace4aa44a8a175cdd71dfb7da9972"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/res/styles/styles.qss",
+      "sha256": "460039ac00f1b4ce390966df909fb7f6551b5020f7b57be23b95d632184f4134",
+      "base_sha256": "6acb0b0d142705fb6a519c1881e7104896ec49b1fa45c6f2625cba2c2584a5cc"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/src/cascapplicationmanagerwrapper.cpp",
+      "sha256": "90047d8853250f7a94fb5df83337bd7e546407a64433daaf2b63f6170823e09b",
+      "base_sha256": "8e5f06ce7a43f38f5be5fadfa1ed3c90f87fa11b71fa616ede6f0370885f5adc"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/src/ceditortools.cpp",
+      "sha256": "7cde6c2fa2304c797abbda29c92314ea948a365a588fa7ccc896eca0544c7cbe",
+      "base_sha256": "d248887a01f7e8ae5fb11970e6d2576758ace150d3cd97fbe5758cef1a117b2e"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/src/clangater.cpp",
+      "sha256": "743c83c747c28177e6a5a5b4b1952db7431c7daeb4673a4d3e9d3ce0c7ef7900",
+      "base_sha256": "d774a85f8500fe15b264d326fa27a39acffdc3a8403df2b52566f966aab97735"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/src/defines.h",
+      "sha256": "c3e4d3e96c1357d8a15354bd5c99f9dbf97eded62cc6e6181de83581f166f374",
+      "base_sha256": "0520dd82329e197f1fb8b1df508397f0a730af7cb4c84bcea695f8cad2ab6539"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/src/main.cpp",
+      "sha256": "d31cb5738f380db9fefb29ecde66a1c2eacfbe16a90cf225ad4f5bc022b30f42",
+      "base_sha256": "16a3dacdec1f30bf6c7f8e2ded39753f66a276f806d85cf8e29c1760709c3b94"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/src/prop/cmainpanelimpl.cpp",
+      "sha256": "85becf971c99b4e02a8756fefcf491c03f09897e184c63c847fdb67d657ff6f2",
+      "base_sha256": "4a72ccb90ff10272e8eb60bfe9c54f1687125fe1e26fbc7261077949990731e5"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/src/prop/cmainwindowimpl.cpp",
+      "sha256": "6be433f82dd1d466e635f07adf72e40f5fa9202ce56ac11e977330d0a53c9c01",
+      "base_sha256": "60a707543a8e7692fcb73ade02da7cb42843e7ef5f0d999285a8506eaa8722b1"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/src/prop/utils.cpp",
+      "sha256": "5f39bf685c2f189c1a34cb21b74d2ccdce6cca1817c4e080a364327602230ed4",
+      "base_sha256": "29882b724077d34effc442947f4243a72e7f04dcc9212d35341c4a17de24e8a8"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/src/version.h",
+      "sha256": "831449561a6f16c360e3c7c846070a042b5c136a7b9f8c7c2b1ef8d494882c2d",
+      "base_sha256": "4f5c473989641d4e74e8a351b4df9b8207c9497c6282842a1f7df97f75c3bdb5"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/src/windows/cmainwindow.cpp",
+      "sha256": "0f064c6eb0c0ce12952f31c9235b18646fa8bd1d2c4c4fd8d424b4c390fb9a0c",
+      "base_sha256": "d5047714cdc3cb2864de0da2ef1348c31413b0614e203bc1ed1ce917f85404c9"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/src/windows/cmainwindow.h",
+      "sha256": "1744369848c3cee283ebe5a6ce3cdcc8e10b69032747dcc3193bdf2dad54100c",
+      "base_sha256": "86a2c2b9cd7868252da58769416ed05ff5a609d5a5bbe993a6fe752beca663d5"
+    },
+    {
+      "repository": "desktop-apps",
+      "file": "win-linux/src/windows/cwindowbase.h",
+      "sha256": "b44ae440bda2805df71c98de783a6edd7224f5ca6090bb432455ead4c9ef96a0",
+      "base_sha256": "200a399aab2e9d9823a3c1456e64f5fd017e0352ef37f25704f072fd10637ce6"
+    },
+    {
+      "repository": "core",
+      "file": "Common/3dParty/pole/pole.cpp",
+      "sha256": "7d16132764f058ea1bbdfd442f1e1435991e2be23297912747910a3fe7afb6c2",
+      "base_sha256": "059fcc0bc15e4fd273aa355d31f0d47dd7cdde87b9392c6a54fa9d0254612f81"
+    },
+    {
+      "repository": "core",
+      "file": "Common/OfficeFileFormatChecker2.cpp",
+      "sha256": "ef336c33ff3cd1a7791f5013c0da4e8be6655d361a2630dc521396db7f4d4119",
+      "base_sha256": "0025128c5809b45861115e575529be3b264e5867015cac5bc62242b755475ad1"
+    },
+    {
+      "repository": "core",
+      "file": "DesktopEditor/agg-2.4/include/agg_basics.h",
+      "sha256": "714e1d975cfa73a39b8a70403e69af77a7213a0b4b54bba8c3bc49fe75f48db6",
+      "base_sha256": "a6c3bb24f923368d8b097cb8a822fe7c06ff94b21567c5a3c2aaf82f5f9b6a7f"
+    },
+    {
+      "repository": "core",
+      "file": "DocxRenderer/src/logic/managers/FontManager.cpp",
+      "sha256": "9874eb89d9b3de251824c008ba0538a2cadc5b043db5af393ed95a29c4088b33",
+      "base_sha256": "bdfbfcd1ab04b5854b44113ac35ed6586511079da5886eac67005dd76b3ec827"
+    },
+    {
+      "repository": "core",
+      "file": "MsBinaryFile/DocFile/PropertiesMapping.cpp",
+      "sha256": "79c96a66b5f834b2edda8dabed2fc7c0ae70fd1684184ae931cf57f2eaeac040",
+      "base_sha256": "228bd3247a61c9e21ee346782163b00336dc16ccc14d9e7987420d6f0bbf398d"
+    },
+    {
+      "repository": "core",
+      "file": "MsBinaryFile/DocFile/TableCellPropertiesMapping.cpp",
+      "sha256": "9f4e5046827ce33d557df516d546f124aa4be3cc6ef74bd4f733c5cd6e91eb96",
+      "base_sha256": "1ac9959819e2fab649ad40561dca3e56f44ea992743d1294be2456103689f249"
+    },
+    {
+      "repository": "core",
+      "file": "MsBinaryFile/DocFile/TablePropertiesMapping.cpp",
+      "sha256": "3d9aa31bc53d0b4a35385b7270e0210e83eae01ee0d105a809392075fe58f706",
+      "base_sha256": "9e0027cffb6bc5f3ef22056f98d64f501eb93b401c99e2981854a2132f279be1"
+    },
+    {
+      "repository": "core",
+      "file": "MsBinaryFile/XlsFile/Format/Logic/Biff_records/CF12.cpp",
+      "sha256": "9bfd2df08bf4d3a1f09d546335945cd822996cd0b49343d35d534c9fe5ce2310",
+      "base_sha256": "681d8485627ea91e7006eec11f8ef1b0f708d488ceffc92302b1fa7b6af93808"
+    },
+    {
+      "repository": "core",
+      "file": "MsBinaryFile/XlsFile/Format/Logic/Biff_records/CF12.h",
+      "sha256": "c64e7d3ca372b1b3254f1c307a79575df6e2a67cadf55ad4c940b2ee23321d39",
+      "base_sha256": "8cebbb0dfc60e6bd9077b61dfaf409e5b6343880d388750c5cd900c9763b6e88"
+    },
+    {
+      "repository": "core",
+      "file": "MsBinaryFile/XlsFile/Format/Logic/Biff_structures/CellRef.h",
+      "sha256": "5019074b4819993a865cfd3ca7c69a87f1177352371df67e365b933bbdc2eba0",
+      "base_sha256": "ada8410004aae0fc16edae5f46f3c95e1453c496cfd457de6df1db3cfeb2e176"
+    },
+    {
+      "repository": "core",
+      "file": "MsBinaryFile/XlsFile/Format/Logic/Biff_structures/DVParsedFormula.cpp",
+      "sha256": "2cb54f466a3bf9ea2b3f0fef8f57337ed9717ff9708b17e8b2f4ba7dda267156",
+      "base_sha256": "aa1027264f1d292bc66e84068a766e4df36d6caee40a8d68887666c276ebcaa0"
+    },
+    {
+      "repository": "core",
+      "file": "MsBinaryFile/XlsFile/Format/Logic/Biff_structures/DXFPat.cpp",
+      "sha256": "38bcb74097846845058bd00de9e24abf1556de932eb3c68b171a0a1bb6f134b6",
+      "base_sha256": "e0f1bc904405c56a9dd2042c2f66bca3bce69364914cee7875dcb14d6590d5eb"
+    },
+    {
+      "repository": "core",
+      "file": "OOXML/Binary/Sheets/Reader/CSVReader.cpp",
+      "sha256": "950dcd9be899bfc2968c2eabbbc824adabc8fd4d77f08235832a4d5a178c0248",
+      "base_sha256": "69d47b46f16bb894d43a4aa97952e900d23864c81bb03ad8677bea5fb48cfc71"
+    },
+    {
+      "repository": "core",
+      "file": "OOXML/Binary/Sheets/Writer/CSVWriter.cpp",
+      "sha256": "cdf5f0d7629f5e23f429315e22224738aed7971b965025f194e4563018255695",
+      "base_sha256": "266bf68fa85e0f4be678cd11352f24eb03119275432ac6cca830b7e576661bb7"
+    },
+    {
+      "repository": "core",
+      "file": "OOXML/DocxFormat/Drawing/Drawing.cpp",
+      "sha256": "63d82bc7d9e4cdf67f690057839836161d855c611ae264545c634efde6b9062f",
+      "base_sha256": "f8aa432115edb54b4a0df79f892667be6c0085e1e890b0d37ffe2cf107e4007d"
+    },
+    {
+      "repository": "core",
+      "file": "OOXML/PPTXFormat/Logic/GraphicFrame.cpp",
+      "sha256": "bee0c6730c2d9f3620310b7cd51a5c7c763f2de07d8dcc9658e9c3906ecc1f65",
+      "base_sha256": "bcf80bb3a588940342c2ca69f420712ebf452067eb41e1b10152012e84407f52"
+    },
+    {
+      "repository": "core",
+      "file": "OOXML/XlsxFormat/Table/Tables.cpp",
+      "sha256": "42e002552f0cdbdac889e8e062e5c2ac9c70528768c148826edb057073e942cc",
+      "base_sha256": "df003d5425eb6c20c8bf6886c5758fef4726ef3e84fab116e9df548983dd37b2"
+    },
+    {
+      "repository": "core",
+      "file": "OOXML/XlsxFormat/Worksheets/ConditionalFormatting.cpp",
+      "sha256": "4c160e7d079c0928570fed7c9e61aff4c0dc0f0582364359ed2266cc6fa6cebc",
+      "base_sha256": "fdebfcd5fa468b458c20fb1936b12feeda71e9d92c9b3614bcfded3c4e1cbfa7"
+    },
+    {
+      "repository": "core",
+      "file": "OOXML/XlsxFormat/Worksheets/Worksheet.cpp",
+      "sha256": "998c609701abfab2105b60d238c22533b11babcc2af9cd25417e5c706ee313cc",
+      "base_sha256": "1192ffea96a63b6d77aa5e1ee77156c502ca4fce7cf62c1d34a80c65127dc4dc"
+    },
+    {
+      "repository": "core",
+      "file": "OdfFile/Reader/Converter/xlsx_numFmts.cpp",
+      "sha256": "112ebbec1f6f0444e0dc6f55bfb4305646fa9d3a57420839de61b8b92ff67899",
+      "base_sha256": "9515e37eea0d6d97fe4590840823a24f1764778a2a0e46a902fa19d490a26041"
+    },
+    {
+      "repository": "core",
+      "file": "OdfFile/Writer/Format/odt_conversion_context.cpp",
+      "sha256": "9d2d5b9466af3944c53f5ce3143e0b90b91a67223a985a08b3009f37ae86c4ff",
+      "base_sha256": "7d3c111efe6e986b47d7d284a0ac3556c307763b616361326dd2196e552043de"
+    },
+    {
+      "repository": "core",
+      "file": "PdfFile/PdfEditor.cpp",
+      "sha256": "93624e357063419b462c812201e600e252f10b18719ba1937bc1d014d40c133b",
+      "base_sha256": "8b56393b14374de73933de798f41c48277fe630f4de8707c7b069c4d63a48def"
+    },
+    {
+      "repository": "core",
+      "file": "RtfFile/Format/RtfChar.cpp",
+      "sha256": "340aaf14ce44f558aa24d8c1a941d0b22190fc22ed4747410d2ef9608991791a",
+      "base_sha256": "d79791131c3cbf9501bda0add94ceb672936d6e3061f3104fa4aa5b034170b9b"
+    },
+    {
+      "repository": "core",
+      "file": "RtfFile/Format/RtfReader.cpp",
+      "sha256": "3d3f5f00c0b3bcaceba363ceb5fdce4f68dcf60d8fe80be077ebb9df01615693",
+      "base_sha256": "146732baf7d2c9d1491ec44006fb5ece79e12ce30c9460f0e8cbf4c0f951392b"
+    },
+    {
+      "repository": "core",
+      "file": "RtfFile/Format/RtfReader.h",
+      "sha256": "28d8aa7d9175641f3e60fdf3a5846df21761f6a01cc22cf57a980193a041e8dc",
+      "base_sha256": "f37e13d357042af03c1f72852a61a175baf4cba2593447e4cb0181c98879e877"
+    },
+    {
+      "repository": "core",
+      "file": "TxtFile/Source/ConvertDocx2Txt.cpp",
+      "sha256": "c97085aee5b134f351a7220acb03b35ab7badc436d7af75bdad4d33e4f447de2",
+      "base_sha256": "92fc0e3cdc4285bb4a7c392c0b767d018e561a0434b99f12495fca4691a37a63"
+    },
+    {
+      "repository": "core",
+      "file": "TxtFile/Source/ConvertDocx2Txt.h",
+      "sha256": "74dfaa5d147bf639abfbfe32e99fc453bb75b1587a047d3364c86053b0b68332",
+      "base_sha256": "94415e5dfdbebe41ae4e7d4d77edf4251bf10b0f7b462b58202b60653d79f9e3"
+    },
+    {
+      "repository": "core",
+      "file": "TxtFile/Source/TxtFormat/File.cpp",
+      "sha256": "14d9362d370d873e1ceaee3103054e1dcc07ac550416b213644d8ae5383db20d",
+      "base_sha256": "67aacedae52070d725c7d826bc19e4edd4263e40dd5c6ee55bdf1ba7fb90149a"
+    },
+    {
+      "repository": "core",
+      "file": "TxtFile/Source/TxtXmlFile.cpp",
+      "sha256": "1905c280015d70cee8bc05ac712ec36078601ef2067c900ceae0e0f68662424c",
+      "base_sha256": "b8b27a5e101647e349d46c129dbd221888011a7948e5ed23bcb72abf88c24f38"
+    },
+    {
+      "repository": "core",
+      "file": "X2tConverter/src/ASCConverters.cpp",
+      "sha256": "829b94bc3d30324435d059ab77211b6f5e053f785078fba0118e8e2c05049430",
+      "base_sha256": "3976c48cc933d7e9fc5ea36f83eb0a2c8edac266af16e4b94454fd908c251ed0"
+    },
+    {
+      "repository": "core",
+      "file": "X2tConverter/src/cextracttools.h",
+      "sha256": "e9cbcde3f4e115164d26edafd0ad3d149b69565e0b2522f11688eb209a550e9f",
+      "base_sha256": "c502a99b4e3138ca9e391ffcf9e2bcb345d93642ef234c76fbfd8575f5014dd5"
+    },
+    {
+      "repository": "core",
+      "file": "X2tConverter/src/lib/pdf_image.h",
+      "sha256": "129bec29149ac9a6c86b4759b906dfcc6082c1571b07aa4ccaccc0c5d0ad8cb9",
+      "base_sha256": "fd8e3b0d5d8de02df20b30ad7c7150298534243a9c0261517ce772a066197bbd"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "cell/model/WorkbookElems.js",
+      "sha256": "fb2ce09ea8c7c24088bf43521a81fe23a30a924685f0c866efaf54839e6e30ab",
+      "base_sha256": "0c8c499a16a072150ed26b28c34b03530dccc58e7912efc6ce32516a286a0f4c"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "cell/model/autofilters.js",
+      "sha256": "a815588d6b8df5d4b45f16f76b96f5976867baf13ee3907622784f7e4d11c8d9",
+      "base_sha256": "ef3b43dd7425dc39028d957565b0a266e1eed5d0ec0e10d69ac6145a7c74b627"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "common/Drawings/GraphicsBase.js",
+      "sha256": "0d4d06f90bf8a2550bec16aa7ac833e2d678411f824b4c1eaaabd495a588a46e",
+      "base_sha256": "edeaeacd00d0b571de0ea9120aaa7f1c995c2be04f3706b348d7f8cecd8e27da"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "common/HistoryCommon.js",
+      "sha256": "a45611b756593ce325f47a62eece3c255494fad160947b9af4a4ad244587379e",
+      "base_sha256": "127535ad3806041bf648ca206c52a9d57fbd1ec9e29afbb5c7025a8eb0704753"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "common/Shapes/Serialize.js",
+      "sha256": "cdd2f9d614830bae4a2a1b504ff2ee8000714814ae741d136391c2e5a9c5f4c0",
+      "base_sha256": "76d4c6d23e61b09d4022abe9b8782a0a6545588d96a0b8cf04d7381899d4e0f1"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "common/plugins.js",
+      "sha256": "59a0f5d10e9f146f08a4db4744cea6b0e5eb5a7d45fe59868ddb97e5db2c8f66",
+      "base_sha256": "1feedc532448a6687f332d944f70c82f5cee77174624604b9a9a708c89c43688"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "word/Editor/Math.js",
+      "sha256": "0c6847943fbdecec450ba11d1db44d1753313d82c3ce21bba393b67d5b297d66",
+      "base_sha256": "10755e63b427e9ce282c3bf48857672cc94d4ec6ecadc99a418fb48405537f45"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "word/Editor/MathChanges.js",
+      "sha256": "ebba3864b6870fe85f8de75ff77168b85defc4a9e82b5b04add51a7be4646505",
+      "base_sha256": "f2328c63a5069fec087287904e6e5eef89be4d6cc5b7050a796bd49d3ee7cf63"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "word/Editor/Paragraph.js",
+      "sha256": "3496a7b8186e93eb3744422fcfe01a8f7d3e2588610fbab3152844dd9716bfe5",
+      "base_sha256": "9ee27256a144cdde6abdd9c10d082f0c854aee7667b75069876ddf0fc2c59a67"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "word/Editor/ParagraphContentBase.js",
+      "sha256": "d24289718e139be3f22d3ecba2e991bce3c009f68e8d372048bc6f52fa8138c3",
+      "base_sha256": "8de67409645d566a3788ee112a95fc06579b080c4d3432b4351d8e46b8be5583"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "word/Editor/Paragraph_Recalculate.js",
+      "sha256": "b870967b3c1ddf8c0f971ec7867e79608e7a828144ec9a81c6cd9217bb2c5c4f",
+      "base_sha256": "a6a443cddc2aada98ce415549328d04d340100d76468c31be4170c5e845b7418"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "word/Editor/Serialize2.js",
+      "sha256": "e5abf157253bc1fc134f4fe21daa91802cbd2bb1f2e7a4f79d03092318a5bb99",
+      "base_sha256": "de7de6b3467571fe6fba85892331ee05a015936f66c6e9fe69f9fdede4724592"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "word/Editor/Styles.js",
+      "sha256": "bedb3254536af1960c493e837f1ce9ff6e9c5e623d86b636fc10fe10d9c1d363",
+      "base_sha256": "5ea86b8b957aeb2e63eb74e19089bd1e43fd4e2e21da498fab05f282500eb492"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "word/Editor/Table.js",
+      "sha256": "533f084e9b508222076b7e109e6a248f2a363592d9ffac3b23acc1e34e200ad9",
+      "base_sha256": "c4d8a12f6e54378efba363d64f3a7272f54aa0a8de84d46222a70b7cb39d59dc"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "word/Editor/Table/TableCell.js",
+      "sha256": "801bad84335854ea961c8b073fc2f58f76b322cd515b5c3da74e4ce4dcceedd3",
+      "base_sha256": "26f24f801e7e4027e4112702fb9cde42a96578de1c8a8e3a20aa386c01597422"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "word/Editor/Table/TableDraw.js",
+      "sha256": "bbd02220dd31a09919ffbbc2a8cd9777275c114985534c8bd81129a446910955",
+      "base_sha256": "9f0bd5e8751af02e603acdfd50c774481d846172b82a9b9770ddbcbf2656e8c6"
+    },
+    {
+      "repository": "sdkjs",
+      "file": "word/Editor/Table/TableRecalculate.js",
+      "sha256": "51543a4fe8243a8bbb292ca87f38bf2cb2a2b08240d73267130cf7df6c505a4f",
+      "base_sha256": "b4506de96f0adfa437d2c447d25ccd3b4e6444c9319e0cf3b431ce8add345380"
+    },
+    {
+      "repository": "web-apps",
+      "file": "apps/api/documents/api.js",
+      "sha256": "8980fce4c158b6fcb574cace532af51799569ba7530dad238dd1b85253112b5b",
+      "base_sha256": "ec264065e925678f648a405e1e6a0c46572c857235ca2867c4bb8821602e3162"
+    },
+    {
+      "repository": "web-apps",
+      "file": "apps/common/main/lib/controller/Desktop.js",
+      "sha256": "73ca76af5efefa4f91748fa3c2f0822545caaa88ca623f9f1f30443ad11a519a",
+      "base_sha256": "7625acb57ff0d4a4b5c23870bc0fddf9ba93122810f891c65e3133ffc2fe4616"
+    },
+    {
+      "repository": "web-apps",
+      "file": "apps/common/main/lib/controller/ExternalDiagramEditor.js",
+      "sha256": "bb9a892803e6f4465dbec57bb6f6dc154a93605fc932187d37ff814d82cf964a",
+      "base_sha256": "73ef85f0b4c93fcb9d6ea4a1f853f35d676b584d4447bc09ea1b1bafca30361e"
+    },
+    {
+      "repository": "web-apps",
+      "file": "apps/common/main/lib/controller/SimpleToolbar.js",
+      "sha256": "553dd850f0e0915435c38ead48e54f2c64f31ef68b126b7fcb03ba1303f44421",
+      "base_sha256": null
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/ascdocumentscore.pri",
+      "sha256": "46a8702e428a74e99522864a5254abc045752921d2aa4936b1e0917da7f2398c",
+      "base_sha256": "18872b3678a5c6c594c60f6c66a92a4005da0b3c0fea06b219aa434b657e5516"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/cef_pri_150/cef_base.pri",
+      "sha256": "4861f1f2f6698e11657fae7ee55f966589f3375e55b6207f6a1560f06fd90ee6",
+      "base_sha256": null
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/cef_pri_150/cef_client.pri",
+      "sha256": "f7a0da9286b52bafa86d4fdd4e66669cb3afa2d1759ac230ee8131ad8913e2c4",
+      "base_sha256": null
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/cef_pri_150/cef_client_sources.pri",
+      "sha256": "a5a1b7c21656edcfd5e2a290e109b44f2d4ecfc4aa535f1c9dd720adf211d0f2",
+      "base_sha256": null
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/cef_pri_150/cef_sources.pri",
+      "sha256": "28a9dd9f1d73e0a35a8d32073f63d1e6a3912bb607b8134debedacfe19dfbae5",
+      "base_sha256": null
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/include/applicationmanager.h",
+      "sha256": "105b0f4ff3c79ccbd190555780d17369007abcc0873fa6b0d5b8bae64392ca6e",
+      "base_sha256": "2b629ebff181ed7f4ba7e4ec00591675ff83653a6892962e351ca35f4533cd8a"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/include/applicationmanager_events.h",
+      "sha256": "c4393491ded5085514d929f21ab575060550198aaf09aa31256dab1094555fef",
+      "base_sha256": "52f3c4710d399cd54bdbf6b0d9e68617de35a2f190209eff20ba30aef90b5f11"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/include/base.h",
+      "sha256": "e10c045ef43e67512433087ea8832d8e3a18d55270b84960eae62720cd8203dd",
+      "base_sha256": "eedb5847bcf86bbc926c88a18c6dcb275c3fc6723706ec3ff5a737fab107e4c0"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/include/spellchecker.h",
+      "sha256": "261cf4374d323f7cd91309b3c9980ad04b822b67aca5e7630c183a0ddbd47c9e",
+      "base_sha256": "70bf71567f9b72745896507cb7a7e53d56770509078f53aec233aa13d7f63982"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/applicationmanager.cpp",
+      "sha256": "3a51665803ed2ec602f8f734e289cf635c0ad568be9715d748530906a15b9931",
+      "base_sha256": "d034cba5fdcc52dde9a90b2668c27eb433ee357db19fe75e371679e551b96f75"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/applicationmanager_p.h",
+      "sha256": "cba3dfb44ee5cf60783f9e2bd5df4e4415b59b2c10ca4821be0c33e3049295a9",
+      "base_sha256": "5bf6c9bdbcbb38b0b348b7eddc4e0f6696ca9d09b7fe198187fb07bce8dcbc6b"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/cefapplication.cpp",
+      "sha256": "444054e98799035b12550cc6e7bf24662b18f536872187e4035d74490d56b0c5",
+      "base_sha256": "9635c864e430c139e333204ea11119bb18827a26b3bfbcb76d0ed12e83787701"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/cefview.cpp",
+      "sha256": "14be57254c5d1beee9bc50450ff7974cf888a7897130c76a741752bf929578a8",
+      "base_sha256": "261838a8362f3712bed544ed8b9fd9fefa28a8e2f3866d5fa1e18e03bffcf9da"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/cefwrapper/cef150_compat_types.h",
+      "sha256": "753cf05d6f8722141fbb33890c123dc346436d1038e3c2a4c0f3975eafbaf387",
+      "base_sha256": null
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/cefwrapper/client_app.h",
+      "sha256": "670db8162934ad2f091aa2309f8170217033284aac4da8438d1de1e60e4c8595",
+      "base_sha256": "a913168d1cbe90fdd06f0ffe5c5c62cd482f7b278f1d809ce807138a93e95a10"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/cefwrapper/client_renderer_wrapper.cpp",
+      "sha256": "a7162ea872f01040ab9cfee3676d147715131ab6638e24f3d6f1259673d6cd20",
+      "base_sha256": "767b346ad81cfadf51a1d0bebca569cc58985fb7ac9750291707a8efc05cdbde"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/fileconverter.h",
+      "sha256": "24ed4f91dc6a53b40f4b634ac7c54d50151f0fdae036128d65fab2d13091ea84",
+      "base_sha256": "bdb955d2541fee01a5427ae0243c76e6ab05bcf87b6b98f18660334918c20a6d"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/filelocker.cpp",
+      "sha256": "43b3655846c160de27a5fd871402ed13bf910220d25546065e3daaf4528ddd2d",
+      "base_sha256": "24e50fe385dd632ef00700cec3e502b2c855182e01299f51b0eba3162d1704e4"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/filelocker.h",
+      "sha256": "3ef284295eb106f3dcc865b1ed5770d20bd784114910c3080ca0e053c7648e01",
+      "base_sha256": "ee66203c1ae8c53f8f07336df9179c1f91739b433fa7a36ab6d1645bfad52f0c"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/spellchecker.cpp",
+      "sha256": "0a1bae62301a1c8949c3a324f43a052e4a1cdb71bfabb16925cb6e300cf85703",
+      "base_sha256": "a210611b60c2af72633768e339455eeb56bad13286ee99cd70811ab47e995e77"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/templatesmanager.h",
+      "sha256": "48850fbb62675244f8ebb7f07748253e10b711a22196ef015f9e936c5f3195eb",
+      "base_sha256": "0a933041862d624d5d9db01e6ae0a2f73383115bb5fe2c16c1757f5320b4951f"
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/windows_save_transaction.h",
+      "sha256": "7e9f34af981fe10967145e9eb1f8f492a13931e0c34673490340b09934ec32f1",
+      "base_sha256": null
+    },
+    {
+      "repository": "desktop-sdk",
+      "file": "ChromiumBasedEditors/lib/src/x2t.h",
+      "sha256": "7c3fdee278ee9c9c87e9abd4fab1bf930d63b498e36d8024973bb191e0b7dbea",
+      "base_sha256": "bd7b388399f10e9d926878c65823f65d365a0444fc8a8c60ef14d66ce46fbdcf"
+    }
+  ]
+}

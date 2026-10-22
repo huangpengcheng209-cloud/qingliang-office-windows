@@ -1,0 +1,1593 @@
+diff --git a/cell/model/WorkbookElems.js b/cell/model/WorkbookElems.js
+index 7c4c58f..11d910b 100644
+--- a/cell/model/WorkbookElems.js
++++ b/cell/model/WorkbookElems.js
+@@ -8780,7 +8780,7 @@ function RangeDataManagerElem(bbox, data)
+ 
+ 	TablePart.prototype.getTableRangeForFormula = function (objectParam) {
+ 		let res = null;
+-		let startRow = this.HeaderRowCount === null ? this.Ref.r1 + 1 : this.Ref.r1;
++		let startRow = this.isHeaderRow() ? this.Ref.r1 + 1 : this.Ref.r1;
+ 		let endRow = this.TotalsRowCount ? this.Ref.r2 - 1 : this.Ref.r2;
+ 		switch (objectParam.param) {
+ 			case FormulaTablePartInfo.all: {
+@@ -8792,7 +8792,7 @@ function RangeDataManagerElem(bbox, data)
+ 				break;
+ 			}
+ 			case FormulaTablePartInfo.headers: {
+-				if (this.HeaderRowCount === null) {
++				if (this.isHeaderRow()) {
+ 					res = new Asc.Range(this.Ref.c1, this.Ref.r1, this.Ref.c2, this.Ref.r1);
+ 				} else if (!objectParam.toRef || objectParam.bConvertTableFormulaToRef) {
+ 					res = new Asc.Range(this.Ref.c1, startRow, this.Ref.c2, endRow);
+@@ -8953,7 +8953,7 @@ function RangeDataManagerElem(bbox, data)
+ 	};
+ 
+ 	TablePart.prototype.getRangeWithoutHeaderFooter = function () {
+-		let startRow = this.HeaderRowCount === null ? this.Ref.r1 + 1 : this.Ref.r1;
++		let startRow = this.isHeaderRow() ? this.Ref.r1 + 1 : this.Ref.r1;
+ 		let endRow = this.TotalsRowCount ? this.Ref.r2 - 1 : this.Ref.r2;
+ 
+ 		return Asc.Range(this.Ref.c1, startRow, this.Ref.c2, endRow);
+diff --git a/cell/model/autofilters.js b/cell/model/autofilters.js
+index c5ccd2a..f0ba69a 100644
+--- a/cell/model/autofilters.js
++++ b/cell/model/autofilters.js
+@@ -2432,7 +2432,7 @@
+ 					//изменяем содержимое фильтра
+ 					if (!curFilter.SortState) {
+ 						var sortStateRange = new Asc.Range(curFilter.Ref.c1, curFilter.Ref.r1, curFilter.Ref.c2, maxFilterRow);
+-						if (bIsAutoFilter || (!bIsAutoFilter && null === curFilter.HeaderRowCount)) {
++						if (bIsAutoFilter || (!bIsAutoFilter && curFilter.isHeaderRow())) {
+ 							sortStateRange.r1++;
+ 						}
+ 
+@@ -2473,7 +2473,7 @@
+ 					//изменяем содержимое фильтра
+ 					if (!curFilter.SortState) {
+ 						var sortStateRange = new Asc.Range(curFilter.Ref.c1, curFilter.Ref.r1, curFilter.Ref.c2, maxFilterRow);
+-						if (bIsAutoFilter || (!bIsAutoFilter && null === curFilter.HeaderRowCount)) {
++						if (bIsAutoFilter || (!bIsAutoFilter && curFilter.isHeaderRow())) {
+ 							sortStateRange.r1++;
+ 						}
+ 
+@@ -3281,7 +3281,7 @@
+ 							clearRange = new AscCommonExcel.Range(worksheet, tablePart.Ref.r1, tablePart.Ref.c1, tablePart.Ref.r1, tablePart.Ref.c2);
+ 							this._clearRange(clearRange, true);
+ 
+-							tablePart.HeaderRowCount = tablePart.HeaderRowCount === null ? 0 : null;
++							tablePart.HeaderRowCount = tablePart.isHeaderRow() ? 0 : null;
+ 							tablePart.changeRef(null, 1, true);
+ 
+ 							if (tablePart.AutoFilter) {
+@@ -3294,7 +3294,7 @@
+ 							if (rangeUpTable.r1 >= 0 && this._isEmptyRange(rangeUpTable, 0) && this.searchRangeInTableParts(rangeUpTable) === -1) {
+ 								isSetValue = true;
+ 
+-								tablePart.HeaderRowCount = tablePart.HeaderRowCount === null ? 0 : null;
++								tablePart.HeaderRowCount = tablePart.isHeaderRow() ? 0 : null;
+ 								tablePart.changeRef(null, -1, true);
+ 							} else {
+ 								worksheet.getRange3(tablePart.Ref.r2 + 1, tablePart.Ref.c1, tablePart.Ref.r2 + 1, tablePart.Ref.c2).addCellsShiftBottom();
+@@ -3302,7 +3302,7 @@
+ 
+ 								isSetValue = true;
+ 
+-								tablePart.HeaderRowCount = tablePart.HeaderRowCount === null ? 0 : null;
++								tablePart.HeaderRowCount = tablePart.isHeaderRow() ? 0 : null;
+ 								tablePart.changeRef(null, -1, true);
+ 							}
+ 
+diff --git a/common/Drawings/GraphicsBase.js b/common/Drawings/GraphicsBase.js
+index ee2920c..2f8504d 100644
+--- a/common/Drawings/GraphicsBase.js
++++ b/common/Drawings/GraphicsBase.js
+@@ -519,6 +519,27 @@
+ 		this.df();
+ 	};
+ 
++    // An explicit border travels with each draw call; no style can leak into
++    // unrelated lines, and all native/canvas/PDF renderers share the geometry.
++    CGraphicsBase.prototype.DrawDocumentBorderLine = function(border, kind, args)
++    {
++        var draw = kind === 2 ? this.drawVerLine : (kind === 1 ? this.drawHorLineExt : this.drawHorLine);
++        if (border.Value !== 3)
++        {
++            draw.apply(this, args);
++            return;
++        }
++        var total = args[4], stroke = total / 3;
++        var center = args[1] + (args[0] === 0 ? total / 2 : (args[0] === 2 ? -total / 2 : 0));
++        var line = args.slice();
++        line[0] = 1;
++        line[4] = stroke;
++        line[1] = center - stroke;
++        draw.apply(this, line);
++        line[1] = center + stroke;
++        draw.apply(this, line);
++    };
++
+ 	CGraphicsBase.prototype.drawHorLine = function(align, y, x, r, penW)
+ 	{
+ 		this.p_width(1000 * penW);
+diff --git a/common/HistoryCommon.js b/common/HistoryCommon.js
+index b2a7ea5..689d316 100644
+--- a/common/HistoryCommon.js
++++ b/common/HistoryCommon.js
+@@ -2196,6 +2196,7 @@
+ 	window['AscDFH'].historyitem_MathContent_RemoveItem   = window['AscDFH'].historyitem_type_Math | 102;
+ 	window['AscDFH'].historyitem_MathContent_ArgSize      = window['AscDFH'].historyitem_type_Math | 103;
+ 	window['AscDFH'].historyitem_MathPara_Jc              = window['AscDFH'].historyitem_type_Math | 201;
++	window['AscDFH'].historyitem_MathPara_PreserveInline  = window['AscDFH'].historyitem_type_Math | 202;
+ 	window['AscDFH'].historyitem_MathBase_AddItems        = window['AscDFH'].historyitem_type_Math | 301;
+ 	window['AscDFH'].historyitem_MathBase_RemoveItems     = window['AscDFH'].historyitem_type_Math | 302;
+ 	window['AscDFH'].historyitem_MathBase_FontSize        = window['AscDFH'].historyitem_type_Math | 303;
+diff --git a/common/Shapes/Serialize.js b/common/Shapes/Serialize.js
+index 430dbe2..e7ad886 100644
+--- a/common/Shapes/Serialize.js
++++ b/common/Shapes/Serialize.js
+@@ -43,6 +43,24 @@ var c_oAscColor = Asc.c_oAscColor;
+ var c_oAscFill = Asc.c_oAscFill;
+ 
+ var c_dScalePPTXSizes = 36000;
++
++function getPdfBaseFontFallback(name, selectedFamily)
++{
++    // Original PDF base-font names survive binary scanning. Use their
++    // installed metric-compatible family for editable Unicode text. Base-font
++    // glyph IDs are not portable across the scan and font-rendering engines.
++    var family;
++    if (/^Helvetica(?:-Bold|-Oblique|-BoldOblique)?$/.test(name))
++        family = "Arial";
++    else if (/^Times-(?:Roman|Bold|Italic|BoldItalic)$/.test(name))
++        family = "Times New Roman";
++    else if (/^Courier(?:-Bold|-Oblique|-BoldOblique)?$/.test(name))
++        family = "Courier New";
++    if (family && AscFonts.g_fontApplication.GetFontInfoName(family) === family)
++        return family;
++    return selectedFamily;
++}
++
+ function IsHiddenObj(object)
+ {
+     if (!object)
+@@ -10486,6 +10504,7 @@ function BinaryPPTYLoader()
+ 
+                                 // for pdf only
+                                 let oPdfFontInfo;
++                                let sPdfBaseFont;
+ 
+                                 while (s.cur < _end)
+                                 {
+@@ -10505,10 +10524,11 @@ function BinaryPPTYLoader()
+ 									}
+ 
+ 									if (!oPdfFontInfo.isActual) {
+-										Asc.editor.embeddedFontsMap[AscFonts.getEmbeddedFontPrefix() + oPdfFontInfo.name] = _run.GetFontFamily();
++										sPdfBaseFont = getPdfBaseFontFallback(oPdfFontInfo.name, null);
++										Asc.editor.embeddedFontsMap[AscFonts.getEmbeddedFontPrefix() + oPdfFontInfo.name] = sPdfBaseFont || _run.GetFontFamily();
+ 									}
+ 
+-                                    _run.RFonts.SetAll((!oPdfFontInfo.isActual ? AscFonts.getEmbeddedFontPrefix() : "") + oPdfFontInfo.name, -1);
++                                    _run.RFonts.SetAll(sPdfBaseFont || ((!oPdfFontInfo.isActual ? AscFonts.getEmbeddedFontPrefix() : "") + oPdfFontInfo.name), -1);
+                                 }
+ 
+                                 s.Seek2(_end);
+@@ -10554,7 +10574,7 @@ function BinaryPPTYLoader()
+                                     }
+                                 }
+ 
+-                                if (oPdfFontInfo) {
++                                if (oPdfFontInfo && !sPdfBaseFont) {
+                                     let aPoses = oPdfFontInfo.lefts.split(";").map(function(posX) {
+                                         return posX * g_dKoef_emu_to_mm;
+                                     });
+diff --git a/common/plugins.js b/common/plugins.js
+index 8c1e19a..97633a7 100644
+--- a/common/plugins.js
++++ b/common/plugins.js
+@@ -1446,6 +1446,20 @@
+ 			if (undefined === windowOrigin)
+ 				windowOrigin = window.location.origin;
+ 
++			// Modern Chromium reports an opaque origin for local plugin frames.
++			// Bind that exception to the registered plugin's own file iframe.
++			if (window.location.protocol === "file:" && event.origin === "null")
++			{
++				let runObject = this.runnedPluginsMap[guid];
++				if (!runObject)
++					return false;
++				let frameIds = [runObject.frameId].concat(this.pluginsWindows[guid] || []);
++				return frameIds.some(function(frameId) {
++					let frame = document.getElementById(frameId);
++					return frame && frame.contentWindow === event.source && frame.src.indexOf("file:") === 0;
++				});
++			}
++
+ 			if (event.origin === windowOrigin)
+ 				return true;
+ 
+diff --git a/word/Editor/Math.js b/word/Editor/Math.js
+index 0871164..fef6ef9 100644
+--- a/word/Editor/Math.js
++++ b/word/Editor/Math.js
+@@ -548,6 +548,10 @@ function ParaMath()
+ 
+     this.ParaMathRPI        = new CMathRecalculateInfo();
+ 
++    // An imported oMath remains inline even when it is alone in a paragraph.
++    // Undefined retains contextual mode selection for existing/new equations.
++    this.PreserveInline     = undefined;
++
+     this.bSelectionUse      = false;
+     this.Paragraph          = null;
+     this.bFastRecalculate   = true;
+@@ -602,6 +606,7 @@ ParaMath.prototype.Copy = function(Selected, oPr)
+     }
+ 
+     NewMath.Root.Correct_Content(true);
++    NewMath.PreserveInline = this.PreserveInline;
+ 
+     return NewMath;
+ };
+@@ -2141,7 +2146,10 @@ ParaMath.prototype.ConvertToInlineMode = function()
+ 		return false;
+ 
+ 	if (this.IsInlineMode())
++	{
++		this.SetPreserveInline(true);
+ 		return true;
++	}
+ 	
+ 	let oParent = this.GetParent();
+ 	let oInlineLevel, nPosInParent;
+@@ -2190,6 +2198,7 @@ ParaMath.prototype.ConvertToInlineMode = function()
+ 		oRun.Add(new AscWord.CRunSpace());
+ 		oParent.AddToContent(nPosInParent, oRun);
+ 	}
++	this.SetPreserveInline(true);
+ 	this.Set_Inline(true);
+ 
+ 	return true;
+@@ -2252,6 +2261,7 @@ ParaMath.prototype.ConvertToDisplayMode = function()
+ 		oRun.Add(new AscWord.CRunBreak(AscWord.break_Line));
+ 		oParent.AddToContent(nPosInParent, oRun);
+ 	}
++	this.SetPreserveInline(undefined);
+ 	this.Set_Inline(false);
+ 
+ 	return true;
+@@ -2261,6 +2271,8 @@ ParaMath.prototype.IsInlineMode = function()
+ 	let paragraph = this.GetParagraph();
+ 	if (!paragraph)
+ 		return false;
++	if (true === this.PreserveInline)
++		return true;
+ 	
+ 	let paraPos = paragraph.GetPosByElement(this);
+ 	if (!paraPos)
+@@ -2304,6 +2316,19 @@ ParaMath.prototype.GetAlign = function()
+ {
+ 	return this.Get_Align();
+ };
++ParaMath.prototype.SetPreserveInline = function(Value)
++{
++	if (this.PreserveInline !== Value)
++	{
++		History.Add(new CChangesMathParaPreserveInline(this, this.PreserveInline, Value));
++		this.raw_SetPreserveInline(Value);
++	}
++};
++ParaMath.prototype.raw_SetPreserveInline = function(Value)
++{
++	this.PreserveInline = Value;
++	this.bFastRecalculate = false;
++};
+ ParaMath.prototype.Set_Align = function(Align)
+ {
+ 	if (this.Jc !== Align)
+diff --git a/word/Editor/MathChanges.js b/word/Editor/MathChanges.js
+index 4d21218..61cf6b0 100644
+--- a/word/Editor/MathChanges.js
++++ b/word/Editor/MathChanges.js
+@@ -41,6 +41,7 @@ AscDFH.changesFactory[AscDFH.historyitem_MathContent_RemoveItem]   = CChangesMat
+ AscDFH.changesFactory[AscDFH.historyitem_MathContent_ArgSize]      = CChangesMathContentArgSize;
+ AscDFH.changesFactory[AscDFH.historyitem_MathContent_TextPr]       = CChangesMathContentTextPr;
+ AscDFH.changesFactory[AscDFH.historyitem_MathPara_Jc]              = CChangesMathParaJc;
++AscDFH.changesFactory[AscDFH.historyitem_MathPara_PreserveInline]  = CChangesMathParaPreserveInline;
+ AscDFH.changesFactory[AscDFH.historyitem_MathBase_AddItems]        = CChangesMathBaseAddItems;
+ AscDFH.changesFactory[AscDFH.historyitem_MathBase_RemoveItems]     = CChangesMathBaseRemoveItems;
+ AscDFH.changesFactory[AscDFH.historyitem_MathBase_FontSize]        = CChangesMathBaseFontSize;
+@@ -108,6 +109,7 @@ AscDFH.changesRelationMap[AscDFH.historyitem_MathContent_RemoveItem]   = [
+ ];
+ AscDFH.changesRelationMap[AscDFH.historyitem_MathContent_ArgSize]      = [AscDFH.historyitem_MathContent_ArgSize];
+ AscDFH.changesRelationMap[AscDFH.historyitem_MathPara_Jc]              = [AscDFH.historyitem_MathPara_Jc];
++AscDFH.changesRelationMap[AscDFH.historyitem_MathPara_PreserveInline]  = [AscDFH.historyitem_MathPara_PreserveInline];
+ AscDFH.changesRelationMap[AscDFH.historyitem_MathBase_AddItems]        = [
+ 	AscDFH.historyitem_MathBase_AddItems,
+ 	AscDFH.historyitem_MathBase_RemoveItems
+@@ -630,6 +632,18 @@ CChangesMathParaJc.prototype.private_SetValue = function(Value)
+ 	this.Class.raw_SetAlign(Value);
+ };
+ 
++function CChangesMathParaPreserveInline(Class, Old, New)
++{
++	AscDFH.CChangesBaseBoolProperty.call(this, Class, Old, New);
++}
++CChangesMathParaPreserveInline.prototype = Object.create(AscDFH.CChangesBaseBoolProperty.prototype);
++CChangesMathParaPreserveInline.prototype.constructor = CChangesMathParaPreserveInline;
++CChangesMathParaPreserveInline.prototype.Type = AscDFH.historyitem_MathPara_PreserveInline;
++CChangesMathParaPreserveInline.prototype.private_SetValue = function(Value)
++{
++	this.Class.raw_SetPreserveInline(Value);
++};
++
+ 
+ /**
+  * @constructor
+diff --git a/word/Editor/Paragraph.js b/word/Editor/Paragraph.js
+index f99d0e1..e7e423d 100644
+--- a/word/Editor/Paragraph.js
++++ b/word/Editor/Paragraph.js
+@@ -1476,6 +1476,8 @@ Paragraph.prototype.CheckMathPara = function(nMathPos)
+ {
+ 	if (!this.Content[nMathPos] || (para_Math !== this.Content[nMathPos].Type && para_InlineLevelSdt !== this.Content[nMathPos].Type))
+ 		return false;
++	if (true === this.Content[nMathPos].PreserveInline)
++		return false;
+ 
+ 	return this.CheckNotInlineObject(nMathPos);
+ };
+@@ -2620,7 +2622,7 @@ Paragraph.prototype.drawRunHighlight = function(CurPage, pGraphics, Pr, drawStat
+ 					let x_right = this.Pages[CurPage].XLimit - (isRtl ? Math.min(Pr.ParaPr.Ind.Left, Pr.ParaPr.Ind.Left + Pr.ParaPr.Ind.FirstLine) : Pr.ParaPr.Ind.Right);
+ 					x1 = Math.max(x1, x_right);
+ 
+-					if (Pr.ParaPr.Brd.Right.Value === border_Single)
++					if (IsVisibleDocumentBorder(Pr.ParaPr.Brd.Right.Value))
+ 						x1 += 0.5 + Pr.ParaPr.Brd.Right.Size + Pr.ParaPr.Brd.Right.Space;
+ 					else
+ 						x1 += 0.5;
+@@ -2631,7 +2633,7 @@ Paragraph.prototype.drawRunHighlight = function(CurPage, pGraphics, Pr, drawStat
+ 					let x_left = this.Pages[CurPage].X + (isRtl ? Pr.ParaPr.Ind.Right : Math.min(Pr.ParaPr.Ind.Left, Pr.ParaPr.Ind.Left + Pr.ParaPr.Ind.FirstLine));
+ 					x0 = Math.min(x0, x_left);
+ 
+-					if (Pr.ParaPr.Brd.Left.Value === border_Single)
++					if (IsVisibleDocumentBorder(Pr.ParaPr.Brd.Left.Value))
+ 						x0 -= 0.5 + Pr.ParaPr.Brd.Left.Size + Pr.ParaPr.Brd.Left.Space;
+ 					else
+ 						x0 -= 0.5;
+@@ -3042,7 +3044,7 @@ Paragraph.prototype.drawRunHighlight = function(CurPage, pGraphics, Pr, drawStat
+ 
+ 			if (0 === CurLine)
+ 			{
+-				if (Pr.ParaPr.Brd.Top.Value === border_Single || Asc.c_oAscShdClear === Pr.ParaPr.Shd.Value)
++				if (IsVisibleDocumentBorder(Pr.ParaPr.Brd.Top.Value) || Asc.c_oAscShdClear === Pr.ParaPr.Shd.Value)
+ 				{
+ 					if ((true === Pr.ParaPr.Brd.First && this.private_CheckNeedBeforeSpacing(CurPage, this.Parent, this.GetAbsolutePage(CurPage), Pr.ParaPr)) ||
+ 						(true !== Pr.ParaPr.Brd.First && ((0 === CurPage && null === this.Get_DocumentPrev()) || (1 === CurPage && true === this.IsStartFromNewPage()))))
+@@ -3060,25 +3062,25 @@ Paragraph.prototype.drawRunHighlight = function(CurPage, pGraphics, Pr, drawStat
+ 
+ 				if (NextEl && NextEl.IsParagraph() && NextEl.IsStartFromNewPage())
+ 					TempBottom = this.Lines[CurLine].Y + this.Lines[CurLine].Metrics.Descent + this.Lines[CurLine].Metrics.LineGap;
+-				else if ((true === Pr.ParaPr.Brd.Last || (NextEl && (!NextEl.IsParagraph() || true === NextEl.private_IsEmptyPageWithBreak(0)))) && ( Pr.ParaPr.Brd.Bottom.Value === border_Single || Asc.c_oAscShdClear === Pr.ParaPr.Shd.Value ))
++				else if ((true === Pr.ParaPr.Brd.Last || (NextEl && (!NextEl.IsParagraph() || true === NextEl.private_IsEmptyPageWithBreak(0)))) && ( IsVisibleDocumentBorder(Pr.ParaPr.Brd.Bottom.Value) || Asc.c_oAscShdClear === Pr.ParaPr.Shd.Value ))
+ 					TempBottom -= Pr.ParaPr.Spacing.After;
+ 			}
+ 
+ 
+-			if (Pr.ParaPr.Brd.Right.Value === border_Single)
++			if (IsVisibleDocumentBorder(Pr.ParaPr.Brd.Right.Value))
+ 			{
+ 				let RGBA = Pr.ParaPr.Brd.Right.Get_Color(this);
+ 				pGraphics.p_color(RGBA.r, RGBA.g, RGBA.b, 255);
+ 				pGraphics.SetBorder(Pr.ParaPr.Brd.Right);
+-				pGraphics.drawVerLine(c_oAscLineDrawingRule.Right, x1 + 0.5 + Pr.ParaPr.Brd.Right.Size + Pr.ParaPr.Brd.Right.Space, this.Pages[CurPage].Y + TempTop, this.Pages[CurPage].Y + TempBottom, Pr.ParaPr.Brd.Right.Size);
++				pGraphics.DrawDocumentBorderLine(Pr.ParaPr.Brd.Right, 2, [c_oAscLineDrawingRule.Right, x1 + 0.5 + Pr.ParaPr.Brd.Right.Size + Pr.ParaPr.Brd.Right.Space, this.Pages[CurPage].Y + TempTop, this.Pages[CurPage].Y + TempBottom, Pr.ParaPr.Brd.Right.Size]);
+ 			}
+ 
+-			if (Pr.ParaPr.Brd.Left.Value === border_Single)
++			if (IsVisibleDocumentBorder(Pr.ParaPr.Brd.Left.Value))
+ 			{
+ 				let RGBA = Pr.ParaPr.Brd.Left.Get_Color(this);
+ 				pGraphics.p_color(RGBA.r, RGBA.g, RGBA.b, 255);
+ 				pGraphics.SetBorder(Pr.ParaPr.Brd.Left);
+-				pGraphics.drawVerLine(c_oAscLineDrawingRule.Left, x0 - 0.5 - Pr.ParaPr.Brd.Left.Size - Pr.ParaPr.Brd.Left.Space, this.Pages[CurPage].Y + TempTop, this.Pages[CurPage].Y + TempBottom, Pr.ParaPr.Brd.Left.Size);
++				pGraphics.DrawDocumentBorderLine(Pr.ParaPr.Brd.Left, 2, [c_oAscLineDrawingRule.Left, x0 - 0.5 - Pr.ParaPr.Brd.Left.Size - Pr.ParaPr.Brd.Left.Space, this.Pages[CurPage].Y + TempTop, this.Pages[CurPage].Y + TempBottom, Pr.ParaPr.Brd.Left.Size]);
+ 			}
+ 		}
+ 		pGraphics.End_Command();
+@@ -3524,7 +3526,7 @@ Paragraph.prototype.drawHorizontalBorder = function(graphics, curLine, border, l
+ 		}
+ 
+ 		if (!this.IsEmptyRange(curLine, curRange) || (isEmptyPara && 1 === rangeCount))
+-			graphics.drawHorLineExt(lineAlign, y, x0, x1, border.Size, lMW, rMW);
++			graphics.DrawDocumentBorderLine(border, 1, [lineAlign, y, x0, x1, border.Size, lMW, rMW]);
+ 	}
+ 
+ 	graphics.End_Command();
+@@ -3555,18 +3557,18 @@ Paragraph.prototype.Internal_Draw_6 = function(CurPage, pGraphics, Pr)
+ 	if (true === this.Is_LineDropCap())
+ 		X_right = X_left + this.Get_LineDropCapWidth();
+ 
+-	if (paraPr.Brd.Left.Value === border_Single)
++	if (IsVisibleDocumentBorder(paraPr.Brd.Left.Value))
+ 		X_left -= 0.5 + paraPr.Brd.Left.Space;
+ 	else
+ 		X_left -= 0.5;
+ 
+-	if (paraPr.Brd.Right.Value === border_Single)
++	if (IsVisibleDocumentBorder(paraPr.Brd.Right.Value))
+ 		X_right += 0.5 + paraPr.Brd.Right.Space;
+ 	else
+ 		X_right += 0.5;
+ 
+-	let leftMW  = -( border_Single === paraPr.Brd.Left.Value ? paraPr.Brd.Left.Size : 0 );
+-	let rightMW = ( border_Single === paraPr.Brd.Right.Value ? paraPr.Brd.Right.Size : 0 );
++	let leftMW  = -( IsVisibleDocumentBorder(paraPr.Brd.Left.Value) ? paraPr.Brd.Left.Size : 0 );
++	let rightMW = ( IsVisibleDocumentBorder(paraPr.Brd.Right.Value) ? paraPr.Brd.Right.Size : 0 );
+ 
+ 	var bEmptyPagesWithBreakBefore = false;
+ 	var bCurEmptyPageWithBreak     = false;
+@@ -3598,7 +3600,7 @@ Paragraph.prototype.Internal_Draw_6 = function(CurPage, pGraphics, Pr)
+ 	bEmptyPageCurrent = this.IsEmptyPage(CurPage);
+ 
+ 	var bDrawTop = false;
+-	if (border_Single === paraPr.Brd.Top.Value
++	if (IsVisibleDocumentBorder(paraPr.Brd.Top.Value)
+ 		&& ((true === paraPr.Brd.First
+ 		&& false === bCurEmptyPageWithBreak
+ 		&& ((true === bEmptyPagesBefore
+@@ -3613,7 +3615,7 @@ Paragraph.prototype.Internal_Draw_6 = function(CurPage, pGraphics, Pr)
+ 	}
+ 
+ 	var bDrawBetween = false;
+-	if (border_Single === paraPr.Brd.Between.Value
++	if (IsVisibleDocumentBorder(paraPr.Brd.Between.Value)
+ 		&& false === bDrawTop
+ 		&& false === bEmptyPageCurrent
+ 		&& true === bEmptyPagesBefore
+@@ -3650,7 +3652,7 @@ Paragraph.prototype.Internal_Draw_6 = function(CurPage, pGraphics, Pr)
+ 		NextEl = NextEl.GetElement(0);
+ 	}
+ 
+-	if (border_Single === paraPr.Brd.Bottom.Value
++	if (IsVisibleDocumentBorder(paraPr.Brd.Bottom.Value)
+ 		&& true === bEnd
+ 		&& (true === paraPr.Brd.Last
+ 			|| !NextEl
+@@ -11985,7 +11987,7 @@ Paragraph.prototype.Set_Borders = function(Borders)
+ 	if (undefined != Borders.Between)
+ 	{
+ 		var NewBorder = undefined;
+-		if (undefined != Borders.Between.Value /*&& border_Single === Borders.Between.Value*/)
++		if (undefined != Borders.Between.Value /*&& IsVisibleDocumentBorder(Borders.Between.Value)*/)
+ 		{
+ 			NewBorder         = new CDocumentBorder();
+ 			NewBorder.Color   = ( undefined != Borders.Between.Color ? new CDocumentColor(Borders.Between.Color.r, Borders.Between.Color.g, Borders.Between.Color.b) : new CDocumentColor(OldBorders.Between.Color.r, OldBorders.Between.Color.g, OldBorders.Between.Color.b) );
+@@ -12003,7 +12005,7 @@ Paragraph.prototype.Set_Borders = function(Borders)
+ 	if (undefined != Borders.Top)
+ 	{
+ 		var NewBorder = undefined;
+-		if (undefined != Borders.Top.Value /*&& border_Single === Borders.Top.Value*/)
++		if (undefined != Borders.Top.Value /*&& IsVisibleDocumentBorder(Borders.Top.Value)*/)
+ 		{
+ 			NewBorder         = new CDocumentBorder();
+ 			NewBorder.Color   = ( undefined != Borders.Top.Color ? new CDocumentColor(Borders.Top.Color.r, Borders.Top.Color.g, Borders.Top.Color.b) : new CDocumentColor(OldBorders.Top.Color.r, OldBorders.Top.Color.g, OldBorders.Top.Color.b) );
+@@ -12022,7 +12024,7 @@ Paragraph.prototype.Set_Borders = function(Borders)
+ 	if (undefined != Borders.Right)
+ 	{
+ 		var NewBorder = undefined;
+-		if (undefined != Borders.Right.Value /*&& border_Single === Borders.Right.Value*/)
++		if (undefined != Borders.Right.Value /*&& IsVisibleDocumentBorder(Borders.Right.Value)*/)
+ 		{
+ 			NewBorder         = new CDocumentBorder();
+ 			NewBorder.Color   = ( undefined != Borders.Right.Color ? new CDocumentColor(Borders.Right.Color.r, Borders.Right.Color.g, Borders.Right.Color.b) : new CDocumentColor(OldBorders.Right.Color.r, OldBorders.Right.Color.g, OldBorders.Right.Color.b) );
+@@ -12041,7 +12043,7 @@ Paragraph.prototype.Set_Borders = function(Borders)
+ 	if (undefined != Borders.Bottom)
+ 	{
+ 		var NewBorder = undefined;
+-		if (undefined != Borders.Bottom.Value /*&& border_Single === Borders.Bottom.Value*/)
++		if (undefined != Borders.Bottom.Value /*&& IsVisibleDocumentBorder(Borders.Bottom.Value)*/)
+ 		{
+ 			NewBorder         = new CDocumentBorder();
+ 			NewBorder.Color   = ( undefined != Borders.Bottom.Color ? new CDocumentColor(Borders.Bottom.Color.r, Borders.Bottom.Color.g, Borders.Bottom.Color.b) : new CDocumentColor(OldBorders.Bottom.Color.r, OldBorders.Bottom.Color.g, OldBorders.Bottom.Color.b) );
+@@ -12059,7 +12061,7 @@ Paragraph.prototype.Set_Borders = function(Borders)
+ 	if (undefined != Borders.Left)
+ 	{
+ 		var NewBorder = undefined;
+-		if (undefined != Borders.Left.Value /*&& border_Single === Borders.Left.Value*/)
++		if (undefined != Borders.Left.Value /*&& IsVisibleDocumentBorder(Borders.Left.Value)*/)
+ 		{
+ 			NewBorder         = new CDocumentBorder();
+ 			NewBorder.Color   = ( undefined != Borders.Left.Color ? new CDocumentColor(Borders.Left.Color.r, Borders.Left.Color.g, Borders.Left.Color.b) : new CDocumentColor(OldBorders.Left.Color.r, OldBorders.Left.Color.g, OldBorders.Left.Color.b) );
+diff --git a/word/Editor/ParagraphContentBase.js b/word/Editor/ParagraphContentBase.js
+index f9e2b04..e6a019f 100644
+--- a/word/Editor/ParagraphContentBase.js
++++ b/word/Editor/ParagraphContentBase.js
+@@ -2893,6 +2893,8 @@ CParagraphContentWithParagraphLikeContent.prototype.CheckMathPara = function(nMa
+ {
+ 	if (!this.Content[nMathPos] || para_Math !== this.Content[nMathPos].Type)
+ 		return false;
++	if (true === this.Content[nMathPos].PreserveInline)
++		return false;
+ 
+ 	return this.CheckNotInlineObject(nMathPos);
+ };
+diff --git a/word/Editor/Paragraph_Recalculate.js b/word/Editor/Paragraph_Recalculate.js
+index 58185d8..56d4c2f 100644
+--- a/word/Editor/Paragraph_Recalculate.js
++++ b/word/Editor/Paragraph_Recalculate.js
+@@ -1381,13 +1381,13 @@ Paragraph.prototype.private_RecalculateLinePosition    = function(CurLine, CurPa
+ 			if ((true === ParaPr.Brd.First || 1 === CurPage))
+ 			{
+ 				BaseLineOffset += ParaPr.Brd.Top.Space;
+-				if (border_Single === ParaPr.Brd.Top.Value)
++				if (IsVisibleDocumentBorder(ParaPr.Brd.Top.Value))
+ 					BaseLineOffset += ParaPr.Brd.Top.Size;
+ 			}
+ 			else if (false === ParaPr.Brd.First)
+ 			{
+ 				BaseLineOffset += ParaPr.Brd.Between.Space;
+-				if (border_Single === ParaPr.Brd.Between.Value)
++				if (IsVisibleDocumentBorder(ParaPr.Brd.Between.Value))
+ 					BaseLineOffset += ParaPr.Brd.Between.Size;
+ 			}
+ 		}
+@@ -1423,7 +1423,7 @@ Paragraph.prototype.private_RecalculateLinePosition    = function(CurLine, CurPa
+ 				{
+ 					Top2 += ParaPr.Brd.Top.Space;
+ 					Bottom2 += ParaPr.Brd.Top.Space;
+-					if (border_Single === ParaPr.Brd.Top.Value)
++					if (IsVisibleDocumentBorder(ParaPr.Brd.Top.Value))
+ 					{
+ 						Top2 += ParaPr.Brd.Top.Size;
+ 						Bottom2 += ParaPr.Brd.Top.Size;
+@@ -1434,7 +1434,7 @@ Paragraph.prototype.private_RecalculateLinePosition    = function(CurLine, CurPa
+ 					Top2 += ParaPr.Brd.Between.Space;
+ 					Bottom2 += ParaPr.Brd.Between.Space;
+ 
+-					if (border_Single === ParaPr.Brd.Between.Value)
++					if (IsVisibleDocumentBorder(ParaPr.Brd.Between.Value))
+ 					{
+ 						Top2 += ParaPr.Brd.Between.Size;
+ 						Bottom2 += ParaPr.Brd.Between.Size;
+@@ -1449,7 +1449,7 @@ Paragraph.prototype.private_RecalculateLinePosition    = function(CurLine, CurPa
+ 				Top2 += ParaPr.Brd.Top.Space;
+ 				Bottom2 += ParaPr.Brd.Top.Space;
+ 
+-				if (border_Single === ParaPr.Brd.Top.Value)
++				if (IsVisibleDocumentBorder(ParaPr.Brd.Top.Value))
+ 				{
+ 					Top2 += ParaPr.Brd.Top.Size;
+ 					Bottom2 += ParaPr.Brd.Top.Size;
+@@ -1493,7 +1493,7 @@ Paragraph.prototype.private_RecalculateLinePosition    = function(CurLine, CurPa
+ 					Top2 += ParaPr.Brd.Top.Space;
+ 					Bottom2 += ParaPr.Brd.Top.Space;
+ 
+-					if (border_Single === ParaPr.Brd.Top.Value)
++					if (IsVisibleDocumentBorder(ParaPr.Brd.Top.Value))
+ 					{
+ 						Top2 += ParaPr.Brd.Top.Size;
+ 						Bottom2 += ParaPr.Brd.Top.Size;
+@@ -1504,7 +1504,7 @@ Paragraph.prototype.private_RecalculateLinePosition    = function(CurLine, CurPa
+ 					Top2 += ParaPr.Brd.Between.Space;
+ 					Bottom2 += ParaPr.Brd.Between.Space;
+ 
+-					if (border_Single === ParaPr.Brd.Between.Value)
++					if (IsVisibleDocumentBorder(ParaPr.Brd.Between.Value))
+ 					{
+ 						Top2 += ParaPr.Brd.Between.Size;
+ 						Bottom2 += ParaPr.Brd.Between.Size;
+@@ -1519,7 +1519,7 @@ Paragraph.prototype.private_RecalculateLinePosition    = function(CurLine, CurPa
+ 				Top2 += ParaPr.Brd.Top.Space;
+ 				Bottom2 += ParaPr.Brd.Top.Space;
+ 
+-				if (border_Single === ParaPr.Brd.Top.Value)
++				if (IsVisibleDocumentBorder(ParaPr.Brd.Top.Value))
+ 				{
+ 					Top2 += ParaPr.Brd.Top.Size;
+ 					Bottom2 += ParaPr.Brd.Top.Size;
+@@ -1544,7 +1544,7 @@ Paragraph.prototype.private_RecalculateLinePosition    = function(CurLine, CurPa
+ 		{
+ 			Bottom += ParaPr.Brd.Bottom.Space;
+ 
+-			if (border_Single === ParaPr.Brd.Bottom.Value)
++			if (IsVisibleDocumentBorder(ParaPr.Brd.Bottom.Value))
+ 				Bottom += ParaPr.Brd.Bottom.Size;
+ 		}
+ 		else
+diff --git a/word/Editor/Serialize2.js b/word/Editor/Serialize2.js
+index 2a2541b..3bf349f 100644
+--- a/word/Editor/Serialize2.js
++++ b/word/Editor/Serialize2.js
+@@ -11712,6 +11712,7 @@ function Binary_DocumentTableReader(doc, oReadResult, openParams, stream, curNot
+ 		else if ( c_oSerParType.OMath == type )
+ 		{	
+ 			var oMath = new ParaMath();
++			oMath.PreserveInline = true;
+ 			paragraphContent.AddToContentToEnd(oMath);
+ 			res = this.bcr.Read1(length, function(t, l){
+                 return oThis.boMathr.ReadMathArg(t,l,oMath.Root, paragraphContent);
+diff --git a/word/Editor/Styles.js b/word/Editor/Styles.js
+index d7fa4ba..c9e6eae 100644
+--- a/word/Editor/Styles.js
++++ b/word/Editor/Styles.js
+@@ -10432,6 +10432,13 @@ AscWord.BorderType = {
+ var border_None   = AscWord.BorderType.none;
+ var border_Single = AscWord.BorderType.single;
+ 
++// Layout still distinguishes a visible border from no border. Preserve the
++// double style instead of flattening it to single during binary import.
++function IsVisibleDocumentBorder(value)
++{
++    return value === border_Single || value === AscWord.BorderType.double;
++}
++
+ function CDocumentBorder()
+ {
+ 	this.Color   = new CDocumentColor(0, 0, 0);
+@@ -10653,7 +10660,7 @@ CDocumentBorder.prototype.IsNone = function()
+ };
+ CDocumentBorder.prototype.SetNone = function()
+ {
+-	this.Value = border_None;
++	this.setValue(border_None);
+ };
+ CDocumentBorder.prototype.GetSize = function()
+ {
+@@ -10662,12 +10669,12 @@ CDocumentBorder.prototype.GetSize = function()
+ CDocumentBorder.prototype.setSizeIn8Point = function(val)
+ {
+ 	if(null !== val && undefined !== val) {
+-		this.Size = g_dKoef_pt_to_mm * val / 8;
++		this.Size = g_dKoef_pt_to_mm * val / 8 * (this.Value === AscWord.BorderType.double ? 3 : 1);
+ 	}
+ };
+ CDocumentBorder.prototype.getSizeIn8Point = function()
+ {
+-	return undefined !== this.Size ? Math.round(8 * this.Size * g_dKoef_mm_to_pt) : undefined;
++	return undefined !== this.Size ? Math.round(8 * this.Size * g_dKoef_mm_to_pt / (this.Value === AscWord.BorderType.double ? 3 : 1)) : undefined;
+ };
+ CDocumentBorder.prototype.setSpaceInPoint = function(val)
+ {
+@@ -10681,11 +10688,19 @@ CDocumentBorder.prototype.getSpaceInPoint = function(val)
+ };
+ CDocumentBorder.prototype.setValue = function(value)
+ {
+-	// Пока мы работаем только с такими типами
++	// Size is the occupied layout width. OOXML's double size is the width
++	// of each stroke; two strokes plus their gap occupy three such widths.
++	var strokeSize = this.Size;
++	if (undefined !== strokeSize)
++		strokeSize /= (this.Value === AscWord.BorderType.double ? 3 : 1);
+ 	if (value === AscWord.BorderType.nil || value === AscWord.BorderType.none)
+ 		this.Value = AscWord.BorderType.none;
++	else if (value === AscWord.BorderType.double)
++		this.Value = AscWord.BorderType.double;
+ 	else
+ 		this.Value = AscWord.BorderType.single;
++	if (undefined !== strokeSize)
++		this.Size = strokeSize * (this.Value === AscWord.BorderType.double ? 3 : 1);
+ };
+ CDocumentBorder.prototype.getValue = function()
+ {
+diff --git a/word/Editor/Table.js b/word/Editor/Table.js
+index 75a6deb..7828930 100644
+--- a/word/Editor/Table.js
++++ b/word/Editor/Table.js
+@@ -2531,7 +2531,7 @@ CTable.prototype.GetCellPageContentFrame = function(CurPage, RowIndex, CellIndex
+ 	if (null != CellSpacing)
+ 	{
+ 		var Table_Border_Top = this.Get_Borders().Top;
+-		if (border_Single === Table_Border_Top.Value)
++		if (IsVisibleDocumentBorder(Table_Border_Top.Value))
+ 			Y += Table_Border_Top.Size;
+ 
+ 		if (true === bHeader || 0 === CurPage || ( 1 === CurPage && true != this.RowsInfo[0].FirstPage ))
+@@ -2591,7 +2591,7 @@ CTable.prototype.Get_MaxTopBorder = function(RowIndex)
+ 
+ 			var ResultBorder = this.private_ResolveBordersConflict(CurBorder, TableBorders.Top, false, true);
+ 
+-			if (border_Single === ResultBorder.Value && MaxTopBorder < ResultBorder.Size)
++			if (IsVisibleDocumentBorder(ResultBorder.Value) && MaxTopBorder < ResultBorder.Size)
+ 				MaxTopBorder = ResultBorder.Size;
+ 		}
+ 	}
+diff --git a/word/Editor/Table/TableCell.js b/word/Editor/Table/TableCell.js
+index 736e46e..a0ebb77 100644
+--- a/word/Editor/Table/TableCell.js
++++ b/word/Editor/Table/TableCell.js
+@@ -993,18 +993,18 @@ CTableCell.prototype =
+ 				{
+ 					nAdd = oMargins.Left.W + oMargins.Right.W;
+ 
+-					if (border_Single === oBorders.Left.Value)
++					if (IsVisibleDocumentBorder(oBorders.Left.Value))
+ 					{
+ 						nAdd += oBorders.Left.Size;
+ 					}
+-					if (border_Single === oBorders.Right.Value)
++					if (IsVisibleDocumentBorder(oBorders.Right.Value))
+ 					{
+ 						nAdd += oBorders.Right.Size;
+ 					}
+ 				}
+ 				else
+ 				{
+-					if (border_Single === oBorders.Left.Value && oBorders.Left.Size / 2 > oMargins.Left.W)
++					if (IsVisibleDocumentBorder(oBorders.Left.Value) && oBorders.Left.Size / 2 > oMargins.Left.W)
+ 					{
+ 						nAdd += oBorders.Left.Size / 2;
+ 					}
+@@ -1013,7 +1013,7 @@ CTableCell.prototype =
+ 						nAdd += oMargins.Left.W;
+ 					}
+ 
+-					if (border_Single === oBorders.Right.Value && oBorders.Right.Size / 2 > oMargins.Right.W)
++					if (IsVisibleDocumentBorder(oBorders.Right.Value) && oBorders.Right.Size / 2 > oMargins.Right.W)
+ 					{
+ 						nAdd += oBorders.Right.Size / 2;
+ 					}
+diff --git a/word/Editor/Table/TableDraw.js b/word/Editor/Table/TableDraw.js
+index f1c6d23..47b55cf 100644
+--- a/word/Editor/Table/TableDraw.js
++++ b/word/Editor/Table/TableDraw.js
+@@ -296,7 +296,7 @@ CTable.prototype.private_DrawRowOuterBorder = function(pGraphics, TableBorders,
+ 	var RGBA;
+ 
+ 	// Левая граница
+-	if (border_Single === TableBorders.Left.Value)
++	if (IsVisibleDocumentBorder(TableBorders.Left.Value))
+ 	{
+ 		RGBA = TableBorders.Left.Get_Color2(Theme, ColorMap);
+ 		pGraphics.p_color(RGBA.r, RGBA.g, RGBA.b, 255);
+@@ -306,20 +306,20 @@ CTable.prototype.private_DrawRowOuterBorder = function(pGraphics, TableBorders,
+ 		}
+ 		if (null === X_left_old || Math.abs(X_left_new - X_left_old) < 0.001)
+ 		{
+-			pGraphics.drawVerLine(c_oAscLineDrawingRule.Center, X_left_new, Y_top, Y_bottom, TableBorders.Left.Size);
++			pGraphics.DrawDocumentBorderLine(TableBorders.Left, 2, [c_oAscLineDrawingRule.Center, X_left_new, Y_top, Y_bottom, TableBorders.Left.Size]);
+ 		}
+ 		else
+ 		{
+ 			if (X_left_new > X_left_old)
+ 			{
+-				pGraphics.drawHorLineExt(c_oAscLineDrawingRule.Top, Y_top, X_left_old, X_left_new, TableBorders.Left.Size, -TableBorders.Left.Size / 2, 0);
++				pGraphics.DrawDocumentBorderLine(TableBorders.Left, 1, [c_oAscLineDrawingRule.Top, Y_top, X_left_old, X_left_new, TableBorders.Left.Size, -TableBorders.Left.Size / 2, 0]);
+ 			}
+ 			else
+ 			{
+-				pGraphics.drawHorLineExt(c_oAscLineDrawingRule.Bottom, Y_top, X_left_old, X_left_new, TableBorders.Left.Size, +TableBorders.Left.Size / 2, -TableBorders.Left.Size / 2);
++				pGraphics.DrawDocumentBorderLine(TableBorders.Left, 1, [c_oAscLineDrawingRule.Bottom, Y_top, X_left_old, X_left_new, TableBorders.Left.Size, +TableBorders.Left.Size / 2, -TableBorders.Left.Size / 2]);
+ 			}
+ 
+-			pGraphics.drawVerLine(c_oAscLineDrawingRule.Center, X_left_new, Y_top, Y_bottom, TableBorders.Left.Size);
++			pGraphics.DrawDocumentBorderLine(TableBorders.Left, 2, [c_oAscLineDrawingRule.Center, X_left_new, Y_top, Y_bottom, TableBorders.Left.Size]);
+ 		}
+ 	}
+ 	else //if ( border_None === TableBorders.Left.Value )
+@@ -336,7 +336,7 @@ CTable.prototype.private_DrawRowOuterBorder = function(pGraphics, TableBorders,
+ 	}
+ 
+ 	// Правая граница
+-	if (border_Single === TableBorders.Right.Value)
++	if (IsVisibleDocumentBorder(TableBorders.Right.Value))
+ 	{
+ 		RGBA = TableBorders.Right.Get_Color2(Theme, ColorMap);
+ 		pGraphics.p_color(RGBA.r, RGBA.g, RGBA.b, 255);
+@@ -346,20 +346,20 @@ CTable.prototype.private_DrawRowOuterBorder = function(pGraphics, TableBorders,
+ 		}
+ 		if (null === X_right_old || Math.abs(X_right_new - X_right_old) < 0.001)
+ 		{
+-			pGraphics.drawVerLine(c_oAscLineDrawingRule.Center, X_right_new, Y_top, Y_bottom, TableBorders.Right.Size);
++			pGraphics.DrawDocumentBorderLine(TableBorders.Right, 2, [c_oAscLineDrawingRule.Center, X_right_new, Y_top, Y_bottom, TableBorders.Right.Size]);
+ 		}
+ 		else
+ 		{
+ 			if (X_right_new > X_right_old)
+ 			{
+-				pGraphics.drawHorLineExt(c_oAscLineDrawingRule.Bottom, Y_top, X_right_old, X_right_new, TableBorders.Right.Size, -TableBorders.Right.Size / 2, +TableBorders.Right.Size / 2);
++				pGraphics.DrawDocumentBorderLine(TableBorders.Right, 1, [c_oAscLineDrawingRule.Bottom, Y_top, X_right_old, X_right_new, TableBorders.Right.Size, -TableBorders.Right.Size / 2, +TableBorders.Right.Size / 2]);
+ 			}
+ 			else
+ 			{
+-				pGraphics.drawHorLineExt(c_oAscLineDrawingRule.Top, Y_top, X_right_old, X_right_new, TableBorders.Right.Size, +TableBorders.Right.Size / 2, 0);
++				pGraphics.DrawDocumentBorderLine(TableBorders.Right, 1, [c_oAscLineDrawingRule.Top, Y_top, X_right_old, X_right_new, TableBorders.Right.Size, +TableBorders.Right.Size / 2, 0]);
+ 			}
+ 
+-			pGraphics.drawVerLine(c_oAscLineDrawingRule.Center, X_right_new, Y_top, Y_bottom, TableBorders.Right.Size);
++			pGraphics.DrawDocumentBorderLine(TableBorders.Right, 2, [c_oAscLineDrawingRule.Center, X_right_new, Y_top, Y_bottom, TableBorders.Right.Size]);
+ 		}
+ 	}
+ 	else //if ( border_None === TableBorders.Right.Value )
+@@ -378,7 +378,7 @@ CTable.prototype.private_DrawRowOuterBorder = function(pGraphics, TableBorders,
+ 	if (true === bStartRow)
+ 	{
+ 		// Верхняя граница
+-		if (border_Single === TableBorders.Top.Value)
++		if (IsVisibleDocumentBorder(TableBorders.Top.Value))
+ 		{
+ 			RGBA = TableBorders.Top.Get_Color2(Theme, ColorMap);
+ 			pGraphics.p_color(RGBA.r, RGBA.g, RGBA.b, 255);
+@@ -388,14 +388,14 @@ CTable.prototype.private_DrawRowOuterBorder = function(pGraphics, TableBorders,
+ 			}
+ 			// Добавочные значения толщины правой и левой границ
+ 			var LeftMW = 0;
+-			if (border_Single === TableBorders.Left.Value)
++			if (IsVisibleDocumentBorder(TableBorders.Left.Value))
+ 				LeftMW = -TableBorders.Left.Size / 2;
+ 
+ 			var RightMW = 0;
+-			if (border_Single === TableBorders.Right.Value)
++			if (IsVisibleDocumentBorder(TableBorders.Right.Value))
+ 				RightMW = +TableBorders.Right.Size / 2;
+ 
+-			pGraphics.drawHorLineExt(c_oAscLineDrawingRule.Top, Y_top, X_left_new, X_right_new, TableBorders.Top.Size, LeftMW, RightMW);
++			pGraphics.DrawDocumentBorderLine(TableBorders.Top, 1, [c_oAscLineDrawingRule.Top, Y_top, X_left_new, X_right_new, TableBorders.Top.Size, LeftMW, RightMW]);
+ 		}
+ 		else //if ( border_None === TableBorders.Top.Value )
+ 		{
+@@ -406,7 +406,7 @@ CTable.prototype.private_DrawRowOuterBorder = function(pGraphics, TableBorders,
+ 	if (true === bLastRow)
+ 	{
+ 		// Нижняя граница
+-		if (border_Single === TableBorders.Bottom.Value)
++		if (IsVisibleDocumentBorder(TableBorders.Bottom.Value))
+ 		{
+ 			RGBA = TableBorders.Bottom.Get_Color2(Theme, ColorMap);
+ 			pGraphics.p_color(RGBA.r, RGBA.g, RGBA.b, 255);
+@@ -416,14 +416,14 @@ CTable.prototype.private_DrawRowOuterBorder = function(pGraphics, TableBorders,
+ 			}
+ 			// Добавочные значения толщины правой и левой границ
+ 			var LeftMW = 0;
+-			if (border_Single === TableBorders.Left.Value)
++			if (IsVisibleDocumentBorder(TableBorders.Left.Value))
+ 				LeftMW = -TableBorders.Left.Size / 2;
+ 
+ 			var RightMW = 0;
+-			if (border_Single === TableBorders.Right.Value)
++			if (IsVisibleDocumentBorder(TableBorders.Right.Value))
+ 				RightMW = +TableBorders.Right.Size / 2;
+ 
+-			pGraphics.drawHorLineExt(c_oAscLineDrawingRule.Top, Y_bottom, X_left_new, X_right_new, TableBorders.Bottom.Size, LeftMW, RightMW);
++			pGraphics.DrawDocumentBorderLine(TableBorders.Bottom, 1, [c_oAscLineDrawingRule.Top, Y_bottom, X_left_new, X_right_new, TableBorders.Bottom.Size, LeftMW, RightMW]);
+ 		}
+ 		else //if ( border_None === TableBorders.Bottom.Value )
+ 		{
+@@ -721,7 +721,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                 if ( null != CellSpacing )
+                 {
+                     // Левая граница
+-                    if ( border_Single === CellBorders.Left.Value )
++                    if ( IsVisibleDocumentBorder(CellBorders.Left.Value) )
+                     {
+                         RGBA = CellBorders.Left.Get_Color2(Theme, ColorMap);
+                         pGraphics.p_color( RGBA.r, RGBA.g, RGBA.b, 255 );
+@@ -729,7 +729,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                         {
+                             pGraphics.SetBorder(CellBorders.Left);
+                         }
+-                        pGraphics.drawVerLine( c_oAscLineDrawingRule.Left, X_cell_start, Y, Y + RealHeight, CellBorders.Left.Size );
++                        pGraphics.DrawDocumentBorderLine(CellBorders.Left, 2, [c_oAscLineDrawingRule.Left, X_cell_start, Y, Y + RealHeight, CellBorders.Left.Size]);
+                     }
+                     else //if ( border_None === CellBorders.Left.Value )
+                     {
+@@ -737,7 +737,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                     }
+ 
+                     // Правая граница
+-                    if ( border_Single === CellBorders.Right.Value )
++                    if ( IsVisibleDocumentBorder(CellBorders.Right.Value) )
+                     {
+                         RGBA = CellBorders.Right.Get_Color2(Theme, ColorMap);
+                         pGraphics.p_color( RGBA.r, RGBA.g, RGBA.b, 255 );
+@@ -745,7 +745,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                         {
+                             pGraphics.SetBorder(CellBorders.Right);
+                         }
+-                        pGraphics.drawVerLine( c_oAscLineDrawingRule.Right, X_cell_end, Y, Y + RealHeight, CellBorders.Right.Size );
++                        pGraphics.DrawDocumentBorderLine(CellBorders.Right, 2, [c_oAscLineDrawingRule.Right, X_cell_end, Y, Y + RealHeight, CellBorders.Right.Size]);
+                     }
+                     else //if ( border_None === CellBorders.Right.Value )
+                     {
+@@ -753,7 +753,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                     }
+ 
+                     // Верхняя граница
+-                    if ( border_Single === CellBorders.Top.Value )
++                    if ( IsVisibleDocumentBorder(CellBorders.Top.Value) )
+                     {
+                         RGBA = CellBorders.Top.Get_Color2(Theme, ColorMap);
+                         pGraphics.p_color( RGBA.r, RGBA.g, RGBA.b, 255 );
+@@ -761,7 +761,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                         {
+                             pGraphics.SetBorder(CellBorders.Top);
+                         }
+-                        pGraphics.drawHorLineExt( c_oAscLineDrawingRule.Top, Y - CellBorders.Top.Size, X_cell_start, X_cell_end, CellBorders.Top.Size, 0, 0 );
++                        pGraphics.DrawDocumentBorderLine(CellBorders.Top, 1, [c_oAscLineDrawingRule.Top, Y - CellBorders.Top.Size, X_cell_start, X_cell_end, CellBorders.Top.Size, 0, 0]);
+                     }
+                     else //if ( border_None === CellBorders.Top.Value )
+                     {
+@@ -769,7 +769,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                     }
+ 
+                     // Нижняя граница
+-                    if ( border_Single === CellBorders.Bottom.Value )
++                    if ( IsVisibleDocumentBorder(CellBorders.Bottom.Value) )
+                     {
+                         RGBA = CellBorders.Bottom.Get_Color2(Theme, ColorMap);
+                         pGraphics.p_color( RGBA.r, RGBA.g, RGBA.b, 255 );
+@@ -777,7 +777,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                         {
+                             pGraphics.SetBorder(CellBorders.Bottom);
+                         }
+-                        pGraphics.drawHorLineExt( c_oAscLineDrawingRule.Bottom, Y + RealHeight + CellBorders.Bottom.Size, X_cell_start, X_cell_end, CellBorders.Bottom.Size, 0, 0 );
++                        pGraphics.DrawDocumentBorderLine(CellBorders.Bottom, 1, [c_oAscLineDrawingRule.Bottom, Y + RealHeight + CellBorders.Bottom.Size, X_cell_start, X_cell_end, CellBorders.Bottom.Size, 0, 0]);
+                     }
+                     else //if ( border_None === CellBorders.Bottom.Value )
+                     {
+@@ -802,7 +802,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                         var Y0 = HeaderPage.RowsInfo[TempCurRow + Index].Y;
+                         var Y1 = HeaderPage.RowsInfo[TempCurRow + Index].Y + HeaderPage.RowsInfo[TempCurRow + Index].H;
+ 
+-                        if ( border_Single === CurBorderInfo.Value )
++                        if ( IsVisibleDocumentBorder(CurBorderInfo.Value) )
+                         {
+                             RGBA = CurBorderInfo.Get_Color2(Theme, ColorMap);
+                             pGraphics.p_color( RGBA.r, RGBA.g, RGBA.b, 255 );
+@@ -810,7 +810,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                             {
+                                 pGraphics.SetBorder(CurBorderInfo);
+                             }
+-                            pGraphics.drawVerLine( c_oAscLineDrawingRule.Center, X_cell_start, Y0, Y1, CurBorderInfo.Size );
++                            pGraphics.DrawDocumentBorderLine(CurBorderInfo, 2, [c_oAscLineDrawingRule.Center, X_cell_start, Y0, Y1, CurBorderInfo.Size]);
+                         }
+                         else //if ( border_None === CurBorderInfo.Value )
+                         {
+@@ -837,7 +837,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+ 
+                         if ( TempCellsCount - 1 === TempCellIndex )
+                         {
+-                            if ( border_Single === CurBorderInfo.Value )
++                            if ( IsVisibleDocumentBorder(CurBorderInfo.Value) )
+                             {
+                                 RGBA = CurBorderInfo.Get_Color2(Theme, ColorMap);
+                                 pGraphics.p_color( RGBA.r, RGBA.g, RGBA.b, 255 );
+@@ -845,7 +845,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                                 {
+                                     pGraphics.SetBorder(CurBorderInfo);
+                                 }
+-                                pGraphics.drawVerLine( c_oAscLineDrawingRule.Center, X_cell_end, Y0, Y1, CurBorderInfo.Size );
++                                pGraphics.DrawDocumentBorderLine(CurBorderInfo, 2, [c_oAscLineDrawingRule.Center, X_cell_end, Y0, Y1, CurBorderInfo.Size]);
+                             }
+                             else //if ( border_None === CurBorderInfo.Value )
+                             {
+@@ -916,13 +916,13 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                                         if ( true === bLeft )
+                                         {
+                                             var Prev_Cell_BorderInfo_Left = Prev_Cell.GetBorderInfo().Left;
+-                                            if( null != Prev_Cell_BorderInfo_Left && Prev_Cell_BorderInfo_Left.length > Num && border_Single === Prev_Cell_BorderInfo_Left[Num].Value )
++                                            if( null != Prev_Cell_BorderInfo_Left && Prev_Cell_BorderInfo_Left.length > Num && IsVisibleDocumentBorder(Prev_Cell_BorderInfo_Left[Num].Value) )
+                                                 Max_r = Prev_Cell_BorderInfo_Left[Num].Size / 2;
+                                         }
+                                         else
+                                         {
+                                             var Prev_Cell_BorderInfo_Right = Prev_Cell.GetBorderInfo().Right;
+-                                            if( null != Prev_Cell_BorderInfo_Right && Prev_Cell_BorderInfo_Right.length > Num && border_Single === Prev_Cell_BorderInfo_Right[Num].Value )
++                                            if( null != Prev_Cell_BorderInfo_Right && Prev_Cell_BorderInfo_Right.length > Num && IsVisibleDocumentBorder(Prev_Cell_BorderInfo_Right[Num].Value) )
+                                                 Max_r = Prev_Cell_BorderInfo_Right[Num].Size / 2;
+                                         }
+ 
+@@ -931,11 +931,11 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                                 }
+                             }
+ 
+-                            if ( BorderInfo_Right.length > 0 && border_Single === BorderInfo_Right[0].Value && BorderInfo_Right[0].Size / 2 > Max_r )
++                            if ( BorderInfo_Right.length > 0 && IsVisibleDocumentBorder(BorderInfo_Right[0].Value) && BorderInfo_Right[0].Size / 2 > Max_r )
+                                 Max_r = BorderInfo_Right[0].Size / 2;
+ 
+                             // Отдаем предпочтение более широкой границе
+-                            if ( border_Single === CurBorderInfo.Value && CurBorderInfo.Size > LastBorderTop_prev.W )
++                            if ( IsVisibleDocumentBorder(CurBorderInfo.Value) && CurBorderInfo.Size > LastBorderTop_prev.W )
+                                 RightMW = Max_r;
+                             else
+                                 RightMW = -Max_r;
+@@ -982,14 +982,14 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                                         if ( true === bLeft )
+                                         {
+                                             var Prev_Cell_BorderInfo_Left = Prev_Cell.GetBorderInfo().Left;
+-                                            if( null != Prev_Cell_BorderInfo_Left && Prev_Cell_BorderInfo_Left.length > Num && border_Single === Prev_Cell_BorderInfo_Left[Num].Value )
++                                            if( null != Prev_Cell_BorderInfo_Left && Prev_Cell_BorderInfo_Left.length > Num && IsVisibleDocumentBorder(Prev_Cell_BorderInfo_Left[Num].Value) )
+                                                 Max_l = Prev_Cell_BorderInfo_Left[Num].Size / 2;
+ 
+                                         }
+                                         else
+                                         {
+                                             var Prev_Cell_BorderInfo_Right = Prev_Cell.GetBorderInfo().Right;
+-                                            if( null != Prev_Cell_BorderInfo_Right && Prev_Cell_BorderInfo_Right.length > Num && border_Single === Prev_Cell_BorderInfo_Right[Num].Value )
++                                            if( null != Prev_Cell_BorderInfo_Right && Prev_Cell_BorderInfo_Right.length > Num && IsVisibleDocumentBorder(Prev_Cell_BorderInfo_Right[Num].Value) )
+                                                 Max_l = Prev_Cell_BorderInfo_Right[Num].Size / 2;
+                                         }
+ 
+@@ -998,17 +998,17 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                                 }
+                             }
+ 
+-                            if( BorderInfo_Left.length > 0 && border_Single === BorderInfo_Left[0].Value && BorderInfo_Left[0].Size / 2 > Max_l )
++                            if( BorderInfo_Left.length > 0 && IsVisibleDocumentBorder(BorderInfo_Left[0].Value) && BorderInfo_Left[0].Size / 2 > Max_l )
+                                 Max_l = BorderInfo_Left[0].Size / 2;
+ 
+                             LastBorderTop.L = Max_l;
+                             LastBorderTop.W = 0;
+ 
+-                            if ( border_Single === CurBorderInfo.Value )
++                            if ( IsVisibleDocumentBorder(CurBorderInfo.Value) )
+                                 LastBorderTop.W = CurBorderInfo.Size;
+                         }
+ 
+-                        if ( border_Single === CurBorderInfo.Value )
++                        if ( IsVisibleDocumentBorder(CurBorderInfo.Value) )
+                         {
+                             RGBA = CurBorderInfo.Get_Color2(Theme, ColorMap);
+                             pGraphics.p_color( RGBA.r, RGBA.g, RGBA.b, 255 );
+@@ -1016,7 +1016,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                             {
+                                 pGraphics.SetBorder(CurBorderInfo);
+                             }
+-                            pGraphics.drawHorLineExt( c_oAscLineDrawingRule.Top, Y, X0, X1, CurBorderInfo.Size, LeftMW, RightMW );
++                            pGraphics.DrawDocumentBorderLine(CurBorderInfo, 1, [c_oAscLineDrawingRule.Top, Y, X0, X1, CurBorderInfo.Size, LeftMW, RightMW]);
+                         }
+                         else //if ( border_None === CurBorderInfo.Value )
+                         {
+@@ -1097,7 +1097,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+             if ( null != CellSpacing )
+             {
+                 // Левая граница
+-                if ( border_Single === CellBorders.Left.Value )
++                if ( IsVisibleDocumentBorder(CellBorders.Left.Value) )
+                 {
+                     RGBA =  CellBorders.Left.Get_Color2(Theme, ColorMap);
+                     pGraphics.p_color( RGBA.r, RGBA.g, RGBA.b, 255 );
+@@ -1105,7 +1105,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                     {
+                         pGraphics.SetBorder(CellBorders.Left);
+                     }
+-                    pGraphics.drawVerLine( c_oAscLineDrawingRule.Left, X_cell_start, Y - CellBorders.Top.Size, Y + RealHeight + CellBorders.Bottom.Size, CellBorders.Left.Size );
++                    pGraphics.DrawDocumentBorderLine(CellBorders.Left, 2, [c_oAscLineDrawingRule.Left, X_cell_start, Y - CellBorders.Top.Size, Y + RealHeight + CellBorders.Bottom.Size, CellBorders.Left.Size]);
+                 }
+                 else //if ( border_None === CellBorders.Left.Value )
+                 {
+@@ -1113,7 +1113,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                 }
+ 
+                 // Правая граница
+-                if ( border_Single === CellBorders.Right.Value )
++                if ( IsVisibleDocumentBorder(CellBorders.Right.Value) )
+                 {
+                     RGBA =  CellBorders.Right.Get_Color2(Theme, ColorMap);
+                     pGraphics.p_color( RGBA.r, RGBA.g, RGBA.b, 255 );
+@@ -1121,7 +1121,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                     {
+                         pGraphics.SetBorder(CellBorders.Right);
+                     }
+-                    pGraphics.drawVerLine( c_oAscLineDrawingRule.Right, X_cell_end, Y - CellBorders.Top.Size, Y + RealHeight + CellBorders.Bottom.Size, CellBorders.Right.Size );
++                    pGraphics.DrawDocumentBorderLine(CellBorders.Right, 2, [c_oAscLineDrawingRule.Right, X_cell_end, Y - CellBorders.Top.Size, Y + RealHeight + CellBorders.Bottom.Size, CellBorders.Right.Size]);
+                 }
+                 else //if ( border_None === CellBorders.Right.Value )
+                 {
+@@ -1129,7 +1129,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                 }
+ 
+                 // Верхняя граница
+-                if ( border_Single === CellBorders.Top.Value )
++                if ( IsVisibleDocumentBorder(CellBorders.Top.Value) )
+                 {
+ 
+                     RGBA =  CellBorders.Top.Get_Color2(Theme, ColorMap);
+@@ -1138,7 +1138,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                     {
+                         pGraphics.SetBorder(CellBorders.Top);
+                     }
+-                    pGraphics.drawHorLineExt( c_oAscLineDrawingRule.Top, Y - CellBorders.Top.Size, X_cell_start, X_cell_end, CellBorders.Top.Size, 0, 0 );
++                    pGraphics.DrawDocumentBorderLine(CellBorders.Top, 1, [c_oAscLineDrawingRule.Top, Y - CellBorders.Top.Size, X_cell_start, X_cell_end, CellBorders.Top.Size, 0, 0]);
+                 }
+                 else //if ( border_None === CellBorders.Top.Value )
+                 {
+@@ -1146,7 +1146,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                 }
+ 
+                 // Нижняя граница
+-                if ( border_Single === CellBorders.Bottom.Value )
++                if ( IsVisibleDocumentBorder(CellBorders.Bottom.Value) )
+                 {
+                     RGBA =  CellBorders.Bottom.Get_Color2(Theme, ColorMap);
+                     pGraphics.p_color( RGBA.r, RGBA.g, RGBA.b, 255 );
+@@ -1154,7 +1154,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                     {
+                         pGraphics.SetBorder(CellBorders.Bottom);
+                     }
+-                    pGraphics.drawHorLineExt( c_oAscLineDrawingRule.Bottom, Y + RealHeight + CellBorders.Bottom.Size, X_cell_start, X_cell_end, CellBorders.Bottom.Size, 0, 0 );
++                    pGraphics.DrawDocumentBorderLine(CellBorders.Bottom, 1, [c_oAscLineDrawingRule.Bottom, Y + RealHeight + CellBorders.Bottom.Size, X_cell_start, X_cell_end, CellBorders.Bottom.Size, 0, 0]);
+                 }
+                 else //if ( border_None === CellBorders.Bottom.Value )
+                 {
+@@ -1179,7 +1179,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                     var Y0 = this.RowsInfo[TempCurRow + Index].Y[PNum];
+                     var Y1 = this.RowsInfo[TempCurRow + Index].Y[PNum] + this.RowsInfo[TempCurRow + Index].H[PNum];
+ 
+-                    if ( border_Single === CurBorderInfo.Value )
++                    if ( IsVisibleDocumentBorder(CurBorderInfo.Value) )
+                     {
+                         RGBA =  CurBorderInfo.Get_Color2(Theme, ColorMap);
+                         pGraphics.p_color( RGBA.r, RGBA.g, RGBA.b, 255 );
+@@ -1190,7 +1190,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                             pGraphics.SetBorder(CurBorderInfo);
+                         }
+ 
+-                        pGraphics.drawVerLine( c_oAscLineDrawingRule.Center, X_cell_start, Y0, Y1, CurBorderInfo.Size );
++                        pGraphics.DrawDocumentBorderLine(CurBorderInfo, 2, [c_oAscLineDrawingRule.Center, X_cell_start, Y0, Y1, CurBorderInfo.Size]);
+                         //pGraphics._m( X_cell_start * 100, Y0 * 100 );
+                         //pGraphics._l( X_cell_start * 100, Y1 * 100 );
+ 
+@@ -1222,7 +1222,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+ 
+                     if ( TempCellsCount - 1 === TempCellIndex )
+                     {
+-                        if ( border_Single === CurBorderInfo.Value )
++                        if ( IsVisibleDocumentBorder(CurBorderInfo.Value) )
+                         {
+ 
+                             RGBA =  CurBorderInfo.Get_Color2(Theme, ColorMap);
+@@ -1234,7 +1234,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                                 pGraphics.SetBorder(CurBorderInfo);
+                             }
+ 
+-                            pGraphics.drawVerLine( c_oAscLineDrawingRule.Center, X_cell_end, Y0, Y1, CurBorderInfo.Size );
++                            pGraphics.DrawDocumentBorderLine(CurBorderInfo, 2, [c_oAscLineDrawingRule.Center, X_cell_end, Y0, Y1, CurBorderInfo.Size]);
+                             //pGraphics._m( X_cell_end * 100, Y0 * 100 );
+                             //pGraphics._l( X_cell_end * 100, Y1 * 100 );
+ 
+@@ -1311,13 +1311,13 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                                     if ( true === bLeft )
+                                     {
+                                         var Prev_Cell_BorderInfo_Left = Prev_Cell.GetBorderInfo().Left;
+-                                        if( null != Prev_Cell_BorderInfo_Left && Prev_Cell_BorderInfo_Left.length > Num && border_Single === Prev_Cell_BorderInfo_Left[Num].Value )
++                                        if( null != Prev_Cell_BorderInfo_Left && Prev_Cell_BorderInfo_Left.length > Num && IsVisibleDocumentBorder(Prev_Cell_BorderInfo_Left[Num].Value) )
+                                             Max_r = Prev_Cell_BorderInfo_Left[Num].Size / 2;
+                                     }
+                                     else
+                                     {
+                                         var Prev_Cell_BorderInfo_Right = Prev_Cell.GetBorderInfo().Right;
+-                                        if( null != Prev_Cell_BorderInfo_Right && Prev_Cell_BorderInfo_Right.length > Num && border_Single === Prev_Cell_BorderInfo_Right[Num].Value )
++                                        if( null != Prev_Cell_BorderInfo_Right && Prev_Cell_BorderInfo_Right.length > Num && IsVisibleDocumentBorder(Prev_Cell_BorderInfo_Right[Num].Value) )
+                                             Max_r = Prev_Cell_BorderInfo_Right[Num].Size / 2;
+                                     }
+ 
+@@ -1326,16 +1326,16 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                             }
+                         }
+ 
+-                        if ( BorderInfo_Right.length > 0 && border_Single === BorderInfo_Right[0].Value && BorderInfo_Right[0].Size / 2 > Max_r )
++                        if ( BorderInfo_Right.length > 0 && IsVisibleDocumentBorder(BorderInfo_Right[0].Value) && BorderInfo_Right[0].Size / 2 > Max_r )
+                             Max_r = BorderInfo_Right[0].Size / 2;
+ 
+                         // Отдаем предпочтение более широкой границе
+-                        if ( border_Single === CurBorderInfo.Value && CurBorderInfo.Size > LastBorderTop_prev.W )
++                        if ( IsVisibleDocumentBorder(CurBorderInfo.Value) && CurBorderInfo.Size > LastBorderTop_prev.W )
+                             RightMW = Max_r;//X1 += Max_r;
+                         else
+                             RightMW = -Max_r;//X1 -= Max_r;
+ 
+-                        if ( BorderInfo_Right.length > 0 && border_Single === BorderInfo_Right[0].Value && CurBorderInfo.Size <= BorderInfo_Right[0].Size )
++                        if ( BorderInfo_Right.length > 0 && IsVisibleDocumentBorder(BorderInfo_Right[0].Value) && CurBorderInfo.Size <= BorderInfo_Right[0].Size )
+                             RightMW = -BorderInfo_Right[0].Size / 2;
+                     }
+ 
+@@ -1380,14 +1380,14 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                                     if ( true === bLeft )
+                                     {
+                                         var Prev_Cell_BorderInfo_Left = Prev_Cell.GetBorderInfo().Left;
+-                                        if( null != Prev_Cell_BorderInfo_Left && Prev_Cell_BorderInfo_Left.length > Num && border_Single === Prev_Cell_BorderInfo_Left[Num].Value )
++                                        if( null != Prev_Cell_BorderInfo_Left && Prev_Cell_BorderInfo_Left.length > Num && IsVisibleDocumentBorder(Prev_Cell_BorderInfo_Left[Num].Value) )
+                                             Max_l = Prev_Cell_BorderInfo_Left[Num].Size / 2;
+ 
+                                     }
+                                     else
+                                     {
+                                         var Prev_Cell_BorderInfo_Right = Prev_Cell.GetBorderInfo().Right;
+-                                        if( null != Prev_Cell_BorderInfo_Right && Prev_Cell_BorderInfo_Right.length > Num && border_Single === Prev_Cell_BorderInfo_Right[Num].Value )
++                                        if( null != Prev_Cell_BorderInfo_Right && Prev_Cell_BorderInfo_Right.length > Num && IsVisibleDocumentBorder(Prev_Cell_BorderInfo_Right[Num].Value) )
+                                             Max_l = Prev_Cell_BorderInfo_Right[Num].Size / 2;
+                                     }
+ 
+@@ -1396,23 +1396,23 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                             }
+                         }
+ 
+-                        if ( BorderInfo_Left.length > 0 && border_Single === BorderInfo_Left[0].Value && BorderInfo_Left[0].Size / 2 > Max_l )
++                        if ( BorderInfo_Left.length > 0 && IsVisibleDocumentBorder(BorderInfo_Left[0].Value) && BorderInfo_Left[0].Size / 2 > Max_l )
+                             Max_l = BorderInfo_Left[0].Size / 2;
+ 
+                         //X0 -= Max_l;
+                         LeftMW = -Max_l;
+ 
+-                        if ( BorderInfo_Left.length > 0 && border_Single === BorderInfo_Left[0].Value && CurBorderInfo.Size <= BorderInfo_Left[0].Size )
++                        if ( BorderInfo_Left.length > 0 && IsVisibleDocumentBorder(BorderInfo_Left[0].Value) && CurBorderInfo.Size <= BorderInfo_Left[0].Size )
+                             LeftMW = BorderInfo_Left[0].Size / 2;
+ 
+                         LastBorderTop.L = Max_l;
+                         LastBorderTop.W = 0;
+ 
+-                        if ( border_Single === CurBorderInfo.Value )
++                        if ( IsVisibleDocumentBorder(CurBorderInfo.Value) )
+                             LastBorderTop.W = CurBorderInfo.Size;
+                     }
+ 
+-                    if ( border_Single === CurBorderInfo.Value )
++                    if ( IsVisibleDocumentBorder(CurBorderInfo.Value) )
+                     {
+ 
+                         RGBA =  CurBorderInfo.Get_Color2(Theme, ColorMap);
+@@ -1424,7 +1424,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                             pGraphics.SetBorder(CurBorderInfo);
+                         }
+ 
+-                        pGraphics.drawHorLineExt( this.bPresentation ? c_oAscLineDrawingRule.Center : c_oAscLineDrawingRule.Top, Y, X0, X1, CurBorderInfo.Size, LeftMW, RightMW );
++                        pGraphics.DrawDocumentBorderLine(CurBorderInfo, 1, [this.bPresentation ? c_oAscLineDrawingRule.Center : c_oAscLineDrawingRule.Top, Y, X0, X1, CurBorderInfo.Size, LeftMW, RightMW]);
+                         //pGraphics._m( X0 * 100, ( Y + CurBorderInfo.Size / 2 ) * 100 );
+                         //pGraphics._l( X1 * 100, ( Y + CurBorderInfo.Size / 2 ) * 100 );
+ 
+@@ -1446,7 +1446,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                     var LowerCell = this.private_GetCellIndexByStartGridCol( CurRow + VMergeCount - 1, Row.Get_CellInfo( CurCell ).StartGridCol );
+ 
+                     var BottomBorder = ( -1 === LowerCell ? this.Pages[PNum].BotBorders[0] : this.Pages[PNum].BotBorders[LowerCell] );
+-                    if ( border_Single === BottomBorder.Value )
++                    if ( IsVisibleDocumentBorder(BottomBorder.Value) )
+                     {
+ 
+                         RGBA =  BottomBorder.Get_Color2(Theme, ColorMap);
+@@ -1462,22 +1462,22 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                         var X1 = X_cell_end;
+ 
+                         var LeftMW = 0;
+-                        if ( BorderInfo_Left.length > 0 && border_Single === BorderInfo_Left[BorderInfo_Left.length - 1].Value )
++                        if ( BorderInfo_Left.length > 0 && IsVisibleDocumentBorder(BorderInfo_Left[BorderInfo_Left.length - 1].Value) )
+                             LeftMW = -BorderInfo_Left[BorderInfo_Left.length - 1].Size / 2;
+ 
+                         var RightMW = 0;
+-                        if ( BorderInfo_Right.length > 0 && border_Single === BorderInfo_Right[BorderInfo_Right.length - 1].Value )
++                        if ( BorderInfo_Right.length > 0 && IsVisibleDocumentBorder(BorderInfo_Right[BorderInfo_Right.length - 1].Value) )
+                             RightMW = +BorderInfo_Right[BorderInfo_Right.length - 1].Size / 2;
+ 
+-                        pGraphics.drawHorLineExt( c_oAscLineDrawingRule.Top, Y + RealHeight, X0, X1, BottomBorder.Size, LeftMW, RightMW );
++                        pGraphics.DrawDocumentBorderLine(BottomBorder, 1, [c_oAscLineDrawingRule.Top, Y + RealHeight, X0, X1, BottomBorder.Size, LeftMW, RightMW]);
+ 
+                         //var X0 = X_cell_start;
+                         //var X1 = X_cell_end;
+ 
+-                        //if ( BorderInfo_Left.length > 0 && border_Single === BorderInfo_Left[BorderInfo_Left.length - 1].Value )
++                        //if ( BorderInfo_Left.length > 0 && IsVisibleDocumentBorder(BorderInfo_Left[BorderInfo_Left.length - 1].Value) )
+                         //    X0 -= BorderInfo_Left[BorderInfo_Left.length - 1].Size / 2;
+ 
+-                        //if ( BorderInfo_Right.length > 0 && border_Single === BorderInfo_Right[BorderInfo_Right.length - 1].Value )
++                        //if ( BorderInfo_Right.length > 0 && IsVisibleDocumentBorder(BorderInfo_Right[BorderInfo_Right.length - 1].Value) )
+                         //    X1 += BorderInfo_Right[BorderInfo_Right.length - 1].Size / 2;
+ 
+                         //pGraphics._m( X0 * 100, ( Y + RealHeight + BottomBorder.Size / 2 ) * 100 );
+@@ -1502,7 +1502,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                         if ( -1 === BorderInfo_Bottom_BeforeCount && -1 === BorderInfo_Bottom_AfterCount )
+                         {
+                             var BottomBorder = BorderInfo_Bottom[0];
+-                            if ( border_Single === BottomBorder.Value )
++                            if ( IsVisibleDocumentBorder(BottomBorder.Value) )
+                             {
+ 
+                                 RGBA =  BottomBorder.Get_Color2(Theme, ColorMap);
+@@ -1518,22 +1518,22 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                                 var X1 = X_cell_end;
+ 
+                                 var LeftMW = 0;
+-                                if ( BorderInfo_Left.length > 0 && border_Single === BorderInfo_Left[BorderInfo_Left.length - 1].Value )
++                                if ( BorderInfo_Left.length > 0 && IsVisibleDocumentBorder(BorderInfo_Left[BorderInfo_Left.length - 1].Value) )
+                                     LeftMW = -BorderInfo_Left[BorderInfo_Left.length - 1].Size / 2;
+ 
+                                 var RightMW = 0;
+-                                if ( BorderInfo_Right.length > 0 && border_Single === BorderInfo_Right[BorderInfo_Right.length - 1].Value )
++                                if ( BorderInfo_Right.length > 0 && IsVisibleDocumentBorder(BorderInfo_Right[BorderInfo_Right.length - 1].Value) )
+                                     RightMW = +BorderInfo_Right[BorderInfo_Right.length - 1].Size / 2;
+ 
+-                                pGraphics.drawHorLineExt( this.bPresentation ? c_oAscLineDrawingRule.Center : c_oAscLineDrawingRule.Top, Y + RealHeight, X0, X1, BottomBorder.Size, LeftMW, RightMW );
++                                pGraphics.DrawDocumentBorderLine(BottomBorder, 1, [this.bPresentation ? c_oAscLineDrawingRule.Center : c_oAscLineDrawingRule.Top, Y + RealHeight, X0, X1, BottomBorder.Size, LeftMW, RightMW]);
+ 
+                                 //var X0 = X_cell_start;
+                                 //var X1 = X_cell_end;
+ 
+-                                //if ( BorderInfo_Left.length > 0 && border_Single === BorderInfo_Left[BorderInfo_Left.length - 1].Value )
++                                //if ( BorderInfo_Left.length > 0 && IsVisibleDocumentBorder(BorderInfo_Left[BorderInfo_Left.length - 1].Value) )
+                                 //    X0 -= BorderInfo_Left[BorderInfo_Left.length - 1].Size / 2;
+ 
+-                                //if ( BorderInfo_Right.length > 0 && border_Single === BorderInfo_Right[BorderInfo_Right.length - 1].Value )
++                                //if ( BorderInfo_Right.length > 0 && IsVisibleDocumentBorder(BorderInfo_Right[BorderInfo_Right.length - 1].Value) )
+                                 //    X1 += BorderInfo_Right[BorderInfo_Right.length - 1].Size / 2;
+ 
+                                 //pGraphics._m( X0 * 100, ( Y + RealHeight + BottomBorder.Size / 2 ) * 100 );
+@@ -1552,7 +1552,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                             {
+                                 var BottomBorder = BorderInfo_Bottom[Index];
+ 
+-                                if ( border_Single === BottomBorder.Value )
++                                if ( IsVisibleDocumentBorder(BottomBorder.Value) )
+                                 {
+ 
+                                     RGBA =  BottomBorder.Get_Color2(Theme, ColorMap);
+@@ -1569,15 +1569,15 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                                     var X1 = Page.X + this.TableSumGrid[Index + CurGridCol];
+ 
+                                     var LeftMW = 0;
+-                                    if ( 0 === Index && BorderInfo_Left.length > 0 && border_Single === BorderInfo_Left[BorderInfo_Left.length - 1].Value )
++                                    if ( 0 === Index && BorderInfo_Left.length > 0 && IsVisibleDocumentBorder(BorderInfo_Left[BorderInfo_Left.length - 1].Value) )
+                                         LeftMW = -BorderInfo_Left[BorderInfo_Left.length - 1].Size / 2;
+ 
+-                                    pGraphics.drawHorLineExt( c_oAscLineDrawingRule.Top, Y + RealHeight, X0, X1, BottomBorder.Size, LeftMW, 0 );
++                                    pGraphics.DrawDocumentBorderLine(BottomBorder, 1, [c_oAscLineDrawingRule.Top, Y + RealHeight, X0, X1, BottomBorder.Size, LeftMW, 0]);
+ 
+                                     //var X0 = Page.X + this.TableSumGrid[Index + CurGridCol - 1];
+                                     //var X1 = Page.X + this.TableSumGrid[Index + CurGridCol];
+ 
+-                                    //if ( 0 === Index && BorderInfo_Left.length > 0 && border_Single === BorderInfo_Left[BorderInfo_Left.length - 1].Value )
++                                    //if ( 0 === Index && BorderInfo_Left.length > 0 && IsVisibleDocumentBorder(BorderInfo_Left[BorderInfo_Left.length - 1].Value) )
+                                     //    X0 -= BorderInfo_Left[BorderInfo_Left.length - 1].Size / 2;
+ 
+                                     //pGraphics._m( X0 * 100, ( Y + RealHeight + BottomBorder.Size / 2 ) * 100 );
+@@ -1595,7 +1595,7 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                             {
+                                 var BottomBorder = BorderInfo_Bottom[BorderInfo_Bottom.length - 1 - Index];
+ 
+-                                if ( border_Single === BottomBorder.Value )
++                                if ( IsVisibleDocumentBorder(BottomBorder.Value) )
+                                 {
+                                     RGBA =  BottomBorder.Get_Color2(Theme, ColorMap);
+                                     pGraphics.p_color( RGBA.r, RGBA.g, RGBA.b, 255 );
+@@ -1611,15 +1611,15 @@ CTable.prototype.private_DrawCellsBorders = function(pGraphics, PNum, Row_start,
+                                     var X1 = Page.X + this.TableSumGrid[CurGridCol + GridSpan - 1 - Index];
+ 
+                                     var RightMW = 0;
+-                                    if ( 0 === Index && BorderInfo_Right.length > 0 && border_Single === BorderInfo_Right[BorderInfo_Right.length - 1].Value )
++                                    if ( 0 === Index && BorderInfo_Right.length > 0 && IsVisibleDocumentBorder(BorderInfo_Right[BorderInfo_Right.length - 1].Value) )
+                                         RightMW = +BorderInfo_Right[BorderInfo_Right.length - 1].Size / 2;
+ 
+-                                    pGraphics.drawHorLineExt( c_oAscLineDrawingRule.Top, Y + RealHeight, X0, X1, BottomBorder.Size, 0, RightMW );
++                                    pGraphics.DrawDocumentBorderLine(BottomBorder, 1, [c_oAscLineDrawingRule.Top, Y + RealHeight, X0, X1, BottomBorder.Size, 0, RightMW]);
+ 
+                                     //var X0 = Page.X + this.TableSumGrid[CurGridCol + GridSpan - 2 - Index];
+                                     //var X1 = Page.X + this.TableSumGrid[CurGridCol + GridSpan - 1 - Index];
+ 
+-                                    //if ( 0 === Index && BorderInfo_Right.length > 0 && border_Single === BorderInfo_Right[BorderInfo_Right.length - 1].Value )
++                                    //if ( 0 === Index && BorderInfo_Right.length > 0 && IsVisibleDocumentBorder(BorderInfo_Right[BorderInfo_Right.length - 1].Value) )
+                                     //    X1 += BorderInfo_Right[BorderInfo_Right.length - 1].Size / 2;
+ 
+                                     //pGraphics._m( X0 * 100, ( Y + RealHeight + BottomBorder.Size / 2 ) * 100 );
+@@ -1662,8 +1662,8 @@ CTable.prototype.private_GetTableCellsBackgroundFrames = function(nCurPage, nSta
+ 				var nCurGridCol = oRow.GetCellInfo(nCurCell).StartGridCol;
+ 				var oBorders    = oCell.GetBorders();
+ 
+-				var nTopBorderSize    = border_Single === oBorders.Top.Value ? oBorders.Top.Size : 0;
+-				var nBottomBorderSize = border_Single === oBorders.Bottom.Value ? oBorders.Bottom.Size : 0;
++				var nTopBorderSize    = IsVisibleDocumentBorder(oBorders.Top.Value) ? oBorders.Top.Size : 0;
++				var nBottomBorderSize = IsVisibleDocumentBorder(oBorders.Bottom.Value) ? oBorders.Bottom.Size : 0;
+ 
+ 				if (vmerge_Continue === nVMerge)
+ 					continue;
+@@ -1701,8 +1701,8 @@ CTable.prototype.private_GetTableCellsBackgroundFrames = function(nCurPage, nSta
+ 			var nCurGridCol = oRow.GetCellInfo(nCurCell).StartGridCol;
+ 			var oBorders    = oCell.GetBorders();
+ 
+-			var nTopBorderSize    = border_Single === oBorders.Top.Value ? oBorders.Top.Size : 0;
+-			var nBottomBorderSize = border_Single === oBorders.Bottom.Value ? oBorders.Bottom.Size : 0;
++			var nTopBorderSize    = IsVisibleDocumentBorder(oBorders.Top.Value) ? oBorders.Top.Size : 0;
++			var nBottomBorderSize = IsVisibleDocumentBorder(oBorders.Bottom.Value) ? oBorders.Bottom.Size : 0;
+ 
+ 			if (vmerge_Continue === nVMerge)
+ 			{
+diff --git a/word/Editor/Table/TableRecalculate.js b/word/Editor/Table/TableRecalculate.js
+index 49a934d..8df4f1d 100644
+--- a/word/Editor/Table/TableRecalculate.js
++++ b/word/Editor/Table/TableRecalculate.js
+@@ -1300,7 +1300,7 @@ CTable.prototype.private_RecalculateBorders = function()
+ 
+             if ( true === bSpacing_Top )
+             {
+-                if ( border_Single === CellBorders.Top.Value && MaxTopBorder[CurRow] < CellBorders.Top.Size )
++                if ( IsVisibleDocumentBorder(CellBorders.Top.Value) && MaxTopBorder[CurRow] < CellBorders.Top.Size )
+                     MaxTopBorder[CurRow] = CellBorders.Top.Size;
+ 
+ 				Cell.SetBorderInfoTop([CellBorders.Top]);
+@@ -1312,7 +1312,7 @@ CTable.prototype.private_RecalculateBorders = function()
+                 {
+                     // Сравним границы
+                     var Result_Border = this.private_ResolveBordersConflict( TableBorders.Top, CellBorders.Top, true, false );
+-                    if ( border_Single === Result_Border.Value && MaxTopBorder[CurRow] < Result_Border.Size )
++                    if ( IsVisibleDocumentBorder(Result_Border.Value) && MaxTopBorder[CurRow] < Result_Border.Size )
+                         MaxTopBorder[CurRow] = Result_Border.Size;
+ 
+                     var BorderInfo_Top = [];
+@@ -1348,7 +1348,7 @@ CTable.prototype.private_RecalculateBorders = function()
+             {
+                 Cell.Set_BorderInfo_Bottom( [CellBordersBottom], -1, -1 );
+ 
+-                if ( border_Single === CellBordersBottom.Value && CellBordersBottom.Size > MaxBotBorder[CurRow + VMergeCount - 1] )
++                if ( IsVisibleDocumentBorder(CellBordersBottom.Value) && CellBordersBottom.Size > MaxBotBorder[CurRow + VMergeCount - 1] )
+                     MaxBotBorder[CurRow + VMergeCount - 1] = CellBordersBottom.Size;
+             }
+             else
+@@ -1358,7 +1358,7 @@ CTable.prototype.private_RecalculateBorders = function()
+                     // Сравним границы
+                     var Result_Border = this.private_ResolveBordersConflict( TableBorders.Bottom, CellBordersBottom, true, false );
+ 
+-                    if ( border_Single === Result_Border.Value && Result_Border.Size > MaxBotBorder[CurRow + VMergeCount - 1] )
++                    if ( IsVisibleDocumentBorder(Result_Border.Value) && Result_Border.Size > MaxBotBorder[CurRow + VMergeCount - 1] )
+                         MaxBotBorder[CurRow + VMergeCount - 1] = Result_Border.Size;
+ 
+                     if ( GridSpan > 0 )
+@@ -1519,10 +1519,10 @@ CTable.prototype.private_RecalculateBorders = function()
+                 X_content_start += CellMar.Left.W * layoutCoeff;
+                 X_content_end   -= CellMar.Right.W * layoutCoeff;
+ 
+-                if ( border_Single === CellBorders.Left.Value )
++                if ( IsVisibleDocumentBorder(CellBorders.Left.Value) )
+                     X_content_start += CellBorders.Left.Size * layoutCoeff;
+ 
+-                if ( border_Single === CellBorders.Right.Value )
++                if ( IsVisibleDocumentBorder(CellBorders.Right.Value) )
+                     X_content_end -= CellBorders.Right.Size * layoutCoeff;
+             }
+             else
+@@ -1587,7 +1587,7 @@ CTable.prototype.private_RecalculateBorders = function()
+ 						if (0 === nTempCurCell)
+ 						{
+ 							var oLeftBorder = this.private_ResolveBordersConflict(TableBorders.Left, oTempCellBorders.Left, true, false);
+-							if (border_Single === oLeftBorder.Value && oLeftBorder.Size > Max_l_w)
++							if (IsVisibleDocumentBorder(oLeftBorder.Value) && oLeftBorder.Size > Max_l_w)
+ 								Max_l_w = oLeftBorder.Size;
+ 
+ 							Borders_Info.Left.push(oLeftBorder);
+@@ -1602,7 +1602,7 @@ CTable.prototype.private_RecalculateBorders = function()
+ 							} else {
+ 								oLeftBorder = this.private_ResolveBordersConflict(oLeftCell.GetBorders().Right, oTempCellBorders.Left, false, false);
+ 							}
+-							if (border_Single === oLeftBorder.Value && oLeftBorder.Size > Max_l_w)
++							if (IsVisibleDocumentBorder(oLeftBorder.Value) && oLeftBorder.Size > Max_l_w)
+ 								Max_l_w = oLeftBorder.Size;
+ 
+ 							Borders_Info.Left.push(oLeftBorder);
+@@ -1612,7 +1612,7 @@ CTable.prototype.private_RecalculateBorders = function()
+ 						if (oTempRow.GetCellsCount() - 1 === nTempCurCell)
+ 						{
+ 							var oRightBorder = this.private_ResolveBordersConflict(TableBorders.Right, oTempCellBorders.Right, true, false);
+-							if (border_Single === oRightBorder.Value && oRightBorder.Size > Max_r_w)
++							if (IsVisibleDocumentBorder(oRightBorder.Value) && oRightBorder.Size > Max_r_w)
+ 								Max_r_w = oRightBorder.Size;
+ 
+ 							Borders_Info.Right.push(oRightBorder);
+@@ -1627,7 +1627,7 @@ CTable.prototype.private_RecalculateBorders = function()
+ 							} else {
+ 								oRightBorder = this.private_ResolveBordersConflict(oRightCell.GetBorders().Left, oTempCellBorders.Right, false, false);
+ 							}
+-							if (border_Single === oRightBorder.Value && oRightBorder.Size > Max_r_w)
++							if (IsVisibleDocumentBorder(oRightBorder.Value) && oRightBorder.Size > Max_r_w)
+ 								Max_r_w = oRightBorder.Size;
+ 
+ 							Borders_Info.Right.push(oRightBorder);
+@@ -1661,7 +1661,7 @@ CTable.prototype.private_RecalculateBorders = function()
+                 else if ( null != CellSpacing )
+                 {
+                     Row_x_min = X_grid_start;
+-                    if ( border_Single === TableBorders.Left.Value )
++                    if ( IsVisibleDocumentBorder(TableBorders.Left.Value) )
+                         Row_x_min -= TableBorders.Left.Size / 2;
+                 }
+                 else
+@@ -1680,7 +1680,7 @@ CTable.prototype.private_RecalculateBorders = function()
+                 else if ( null != CellSpacing )
+                 {
+                     Row_x_max = X_grid_end;
+-                    if ( border_Single === TableBorders.Right.Value )
++                    if ( IsVisibleDocumentBorder(TableBorders.Right.Value) )
+                         Row_x_max += TableBorders.Right.Size / 2;
+                 }
+                 else
+@@ -2158,7 +2158,7 @@ CTable.prototype.private_RecalculatePage = function(CurPage)
+                 if ( null != CellSpacing )
+                 {
+                     var TableBorder_Top = this.Get_Borders().Top;
+-                    if ( border_Single === TableBorder_Top.Value )
++                    if ( IsVisibleDocumentBorder(TableBorder_Top.Value) )
+                     {
+                         Y           += TableBorder_Top.Size;
+                         TableHeight += TableBorder_Top.Size;
+@@ -2532,6 +2532,10 @@ CTable.prototype.private_RecalculatePage = function(CurPage)
+ 
+     for (var CurRow = FirstRow; CurRow < this.Content.length; ++CurRow)
+     {
++        // Footnote-height retries can revisit an earlier row. Recompute its
++        // break instead of carrying the abandoned row's overflow into it.
++        bNextPage = false;
++
+ 		if (oFootnotes && (-1 === nResetFootnotesIndex || CurRow > nResetFootnotesIndex))
+ 		{
+ 			nFootnotesHeight            = oFootnotes.GetHeight(nPageAbs, nColumnAbs);
+@@ -2607,7 +2611,7 @@ CTable.prototype.private_RecalculatePage = function(CurPage)
+             if (null != CellSpacing)
+             {
+                 var TableBorder_Top = this.Get_Borders().Top;
+-                if (border_Single === TableBorder_Top.Value)
++                if (IsVisibleDocumentBorder(TableBorder_Top.Value))
+                 {
+                     Y           += TableBorder_Top.Size;
+                     TableHeight += TableBorder_Top.Size;
+@@ -2976,12 +2980,28 @@ CTable.prototype.private_RecalculatePage = function(CurPage)
+ 		if (Asc.linerule_Exact === RowH.HRule)
+ 			this.TableRowsBottom[CurRow][CurPage] = Y + RowHValue;
+ 		
+-		if ((Asc.linerule_AtLeast === RowH.HRule || Asc.linerule_Exact === RowH.HRule)
++		// A newly started protected row must move as a whole when a cell
++		// overflows. Vertically merged cells are recalculated below up to
++		// the moved row's top, so their continuation can still span pages.
++		// On a fresh page let oversized rows
++		// split, otherwise they could keep moving without making progress.
++		let keepRowTogether = bNextPage && !this.bPresentation
++			&& true === Row.Get_CompiledPr(false).CantSplit
++			&& this.RowsInfo[CurRow].StartPage === CurPage;
++		let moveRowForHeight = (Asc.linerule_AtLeast === RowH.HRule || Asc.linerule_Exact === RowH.HRule)
+ 			&& AscCommon.MMToTwips(Y + RowHValue + rowMaxBotBorder, 1) >= AscCommon.MMToTwips(Y_content_end_row, -1)
++		;
++		if ((moveRowForHeight || keepRowTogether)
+ 			&& ((0 === CurRow && 0 === CurPage && null !== this.Get_DocumentPrev() && !this.Parent.IsFirstElementOnPage(this.GetRelativePage(CurPage), this.GetIndex()))
+ 				|| CurRow !== FirstRow))
+ 		{
+             bNextPage = true;
++			if (keepRowTogether && oFootnotes && arrFootnotesObject[CurRow])
++			{
++				oFootnotes.LoadRecalculateObject(nPageAbs, nColumnAbs, arrFootnotesObject[CurRow]);
++				nFootnotesHeight = oFootnotes.GetHeight(nPageAbs, nColumnAbs);
++				this.Pages[CurPage].FootnotesH = nFootnotesHeight;
++			}
+ 
+             for ( var CurCell = 0; CurCell < CellsCount; CurCell++ )
+             {
+@@ -3363,7 +3383,7 @@ CTable.prototype.private_RecalculatePage = function(CurPage)
+                 TableHeight += CellSpacing;
+ 
+                 var TableBorder_Bottom = this.Get_Borders().Bottom;
+-                if ( border_Single === TableBorder_Bottom.Value )
++                if ( IsVisibleDocumentBorder(TableBorder_Bottom.Value) )
+                     TableHeight += TableBorder_Bottom.Size;
+             }
+         }
+@@ -3531,7 +3551,7 @@ CTable.prototype.private_RecalculatePage = function(CurPage)
+                     for (var BorderId = 0; BorderId < Border_Info.length; BorderId++)
+                     {
+                         var Border = Border_Info[BorderId];
+-                        if (border_Single === Border.Value && MaxBotBorder < Border.Size)
++                        if (IsVisibleDocumentBorder(Border.Value) && MaxBotBorder < Border.Size)
+                             MaxBotBorder = Border.Size;
+ 
+                         BotBorders.push(Border);
+@@ -3553,7 +3573,7 @@ CTable.prototype.private_RecalculatePage = function(CurPage)
+                         var Cell   = Row.Get_Cell(CurCell);
+                         var Border = Cell.Get_Borders().Bottom;
+ 
+-                        if (border_Single === Border.Value && MaxBotBorder < Border.Size)
++                        if (IsVisibleDocumentBorder(Border.Value) && MaxBotBorder < Border.Size)
+                             MaxBotBorder = Border.Size;
+                     }
+                 }
+@@ -3578,7 +3598,7 @@ CTable.prototype.private_RecalculatePage = function(CurPage)
+ 
+                         // Сравним границы
+                         var Result_Border = this.private_ResolveBordersConflict(Border, TableBorders.Bottom, false, true);
+-                        if (border_Single === Result_Border.Value && MaxBotBorder < Result_Border.Size)
++                        if (IsVisibleDocumentBorder(Result_Border.Value) && MaxBotBorder < Result_Border.Size)
+                             MaxBotBorder = Result_Border.Size;
+ 
+                         BotBorders.push(Result_Border);

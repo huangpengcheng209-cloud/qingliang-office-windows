@@ -1,0 +1,47 @@
+[
+  {
+    "repository": "build_tools",
+    "revision": "a9f9895b172b09595abcafe85d56fab163f9ecb7",
+    "url": "https://github.com/ONLYOFFICE/build_tools"
+  },
+  {
+    "repository": "DesktopEditors",
+    "revision": "7b9cd379f428ce23c7ef9c93cbb93f1e3c75f613",
+    "url": "https://github.com/ONLYOFFICE/DesktopEditors"
+  },
+  {
+    "repository": "desktop-apps",
+    "revision": "bc46371aa062a7718cd90268e94c3d2b10ce3c51",
+    "url": "https://github.com/ONLYOFFICE/desktop-apps"
+  },
+  {
+    "repository": "core",
+    "revision": "b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b",
+    "url": "https://github.com/ONLYOFFICE/core"
+  },
+  {
+    "repository": "sdkjs",
+    "revision": "b2f0aa1d5ca8c82e827ff3af6577d8edf913a2e7",
+    "url": "https://github.com/ONLYOFFICE/sdkjs"
+  },
+  {
+    "repository": "web-apps",
+    "revision": "1c8ca9987876bada73c0bde21367da09c0e1ed83",
+    "url": "https://github.com/ONLYOFFICE/web-apps"
+  },
+  {
+    "repository": "desktop-sdk",
+    "revision": "6bd2051287a496ac1504214caca69a5729625696",
+    "url": "https://github.com/ONLYOFFICE/desktop-sdk"
+  },
+  {
+    "repository": "dictionaries",
+    "revision": "d3223bbb777883db66ac3cd249f71c6ebdc992c7",
+    "url": "https://github.com/ONLYOFFICE/dictionaries"
+  },
+  {
+    "repository": "brotli",
+    "revision": "a47d7475063eb223c87632eed806c0070e70da29",
+    "url": "https://github.com/google/brotli"
+  }
+]

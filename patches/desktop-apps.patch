@@ -1,0 +1,1082 @@
+diff --git a/common/loginpage/locale/zh-CN.js b/common/loginpage/locale/zh-CN.js
+index 44224b0..022c8fe 100644
+--- a/common/loginpage/locale/zh-CN.js
++++ b/common/loginpage/locale/zh-CN.js
+@@ -1,4 +1,26 @@
+ l10n.zh_CN = {
++    qlNavHome: '首页',
++    qlNavOpen: '打开文件',
++    qlTable: '表格',
++    qlPdfForm: 'PDF 表单',
++    qlRecentTitle: '最近使用',
++    qlMoreRecent: '更多',
++    qlLessRecent: '收起',
++    qlRecentEmpty: '还没有最近使用的文件',
++    qlRecentEmptyHint: '打开文件后会显示在这里。',
++    qlHomeEyebrow: '氢量办公 · 本地处理文件',
++    qlHomeTitle: '今天想完成什么？',
++    qlHomeDescription: '打开已有文件，或从下面选一件事开始。',
++    qlOpenFile: '打开已有文件',
++    qlCreateTitle: '从零开始',
++    qlCreateDoc: '写一份文档',
++    qlCreateDocHint: '通知、简历、报告',
++    qlCreateSheet: '整理一张表',
++    qlCreateSheetHint: '名单、预算、统计',
++    qlCreateSlides: '做一份演示',
++    qlCreateSlidesHint: '汇报、课堂、分享',
++    qlCreateForm: '制作填写表单',
++    qlCreateFormHint: '创建可填写的 PDF 表单',
+     welWelcome: '欢迎使用ONLYOFFICE桌面编辑软件！',
+     welDescr: '脱机处理文档或连接套件到云：ONLYOFFICE, ownCloud, Nextcloud.',
+     welNeedHelp: '需要帮助吗? 请访问我们的 $1.',
+diff --git a/common/loginpage/src/css/component.less b/common/loginpage/src/css/component.less
+index 67d9d00..966f406 100644
+--- a/common/loginpage/src/css/component.less
++++ b/common/loginpage/src/css/component.less
+@@ -580,83 +580,113 @@ input[type="radio"] {
+ // Document creation grid
+ 
+ .document-creation-grid {
+-    display: flex;
+-    align-items: center;
+-    gap: 32px;
++    display: grid;
++    grid-template-columns: repeat(4, minmax(0, 1fr));
++    gap: 20px;
++
++    @media(max-width: 900px) {
++        grid-template-columns: repeat(2, minmax(0, 1fr));
++    }
+ 
+-    @media(min-width: 1280px) {
+-        padding-inline: 104px 112px;
+-        justify-content: center;
++    @media(max-width: 650px) {
++        grid-template-columns: 1fr;
+     }
+ }
+ 
+ .document-creation-item {
+     display: flex;
+     flex-direction: column;
+-    gap: 12px;
+-    align-items: center;
+-    justify-content: center;
++    align-items: flex-start;
++    justify-content: flex-end;
+     flex-shrink: 0;
+     cursor: pointer;
+ 
+     position: relative;
+-    width: 172px;
+-    height: 172px;
+-    padding: 24px 16px 16px;
++    width: 100%;
++    min-height: 168px;
++    padding: 22px 26px;
+ 
+-    border-radius: 8px;
+-    background: @background-normal-element; // #F3F3F3 ?
++    border-radius: 20px;
++    background: #edf5ff;
++    border: 1px solid rgba(20, 63, 117, .04);
++    box-shadow: 0 10px 24px rgba(38, 67, 100, .07);
++    color: @text-normal;
++    text-align: left;
++    transition: transform .15s ease, box-shadow .15s ease;
++
++    &[data-id="cell"] { background: #ecfaf2; }
++    &[data-id="slide"] { background: #fff5ee; }
++    &[data-id="form"] { background: #fff0f3; }
+ 
+     &:hover {
+-        background: @highlight-button-hover;
++        transform: translateY(-2px);
++        box-shadow: 0 14px 28px rgba(38, 67, 100, .13);
+     }
+ 
+     &:active {
+-        background: @highlight-button-pressed;
++        transform: translateY(0);
+     }
+ 
+-    .format-label {
+-        position: absolute;
+-        top: 14px;
+-        left: 10px;
+-        display: flex;
+-        height: 28px;
+-        align-items: center;
+-        padding: 0px 6px;
+-        border-radius: 6px;
+-        background: conic-gradient(from 225deg at 50% 50%, var(--format-bg-start) 0deg, var(--format-bg-end) 360deg);
+-
+-        span {
+-            color: @text-contrast-background;
+-            font-size: 16px;
+-            font-weight: 700;
+-        }
+-
+-        .rtl & {
+-            left: unset;
+-            right: 10px
+-        }
++    &:focus-visible {
++        outline: 3px solid #1877ed;
++        outline-offset: 3px;
+     }
+ 
+-    .icon {
+-        width: 108px;
+-        height: 100px;
+-
+-        // todo: support shadow for icons: box-shadow: 0px 1px 2px 0px #0000004D;
++    .ql-card-icon {
++        position: absolute;
++        top: 24px;
++        left: 26px;
++        width: 58px;
++        height: 58px;
++        border-radius: 14px;
++        display: grid;
++        place-items: center;
++        color: #fff;
++        background: linear-gradient(145deg, #40a8ff, #0867ec);
++        box-shadow: 0 5px 10px rgba(31, 103, 220, .16);
++
++        svg {
++            width: 35px;
++            height: 35px;
++            fill: none;
++            stroke: currentColor;
++            stroke-width: 2.6;
++            stroke-linecap: round;
++            stroke-linejoin: round;
++        }
++    }
++
++    &[data-id="cell"] .ql-card-icon { background: linear-gradient(145deg, #2ade80, #0bac55); }
++    &[data-id="slide"] .ql-card-icon { background: linear-gradient(145deg, #ffa642, #ff6927); }
++    &[data-id="form"] .ql-card-icon { background: linear-gradient(145deg, #ff5069, #e91c45); }
++
++    .ql-card-arrow {
++        position: absolute;
++        right: 24px;
++        top: 54px;
++        font-size: 30px;
++        line-height: 1;
++        color: #33455f;
+     }
+ 
+     .title {
+-        .text-normal();
++        font-size: 21px;
++        font-weight: 700;
++        line-height: 1.35;
+     }
+-}
+ 
+-.win_xp {
+-    .document-creation-item { 
+-        .format-label {
+-            background: var(--format-bg-winxp);
+-        }
++    .description {
++        color: #8090a8;
++        font-size: 16px;
++        line-height: 1.3;
++        margin-top: 5px;
++    }
++
++    .theme-type-dark & {
++        background: @background-normal-element;
++        border-color: @border-regular-control;
++        .description, .ql-card-arrow { color: @text-secondary; }
+     }
+-    
+ }
+ 
+ /**/
+@@ -683,4 +713,4 @@ input[type="radio"] {
+   /*text-align: center;*/
+   .margin-left(10px);
+ }
+-/**/
+\ No newline at end of file
++/**/
+diff --git a/common/loginpage/src/css/styles.less b/common/loginpage/src/css/styles.less
+index 0aa1fea..f8589fb 100644
+--- a/common/loginpage/src/css/styles.less
++++ b/common/loginpage/src/css/styles.less
+@@ -2,7 +2,7 @@
+ 
+ @img-path: '../../res/img';
+ 
+-@col-width: 288px;
++@col-width: 224px;
+ 
+ @import '../../vendor/bootstrap/variables';
+ @import '../../vendor/bootstrap/dropdowns';
+@@ -910,6 +910,16 @@ li.menu-item {
+   }
+ }
+ 
++.tool-menu .menu-item .icon-box {
++  width: 29px;
++  height: 29px;
++  padding: 2px;
++  border: 0;
++  background: transparent;
++}
++
++#idx-sidebar-portals { display: none !important; }
++
+ .text-welcome {
+   font-weight: 100;
+ }
+@@ -1030,6 +1040,168 @@ li.menu-item {
+   }
+ }
+ 
++.tool-menu {
++  background: #f9fbfe;
++  padding: 42px 20px 20px;
++  gap: 8px;
++
++  > li.menu-item.ql-advanced-nav,
++  > li.menu-item.separator { display: none; }
++
++  > li.menu-item:not(.separator):not(.devider) {
++    border-radius: 16px;
++
++    a { height: 54px; gap: 16px; font-size: 17px; padding: 8px 20px; }
++    a .icon { width: 25px; height: 25px; }
++    &.selected {
++      background: #e9f2ff;
++      color: #0873f5;
++      box-shadow: none;
++      outline: none;
++    }
++    &.selected a { color: #0873f5; }
++    &.selected svg.icon:not(.icon-colored) { stroke: #0873f5; }
++  }
++
++  .theme-type-dark & {
++    background: @background-normal;
++  }
++}
++
++.recents .recent-panel-container {
++  max-width: none;
++  padding: 32px 40px 40px;
++  margin-bottom: 0;
++  background: #fff;
++}
++
++.recents #area-document-creation-grid {
++  padding: 0;
++  margin: 0;
++  min-height: 0;
++  overflow: visible;
++  flex: 0 0 auto;
++}
++
++.recents #area-dnd-file { display: none !important; }
++
++.recents #box-container {
++  flex: 0 0 auto;
++  overflow: visible;
++  margin-top: 58px;
++  gap: 22px;
++}
++
++.recents #box-recent {
++  display: flex;
++  padding: 0;
++
++  &.empty { display: flex; }
++
++  .file-list-title {
++    display: flex;
++    align-items: center;
++    justify-content: space-between;
++    margin: 0 0 14px;
++    padding: 0;
++    background: transparent;
++
++    h2 { margin: 0; color: #101a2e; font-size: 21px; font-weight: 700; }
++  }
++
++  .ql-more-recent {
++    display: none;
++    align-items: center;
++    gap: 10px;
++    padding: 8px 4px;
++    border: 0;
++    background: transparent;
++    color: #7e8ba1;
++    font-size: 16px;
++    cursor: pointer;
++  }
++
++  &.ql-has-more .ql-more-recent { display: flex; }
++  .ql-more-recent:hover { color: #0873f5; }
++  .ql-more-recent span:last-child { font-size: 26px; line-height: 16px; }
++  .file-list-head { display: none; }
++
++  .file-list-body {
++    gap: 0;
++    overflow: hidden;
++    background: #fff;
++    border: 1px solid #edf0f5;
++    border-radius: 15px;
++    box-shadow: 0 12px 30px rgba(32, 55, 89, .065);
++
++    .row {
++      display: grid;
++      grid-template-columns: minmax(0, 1fr) 160px 32px;
++      grid-template-rows: 1fr 1fr;
++      gap: 0 14px;
++      align-items: center;
++      min-height: 78px;
++      padding: 11px 20px;
++      border-radius: 0;
++      border-bottom: 1px solid #edf0f5;
++      background: #fff;
++
++      &:last-child { border-bottom: 0; }
++      &:nth-child(n+5) { display: none; }
++      &:hover { background: #f8fbff; }
++      .col-name { grid-column: 1; grid-row: 1; height: 29px; }
++      .col-name .icon { width: 39px; height: 45px; flex: 0 0 39px; }
++      .col-name > .icon { position: absolute; left: 20px; top: 16px; }
++      .col-name p { margin-left: 63px; font-size: 17px; }
++      .col-location {
++        display: block;
++        grid-column: 1;
++        grid-row: 2;
++        height: 22px;
++        line-height: 22px;
++        margin-left: 63px;
++        margin-top: 0;
++        color: #8290a7;
++        font-size: 14px;
++      }
++      .col-date {
++        grid-column: 2;
++        grid-row: 1 / 3;
++        height: auto;
++        color: #8190a8;
++        font-size: 14px;
++      }
++      .col-pin { display: none; }
++      .col-more {
++        display: flex;
++        position: static;
++        grid-column: 3;
++        grid-row: 1 / 3;
++        opacity: 1;
++      }
++    }
++  }
++
++  &.ql-expanded .file-list-body .row:nth-child(n+5) { display: grid; }
++  &.empty .file-list-body { display: none; }
++  .ql-recent-empty { display: none; padding: 32px; border: 1px solid #edf0f5; border-radius: 15px; color: #8190a8; text-align: center; }
++  .ql-recent-empty strong { display: block; color: #24324a; font-size: 17px; margin-bottom: 8px; }
++  .ql-recent-empty p { margin: 0; }
++  &.empty .ql-recent-empty { display: block; }
++}
++
++.theme-type-dark .recents .recent-panel-container { background: @background-normal; }
++.theme-type-dark .recents #box-recent .file-list-title h2 { color: @text-normal; }
++.theme-type-dark .recents #box-recent .file-list-body,
++.theme-type-dark .recents #box-recent .file-list-body .row { background: @background-normal-element; border-color: @border-regular-control; }
++
++@media (max-width: 1120px) {
++  .recents .recent-panel-container { padding: 28px; }
++  .recents #box-recent .file-list-body .row { grid-template-columns: minmax(0, 1fr) 32px; }
++  .recents #box-recent .file-list-body .row .col-date { display: none; }
++  .recents #box-recent .file-list-body .row .col-more { grid-column: 2; }
++}
++
+ .open-panel-container {
+   .recent-panel-container();
+    display: flex;
+@@ -2849,3 +3021,6 @@ li.menu-item {
+     }
+   }
+ }
++
++/* Start-page navigation keeps the inherited icons without button boxes. */
++.tool-menu .menu-item .icon-box { border: 0; background: transparent; }
+diff --git a/common/loginpage/src/document-creation-grid.js b/common/loginpage/src/document-creation-grid.js
+index a654f0e..8535b7c 100644
+--- a/common/loginpage/src/document-creation-grid.js
++++ b/common/loginpage/src/document-creation-grid.js
+@@ -38,13 +38,15 @@ window.DocumentCreationGrid = function (config = {}) {
+ 
+ 
+ 	let $el, $parent;
++	const icons = {
++		word: '<path d="M8 8h20M8 14h20M8 20h16M8 26h12"/>',
++		cell: '<rect x="6" y="6" width="24" height="24" rx="2"/><path d="M6 14h24M6 22h24M14 6v24M22 6v24"/>',
++		slide: '<rect x="5" y="7" width="26" height="19" rx="2"/><path d="M18 26v5M11 31h14M10 12h9M10 17h13"/>',
++		form: '<path d="M10 4h13l5 5v23H10zM23 4v6h5M14 17h10M14 22h10M14 27h7"/>',
++	};
+ 
+-	/**
+-	 * Global handler for document selection
+-	 * @param {string} docType - Selected document type ID
+-	 * @param {HTMLElement} element - Clicked element
+-	 */
+-	window.DocumentCreationGrid.handleDocumentSelect = function (docType, element) {
++	/** Select through the existing native create command. */
++	function handleDocumentSelect(docType, element) {
+ 		const selectedDoc = documentTypes.find(doc => doc.id === docType);
+ 
+ 		if (!selectedDoc) {
+@@ -55,7 +57,7 @@ window.DocumentCreationGrid = function (config = {}) {
+ 		if (onDocumentSelect && typeof onDocumentSelect === 'function') {
+ 			onDocumentSelect(docType, selectedDoc, element);
+ 		}
+-	};
++	}
+ 
+ 	return {
+ 		/**
+@@ -71,25 +73,20 @@ window.DocumentCreationGrid = function (config = {}) {
+ 			const _template = `
+                 <div class="document-creation-grid">
+                     ${documentTypes.map(doc => `
+-                    <div class="document-creation-item" data-id="${doc.id}" onclick="window.DocumentCreationGrid.handleDocumentSelect('${doc.id}', this)">
+-
+-                        <div class="format-label" style="--format-bg-start: ${doc.formatLabel.gradientColorStart};
+-														--format-bg-end: ${doc.formatLabel.gradientColorEnd};
+-														--format-bg-winxp: ${doc.formatLabel.bgColorWinXP}">
+-                            <span>${doc.formatLabel.value}</span>
+-                        </div>
+-
+-						${doc.icon.startsWith('#') ? `<svg class="icon"><use xlink:href="${doc.icon}"></use></svg>` : `<i class="icon ${doc.icon}"></i>`}
+-
+-                        <div class="title" l10n="${doc.langKey}">
+-                            ${doc.title}
+-                        </div>
+-                    </div>
++                    <button type="button" class="document-creation-item" data-id="${doc.id}">
++                        <span class="ql-card-icon" aria-hidden="true"><svg viewBox="0 0 36 36">${icons[doc.id]}</svg></span>
++                        <span class="ql-card-arrow" aria-hidden="true">›</span>
++                        <span class="title" l10n="${doc.langKey}">${doc.title}</span>
++                        <span class="description">${doc.formatLabel.value}</span>
++                    </button>
+                 `).join('')}
+                 </div>`;
+ 
+ 			$parent = parentElement;
+ 			$el = $parent.append(_template).find('.document-creation-grid');
++			$el.on('click', '.document-creation-item', function () {
++				handleDocumentSelect(this.getAttribute('data-id'), this);
++			});
+ 		},
+ 	};
+-};
+\ No newline at end of file
++};
+diff --git a/common/loginpage/src/locale.js b/common/loginpage/src/locale.js
+index 569815d..96bb2be 100644
+--- a/common/loginpage/src/locale.js
++++ b/common/loginpage/src/locale.js
+@@ -32,6 +32,28 @@
+ 
+ var l10n = l10n || {};
+ l10n.en = {
++    qlNavHome: 'Home',
++    qlNavOpen: 'Open file',
++    qlTable: 'Spreadsheet',
++    qlPdfForm: 'PDF form',
++    qlRecentTitle: 'Recent files',
++    qlMoreRecent: 'More',
++    qlLessRecent: 'Show less',
++    qlRecentEmpty: 'No recent files yet',
++    qlRecentEmptyHint: 'Files you open will appear here.',
++    qlHomeEyebrow: 'Qingliang Office · Work locally',
++    qlHomeTitle: 'What would you like to get done?',
++    qlHomeDescription: 'Open a file you have, or start with a simple task below.',
++    qlOpenFile: 'Open an existing file',
++    qlCreateTitle: 'Start something new',
++    qlCreateDoc: 'Write a document',
++    qlCreateDocHint: 'Notes, letters, and reports',
++    qlCreateSheet: 'Organize a spreadsheet',
++    qlCreateSheetHint: 'Lists, budgets, and figures',
++    qlCreateSlides: 'Make a presentation',
++    qlCreateSlidesHint: 'Ideas and project updates',
++    qlCreateForm: 'Create a fillable form',
++    qlCreateFormHint: 'A PDF form others can complete',
+     welWelcome: 'Welcome to ONLYOFFICE Desktop Editors!',
+     welDescr: 'Work on documents offline or connect the suite to your cloud: ONLYOFFICE, ownCloud, Nextcloud.',
+     welNeedHelp: 'Need help? Visit our $1.',
+diff --git a/common/loginpage/src/panelrecent.js b/common/loginpage/src/panelrecent.js
+index 6c91004..32ca040 100755
+--- a/common/loginpage/src/panelrecent.js
++++ b/common/loginpage/src/panelrecent.js
+@@ -56,26 +56,12 @@
+         // localStorage.removeItem('welcome');
+ 
+ 
+-		//language=HTML
+-        const helpLink = `<a l10n class="link" href="https://helpcenter.onlyoffice.com/" target="popup">${_lang.textHelpCenter}</a>`;
+-		const welcomeBannerTemplate = !localStorage.getItem('welcome') ? `
+-            <div id="area-welcome">
+-                <h2 l10n>${_lang.welWelcome}</h2>
+-                <p l10n class="text-normal">${_lang.welDescr}</p>
+-                <p l10n class="text-normal">${_lang.welNeedHelp.replace('$1', helpLink)}</p>
+-            </div>` : '';
+-
+         //language=HTML
+         args.tplPage = `
+             <div class="action-panel ${args.action}">
+                 <div class="recent-panel-container">
+-                    <div class="search-bar hidden">
+-                        <h1 l10n>${_lang.welWelcome}</h1>
+-                    </div>
+-
+-                    <section id="area-document-creation-grid"></section>
+-                    ${welcomeBannerTemplate}
+-                    <section id="area-dnd-file"></section>
++                    <section id="area-document-creation-grid" aria-label="${_lang.qlCreateTitle}"></section>
++                    <section id="area-dnd-file" aria-hidden="true"></section>
+ 
+                     <div id="box-container">
+                         <div id="box-recovery">
+@@ -90,9 +76,10 @@
+                             <div class="file-list-body scrollable"></div>
+                         </div>
+ 
+-                        <div id="box-recent">
++                        <div id="box-recent" class="empty">
+                             <div class="file-list-title">
+-                                <h3 l10n>${_lang.listRecentFileTitle}</h3>
++                                <h2 l10n>${_lang.qlRecentTitle}</h2>
++                                <button type="button" class="ql-more-recent"><span class="ql-more-label" l10n>${_lang.qlMoreRecent}</span><span aria-hidden="true">›</span></button>
+                             </div>
+                             <div class="file-list-head text-normal">
+                                 <div class="col-name" l10n>${_lang.colFileName}</div>
+@@ -100,6 +87,10 @@
+                                 <div class="col-date" l10n>${_lang.colLastOpened}</div>
+                             </div>
+                             <div class="file-list-body scrollable"></div>
++                            <div class="ql-recent-empty">
++                                <strong l10n>${_lang.qlRecentEmpty}</strong>
++                                <p l10n>${_lang.qlRecentEmptyHint}</p>
++                            </div>
+                         </div>
+                     </div>
+                 </div>
+@@ -128,6 +119,7 @@
+             this.$panelContainer = this.$panel.find('.recent-panel-container');
+         },
+         listitemtemplate: function (info) {
++            const escapeText = value => String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch]);
+             let id = !!info.uid ? (` id="${info.uid}"`) : '';
+             info.crypted === undefined && (info.crypted = false);
+             const dotIndex = info.name.lastIndexOf('.');
+@@ -138,13 +130,18 @@
+             } else {
+                 info.ext = '';
+             }
++            const safeName = escapeText(info.name);
++            const safeExt = escapeText(info.ext);
++            const safeFullName = escapeText(fullName);
++            const safeDescription = escapeText(info.descr);
++            const safeDate = escapeText(info.date);
+ 
+             // todo: crypted icon
+ 
+             //language=HTML
+             let _tpl = `
+                 <div ${id} class="row text-normal">
+-                    <div class="col-name" title="${fullName}">
++                    <div class="col-name" title="${safeFullName}">
+                         <div class="icon">
+                             <svg class="icon" data-iconname="${info.type === 'folder' ? 'folder' : `${info.format}`}"
+                                  data-precls="tool-icon">
+@@ -157,12 +154,12 @@
+                             ${info.crypted && !isSvgIcons ? `<i class="icon img-el shield"></i>` : ''}
+                         </div>
+                         <p class="name">
+-                            ${info.name}<span class="ext">${info.ext}</span>
++                            ${safeName}<span class="ext">${safeExt}</span>
+                         </p>
+                     </div>
+-                    <div class="col-location" title="${info.descr}">
++                    <div class="col-location" title="${safeDescription}">
+                         <!--              todo: icon here          -->
+-                        ${info.descr}
++                        ${safeDescription}
+                     </div>
+             `;
+ 
+@@ -180,7 +177,7 @@
+             if (info.type !== 'folder') {
+                 //language=HTML
+                 _tpl += `
+-                    <div class="col-date"><p>${info.date}</p></div>`;
++                    <div class="col-date"><p>${safeDate}</p></div>`;
+ 
+                 //language=HTML
+                 _tpl += `
+@@ -449,6 +446,8 @@
+ 
+             collectionRecents.events.erased.attach(collection => {
+                 collection.list.parent().addClass('empty');
++                this.view.$boxRecent.removeClass('ql-has-more ql-expanded');
++                this.view.$boxRecent.find('.ql-more-label').text(utils.Lang.qlMoreRecent);
+             });
+ 
+             collectionRecents.events.inserted.attach((collection, model) => {
+@@ -470,6 +469,7 @@
+                 addContextMenuEventListener(collection, model, this.view.$panel, 'recent');
+ 
+                 collection.list.parent().removeClass('empty');
++                this.view.$boxRecent.toggleClass('ql-has-more', collection.size() > 4);
+             });
+ 
+             collectionRecents.events.click.attach((collection, model) => {
+@@ -680,6 +680,11 @@
+ 
+                 this.dndZone = new DnDFileZone();
+                 this.dndZone.render(this.view.$panel.find("#area-dnd-file"));
++                this.view.$boxRecent.find('.ql-more-recent').on('click', () => {
++                    const expanded = this.view.$boxRecent.toggleClass('ql-expanded').hasClass('ql-expanded');
++                    this.view.$boxRecent.find('.ql-more-label').text(
++                        expanded ? utils.Lang.qlLessRecent : utils.Lang.qlMoreRecent);
++                });
+ 
+                 const docGrid = new DocumentCreationGrid({
+                     documentTypes: [
+@@ -687,6 +692,7 @@
+                             id: 'word',
+                             title: utils.Lang.newDoc,
+                             langKey: 'newDoc',
++                            description: 'DOCX',
+                             formatLabel: {
+                                 value: 'DOCX',
+                                 gradientColorStart: '#4298C5',
+@@ -697,8 +703,9 @@
+                         },
+                         {
+                             id: 'cell',
+-                            title: utils.Lang.newXlsx,
+-                            langKey: 'newXlsx',
++                            title: utils.Lang.qlTable,
++                            langKey: 'qlTable',
++                            description: 'XLSX',
+                             formatLabel: {
+                                 value: 'XLSX',
+                                 gradientColorStart: '#5BB514',
+@@ -711,6 +718,7 @@
+                             id: 'slide',
+                             title: utils.Lang.newPptx,
+                             langKey: 'newPptx',
++                            description: 'PPTX',
+                             formatLabel: {
+                                 value: 'PPTX',
+                                 gradientColorStart: '#F4893A',
+@@ -721,8 +729,9 @@
+                         },
+                         {
+                             id: 'form',
+-                            title: utils.Lang.newForm,
+-                            langKey: 'newForm',
++                            title: utils.Lang.qlPdfForm,
++                            langKey: 'qlPdfForm',
++                            description: 'PDF',
+                             formatLabel: {
+                                 value: 'PDF',
+                                 gradientColorStart: '#F36653',
+@@ -762,4 +771,4 @@
+ // window.CommonEvents.on('main:ready', function(){
+ //     var p = new ControllerRecent({});
+ //     p.init();
+-// });
+\ No newline at end of file
++// });
+diff --git a/common/loginpage/src/panels.js b/common/loginpage/src/panels.js
+index e546e2b..6055259 100644
+--- a/common/loginpage/src/panels.js
++++ b/common/loginpage/src/panels.js
+@@ -41,7 +41,7 @@ $(document).ready(function() {
+                             <use href="#home"></use>
+                         </svg>
+                     </div>
+-                    <span class="text" l10n>${utils.Lang.actHome}</span>
++                    <span class="text" l10n>${utils.Lang.qlNavHome}</span>
+                 </a>
+               </li>
+               <li class="menu-item">
+@@ -51,10 +51,10 @@ $(document).ready(function() {
+                             <use href="#folder"></use>
+                         </svg>
+                     </div>
+-                    <span class="text" l10n>${utils.Lang.actOpenLocal}</span>
++                    <span class="text" l10n>${utils.Lang.qlNavOpen}</span>
+                 </a>
+               </li>
+-              <li class="menu-item">
++              <li class="menu-item ql-advanced-nav">
+                 <a l10n action="templates">
+                     <div class="icon-box">
+                         <svg class="icon" data-iconname="templates" data-precls="tool-icon">
+@@ -78,7 +78,7 @@ $(document).ready(function() {
+                     <span class="text" l10n>${utils.Lang.actSettings}</span>
+                   </a>
+               </li>
+-              <li class="menu-item hidden">
++              <li class="menu-item">
+                   <a action="about">
+                     <div class="icon-box">
+                       <svg class="icon" data-iconname="about" data-precls="tool-icon">
+diff --git a/win-linux/res/styles/styles.qss b/win-linux/res/styles/styles.qss
+index 4ab0455..d8d9684 100644
+--- a/win-linux/res/styles/styles.qss
++++ b/win-linux/res/styles/styles.qss
+@@ -61,9 +61,10 @@ QPushButton#toolButtonClose[class=normal][unix=false]:pressed {image: url(:/clos
+ 
+ QPushButton#toolButtonMain {
+     background: %5;
+-    font-size: 10px;
+-    font-family: 'Open Sans',sans-serif;
++    font-size: 16px;
++    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+     font-weight: bold;
++    color: #14243b;
+     border-left: 0px;
+     border-right: 1px solid %7;
+     qproperty-icon: url(:/logo_light.png);
+@@ -95,6 +96,7 @@ QPushButton#toolButtonDownload {border-left: 0px; border-right: 1px solid %6; ma
+ #mainPanel[uithemetype=dark] QPushButton#toolButtonMinimize {image: url(:/minimize_light.svg) center no-repeat;}
+ #mainPanel[uithemetype=dark] QPushButton#toolButtonClose {image: url(:/close_light.svg) center no-repeat;}
+ #mainPanel[uithemetype=dark] QPushButton#toolButtonMain {qproperty-icon: url(:/logo_dark.png);}
++#mainPanel[uithemetype=dark] QPushButton#toolButtonMain {color: #f5f8ff;}
+ 
+ /* Menu */
+ 
+diff --git a/win-linux/src/cascapplicationmanagerwrapper.cpp b/win-linux/src/cascapplicationmanagerwrapper.cpp
+index db338da..b24333d 100644
+--- a/win-linux/src/cascapplicationmanagerwrapper.cpp
++++ b/win-linux/src/cascapplicationmanagerwrapper.cpp
+@@ -2018,7 +2018,7 @@ bool CAscApplicationManagerWrapper::applySettings(const wstring& wstrjson)
+         }
+ 
+         if ( objRoot.contains("useai") ) {
+-            setUserSettings(L"disable-ai", objRoot["useai"].toBool(true) ? L"0" : L"1");
++            setUserSettings(L"disable-ai", L"1");
+         }
+ 
+ #ifdef _UPDMODULE
+diff --git a/win-linux/src/ceditortools.cpp b/win-linux/src/ceditortools.cpp
+index 090df4b..132c95b 100644
+--- a/win-linux/src/ceditortools.cpp
++++ b/win-linux/src/ceditortools.cpp
+@@ -42,6 +42,7 @@
+ #include "OfficeFileFormats.h"
+ #include "components/cmessage.h"
+ #include <QApplication>
++#include <algorithm>
+ #include <QDir>
+ #include <QJsonObject>
+ #include <QPrintEngine>
+@@ -521,7 +522,16 @@ namespace CEditorTools
+ 
+             ParentHandle _parent = AscAppManager::windowHandleFromId(event->m_nSenderId);
+             CFileDialogWrapper dlg(_parent);
+-            dlg.setFormats(pData->get_SupportFormats());
++            auto formats = pData->get_SupportFormats();
++            const auto xlsx = std::find(formats.begin(), formats.end(), AVS_OFFICESTUDIO_FILE_SPREADSHEET_XLSX);
++            // The rebuilt converter supports BIFF8. CSV availability indicates
++            // an unencrypted workbook; keep legacy export out of encrypted saves.
++            if (xlsx != formats.end() &&
++                std::find(formats.begin(), formats.end(), AVS_OFFICESTUDIO_FILE_SPREADSHEET_CSV) != formats.end() &&
++                std::find(formats.begin(), formats.end(), AVS_OFFICESTUDIO_FILE_SPREADSHEET_XLS) == formats.end()) {
++                formats.insert(xlsx + 1, AVS_OFFICESTUDIO_FILE_SPREADSHEET_XLS);
++            }
++            dlg.setFormats(formats);
+ 
+             CAscLocalSaveFileDialog * pSaveData = new CAscLocalSaveFileDialog();
+             pSaveData->put_Id(pData->get_Id());
+diff --git a/win-linux/src/clangater.cpp b/win-linux/src/clangater.cpp
+index 26c00e7..9b0525f 100644
+--- a/win-linux/src/clangater.cpp
++++ b/win-linux/src/clangater.cpp
+@@ -321,9 +321,10 @@ void CLangater::init()
+         } else _lang = APP_DEFAULT_LOCALE;
+     }
+ #else
+-    // read setup language and set application locale
+-    _lang.isEmpty() &&
+-        !((_lang = reg_system.value("locale").value<QString>()).size()) && (_lang = APP_DEFAULT_LOCALE).size();
++    // A fresh profile in this edition starts in Simplified Chinese.
++    // An explicit launch language or saved user preference still takes priority.
++    if (_lang.isEmpty())
++        _lang = APP_DEFAULT_LOCALE;
+ #endif
+     _lang = normalizeLocale(_lang);
+     getInstance()->m_intf->addSearchPath({"./langs", ":/i18n/langs", ":/i18n"});
+diff --git a/win-linux/src/defines.h b/win-linux/src/defines.h
+index e5a9398..21f529e 100644
+--- a/win-linux/src/defines.h
++++ b/win-linux/src/defines.h
+@@ -39,7 +39,7 @@
+ #define reCmdLang           "--(keep)?lang[:|=](\\w{2,5})"
+ 
+ #define APP_NAME "DesktopEditors"
+-#define APP_TITLE "ONLYOFFICE"
++#define APP_TITLE "氢量办公"
+ #ifdef __linux
+ # define APP_DATA_PATH "/onlyoffice/desktopeditors"
+ # define REG_GROUP_KEY "onlyoffice"
+@@ -53,15 +53,15 @@
+ # define APP_MUTEX_NAME "TEAMLAB"
+ #endif
+ 
+-#define WINDOW_NAME "ONLYOFFICE"
++#define WINDOW_NAME "氢量办公"
+ #define WINDOW_TITLE WINDOW_NAME
+ #define WINDOW_CLASS_NAME L"DocEditorsWindowClass"
+ #define WINDOW_EDITOR_CLASS_NAME L"SingleWindowClass"
+ #define REG_APP_NAME "DesktopEditors"
+-#define APP_DEFAULT_LOCALE "en-US"
+-#define APP_DEFAULT_SYSTEM_LOCALE 1
++#define APP_DEFAULT_LOCALE "zh-CN"
++#define APP_DEFAULT_SYSTEM_LOCALE 0
+ #define APP_USER_MODEL_ID "ASC.Documents.5"
+-#define APP_SIMPLE_WINDOW_TITLE "ONLYOFFICE Editor"
++#define APP_SIMPLE_WINDOW_TITLE "氢量办公"
+ #define APP_PROTOCOL "oo-office"
+ #define FILE_PREFIX "onlyoffice_"
+ 
+diff --git a/win-linux/src/main.cpp b/win-linux/src/main.cpp
+index 3cc8dae..a5ea3be 100644
+--- a/win-linux/src/main.cpp
++++ b/win-linux/src/main.cpp
+@@ -47,6 +47,7 @@
+ #include "chelp.h"
+ #include "common/File.h"
+ #include <QStyleFactory>
++#include <vector>
+ 
+ 
+ int main( int argc, char *argv[] )
+@@ -169,10 +170,21 @@ int main( int argc, char *argv[] )
+ #ifdef __linux
+     gtk_init(&argc, &argv);
+ #endif
+-    CApplicationCEF::Prepare(argc, argv);
++    // Match this edition's local-editing policy even when launched directly
++    // or through a file association, and override any earlier AI argument.
++    char disableAiArgument[] = "--disable-ai=1";
++    char disableGpuArgument[] = "--disable-gpu=1";
++    std::vector<char *> editorArguments(argv, argv + argc);
++    editorArguments.push_back(disableAiArgument);
++#ifdef _WIN32
++    editorArguments.push_back(disableGpuArgument);
++#endif
++    editorArguments.push_back(nullptr);
++    int editorArgc = static_cast<int>(editorArguments.size()) - 1;
++    CApplicationCEF::Prepare(editorArgc, editorArguments.data());
+     CApplicationCEF* application_cef = new CApplicationCEF();
+     setup_paths(&AscAppManager::getInstance());
+-    application_cef->Init_CEF(&AscAppManager::getInstance(), argc, argv);
++    application_cef->Init_CEF(&AscAppManager::getInstance(), editorArgc, editorArguments.data());
+     /* ********************** */
+ 
+ //    GET_REGISTRY_SYSTEM(reg_system)
+diff --git a/win-linux/src/prop/cmainpanelimpl.cpp b/win-linux/src/prop/cmainpanelimpl.cpp
+index 1bcd3ce..249180d 100644
+--- a/win-linux/src/prop/cmainpanelimpl.cpp
++++ b/win-linux/src/prop/cmainpanelimpl.cpp
+@@ -63,8 +63,9 @@ void CMainPanelImpl::refreshAboutVersion()
+ # endif
+ #endif
+     _json_obj["edition"]    = _license;
+-    _json_obj["appname"]    = WINDOW_NAME;
+-    _json_obj["rights"]     = "© " ABOUT_COPYRIGHT_STR;
++    _json_obj["appname"]    = QString::fromUtf8(WINDOW_NAME);
++    _json_obj["rights"]     = QString::fromUtf8(ABOUT_COPYRIGHT_STR) +
++        QString::fromUtf8(" · 修改版（2026-10-14），基于 ONLYOFFICE，由 Ascensio System SIA 开发的原软件；本修改版发布者：个人开发者。");
+     _json_obj["link"]       = URL_SITE;
+     _json_obj["changelog"]  = "https://github.com/ONLYOFFICE/DesktopEditors/blob/master/CHANGELOG.md";
+ 
+diff --git a/win-linux/src/prop/cmainwindowimpl.cpp b/win-linux/src/prop/cmainwindowimpl.cpp
+index e9092ec..d4a44d7 100644
+--- a/win-linux/src/prop/cmainwindowimpl.cpp
++++ b/win-linux/src/prop/cmainwindowimpl.cpp
+@@ -125,9 +125,10 @@ void CMainWindowImpl::refreshAboutVersion()
+     _json_obj["appname"]    = ABOUT_PAGE_APP_NAME;
+ #else
+     // _json_obj["appname"]    = WINDOW_NAME;
+-    _json_obj["appname"]    = "ONLYOFFICE Desktop Editors";
++    _json_obj["appname"]    = QString::fromUtf8("氢量办公");
+ #endif
+-    _json_obj["rights"]     = ABOUT_COPYRIGHT_STR;
++    _json_obj["rights"]     = QString::fromUtf8(ABOUT_COPYRIGHT_STR) +
++        QString::fromUtf8(" · 修改版（2026-10-14），基于 ONLYOFFICE，由 Ascensio System SIA 开发的原软件；本修改版发布者：个人开发者。");
+     _json_obj["link"]       = URL_SITE;
+ //    _json_obj["changelog"]  = "https://github.com/ONLYOFFICE/DesktopEditors/blob/master/CHANGELOG.md";
+ 
+@@ -158,7 +159,7 @@ void CMainWindowImpl::refreshAboutVersion()
+     GET_REGISTRY_USER(reg_user);
+     _json_obj["editorwindowmode"] = reg_user.value("editorWindowMode",false).toBool();
+     _json_obj["usegpu"] = !(AscAppManager::userSettings(L"disable-gpu") == L"1");
+-    _json_obj["useai"] = !(AscAppManager::userSettings(L"disable-ai") == L"1");
++    // The edition omits the AI preference from its settings UI.
+ 
+ #ifndef __OS_WIN_XP
+     _json_obj["rtl"] = AscAppManager::isRtlEnabled();
+diff --git a/win-linux/src/prop/utils.cpp b/win-linux/src/prop/utils.cpp
+index 8490d1e..2deb313 100644
+--- a/win-linux/src/prop/utils.cpp
++++ b/win-linux/src/prop/utils.cpp
+@@ -35,6 +35,11 @@
+ 
+ QString Utils::getUserPath()
+ {
++    // Allow acceptance runs to keep recoveries, fonts and plugin state in a
++    // dedicated profile without changing the regular profile location.
++    const QString testDataRoot = QString::fromUtf8(qgetenv("OFFICE_USER_DATA_ROOT"));
++    if (!testDataRoot.isEmpty() && QDir::isAbsolutePath(testDataRoot))
++        return QDir::fromNativeSeparators(testDataRoot);
+     return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+ }
+ 
+diff --git a/win-linux/src/version.h b/win-linux/src/version.h
+index 15f3752..6ca81ce 100644
+--- a/win-linux/src/version.h
++++ b/win-linux/src/version.h
+@@ -61,16 +61,16 @@
+ # define VER_PRODUCTVERSION_STR     VER_STRING_SHORT
+ #endif
+ 
+-#define VER_COMPANYNAME_STR         "Ascensio System SIA\0"
++#define VER_COMPANYNAME_STR         "个人开发者\0"
+ #define VER_LEGALCOPYRIGHT_STR      "© Ascensio System SIA " TO_STR(COPYRIGHT_YEAR) ". All rights reserved.\0"
+ #define VER_COMPANYDOMAIN_STR       "www.onlyoffice.com\0"
+ #define ABOUT_COPYRIGHT_STR         VER_LEGALCOPYRIGHT_STR
+-#define VER_FILEDESCRIPTION_STR     "ONLYOFFICE Desktop Editors\0"
++#define VER_FILEDESCRIPTION_STR     "氢量办公 — 基于 ONLYOFFICE 的修改版\0"
+ #define VER_INTERNALNAME_STR        "Desktop Editors\0"
+ #define VER_LEGALTRADEMARKS1_STR    "All Rights Reserved\0"
+ #define VER_LEGALTRADEMARKS2_STR    VER_LEGALTRADEMARKS1_STR
+ #define VER_ORIGINALFILENAME_STR    "documenteditor.exe\0"
+-#define VER_PRODUCTNAME_STR         "ONLYOFFICE\0"
++#define VER_PRODUCTNAME_STR         "氢量办公\0"
+ 
+ #define VER_LANG_AND_CHARSET        "040904E4"
+ #define VER_LANG_ID                 0x0409
+diff --git a/win-linux/src/windows/cmainwindow.cpp b/win-linux/src/windows/cmainwindow.cpp
+index 9066c01..10ff9ef 100644
+--- a/win-linux/src/windows/cmainwindow.cpp
++++ b/win-linux/src/windows/cmainwindow.cpp
+@@ -107,6 +107,20 @@ CMainWindow::~CMainWindow()
+ 
+ }
+ 
++void CMainWindow::refreshBrandButton()
++{
++    // The start-page button is native Qt UI; its previous icon came from the
++    // upstream stylesheet, independently of the HTML start page.
++    static const QByteArray icon = R"(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
++        <path fill="#1878f5" d="M18 2 33 10 18 18 3 10 18 2Z"/>
++        <path fill="#1878f5" d="M3 16 18 24 33 16v5L18 29 3 21v-5Z"/>
++        <path fill="#1878f5" d="M3 25 18 33 33 25v4L18 36 3 29v-4Z"/>
++    </svg>)";
++    m_pButtonMain->setIconSize(QSize(22, 22) * m_dpiRatio);
++    m_pButtonMain->setIcon(icon);
++    m_pButtonMain->setText(QString::fromUtf8("氢量办公"));
++}
++
+ /** Public **/
+ 
+ QWidget * CMainWindow::editor(int index)
+@@ -261,6 +275,7 @@ void CMainWindow::applyTheme(const std::wstring& theme)
+     m_pTabs->applyUITheme(GetActualTheme(theme));
+     // m_pButtonMain->setIcon(MAIN_ICON_PATH, GetCurrentTheme().isDark() ? "logo-light" : "logo-dark");
+     m_pButtonMain->setIconSize(MAIN_ICON_SIZE * m_dpiRatio);
++    refreshBrandButton();
+     if (m_pWidgetDownload && m_pWidgetDownload->toolButton()) {
+         m_pWidgetDownload->applyTheme();
+     }
+@@ -465,7 +480,7 @@ QWidget* CMainWindow::createMainPanel(QWidget *parent)
+ #endif
+ 
+ #ifdef __DONT_WRITE_IN_APP_TITLE
+-    QLabel * label = new QLabel(m_boxTitleBtns);
++    QLabel * label = new QLabel(QString::fromUtf8(APP_TITLE), m_boxTitleBtns);
+ #else
+     QLabel * label = new QLabel(APP_TITLE, m_boxTitleBtns);
+ #endif
+@@ -553,6 +568,7 @@ void CMainWindow::pushButtonMainClicked()
+         m_pMainWidget->setHidden(false);
+         m_pTabs->setFocusedView();
+         m_pButtonMain->setProperty("class", "active");
++        refreshBrandButton();
+         ((QCefView *)m_pMainWidget)->setFocusToCef();
+         onTabChanged(m_pTabs->currentIndex());
+     }
+@@ -563,6 +579,7 @@ void CMainWindow::toggleButtonMain(bool toggle, bool delay)
+     auto _toggle = [=] (bool state) {
+         if (m_pTabs->isActiveWidget() == state) {
+             m_pButtonMain->setProperty("class", state ? "active" : "normal");
++            refreshBrandButton();
+             m_pTabs->activate(!state);
+             m_pMainWidget->setHidden(!state);
+             if (!state)
+@@ -1552,6 +1569,7 @@ void CMainWindow::updateScalingFactor(double dpiratio)
+     m_pTabs->reloadTabIcons();
+     // m_pButtonMain->setIcon(MAIN_ICON_PATH, GetCurrentTheme().isDark() ? "logo-light" : "logo-dark");
+     m_pButtonMain->setIconSize(MAIN_ICON_SIZE * dpiratio);
++    refreshBrandButton();
+     if (m_pWidgetDownload && m_pWidgetDownload->toolButton()) {
+         m_pWidgetDownload->updateScalingFactor(dpiratio);
+         m_pWidgetDownload->toolButton()->style()->polish(m_pWidgetDownload->toolButton());
+@@ -1653,6 +1671,7 @@ QSize CMainWindow::contentSize()
+ void CMainWindow::onLayoutDirectionChanged()
+ {
+     m_pButtonMain->style()->polish(m_pButtonMain);
++    refreshBrandButton();
+     if (m_pWidgetDownload && m_pWidgetDownload->toolButton()) {
+         m_pWidgetDownload->onLayoutDirectionChanged();
+         m_pWidgetDownload->toolButton()->style()->polish(m_pWidgetDownload->toolButton());
+@@ -1668,6 +1687,7 @@ void CMainWindow::applyWindowState()
+         m_pMainPanel->style()->polish(m_pMainPanel);
+         m_pButtonMain->style()->polish(m_pButtonMain);
+         m_pButtonMain->setFixedHeight(int(m_toolbtn_height * m_dpiRatio));
++        refreshBrandButton();
+         if (m_pWidgetDownload && m_pWidgetDownload->toolButton())
+             m_pWidgetDownload->toolButton()->style()->polish(m_pWidgetDownload->toolButton());
+ 
+diff --git a/win-linux/src/windows/cmainwindow.h b/win-linux/src/windows/cmainwindow.h
+index a5a1873..030ae3e 100644
+--- a/win-linux/src/windows/cmainwindow.h
++++ b/win-linux/src/windows/cmainwindow.h
+@@ -159,6 +159,7 @@ public slots:
+ 
+ private:
+     QWidget * createMainPanel(QWidget *parent);
++    void refreshBrandButton();
+     int  trySaveDocument(int);
+     void setTabMenu(int index, const QPoint &pos);
+ 
+diff --git a/win-linux/src/windows/cwindowbase.h b/win-linux/src/windows/cwindowbase.h
+index 4843d5e..081e1dc 100644
+--- a/win-linux/src/windows/cwindowbase.h
++++ b/win-linux/src/windows/cwindowbase.h
+@@ -42,7 +42,7 @@
+ #define EDITOR_WINDOW_MIN_WIDTH  920
+ #define SCREEN_THRESHOLD_SIZE    QSize(1366,768)
+ 
+-#define BUTTON_MAIN_WIDTH   112
++#define BUTTON_MAIN_WIDTH   140
+ #define MAIN_WINDOW_BORDER_WIDTH 3
+ #define WINDOW_TITLE_MIN_WIDTH 200
+ #define TOOLBTN_HEIGHT_WIN10 35
