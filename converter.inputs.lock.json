@@ -113598,7 +113598,8 @@
           "patch": "converter-patches/v8-deps/build-vs_toolchain.py.patch",
           "patch_sha256": "1238c1894f7549b4c2e9ca128fd01adeafd8f2f7261f698f2f67423ba435e4a4"
         }
-      ]
+      ],
+      "identity_mode": "all-file-sha256"
     },
     "buildtools": {
       "repository": "https://chromium.googlesource.com/chromium/src/buildtools",
@@ -113869,7 +113870,8 @@
         }
       ],
       "skipped_symlinks": {},
-      "patches": []
+      "patches": [],
+      "identity_mode": "all-file-sha256"
     },
     "third_party/depot_tools": {
       "repository": "https://chromium.googlesource.com/chromium/tools/depot_tools",
@@ -116664,7 +116666,8 @@
         "chrome_set_ver": "cros",
         "cros_sdk": "cros"
       },
-      "patches": []
+      "patches": [],
+      "identity_mode": "all-file-sha256"
     },
     "third_party/icu": {
       "repository": "https://chromium.googlesource.com/chromium/deps/icu",
@@ -139811,7 +139814,8 @@
         }
       ],
       "skipped_symlinks": {},
-      "patches": []
+      "patches": [],
+      "identity_mode": "all-file-sha256"
     },
     "base/trace_event/common": {
       "repository": "https://chromium.googlesource.com/chromium/src/base/trace_event/common",
@@ -139826,7 +139830,8 @@
         }
       ],
       "skipped_symlinks": {},
-      "patches": []
+      "patches": [],
+      "identity_mode": "all-file-sha256"
     },
     "third_party/jinja2": {
       "repository": "https://chromium.googlesource.com/chromium/src/third_party/jinja2",
@@ -139981,7 +139986,8 @@
         }
       ],
       "skipped_symlinks": {},
-      "patches": []
+      "patches": [],
+      "identity_mode": "all-file-sha256"
     },
     "third_party/markupsafe": {
       "repository": "https://chromium.googlesource.com/chromium/src/third_party/markupsafe",
@@ -140044,7 +140050,8 @@
         }
       ],
       "skipped_symlinks": {},
-      "patches": []
+      "patches": [],
+      "identity_mode": "all-file-sha256"
     },
     "third_party/zlib": {
       "repository": "https://chromium.googlesource.com/chromium/src/third_party/zlib",
@@ -140519,7 +140526,8 @@
         }
       ],
       "skipped_symlinks": {},
-      "patches": []
+      "patches": [],
+      "identity_mode": "all-file-sha256"
     },
     "third_party/googletest/src": {
       "repository": "https://chromium.googlesource.com/external/github.com/google/googletest",
@@ -141578,7 +141586,8 @@
         }
       ],
       "skipped_symlinks": {},
-      "patches": []
+      "patches": [],
+      "identity_mode": "all-file-sha256"
     }
   },
   "tools": {

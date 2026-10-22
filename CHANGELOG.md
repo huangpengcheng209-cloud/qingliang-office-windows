@@ -6,6 +6,7 @@
 - 独立公开 Apple 导入适配、V8/Chromium 现代 Windows 构建适配、ODS 选区属性及 XLSX 相邻内联文本保留修复；原 96 文件和五份累计补丁不变。
 - 本机 25 项实际文件检查通过，共 38 次转换；以 python-docx、openpyxl、python-pptx、PyMuPDF 独立读取输出，覆盖中文和三类办公文档转 PDF，并检查三个样本页。
 - 审计 MSVC 及 V8 Ninja 实际输入，固定辅助工具、SDKJS 和测试字体来源；CI 在同一 Windows 目录中顺序重建全部依赖和转换器。
+- 复核九份 Gitiles 归档的全新下载后，按完整文件集合及逐文件 SHA256 处理动态打包时间戳，并记录每次运输包哈希；内容篡改、额外文件和未知链接仍拒绝。
 - 本批只发布源码预览；桌面编辑器、GUI、安装器和全部格式路径未完成验收。
 
 ## win22-vba-text-preview

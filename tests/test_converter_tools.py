@@ -10,6 +10,7 @@ import sys
 import tarfile
 import tempfile
 import unittest
+import urllib.error
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
@@ -68,6 +69,39 @@ class ConverterToolTests(unittest.TestCase):
                 tar.addfile(item,None if link else io.BytesIO(b'x'))
             with self.subTest(name=name),self.assertRaises(ValueError):converter.extract_tar(archive,{'files':[]},self.root/'output')
             self.assertFalse((self.root/'output').exists())
+
+    def test_changed_tar_timestamp_preserves_pinned_source_identity(self):
+        data=b'pinned source\n';row={'files':[{'file':'input.cc','sha256':hashlib.sha256(data).hexdigest()}]};hashes=[]
+        for timestamp in [1,2]:
+            archive=self.root/('transport-'+str(timestamp)+'.tar.gz')
+            with tarfile.open(archive,'w:gz') as tar:
+                item=tarfile.TarInfo('input.cc');item.size=len(data);item.mtime=timestamp;tar.addfile(item,io.BytesIO(data))
+            hashes.append(hashlib.sha256(archive.read_bytes()).hexdigest());converter.extract_tar(archive,row,self.root/'output')
+        self.assertNotEqual(hashes[0],hashes[1]);self.assertEqual((self.root/'output/input.cc').read_bytes(),data)
+
+    def test_changed_tar_source_bytes_are_rejected_before_writing(self):
+        archive=self.root/'bad-source.tar.gz';row={'files':[{'file':'input.cc','sha256':hashlib.sha256(b'original').hexdigest()}]}
+        with tarfile.open(archive,'w:gz') as tar:
+            item=tarfile.TarInfo('input.cc');item.size=4;tar.addfile(item,io.BytesIO(b'edit'))
+        with self.assertRaisesRegex(ValueError,'TAR input differs'):converter.extract_tar(archive,row,self.root/'output')
+        self.assertFalse((self.root/'output').exists())
+
+    def test_unindexed_tar_file_is_rejected_before_writing(self):
+        archive=self.root/'extra-file.tar.gz'
+        with tarfile.open(archive,'w:gz') as tar:
+            item=tarfile.TarInfo('extra.cc');item.size=1;tar.addfile(item,io.BytesIO(b'x'))
+        with self.assertRaisesRegex(ValueError,'file set differs'):converter.extract_tar(archive,{'files':[]},self.root/'output')
+        self.assertFalse((self.root/'output').exists())
+
+    def test_transient_gitiles_download_error_retries_then_verifies_source(self):
+        payload=io.BytesIO();data=b'public pinned code'
+        with tarfile.open(fileobj=payload,mode='w:gz') as tar:
+            item=tarfile.TarInfo('source.cc');item.size=len(data);tar.addfile(item,io.BytesIO(data))
+        row={'archive':'source.tar.gz','url':'https://chromium.googlesource.com/example/+archive/'+'1'*40+'.tar.gz','revision':'1'*40,'sha256':'0'*64,'files':[{'file':'source.cc','sha256':hashlib.sha256(data).hexdigest()}]}
+        transient=urllib.error.HTTPError(row['url'],503,'unavailable',None,None)
+        with patch.object(converter.urllib.request,'urlopen',side_effect=[transient,io.BytesIO(payload.getvalue())]) as download,patch.object(converter.time,'sleep'):
+            converter.prepare_v8_dependency(self.root,'build',row,self.root/'core')
+        self.assertEqual(download.call_count,2);self.assertEqual((self.root/'core'/converter.V8_PATH/'build/source.cc').read_bytes(),data)
 
     def test_new_converter_patches_reconstruct_exact_bases(self):
         rows=[r for r in self.original['files'] if r.get('patch','').startswith('converter-patches/')]

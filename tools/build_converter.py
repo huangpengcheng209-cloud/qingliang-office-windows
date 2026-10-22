@@ -12,6 +12,9 @@ import stat
 import subprocess
 import sys
 import tarfile
+import time
+import urllib.error
+import urllib.request
 import zipfile
 from pathlib import Path
 from build_dependencies import acquire_archive, sha
@@ -68,7 +71,7 @@ def verify_converter_inputs():
         verify_archive_rows(archive);indexed.update(archive['destination']+'/'+r['file'] for r in archive['files'])
     for name,archive in lock['v8_dependencies'].items():
         safe_relative(name)
-        if not archive['repository'].startswith('https://chromium.googlesource.com/') or archive['url']!=archive['repository']+'/+archive/'+archive['revision']+'.tar.gz':raise ValueError('Unpinned V8 dependency')
+        if not archive['repository'].startswith('https://chromium.googlesource.com/') or not re.fullmatch('[a-f0-9]{40}',archive['revision']) or archive['url']!=archive['repository']+'/+archive/'+archive['revision']+'.tar.gz' or archive.get('identity_mode')!='all-file-sha256':raise ValueError('Unpinned V8 dependency')
         verify_archive_rows(archive)
     if set(lock['tools'])!={'perl532','python38','gn'}:raise ValueError('Unexpected converter build tools')
     for tool in lock['tools'].values():
@@ -149,6 +152,8 @@ def extract_tar(archive,row,destination,core=None):
             if item.issym():links[name]=item.linkname
             elif not item.isfile() and not item.isdir():raise ValueError('Unexpected TAR special file')
         if links!=row.get('skipped_symlinks',{}):raise ValueError('Unexpected TAR links')
+        actual={name for name,item in members.items() if item.isfile()}
+        if actual!={r['file'].casefold() for r in row['files']}:raise ValueError('TAR regular file set differs from pinned source')
         for item in row['files']:
             member=members.get(item['file'].casefold())
             if member is None or not member.isfile():raise ValueError('Missing TAR input')
@@ -163,6 +168,35 @@ def extract_tar(archive,row,destination,core=None):
     apply_archive_overlays(destination,row,core)
 
 
+def prepare_v8_dependency(work,name,row,core,archive_cache=None):
+    # Gitiles tar/gzip timestamps change on repeated requests. The complete set
+    # of source files and every byte remain locked; only transport bytes vary.
+    external=archive_cache/row['archive'] if archive_cache else None
+    archive=external if external is not None and external.is_file() else work/'archives'/row['archive']
+    downloaded=not archive.exists();candidate=archive.with_suffix(archive.suffix+'.part') if downloaded else archive
+    if downloaded:
+        candidate.parent.mkdir(parents=True,exist_ok=True)
+        request=urllib.request.Request(row['url'],headers={'User-Agent':'qingliang-pinned-source-build'})
+        for attempt in range(3):
+            try:
+                with urllib.request.urlopen(request,timeout=120) as incoming,candidate.open('wb') as out:shutil.copyfileobj(incoming,out,1024*1024)
+                break
+            except urllib.error.HTTPError as error:
+                if error.code not in {429,500,502,503,504} or attempt==2:raise
+                time.sleep(attempt+1)
+            except (urllib.error.URLError,TimeoutError):
+                if attempt==2:raise
+                time.sleep(attempt+1)
+    # This preflights the complete file/link set, all file hashes, and all
+    # existing targets before writing any source or accepting a new download.
+    extract_tar(candidate,row,core/V8_PATH/name,core)
+    digest=sha(candidate)
+    if downloaded:candidate.replace(archive)
+    report=work/'converter-v8-archive-downloads.json';history=json.loads(report.read_text('utf-8')) if report.exists() else {}
+    history[name]={'revision':row['revision'],'url':row['url'],'observed_archive_sha256':digest,'initial_archive_sha256':row['sha256'],'source_files_verified':len(row['files']),'identity_mode':'all-file-sha256'}
+    report.write_text(json.dumps(history,indent=2)+'\n','utf-8')
+
+
 def prepare_converter(work,lock,archive_cache=None,source_cache=None):
     # Reuse the existing core/Boost/ICU preparation, then materialize foreign archives.
     basic={**lock,'support_archives':{}}
@@ -171,7 +205,7 @@ def prepare_converter(work,lock,archive_cache=None,source_cache=None):
         destination=extract_selected(acquire_archive(archive,work,archive_cache),archive,core)
         apply_archive_overlays(destination,archive,core)
     for name,archive in lock['v8_dependencies'].items():
-        extract_tar(acquire_archive(archive,work,archive_cache),archive,core/V8_PATH/name,core)
+        prepare_v8_dependency(work,name,archive,core,archive_cache)
     for row in lock['apple_generated']:
         source=core/row['source_file'];safe_relative(row['file'])
         if sha(source)!=row['sha256']:raise ValueError('Apple generated token source differs')

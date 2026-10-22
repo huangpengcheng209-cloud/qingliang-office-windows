@@ -19,6 +19,8 @@
 
 `converter.inputs.lock.json` 固定 core、Boost、外部源码归档、九项 V8 DEPS、构建工具、SDKJS、Closure 编译器和测试字体的来源及 SHA256。`sources/` 原 96 文件和 `patches/` 原五份补丁保持冻结字节。
 
+Googlesource/Gitiles 的 TAR 打包时间戳会改变运输包哈希，初次下载与全新下载已实际复核。仅这九项依赖采用完整文件集合、逐文件 SHA256 和明确列出的文档符号链接身份验证；新增文件、缺失文件、内容改变或未知链接均拒绝，全部通过后才写入源码。每次运输包的实际 SHA256 另记于 `converter-v8-archive-downloads.json`。其他归档仍要求压缩包 SHA256 完全一致。
+
 新增修改单独放在 `converter-sources/` 和 `converter-patches/`：
 
 1. 复现固定 ONLYOFFICE Apple 导入库适配，保留 GLM、MDDS、librevenge、libodfgen、libetonyek 原版权和许可；五份 token 输入从固定 core 复制。
