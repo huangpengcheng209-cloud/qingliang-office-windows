@@ -4,7 +4,7 @@
 
 - 固定 427 个输入，从源码构建 Windows kernel_network（4 单元）和完整上游 CryptoPPLib 工程（181 个去重单元）。
 - 一份独立 Windows 传输补丁修复空 HTTP 目标文件缺失及未实现上传误报成功，并设置不写持久下载缓存。
-- 本机 20 项运行测试通过，覆盖 Windows CNG 独立算法比对、Office ECMA 数据包装器和本机 HTTP 下载；工具测试增至 48 项。
+- 本机 20 项运行测试通过，覆盖 Windows CNG 独立算法比对、Office ECMA 数据包装器和本机 HTTP 下载；工具测试增至 50 项。
 - 记录完整图形库缺失的 HarfBuzz 生成工程输入及 HEIF 依赖，不以 qmake 的零返回码代替完整构建就绪证据。仍无完整 x2t 或应用安装包。
 
 ## win22-x2t-prerequisites-preview

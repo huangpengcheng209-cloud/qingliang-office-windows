@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -16,7 +17,7 @@ FIXTURE = Path('tests/native/save_transaction_test.cpp')
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def discover_vs(explicit=None):
+def discover_vs(explicit=None, version_range=None):
     if explicit is not None:
         root = explicit.resolve()
     else:
@@ -27,9 +28,11 @@ def discover_vs(explicit=None):
         program = next((p for p in candidates if p.is_file()), None)
         if program is None:
             raise ValueError('MSVC not found: install Visual Studio C++ Build Tools or pass --vs-root')
-        value = subprocess.check_output([str(program), '-latest', '-products', '*', '-requires',
-                                         'Microsoft.VisualStudio.Component.VC.Tools.x86.x64',
-                                         '-property', 'installationPath'], text=True).strip()
+        query = [str(program), '-latest', '-products', '*', '-requires',
+                 'Microsoft.VisualStudio.Component.VC.Tools.x86.x64', '-property', 'installationPath']
+        if version_range:
+            query += ['-version', version_range]
+        value = subprocess.check_output(query, text=True).strip()
         if not value:
             raise ValueError('No Visual Studio installation with x64 C++ tools')
         root = Path(value).resolve()
@@ -81,6 +84,9 @@ def execute(command, work, env, log):
         with log.open('rb') as stream:
             stream.seek(offset)
             lines = stream.read().decode('utf-8', 'replace').splitlines()
+        errors = [line for line in lines if re.search(r'(?:fatal )?error\s+(?:[A-Z]+\d+|:)', line, re.I)]
+        if errors:
+            print('\n'.join(errors[:8]), file=sys.stderr)
         print('\n'.join(lines[-12:]), file=sys.stderr)
         raise RuntimeError(f'Native build/test failed; see {log}')
 

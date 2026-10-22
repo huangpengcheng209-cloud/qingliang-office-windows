@@ -56,7 +56,7 @@ jobs:
 
   unicode-dependencies:
     name: Windows dependency, kernel, network and crypto builds
-    runs-on: windows-latest
+    runs-on: windows-2022
     timeout-minutes: 30
     env:
       PYTHONDONTWRITEBYTECODE: '1'

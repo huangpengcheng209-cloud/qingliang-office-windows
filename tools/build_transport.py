@@ -49,7 +49,7 @@ def verify_transport_inputs():
 
 
 def compile_libraries(work, core, boost, lock, vs_root=None):
-    env = msvc_environment(discover_vs(vs_root), work)
+    env = msvc_environment(discover_vs(vs_root, version_range='[17.0,18.0)'), work)
     env['VSLANG'] = '1033'
     compiler = shutil.which('cl.exe', path=env['PATH'])
     linker = shutil.which('link.exe', path=env['PATH'])
@@ -108,6 +108,7 @@ def compile_libraries(work, core, boost, lock, vs_root=None):
               'native_test_source_sha256': sha(test_source), 'native_tests': result,
               'artifacts': {path.name: {'sha256': sha(path)} for path in artifacts},
               'kernel_dll_sha256': sha(work / 'bin/kernel.dll'), 'runtime': 'MSVC x64 /MD',
+              'compiler': compiler, 'supported_default_toolchain': 'Visual Studio 2022',
               'crypto_asm_enabled': False, 'network_tests_loopback_only': True,
               'websocket_built': False, 'full_graphics_built': False, 'old_office_baseline_used': False,
               'x2t_converter_built': False, 'full_office_built': False, 'application_gui_tested': False}

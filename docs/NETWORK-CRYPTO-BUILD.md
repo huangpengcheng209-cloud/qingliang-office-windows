@@ -4,7 +4,7 @@
 
 ## 构建入口
 
-需要 Python 3.11+、Git、7-Zip、带 Windows SDK 的 MSVC C++ Build Tools 和网络：
+需要 Python 3.11+、Git、7-Zip、带 Windows SDK 的 Visual Studio 2022 C++ Build Tools 和网络：
 
 ```powershell
 python tools/build_transport.py verify
@@ -35,8 +35,10 @@ HTTP 服务由测试驱动创建，仅监听 `127.0.0.1` 随机端口，路由�
 
 产物位于工作目录的 `bin/kernel_network.dll`、`bin/kernel_network.lib`、`lib/CryptoPPLib.lib`。日志、测试结果和请求证据位于 `transport-build.log`、`transport-test-result.json`、`transport-http-evidence.json`、`transport-build-report.json`。成功场景清理自己创建的文件；失败现场保留供检查。
 
-构建/源码工具共 48 项测试，本机 47 项通过、符号链接检查因权限跳过。GitHub Windows 作业在同一工作目录顺序构建依赖、内核、前置库和本批网络/加密库，实际状态见 Actions。
+构建/源码工具共 50 项测试，本机 49 项通过、符号链接检查因权限跳过。GitHub Windows 作业在同一工作目录顺序构建依赖、内核、前置库和本批网络/加密库，实际状态见 Actions。
 
 完整图形库尚未构建。`graphics.prerequisites.json` 记录了缺失的 HarfBuzz 生成工程输入、其上游固定提交和下游补丁入口，以及 HEIF 所需的 x265/libde265/libheif。qmake 预处理返回 0 但明确报告缺失 include，不能作为构建就绪证据；当时观察到的 434 项也不是完整编译规模。后续须补齐这些来源和构建步骤，保持现有图形功能。
 
 完整 x2t 可执行文件、编辑器和安装包仍未构建，也未进行本批 DLL 的应用 GUI 验收。本阶段仅发布源码。
+
+工具链范围：本机使用 Visual Studio 2022；首次云端 windows-latest 使用 Visual Studio 2026/MSVC 14.51，在 CryptoPPLib 编译阶段失败，尚未运行本批测试。当前完整依赖 CI 固定为 windows-2022/Visual Studio 2022，网络/加密入口默认也选择 17.x 工具链。Visual Studio 2026 的兼容问题尚未结案；其他版本可显式指定 --vs-root，但不属于本批已验证范围。构建失败输出现在同时保留前八条编译错误和末尾诊断，避免首条错误被模板实例化提示淹没。
