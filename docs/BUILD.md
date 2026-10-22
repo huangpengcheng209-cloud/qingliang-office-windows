@@ -40,3 +40,7 @@ x2t 首组前置库入口为 `tools/build_x2t_dependencies.py build --work-dir D
 ## 完整绘图 DLL 阶段
 
 固定 Windows 绘图工程 515 个编译单元已在独立依赖目录完成编译、链接和 21 项原生场景；包括新字体/HEIF 库、Katana/Hyphen 输入，HEIF 透明度与 SVG 内存修复。命令、实际编译输入审计及范围见 [GRAPHICS-BUILD.md](GRAPHICS-BUILD.md)。这不代表完整 x2t、桌面程序或安装器已构建。
+
+## VBA 与文本前置阶段
+
+完整格式静态库及 POLE/Unicode 支持共 13 单元已构建，36 项底层解析和文本读写场景本机通过；源码、补丁、命令及仍未链接的完整格式转换范围见 [FORMAT-BUILD.md](FORMAT-BUILD.md)。

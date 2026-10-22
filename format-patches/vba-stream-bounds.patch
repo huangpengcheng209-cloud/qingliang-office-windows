@@ -1,0 +1,284 @@
+--- a/MsBinaryFile/Common/Vba/VbaBinary.cpp
++++ b/MsBinaryFile/Common/Vba/VbaBinary.cpp
+@@ -1,4 +1,5 @@
+-﻿/*
++﻿// Modified 2026-10-22 by Qingliang community: bounded VBA decompression and module offsets.
++/*
+  * (c) Copyright Ascensio System SIA 2010-2023
+  *
+  * This program is a free software product. You can redistribute it and/or
+@@ -118,112 +119,76 @@
+ }
+ CVbaFileStream::CVbaFileStream(POLE::Stream* stream, _UINT32 offset)
+ {
+-	size_t dataSize = stream->size();
+-
+-	unsigned char sig = 0;
+-	stream->read(&sig, 1);
+-
+-	if (sig != 1)
+-	{
+-		stream->seek(0);
+-		arrChunks.resize(dataSize);
+-		stream->read(arrChunks.data(), dataSize);
+-
+-		return;
+-	}
+-	dataSize -= 1;
+-
+-	if (offset > dataSize)
+-	{	
+-		return; //error;
+-	}
+-	
+-	stream->seek(stream->tell() + offset);
+-	dataSize -= offset;
+-//readchunks
+-	unsigned char *data = new unsigned char[dataSize];
+-	stream->read(data, dataSize);
+-
+-	unsigned char *dataCur = data;
+-
+-	while (dataCur - data <  dataSize - 2)
+-	{
+-		std::vector<unsigned char> arrChunk;
+-		_UINT16 header = *((_UINT32*)dataCur); dataCur += 2;
+-
+-		bool bCompressed = ((header & CHUNK_COMPRESSED) != 0);
+-		_UINT16 chunkSize = (header & CHUNK_LENMASK) + 1;
+-
+-		bool bUnknown = false;
+-		if ((header & CHUNK_SIGMASK) != CHUNK_SIG)
+-		{
+-			bCompressed = true;
+-			chunkSize = 4094; //по факту
+-			bUnknown = true;
+-		}
+-		unsigned char *dataNext = dataCur + chunkSize;
+-
+-		if (bCompressed)
+-		{
+-			unsigned char nBitCount = 4;
+-			_UINT16 chunkPos = 0;
+-
+-			bool bEof = stream->eof();
+-			while (!bEof && ((dataCur - data) > 0) && (chunkPos < chunkSize))
+-			{
+-				unsigned char nToken = *dataCur; dataCur++;
+-				++chunkPos;
+-			
+-				for (int bit = 0; !bEof && ((dataCur - data) > 0) && (bit < 8) && (chunkPos < chunkSize); ++bit, nToken >>= 1)
+-				{
+-					if (nToken & 1)
+-					{
+-						_UINT16 nCopyToken = *((_UINT32*)dataCur); dataCur += 2;
+-						chunkPos += 2;
+-
+-						while ((static_cast<size_t>(1) << nBitCount) < arrChunk.size())
+-							++nBitCount;
+-						
+-						_UINT16 nLength = extract(nCopyToken, 0, 16 - nBitCount) + 3;					
+-						_UINT16 nOffset = extract(nCopyToken, 16 - nBitCount, nBitCount) + 1;
+-
+-						bEof = (nOffset > arrChunk.size()) || (arrChunk.size() + nLength > 4096);
+-					
+-						if (!bEof)
+-						{
+-							arrChunk.resize(arrChunk.size() + nLength);
+-							
+-							unsigned char* pnTo = &*(arrChunk.end() - nLength);
+-							
+-							const unsigned char* pnEnd = pnTo + nLength;
+-							const unsigned char* pnFrom = pnTo - nOffset;
+-
+-							size_t nRunLen = (std::min)(nLength, nOffset);
+-							while (pnTo < pnEnd)
+-							{
+-								size_t nStepLen = (std::min)(nRunLen, (size_t)(pnEnd - pnTo));
+-								memcpy(pnTo, pnFrom, nStepLen);
+-								pnTo += nStepLen;
+-							}
+-						}
+-					}
+-					else
+-					{
+-						arrChunk.push_back(*dataCur); dataCur++;
+-						++chunkPos;
+-					}
+-				}
+-			}
+-		}
+-		else
+-		{
+-			arrChunk.resize(chunkSize);
+-			memcpy(arrChunk.data(), dataCur, chunkSize); dataCur += chunkSize;
+-		}
+-
+-		dataCur = dataNext;
+-		arrChunks.insert(arrChunks.end(), arrChunk.begin(), arrChunk.end());
+-	}
++    if (!stream || offset >= stream->size())
++        return;
++    const size_t size = static_cast<size_t>(stream->size() - offset);
++    std::vector<unsigned char> data(size);
++    stream->seek(offset);
++    if (stream->read(data.data(), size) != size)
++        return;
++    if (data[0] != VBASTREAM_SIGNATURE)
++    {
++        arrChunks.swap(data);
++        return;
++    }
++
++    // MS-OVBA 2.4.1: bounded chunks and copy tokens; publish only complete output.
++    std::vector<unsigned char> decoded;
++    size_t current = 1;
++    while (current < data.size())
++    {
++        if (data.size() - current < 2)
++            return;
++        const _UINT16 header = data[current] | (static_cast<_UINT16>(data[current + 1]) << 8);
++        current += 2;
++        const size_t payload = (header & CHUNK_LENMASK) + 1;
++        if ((header & CHUNK_SIGMASK) != CHUNK_SIG || payload > data.size() - current)
++            return;
++        const size_t end = current + payload;
++        std::vector<unsigned char> chunk;
++        if (!(header & CHUNK_COMPRESSED))
++        {
++            if (payload != 4096)
++                return;
++            chunk.insert(chunk.end(), data.begin() + current, data.begin() + end);
++            current = end;
++        }
++        else
++        {
++            while (current < end)
++            {
++                const unsigned char flags = data[current++];
++                for (unsigned bit = 0; bit < 8 && current < end; ++bit)
++                {
++                    if (flags & (1u << bit))
++                    {
++                        if (end - current < 2)
++                            return;
++                        const _UINT16 token = data[current] | (static_cast<_UINT16>(data[current + 1]) << 8);
++                        current += 2;
++                        unsigned bits = 4;
++                        while ((static_cast<size_t>(1) << bits) < chunk.size())
++                            ++bits;
++                        const unsigned mask = 0xffffu >> bits;
++                        const size_t length = (token & mask) + 3;
++                        const size_t distance = (token >> (16 - bits)) + 1;
++                        if (distance > chunk.size() || length > 4096 - chunk.size())
++                            return;
++                        for (size_t i = 0; i < length; ++i)
++                            chunk.push_back(chunk[chunk.size() - distance]);
++                    }
++                    else
++                    {
++                        if (chunk.size() == 4096)
++                            return;
++                        chunk.push_back(data[current++]);
++                    }
++                }
++            }
++        }
++        decoded.insert(decoded.end(), chunk.begin(), chunk.end());
++    }
++    arrChunks.swap(decoded);
+ }
+ CVbaFileStream::~CVbaFileStream()
+ {
+@@ -231,13 +196,9 @@
+ }
+ void CVbaFileStream::read(void* buf, size_t size)
+ {
+-	if (NULL == buf || arrChunks.empty())
+-	{
+-		return;
+-	}
+-	if (pos + size > arrChunks.size())
+-		size = arrChunks.size() - pos;
+-	memcpy(buf, arrChunks.data() + pos, size);
+-	pos += size;
+-
+-}
++    if (!buf || pos >= arrChunks.size())
++        return;
++    size = (std::min)(size, arrChunks.size() - pos);
++    memcpy(buf, arrChunks.data() + pos, size);
++    pos += size;
++}
+--- a/MsBinaryFile/Common/Vba/VbaBinary.h
++++ b/MsBinaryFile/Common/Vba/VbaBinary.h
+@@ -1,4 +1,5 @@
+-﻿/*
++﻿// Modified 2026-10-22 by Qingliang community: clamp VBA cursor arithmetic and permit exact-end reads.
++/*
+  * (c) Copyright Ascensio System SIA 2010-2023
+  *
+  * This program is a free software product. You can redistribute it and/or
+@@ -70,41 +71,35 @@
+ 	void read(void* buf, size_t size);
+ 
+ //---------------------------------------------------------------------
+-	void Align(size_t val)
+-	{
+-		size_t padding = val - (pos % val);
+-		
+-		if (padding > 0 && padding < 4)
+-			pos += padding;
+-	}
+-	void Seek(const size_t _pos)
+-	{
+-		pos = _pos;
+-	}
++    void Align(size_t value)
++    {
++        if (value == 0) return;
++        const size_t remainder = pos % value;
++        if (remainder) skipBytes(value - remainder);
++    }
++    void Seek(const size_t value)
++    {
++        pos = value < arrChunks.size() ? value : arrChunks.size();
++    }
+ 	_UINT32 GetDataPos()
+ 	{
+ 		return pos;
+ 	}
+-	void skipBytes(const size_t n)
+-	{
+-		pos += n;
+-		if (pos > arrChunks.size())
+-			pos = arrChunks.size();
+-	}
+-    void RollBack(const size_t n)
+-	{
+-		if (pos - n >= 0)
+-		{
+-			pos -= n;
+-		}
+-	}
+-	unsigned char* getDataCurrent() { return arrChunks.data() + pos; }
+-	unsigned char* getData() { return arrChunks.data(); }
++    void skipBytes(const size_t count)
++    {
++        pos += count < arrChunks.size() - pos ? count : arrChunks.size() - pos;
++    }
++    void RollBack(const size_t count)
++    {
++        pos = count < pos ? pos - count : 0;
++    }
++    unsigned char* getDataCurrent() { return arrChunks.empty() ? nullptr : arrChunks.data() + pos; }
++    unsigned char* getData() { return arrChunks.data(); }
+ 	size_t getDataSize() { return arrChunks.size(); }
+ 
+ 	const bool checkFitReadSafe(const size_t size) const
+ 	{
+-		return (!arrChunks.empty() && (pos + size < arrChunks.size()));
++		return pos <= arrChunks.size() && size <= arrChunks.size() - pos;
+ 	}
+ 	bool checkFitRead(const size_t size) const
+ 	{

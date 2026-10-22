@@ -1,0 +1,51 @@
+--- a/TxtFile/Source/TxtFormat/TxtFile.cpp
++++ b/TxtFile/Source/TxtFormat/TxtFile.cpp
+@@ -1,4 +1,5 @@
+-﻿/*
++﻿// Modified 2026-10-22 by Qingliang community: reset text line counts and preserve big-endian writer inputs.
++/*
+  * (c) Copyright Ascensio System SIA 2010-2023
+  *
+  * This program is a free software product. You can redistribute it and/or
+@@ -46,6 +47,7 @@
+ }
+ const std::vector<std::string> TxtFile::readUtf8Lines(int IdxEncoding)
+ {
++    m_linesCount = 0;
+     std::vector<std::string> result;
+     NSFile::CFileBinary file_binary;
+     if (!file_binary.OpenFile(m_path))
+@@ -156,6 +158,7 @@
+ 
+ const std::vector<std::wstring> TxtFile::readUnicodeLines(int CodePage)
+ {
++    m_linesCount = 0;
+     std::vector<std::wstring> result;
+     NSFile::CFileBinary file_binary;
+     if (!file_binary.OpenFile(m_path)) return result;
+@@ -448,16 +451,15 @@
+ 	{
+ 		if (sizeof(wchar_t) == 2)
+ 		{
+-			BYTE*	data = (BYTE*)(*iter).c_str();
+-			int		size = (*iter).length();
+-			//swap bytes
+-			for (long i = 0; i < size << 1; i += 2)
+-			{
+-				char v = data[i];
+-				data[i] = data[i + 1];
+-				data[i + 1] = v;
+-			}
+-			file.WriteFile((BYTE*)(*iter).c_str(), size << 1);
++            const wchar_t* data = iter->data();
++            const size_t size = iter->size();
++            std::vector<BYTE> encoded(size * 2);
++            for (size_t i = 0; i < size; ++i)
++            {
++                encoded[2 * i] = static_cast<BYTE>((data[i] >> 8) & 0xff);
++                encoded[2 * i + 1] = static_cast<BYTE>(data[i] & 0xff);
++            }
++            file.WriteFile(encoded.data(), static_cast<DWORD>(encoded.size()));
+ 		}
+ 		else
+ 		{
