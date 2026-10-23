@@ -1,4 +1,4 @@
-"""Prepare the built workbench and start the source-built Qt shell in an isolated D: acceptance profile.
+"""Prepare the built workbench and start the source-built Qt shell in an isolated acceptance profile.
 
 This is a development preview; desktop editor web-apps and installation acceptance are separate.
 """
@@ -25,8 +25,8 @@ def main():
     if os.name != 'nt': parser.error('Windows is required')
     if not 1024 <= args.debug_port <= 65535: parser.error('Invalid local debugger port')
     work, qt = args.work_dir.resolve(), args.qt_dir.resolve()
-    if work.drive.casefold() != 'd:' or not (work / '.qingliang-dependency-build').is_file():
-        raise ValueError('Select the marked D: acceptance build staging directory')
+    if work == ROOT or ROOT in work.parents or work in ROOT.parents or not (work / '.qingliang-dependency-build').is_file():
+        raise ValueError('Select the marked external acceptance build staging directory')
     lock = verify_inputs()
     verify_sdk(lock, qt)
     build = json.loads((work / 'qt-build-report.json').read_text('utf-8'))

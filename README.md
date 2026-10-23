@@ -24,17 +24,19 @@ VBA/文本前置阶段已生成 4+7 单元静态库及两个 POLE/Unicode 支持
 
 TXT↔DOCX 阶段已补齐并构建 217 个格式支持单元，可通过命令行生成真实 DOCX 和提取正文/表格。23 项实际文件测试及本机 5 项 python-docx 独立交叉检查通过；修复特殊字符、制表符和表格空列问题。命令、输入限制和验证范围见 [DOCX-BUILD.md](docs/DOCX-BUILD.md)。
 
-2026-10-23 已从固定源码构建完整 **x2t 转换器**，补齐 721 次格式/渲染编译、V8、OpenSSL 和四套 SDKJS 脚本。本机 25 项实际文件检查通过，覆盖 TXT↔DOCX、CSV/XLSX、ODT/ODS/ODP 往返及 DOCX/XLSX/PPTX→PDF；使用独立库读取结果。另修复 XLSX 相邻文本单元格丢失和 ODS 选区属性问题。入口与边界见 [CONVERTER-BUILD.md](docs/CONVERTER-BUILD.md)；完整桌面编辑区资源与安装器仍待完成。
+2026-10-23 已从固定源码构建完整 **x2t 转换器**，补齐 721 次格式/渲染编译、V8、OpenSSL 和四套 SDKJS 脚本。本机 25 项实际文件检查通过，覆盖 TXT↔DOCX、CSV/XLSX、ODT/ODS/ODP 往返及 DOCX/XLSX/PPTX→PDF；使用独立库读取结果。另修复 XLSX 相邻文本单元格丢失和 ODS 选区属性问题。入口与边界见 [CONVERTER-BUILD.md](docs/CONVERTER-BUILD.md)；桌面编辑资源及实际文档验收进展见下文。
 
 ## 当前内容
 
-新 Qt 主程序已接入真实工作台，103 个 Qt 单元构建和实际输入审计通过；本机 16 项真实窗口检查通过，修复主题切换脚本错误及重复启动消息投递。四份配置/Unicode/单实例修改独立公开，原 96 文件保持不变。[Qt 桌面构建说明](docs/QT-DESKTOP-BUILD.md)记录命令与边界；完整编辑区资源、实际文件编辑保存、播放和安装仍未完成。
+新桌面已接通实际编辑区：四套桌面 SDKJS、五类编辑器界面、空模板、词典及 17,215 次运行资源复制有固定来源记录。本机 **39 项真实 DOCX 编辑保存、正常退出重开、新建另存和 PDF 导出检查通过**；另修复 60 个缺失中文字符串和大写保存后缀重复追加问题。命令与具体范围见 [EDITOR-BUILD.md](docs/EDITOR-BUILD.md)。表格、演示、PDF 表单、插件、媒体、完整视觉/动效和安装仍需继续完善。
 
-原生编辑宿主 DLL 已完成全部 280 单元编译/链接，22 项接口与文件系统检查本机通过，另修复大写/混合大小写保存扩展名识别。[HOST-BUILD.md](docs/HOST-BUILD.md)提供独立构建入口和来源说明；CEF 运行库使用固定官方 SDK，Qt 集成进展见下文，实际编辑保存仍待验收。
+新 Qt 主程序已接入真实工作台，103 个 Qt 单元构建和实际输入审计通过；本机 16 项真实窗口检查以最新主程序重跑通过，修复主题切换脚本错误及重复启动消息投递。五份配置/Unicode/单实例/保存后缀修改独立公开，原 96 文件保持不变。[Qt 桌面构建说明](docs/QT-DESKTOP-BUILD.md)记录命令与边界。
+
+原生编辑宿主 DLL 已完成全部 280 单元编译/链接，22 项接口与文件系统检查本机通过，另修复大写/混合大小写保存扩展名识别。[HOST-BUILD.md](docs/HOST-BUILD.md)提供独立构建入口和来源说明；CEF 运行库使用固定官方 SDK，实际文档编辑保存范围见上述编辑器验收。
 
 功能与界面完善正在推进：[工作台首批改进](docs/WORKBENCH-QUALITY.md)包含真实首页的搜索、类型/置顶筛选、键盘操作、明暗主题和短过渡，本机 37 项浏览器检查通过。测试的原生接口为独立边界适配器，尚未代表桌面编辑保存成功；完整范围与剩余工作见[质量清单](docs/PRODUCT-QUALITY-PLAN.md)。
 
-2026-10-23 桌面前置继续推进：已从固定源码构建 Hunspell 拼写检查 DLL，22 项真实词典操作本机通过，并记录 Qt/CEF 材料身份和桌面宿主剩余依赖。入口与范围见 [DESKTOP-BUILD.md](docs/DESKTOP-BUILD.md)；桌面界面和安装包仍待构建验收。
+2026-10-23 桌面前置继续推进：已从固定源码构建 Hunspell 拼写检查 DLL，22 项真实词典操作本机通过，并记录 Qt/CEF 材料身份和桌面宿主剩余依赖。入口与范围见 [DESKTOP-BUILD.md](docs/DESKTOP-BUILD.md)；安装包仍待构建验收。
 
 | 路径 | 用途 |
 | --- | --- |
@@ -56,6 +58,7 @@ TXT↔DOCX 阶段已补齐并构建 217 个格式支持单元，可通过命令�
 | [docs/FORMAT-BUILD.md](docs/FORMAT-BUILD.md) | VBA/文本静态库、37 项隔离解析和文本读写检查及完整转换边界 |
 | [docs/DOCX-BUILD.md](docs/DOCX-BUILD.md) | TXT↔DOCX 命令行预览、217 单元格式依赖和 23 项实际文件检查 |
 | [docs/CONVERTER-BUILD.md](docs/CONVERTER-BUILD.md) | 完整 x2t、V8、SDKJS 源码构建和 25 项真实文件检查 |
+| [docs/EDITOR-BUILD.md](docs/EDITOR-BUILD.md) | 桌面编辑资源构建、中文/保存后缀修复和 39 项真实 DOCX/PDF 检查 |
 | [docs/STATUS.md](docs/STATUS.md) | 已有验收范围与已知问题 |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | 从源码预览到可安装 Beta 的交付顺序 |
 | [CHANGELOG.md](CHANGELOG.md) | 源码版本及固定标签说明 |

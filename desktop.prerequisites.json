@@ -1,6 +1,6 @@
 {
   "checked_date": "2026-10-23",
-  "scope": "Native host and Qt workbench build and interface checks; complete editor resources, edit/save/playback and installation acceptance remain incomplete",
+  "scope": "Source-built native desktop, actual workbench and limited DOCX edit/save/reopen/new/PDF export acceptance; complete other editors, UI/motion, plugins/media and installation remain incomplete",
   "qt": {
     "version": "5.15.2",
     "toolchain_flavor": "msvc2019_64",
@@ -45,15 +45,20 @@
   ],
   "remaining": [
     "Complete Qt/CEF/VLC static dependency and downstream source/distribution material correspondence",
-    "Desktop SDKJS, web-apps, empty templates, dictionaries, plugins and OCR runtime integration",
-    "Real media playback and presentation regression",
-    "Independent GUI edit/save/reopen/convert and installation/uninstallation tests"
+    "Complete default plugins and OCR runtime integration and acceptance",
+    "XLSX/PPTX/PDF forms and complex document editing, native IME/clipboard and compatibility acceptance",
+    "Real media playback, presentation, save failure/recovery and performance regression",
+    "Complete visual system, dark theme, accessibility, scaling and motion/real status feedback",
+    "Installer, installation/upgrade/uninstallation and user document preservation acceptance"
   ],
   "native_spelling_built": true,
   "desktop_host_built": true,
   "application_gui_tested": true,
   "installer_built": false,
   "qt_shell_built": true,
-  "office_edit_save_tested": false,
-  "qt_gui_cases_passed": 16
+  "office_edit_save_tested": true,
+  "qt_gui_cases_passed": 16,
+  "office_edit_save_scope": "Ordinary DOCX typing/undo/redo/bold/save, fresh-process reopen, native Save As and PDF export only",
+  "desktop_editor_resources_built": true,
+  "editor_gui_cases_passed": 39
 }

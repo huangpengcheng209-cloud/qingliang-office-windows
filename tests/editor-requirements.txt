@@ -1,0 +1,6 @@
+-r converter-requirements.txt
+playwright==1.55.0
+pywinauto==0.6.9; sys_platform == 'win32'
+comtypes==1.4.17; sys_platform == 'win32'
+pywin32==312; sys_platform == 'win32'
+six==1.17.0

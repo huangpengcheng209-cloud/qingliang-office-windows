@@ -1,0 +1,28 @@
+--- a/apps/documenteditor/main/locale/zh.json
++++ b/apps/documenteditor/main/locale/zh.json
+@@ -671,7 +671,7 @@
+   "Common.UI.SearchDialog.txtBtnReplaceAll": "全部替换",
+   "Common.UI.SynchronizeTip.textDontShow": "不要再显示此消息",
+   "Common.UI.SynchronizeTip.textGotIt": "知道了",
+-  "Common.UI.SynchronizeTip.textNew": "新建",
++  "Common.UI.SynchronizeTip.textNew": "新功能",
+   "Common.UI.SynchronizeTip.textSynchronize": "文档已被其他用户更改<br>请单击保存更改并重新加载更新。",
+   "Common.UI.ThemeColorPalette.textRecentColors": "最近使用的颜色",
+   "Common.UI.ThemeColorPalette.textStandartColors": "标准颜色",
+@@ -4361,5 +4361,13 @@
+   "DE.Views.WatermarkSettingsDialog.textTransparency": "半透明",
+   "DE.Views.WatermarkSettingsDialog.textUnderline": "下划线",
+   "DE.Views.WatermarkSettingsDialog.tipFontName": "字体名称",
+-  "DE.Views.WatermarkSettingsDialog.tipFontSize": "字体大小"
+-}
+\ No newline at end of file
++  "DE.Views.WatermarkSettingsDialog.tipFontSize": "字体大小",
++  "DE.Controllers.Main.errorFileNotAssembled": "此文件来自服务器备份，尚未保存到存储位置。<br>请使用“另存为”将文件保存到本地。",
++  "DE.Controllers.Main.errorForcedViewMode": "此文件以只读模式打开。<br>文件已被锁定，或你没有编辑权限。",
++  "DE.Controllers.Toolbar.helpHeaderFooterTab": "在同一个选项卡中设置页眉、页脚及相关选项。",
++  "DE.Controllers.Toolbar.helpHeaderFooterTabHeader": "页眉和页脚选项卡",
++  "DE.Controllers.Toolbar.helpMultipageView": "同时查看多个页面，方便浏览和编辑。",
++  "DE.Controllers.Toolbar.helpMultipageViewHeader": "多页视图",
++  "DE.Controllers.Toolbar.helpSignature": "插入签名字段，让填写者通过图片、文字或手绘签署表单。",
++  "DE.Controllers.Toolbar.helpSignatureHeader": "更多签名方式"
++}

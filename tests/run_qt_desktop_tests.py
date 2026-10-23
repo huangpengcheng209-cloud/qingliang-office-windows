@@ -70,7 +70,11 @@ def main():
             check('actual_compiled_page_has_real_native_bindings', page.evaluate("typeof AscDesktopEditor === 'object' && typeof AscDesktopEditor.GetEditorId === 'function' && typeof __bridgeCommands === 'undefined'"))
             check('native_editor_id_call_returns_number', isinstance(page.evaluate('AscDesktopEditor.GetEditorId()'), (int, float)))
             page.locator('a').filter(has_text='首页').click()
-            check('empty_native_recent_list_has_feedback', page.locator('.ql-recent-empty').is_visible())
+            page.wait_for_function("document.querySelector('#ql-recent-files .row') || document.querySelector('.ql-recent-empty')?.getClientRects().length")
+            rows = page.locator('#ql-recent-files .row')
+            report['native_recent_rows'] = rows.count()
+            check('native_recent_list_renders_history_or_empty_feedback',
+                  rows.first.is_visible() if rows.count() else page.locator('.ql-recent-empty').is_visible())
             page.keyboard.press('Control+f')
             search = page.locator('#idx-recent-filter')
             check('native_window_ctrl_f_focuses_search', search.evaluate('e => e === document.activeElement'))

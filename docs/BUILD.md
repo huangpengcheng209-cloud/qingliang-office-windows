@@ -1,5 +1,7 @@
 # 源码准备与构建边界
 
+当前最新入口：在同一稳定目录依次构建完整转换器、原生宿主、工作台、Qt 桌面和编辑资源。命令见 [CONVERTER-BUILD.md](CONVERTER-BUILD.md)、[HOST-BUILD.md](HOST-BUILD.md)、[QT-DESKTOP-BUILD.md](QT-DESKTOP-BUILD.md) 和 [EDITOR-BUILD.md](EDITOR-BUILD.md)。普通 DOCX 生命周期和 PDF 导出已有 39 项真实检查；完整产品与安装仍未完成。以下分阶段记录中的限制按各阶段当时范围理解。
+
 ## 源码结构
 
 上游九个仓库的 URL 和精确提交见 ../upstream.lock.json。tools/prepare_sources.py 将 DesktopEditors 放在目标下 upstream/DesktopEditors，其他应用模块放在其同名子目录；build_tools 与 brotli 放在 upstream/ 下。该工具不执行递归子模块拉取，不自动下载全部嵌套依赖。

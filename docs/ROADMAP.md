@@ -1,5 +1,7 @@
 # 社区版下一步
 
+2026-10-23 最新进展：Qt 桌面和实际编辑资源已接通，普通 DOCX 编辑保存/重开、新建另存和 PDF 导出 39 项真实检查通过。下一批继续表格、演示、PDF 表单和复杂文档，再扩展失败恢复、插件/媒体、完整视觉/动效和安装验收。整体目标仍在进行，具体完成标准见 [PRODUCT-QUALITY-PLAN.md](PRODUCT-QUALITY-PLAN.md)，构建与本轮范围见 [EDITOR-BUILD.md](EDITOR-BUILD.md)。以下是各前序阶段当时的下一步记录。
+
 2026-10-23 原生宿主：已生成 280 单元 `ascdocumentscore.dll`，补齐 Boost.Filesystem/System 源码依赖，22 项加载/接口/Unicode 文件系统检查通过，并修复大写或混合大小写扩展名识别。来源、独立入口和验收边界见 [HOST-BUILD.md](HOST-BUILD.md)。下一段接 Qt 包装、原选定 VLC 后端、主程序及桌面资源，再验收实际编辑保存。
 
 2026-10-23 桌面前置：已源码构建原生 Hunspell，22 项词典操作本机通过；重新核对 Qt 源码及 CEF SDK/源码归档身份，记录桌面依赖顺序。下一段构建 CEF 原生宿主及其支持 DLL，再接 Qt 界面；详见 [DESKTOP-BUILD.md](DESKTOP-BUILD.md)。

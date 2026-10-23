@@ -1,0 +1,11 @@
+--- a/win-linux/src/components/cfiledialog.cpp
++++ b/win-linux/src/components/cfiledialog.cpp
+@@ -204,7 +204,7 @@
+             if ( match.hasMatch() ) {
+                 _ext = match.captured(1);
+ 
+-                if (!fileName.endsWith(_ext))
++                if (!fileName.endsWith(_ext, Qt::CaseInsensitive))
+                     fileName.append(_ext);
+             }
+ 

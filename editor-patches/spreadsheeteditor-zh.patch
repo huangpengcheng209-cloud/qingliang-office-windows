@@ -1,0 +1,26 @@
+--- a/apps/spreadsheeteditor/main/locale/zh.json
++++ b/apps/spreadsheeteditor/main/locale/zh.json
+@@ -707,7 +707,7 @@
+   "Common.UI.SearchDialog.txtBtnReplaceAll": "全部替换",
+   "Common.UI.SynchronizeTip.textDontShow": "不要再显示此消息",
+   "Common.UI.SynchronizeTip.textGotIt": "知道了",
+-  "Common.UI.SynchronizeTip.textNew": "新建",
++  "Common.UI.SynchronizeTip.textNew": "新功能",
+   "Common.UI.SynchronizeTip.textSynchronize": "文档已被其他用户更改<br>请单击保存更改并重新加载更新。",
+   "Common.UI.ThemeColorPalette.textRecentColors": "最近使用的颜色",
+   "Common.UI.ThemeColorPalette.textStandartColors": "标准颜色",
+@@ -5276,5 +5276,11 @@
+   "SSE.Views.WBProtection.txtSheetUnlockDescription": "输入密码以取消工作表保护",
+   "SSE.Views.WBProtection.txtSheetUnlockTitle": "撤消工作表保护",
+   "SSE.Views.WBProtection.txtWBUnlockDescription": "输入密码以取消工作簿保护",
+-  "SSE.Views.WBProtection.txtWBUnlockTitle": "撤消工作簿保护"
+-}
+\ No newline at end of file
++  "SSE.Views.WBProtection.txtWBUnlockTitle": "撤消工作簿保护",
++  "SSE.Controllers.Main.errorFileNotAssembled": "此文件来自服务器备份，尚未保存到存储位置。<br>请使用“另存为”将文件保存到本地。",
++  "SSE.Controllers.Main.errorForcedViewMode": "此文件以只读模式打开。<br>文件已被锁定，或你没有编辑权限。",
++  "SSE.Controllers.Toolbar.helpSolver": "为复杂的计算问题寻找最优解。",
++  "SSE.Controllers.Toolbar.helpSolverHeader": "规划求解",
++  "SSE.Controllers.Toolbar.helpCellFormat": "集中设置工作表、行与列的格式。",
++  "SSE.Controllers.Toolbar.helpCellFormatHeader": "工作表格式"
++}

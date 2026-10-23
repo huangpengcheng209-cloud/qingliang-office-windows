@@ -1,0 +1,22 @@
+--- a/apps/visioeditor/main/locale/zh.json
++++ b/apps/visioeditor/main/locale/zh.json
+@@ -33,7 +33,7 @@
+   "Common.UI.SearchDialog.txtBtnReplaceAll": "全部替换",
+   "Common.UI.SynchronizeTip.textDontShow": "不再显示此消息",
+   "Common.UI.SynchronizeTip.textGotIt": "知道了",
+-  "Common.UI.SynchronizeTip.textNew": "新建",
++  "Common.UI.SynchronizeTip.textNew": "新功能",
+   "Common.UI.SynchronizeTip.textSynchronize": "文档已被其他用户更改。<br>请单击保存更改并重新加载更新。",
+   "Common.UI.Themes.txtThemeClassicLight": "经典浅色",
+   "Common.UI.Themes.txtThemeContrastDark": "高对比度深色",
+@@ -477,5 +477,7 @@
+   "VE.Views.ViewTab.textZoom": "缩放",
+   "VE.Views.ViewTab.tipFitPage": "适合页面",
+   "VE.Views.ViewTab.tipFitWidth": "适应宽度",
+-  "VE.Views.ViewTab.tipInterfaceTheme": "界面主题"
+-}
+\ No newline at end of file
++  "VE.Views.ViewTab.tipInterfaceTheme": "界面主题",
++  "VE.Controllers.Main.errorFileNotAssembled": "此文件来自服务器备份，尚未保存到存储位置。<br>请使用“另存为”将文件保存到本地。",
++  "VE.Controllers.Main.errorForcedViewMode": "此文件以只读模式打开。<br>文件已被锁定，或你没有编辑权限。"
++}

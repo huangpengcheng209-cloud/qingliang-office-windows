@@ -1,0 +1,24 @@
+--- a/apps/presentationeditor/main/locale/zh.json
++++ b/apps/presentationeditor/main/locale/zh.json
+@@ -760,7 +760,7 @@
+   "Common.UI.SearchDialog.txtBtnReplaceAll": "全部替换",
+   "Common.UI.SynchronizeTip.textDontShow": "不再显示此消息",
+   "Common.UI.SynchronizeTip.textGotIt": "知道了",
+-  "Common.UI.SynchronizeTip.textNew": "新建",
++  "Common.UI.SynchronizeTip.textNew": "新功能",
+   "Common.UI.SynchronizeTip.textSynchronize": "文档已被其他用户更改<br>请单击保存更改并重新加载更新。",
+   "Common.UI.ThemeColorPalette.textRecentColors": "最近使用的颜色",
+   "Common.UI.ThemeColorPalette.textStandartColors": "标准颜色",
+@@ -3565,5 +3565,9 @@
+   "PE.Views.ViewTab.tipResumeMacro": "恢复录制",
+   "PE.Views.ViewTab.tipSelectTool": "选择工具",
+   "PE.Views.ViewTab.tipSlideMaster": "幻灯片母版",
+-  "PE.Views.ViewTab.tipStopMacro": "停止录制"
+-}
+\ No newline at end of file
++  "PE.Views.ViewTab.tipStopMacro": "停止录制",
++  "PE.Controllers.Main.errorFileNotAssembled": "此文件来自服务器备份，尚未保存到存储位置。<br>请使用“另存为”将文件保存到本地。",
++  "PE.Controllers.Main.errorForcedViewMode": "此文件以只读模式打开。<br>文件已被锁定，或你没有编辑权限。",
++  "PE.Controllers.Toolbar.helpGifPlayback": "放映时播放 GIF 动画，让演示内容更生动。",
++  "PE.Controllers.Toolbar.helpGifPlaybackHeader": "放映中的 GIF 动画"
++}

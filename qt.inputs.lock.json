@@ -2139,8 +2139,12 @@
       },
       {
         "file": "win-linux/src/components/cfiledialog.cpp",
-        "sha256": "3fc066d78e70e2cad16fcd450bac4cf0a827215f037717fce93f78fb8537fd13",
-        "base_sha256": "3fc066d78e70e2cad16fcd450bac4cf0a827215f037717fce93f78fb8537fd13"
+        "sha256": "4334d6cdb4d77d98d743fd0b0967acc9416e3b3db398d61695251c4ebe79410d",
+        "base_sha256": "3fc066d78e70e2cad16fcd450bac4cf0a827215f037717fce93f78fb8537fd13",
+        "parent_sha256": "3fc066d78e70e2cad16fcd450bac4cf0a827215f037717fce93f78fb8537fd13",
+        "source": "qt-sources/desktop-apps/win-linux/src/components/cfiledialog.cpp",
+        "patch": "qt-patches/save-suffix-case.patch",
+        "patch_sha256": "f7b780586591cbadace2f40bd85001d139da8995e5ccf3afb514689b0a872c3c"
       },
       {
         "file": "win-linux/src/components/cfiledialog.h",
@@ -20092,7 +20096,7 @@
     },
     {
       "file": "sources/desktop-apps/win-linux/src/components/cfiledialog.cpp",
-      "sha256": "3fc066d78e70e2cad16fcd450bac4cf0a827215f037717fce93f78fb8537fd13"
+      "sha256": "4334d6cdb4d77d98d743fd0b0967acc9416e3b3db398d61695251c4ebe79410d"
     },
     {
       "file": "sources/desktop-apps/win-linux/src/components/cfiledialog.h",
