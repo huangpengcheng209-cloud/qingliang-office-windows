@@ -1,5 +1,7 @@
 # 社区版下一步
 
+2026-10-23 原生宿主：已生成 280 单元 `ascdocumentscore.dll`，补齐 Boost.Filesystem/System 源码依赖，22 项加载/接口/Unicode 文件系统检查通过，并修复大写或混合大小写扩展名识别。来源、独立入口和验收边界见 [HOST-BUILD.md](HOST-BUILD.md)。下一段接 Qt 包装、原选定 VLC 后端、主程序及桌面资源，再验收实际编辑保存。
+
 2026-10-23 桌面前置：已源码构建原生 Hunspell，22 项词典操作本机通过；重新核对 Qt 源码及 CEF SDK/源码归档身份，记录桌面依赖顺序。下一段构建 CEF 原生宿主及其支持 DLL，再接 Qt 界面；详见 [DESKTOP-BUILD.md](DESKTOP-BUILD.md)。
 
 2026-10-23 完整转换器阶段：已构建 x2t、V8、OpenSSL 和四套 SDKJS，25 项真实文件检查本机通过，另修复 ODS 选区属性和 XLSX 文本单元格丢失。下一段处理桌面编辑器/宿主的 Qt、CEF 等依赖对应，核对安装载荷及 VLC 等分发材料，再构建桌面 Beta 并独立验收编辑、保存重开、转换和安装卸载。不能把命令行转换通过等同于桌面版已经就绪。详见 [CONVERTER-BUILD.md](CONVERTER-BUILD.md)。

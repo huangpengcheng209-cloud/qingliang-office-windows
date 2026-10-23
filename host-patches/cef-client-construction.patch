@@ -1,0 +1,20 @@
+--- a/tests/cefclient/browser/client_handler.cc
++++ b/tests/cefclient/browser/client_handler.cc
+@@ -506,10 +506,17 @@
+                              bool is_osr,
+                              bool with_controls,
+                              const std::string& startup_url)
++    // Office's self delegate is not constructed during this base constructor.
++    // Its Qt host always requires native windows with Alloy rendering.
++#ifdef ONLYOFFICE_CEF_150
++    : use_views_(false),
++      use_alloy_style_(true),
++#else
+     : use_views_(delegate ? delegate->UseViews()
+                           : MainContext::Get()->UseViewsGlobal()),
+       use_alloy_style_(delegate ? delegate->UseAlloyStyle()
+                                 : MainContext::Get()->UseAlloyStyleGlobal()),
++#endif
+       is_osr_(is_osr),
+       with_controls_(with_controls),
+       startup_url_(startup_url),
