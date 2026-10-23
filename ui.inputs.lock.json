@@ -1,0 +1,2257 @@
+{
+  "upstream": {
+    "repository": "https://github.com/ONLYOFFICE/desktop-apps",
+    "revision": "bc46371aa062a7718cd90268e94c3d2b10ce3c51",
+    "url": "https://codeload.github.com/ONLYOFFICE/desktop-apps/zip/bc46371aa062a7718cd90268e94c3d2b10ce3c51",
+    "archive": "desktop-apps-bc46371a.zip",
+    "sha256": "67c8d96bd11c9d944826d81d395f1466240372d0fa9875a10f260616ed86022d",
+    "root": "desktop-apps-bc46371aa062a7718cd90268e94c3d2b10ce3c51",
+    "files": [
+      {
+        "file": "common/loginpage/addon/externalcloud.json",
+        "sha256": "071b2986932a3b2da929c829d38f080e48d465f5b77cac0a2b0960de9a047b74"
+      },
+      {
+        "file": "common/loginpage/build/Gruntfile.js",
+        "sha256": "56a29ac431bbbe32c3b18c2814657b2c9751b61fa4c39e407c763c3bd214fab2"
+      },
+      {
+        "file": "common/loginpage/build/package-lock.json",
+        "sha256": "cb5cd2ade80ea4f56f2f4a534ba2950ca9fa2954f5418bbc6fc13fb8301b1ae1"
+      },
+      {
+        "file": "common/loginpage/build/package.json",
+        "sha256": "bbf4d5cc204fba515b63c9a6a9f30040bbe6f7010f85b7dbb10d0283817455c5"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/Gruntfile.js",
+        "sha256": "257bdac16ada452ceb596dd70a429441d6a15c522c779567e3efcf0fc8a490d2"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/LICENSE-MIT",
+        "sha256": "8f477b5cb4eabad275e289b4ba74f6bb602b15d21ec05c685d470ebbe2d4aa1e"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/README.md",
+        "sha256": "d11c8af32dd62035e3e78e7a5f430a393f6a49ce9e9e5d318ff7acd518fed590"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/package.json",
+        "sha256": "289af132de0c7e0fc359e11e736f0964f64a2bb11bed6e288e57ad8ae9c4d108"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/tasks/inline.js",
+        "sha256": "38d601f38cc056ff35556a4ebce3522b0d4fbc8218f43772888dc9f133ab38c6"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/dist/css.html",
+        "sha256": "b4b118c38bcb8094497df8c0a1a2123460fa157241a9622b3754fa41add9ea5d"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/dist/css_greedy.html",
+        "sha256": "691c3126deba1855831df1ef9397576246d51bacfe8ff44b269387929aec5817"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/dist/html.html",
+        "sha256": "d35d085c0ae77c97d76ea88c8e73025705971302ebbee5098903142da52b40e6"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/dist/html/test.html",
+        "sha256": "5aec4fa35b3f3ed05e784fcd81b10863230e44a8bbf3b0cfd963580da045401a"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/dist/html_greedy.html",
+        "sha256": "618eea8c9165be4cf11b4d3669efda09232a3a83cadf772b69154bbf1e946abe"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/dist/img.html",
+        "sha256": "a6b46209effa9ca4b0d1ee1c4acac8271dcafb23961deb745db4d8bb3cc5453d"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/dist/img/icon.png",
+        "sha256": "b2edea69f0c323ae04119b27d1a7c028020fbef824abd9ba92fbe492521acdce"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/dist/img_greedy.html",
+        "sha256": "f26e4f7eb22c9ae2ef89d401dcc5aff52ccb94539ca5c8a41531eb6d02605fb0"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/dist/js/export.js",
+        "sha256": "df1f03136efd86bf28fc0ab4744747e160292309f9adb44a86e80fce7e81a1fc"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/dist/script.html",
+        "sha256": "dd78141fcf87c463e99fed1db5247e316dcbd32202cdd5f076f77dc46f30de4e"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/dist/script_greedy.html",
+        "sha256": "70739d205d9356f8ba306907a2dcaa92f704f6180dde5b973872a32e8c41c120"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/dist/styles/main.css",
+        "sha256": "94fb6dfa0228d96dded3fb12abec53446950f40698bbeab81977f01488bfa315"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/expected/css.min.html",
+        "sha256": "06e54ae6307f8d53c71b99ba2c53ae95573b95fcbb5e1cd58712a8ca7264684c"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/expected/css_greedy.min.html",
+        "sha256": "06e54ae6307f8d53c71b99ba2c53ae95573b95fcbb5e1cd58712a8ca7264684c"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/expected/html.min.html",
+        "sha256": "dce1c1e4587eb104f7a615630c84a6edeee5c525a4ff37cf79980b7e020461bd"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/expected/html_greedy.min.html",
+        "sha256": "1f4191d8c246f00275c6ebfeb7227cd79eef829197ed06cd6d84c5ab883f57e3"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/expected/img.min.html",
+        "sha256": "c724fc348f86ac7232ee95d7082d8a715fe02ba3d21dd796a3194f73056fe6f2"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/expected/img_greedy.min.html",
+        "sha256": "e2cff254cc6517def1629f1234c0ff86b9e373e6f99253ab71788c23debd7cb1"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/expected/script.min.html",
+        "sha256": "a888ed3447b13a818e3dbdcdf737efc3abebd20d15a9b5b33863ecb9ca1b631c"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/expected/script_greedy.min.html",
+        "sha256": "e0e343837f3b276f5925e45ce6d31da14ee7fa531395dab80990552b22423b36"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/greedy_test.js",
+        "sha256": "ffc1db3ce96b632e9b0f5db039ad770873441754063a0f26b7a58a0d47e257fe"
+      },
+      {
+        "file": "common/loginpage/build/plugins/grunt-inline/test/inline_test.js",
+        "sha256": "e871feab43495c96d45bc13752b4f2710f9f48e1d11f0da0a2e33f5d8f885434"
+      },
+      {
+        "file": "common/loginpage/build/sprites/Gruntfile.js",
+        "sha256": "7b4a09cd6b7fbc1db4e558c7606e820d7e741610db4c8c46cde2184528e3e6a1"
+      },
+      {
+        "file": "common/loginpage/build/sprites/package.json",
+        "sha256": "1a581e63f1358da53201412ddd8e504d560ef09ffbeb94c3195c1b080234869a"
+      },
+      {
+        "file": "common/loginpage/build/sprites/sprites.js",
+        "sha256": "963576f425a9453f796531391213f9fb5479cb87b59aec36cd84aa1e213af8be"
+      },
+      {
+        "file": "common/loginpage/build/startpage.json",
+        "sha256": "ef0960e2717ccc7939b5d4c7f29cf92fd5e8b2358c4110f209711d2d4485c175"
+      },
+      {
+        "file": "common/loginpage/locale/ar-SA.js",
+        "sha256": "57c9e12343d216413df3ee6d4e92f096dc29f398277256282dcff0d2ad3d7da4"
+      },
+      {
+        "file": "common/loginpage/locale/be.js",
+        "sha256": "510cbb5084d583784090b487896b1b49ab182cf8a5d4262da9f7c5127d62f4eb"
+      },
+      {
+        "file": "common/loginpage/locale/bg.js",
+        "sha256": "17fa200a4049fff2b58496a403fde111ce939635eedd4f54214426c4a6032778"
+      },
+      {
+        "file": "common/loginpage/locale/ca.js",
+        "sha256": "2b4ada7179da28013ffb8aaeb3b713e8ae02e30988c03d5d7c00002a2e77b12c"
+      },
+      {
+        "file": "common/loginpage/locale/cs.js",
+        "sha256": "66cd32b7761b65c59e889b3720cf4c1942f033ffcb156859cd1f45c41834c138"
+      },
+      {
+        "file": "common/loginpage/locale/da.js",
+        "sha256": "2356979fcdda138f2281bfc07e1c4b0c5e409acfca58dd745037b73760835b1e"
+      },
+      {
+        "file": "common/loginpage/locale/de.js",
+        "sha256": "3f9649b8843d4478dfcfc75b9f2a81fb49a655ede6e6c707112d4a5ca81150f8"
+      },
+      {
+        "file": "common/loginpage/locale/el.js",
+        "sha256": "2019ff9015473c79f06d0990f93d5f28df5e664b250ccedf1b0ef4053a964b91"
+      },
+      {
+        "file": "common/loginpage/locale/en-GB.js",
+        "sha256": "1c1093091e56ec87360c442d2fc18f79e5a82942327dcc3ee133a619830d5a66"
+      },
+      {
+        "file": "common/loginpage/locale/es.js",
+        "sha256": "8e13ee9833a054d8a85d06a9ff61ec796c65e20e7e1bef44d224899ce8e40a73"
+      },
+      {
+        "file": "common/loginpage/locale/et.js",
+        "sha256": "48bab9f621f6065fd87023c1aec7bce676032bc5d342a6c9bb4dfce7dbb865fd"
+      },
+      {
+        "file": "common/loginpage/locale/fi.js",
+        "sha256": "187a3df36b9125683cee5742f423d5434db98b8933d80d5df94ba65e934fd8cc"
+      },
+      {
+        "file": "common/loginpage/locale/fr.js",
+        "sha256": "6f5d5abe908b2ea220c73f0393e7f5a72e360cf75727886d93f0ad05059ec132"
+      },
+      {
+        "file": "common/loginpage/locale/ga.js",
+        "sha256": "16b8381d05f1fa7e5d86ac60936e5292ee46624b2870aa2975e7ddb56ac6e32f"
+      },
+      {
+        "file": "common/loginpage/locale/gl.js",
+        "sha256": "50bd4120072e54c01f5f8d7f1309efa9084f6c6ab99b624d4c3999448c8444b4"
+      },
+      {
+        "file": "common/loginpage/locale/he.js",
+        "sha256": "481301a5a113442421b4f0086ee1d6e5648adb2c0c6befa07353086e75386627"
+      },
+      {
+        "file": "common/loginpage/locale/hi.js",
+        "sha256": "b3775ad77fb0fa936f717d3cfd559b32c7ac734a2476a09fb31aa7c4fa4fda0d"
+      },
+      {
+        "file": "common/loginpage/locale/hr.js",
+        "sha256": "35f9e54a56772dabfb3a69e5d52a4a86270c4320217e5dff4bfaa00baab140f5"
+      },
+      {
+        "file": "common/loginpage/locale/hu.js",
+        "sha256": "c84dffb129b1d9c93474f04588ae7d29cdedd35f5500bb75084b1c15ca460845"
+      },
+      {
+        "file": "common/loginpage/locale/hy.js",
+        "sha256": "748d84ab7f82339b3ea4db0e209f6d653bb9dc6d849dc8131f6299b452813d90"
+      },
+      {
+        "file": "common/loginpage/locale/id.js",
+        "sha256": "cfa52a3a126ede9b3591ec31ed10c52852a2bd3ebeaa26cb7c1e04f9ac247f8e"
+      },
+      {
+        "file": "common/loginpage/locale/it.js",
+        "sha256": "34b345ad193221d5958e6d317f4ceaccea02679248b2dda3bde000b9685d9bf8"
+      },
+      {
+        "file": "common/loginpage/locale/ja.js",
+        "sha256": "50ec59f3611636ab7a4ae2ff8a5d87f6cf98e8f617e91f7edbda5057e5925c4f"
+      },
+      {
+        "file": "common/loginpage/locale/ko.js",
+        "sha256": "1ff0139816e7c2650f96a23003110be1418031c4d66f1bdf229a6f2b5c7de430"
+      },
+      {
+        "file": "common/loginpage/locale/lo.js",
+        "sha256": "fd04821515d53dfef7e8d7037be6920d2a1e32b26ce9b4423f8650287fd55ec5"
+      },
+      {
+        "file": "common/loginpage/locale/lt.js",
+        "sha256": "2ce05c45e85214dbc65d139251900455cc459e1af48741c9568d965ec55583e9"
+      },
+      {
+        "file": "common/loginpage/locale/lv.js",
+        "sha256": "375f52a094fcb225d09405f2299eb32be8a29ef6283f1f7c1490dd0b7e4304c4"
+      },
+      {
+        "file": "common/loginpage/locale/nl.js",
+        "sha256": "81182b506124ef6a46b38fd6cbd9aa2d9e8cb1eb3847513df915b18ce78054ba"
+      },
+      {
+        "file": "common/loginpage/locale/no.js",
+        "sha256": "68925e10d156ae408725730856d93e18e74de7830b628f3a036d43e8b2862085"
+      },
+      {
+        "file": "common/loginpage/locale/pl.js",
+        "sha256": "3bee9a396501c39a7ab72929c2c0cb74a74847a3bf666694adb465355fe4579b"
+      },
+      {
+        "file": "common/loginpage/locale/pt-BR.js",
+        "sha256": "1de65d17516da898b6127cd036cfe83477c5aa33057392d4fe80ab415c60b87d"
+      },
+      {
+        "file": "common/loginpage/locale/pt-PT.js",
+        "sha256": "a054341170d3730a890d665c2163119ddfda34bbb0528810ed69b9b9d5747f16"
+      },
+      {
+        "file": "common/loginpage/locale/ro.js",
+        "sha256": "57c3d9c1bcb09878cbb954ab24c0fe6f70935c673c6bbf418d0ee4da99b1412c"
+      },
+      {
+        "file": "common/loginpage/locale/ru.js",
+        "sha256": "cad59d59cc2c2d67954c4df340890c5e154f31542587e7738f78351446e48ff6"
+      },
+      {
+        "file": "common/loginpage/locale/si.js",
+        "sha256": "3eda743237b35b7f98fc14acff409878d55bf52496f080519bb539ea07f30843"
+      },
+      {
+        "file": "common/loginpage/locale/sk.js",
+        "sha256": "3dff445cc3de3daba1d287581f73fb53d0bd91ecc6c33ead1673cf4afa469db2"
+      },
+      {
+        "file": "common/loginpage/locale/sl.js",
+        "sha256": "c6a4ba5f0120fd717d77b64426b1fcb838e00a2ac335c92718c2aa6811a9aede"
+      },
+      {
+        "file": "common/loginpage/locale/sq.js",
+        "sha256": "4bc67c6aea18ea5c0c2cd78fe299862721f63e2f178a5a137895529361f85f6e"
+      },
+      {
+        "file": "common/loginpage/locale/sr-Cyrl-RS.js",
+        "sha256": "9776ab65159e424ce0d25cefa063b65eac7262c31b264f707fa6c8e484185e39"
+      },
+      {
+        "file": "common/loginpage/locale/sr-Latn-RS.js",
+        "sha256": "1ae353f0a83fa16a71afcb52aa6719323031ef98ab5d8b9e4a77cbdcb8b3fad8"
+      },
+      {
+        "file": "common/loginpage/locale/sv.js",
+        "sha256": "c6af3cf1c49ad55d47c4335783faf7bbdb9393482096ec334532cb74eff2e185"
+      },
+      {
+        "file": "common/loginpage/locale/tr.js",
+        "sha256": "7319761264e13e207f62663a60748c8a0a278c6fa15e178936ac277cd0ba552e"
+      },
+      {
+        "file": "common/loginpage/locale/uk.js",
+        "sha256": "267e25b4c3b392effe23acb89b4f867683dcb4bcfe67d9ca934537176532d80a"
+      },
+      {
+        "file": "common/loginpage/locale/ur.js",
+        "sha256": "ff6895abc97637194522d9ba9c978b164286f5585b690fe42fb8d5a08e3eecd0"
+      },
+      {
+        "file": "common/loginpage/locale/vi.js",
+        "sha256": "f54d0d3aa6c97baf1ccb7976aced145fceba0c42451dfd11fae90a64061f42d5"
+      },
+      {
+        "file": "common/loginpage/locale/zh-CN.js",
+        "sha256": "770e6015f55a37bd48366bffbbceaa6cb64f395a961371ae51903bf7d8fa4194",
+        "frozen_sha256": "c9ead1cd5ef410a6c4abd86a5f499d359d48cc462e69da9ee9a5aa8f6521fafd",
+        "frozen_source": "sources/desktop-apps/common/loginpage/locale/zh-CN.js"
+      },
+      {
+        "file": "common/loginpage/locale/zh-TW.js",
+        "sha256": "8abcd97189ee2bac3937ea77d0e8f0963a360d684f32c706ba948c02cacde129"
+      },
+      {
+        "file": "common/loginpage/noconnect/code.js",
+        "sha256": "d64b1b7ab2f9f824943b9ec4f47c2db14b160a7eeaec428bb85cb293e022a105"
+      },
+      {
+        "file": "common/loginpage/noconnect/connection_error.svg",
+        "sha256": "6e077b02212b37fda21bd6aa7cbaaec6d70b64038e70d2dd14594f8c233bc14d"
+      },
+      {
+        "file": "common/loginpage/noconnect/index.html",
+        "sha256": "268b7207405f1d15bdb61a7323d9bcda542736bb58a60109d26ebf0c1a8f50e9"
+      },
+      {
+        "file": "common/loginpage/noconnect/index.html.deploy",
+        "sha256": "13b041601b39f9f22ebacaba9990852dffa00a2bceaed1216236e681d83aedf6"
+      },
+      {
+        "file": "common/loginpage/noconnect/init.js",
+        "sha256": "a8f405a1d28df611170f403922c772dc4193037a8012be2b044e171642c4c994"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/ar_SA.js",
+        "sha256": "a229900058b6d56a3113de825a175d516eda48d17da9ff50123930ebe1ea6ebf"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/be.js",
+        "sha256": "efce7d552d38b7bca3ce8c3f4836811dfa3f2c70bb5f54864341f645362bdbc0"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/bg.js",
+        "sha256": "b869ea06174544b226e9a145816fd6decc62458f5c90d2c9918d860492caa1f9"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/ca.js",
+        "sha256": "f5a7aa43609da5da1d94ebc51aa1e662aa1686bb71989243d4ff354328cd88dc"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/cs.js",
+        "sha256": "160f39829504fdec3b0138cb05943450f6daf7c1da85b9c6a8ec117f5839e4d7"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/da.js",
+        "sha256": "983c2595a41b9c4ee90ea31d5778ff65e2a618ed739742db9649d8bfa939d615"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/de.js",
+        "sha256": "1934764037435c13b1e0714a27fcbf4120b0956447343272614b0c8f98daf80e"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/el.js",
+        "sha256": "0f2183ab91b89d737bb8451f7a4eb8b2f0f63d894e41bc54fb1c5cf5fe5bf946"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/es.js",
+        "sha256": "de31d794c75f2c13943d365ce5e37b8f02de9bb269d65cfd81655d1e2f1c3a78"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/et.js",
+        "sha256": "cae9261f5017691b56b6f9a9069676e11f2960299da7865c53221709089bbb8d"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/fi.js",
+        "sha256": "773b9e16b5ada1b6c8a51f4482a8c4b9ccbcb682ed0bdf8c3b4a27176e37d780"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/fr.js",
+        "sha256": "406f085c26c84cba2fef9c03a5ea60dc308bd2fe009616d7e5b1159cb77f4c37"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/ga.js",
+        "sha256": "a9a53b28d1e010ae8e8fea156dc667579d0aa9a2d2818e516e912478546c314b"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/gl.js",
+        "sha256": "7e93070ca6ec28bbe765b0ec817a30413ae933744ec1ed4d325c8f50389d7a39"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/hi.js",
+        "sha256": "bbc84752c20fbef129730738956126bdeee7a624f07605d73038334504847415"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/hr.js",
+        "sha256": "a57c75b706689f7c5c8a4cffcdeb07e4693ad3bb30268c56ae85dc06940f69af"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/hu.js",
+        "sha256": "ca87b308a5f25d55d52411a4780d81a77c25fa41b5b8e70a30333b59f82ac8d7"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/hy.js",
+        "sha256": "5f850eccb95bbba9b88e9b0451c3241da0f8ec403124f024d6bd6ab374cb335f"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/id.js",
+        "sha256": "e531db7d871fa9471443c21b54221c2f2c22d6a305119cb09bfa18133abff53d"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/it.js",
+        "sha256": "12bbcbd973e6188134a62620acab181513a39982fcfe03bf7443b3681142600c"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/ja.js",
+        "sha256": "efff806955bb9548e8146cd5dc6877df2bdf75fab223074b4c1cdccdff115e4e"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/ko.js",
+        "sha256": "067ddeb5fd1b5a695f5d785a367394f51033812820959b9f338baad1944b0139"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/lo.js",
+        "sha256": "823f6fbe7e116a9684452aac991a647001ec44f9647993b8ab224c637301bd25"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/lt.js",
+        "sha256": "5db122923cabb923d58cbde68795bd330267966a4afc38d4c904a8a40ea9a82a"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/lv.js",
+        "sha256": "50473ce760307ebdafc90405bf6ac52d1bdcf31186b4054c5a9f46b70163f6f6"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/nl.js",
+        "sha256": "b08e0080736d73bd5f3974f18758fb635eb2361b6d92f46ecbd2b3d60827d440"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/no.js",
+        "sha256": "108e979e362fe19152e0766ac7beb5448ae1f2bde2ae81ec5bb50aebb54e1b72"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/pl.js",
+        "sha256": "4fee6f49eb320f243485634421583fc3dfb42305dcea656a6806332795b9e5c7"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/pt_BR.js",
+        "sha256": "78aac856ad03ec785ff483e0087f297ae8f4a9b218266eeab7ee08775cc0c6a6"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/pt_PT.js",
+        "sha256": "76d6e13497b8f895ddf284f4edabc604704da0cce5feaa9a7e46bae0c1793a9d"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/ro.js",
+        "sha256": "7457ff5ac11972cf933e1fd09ddbb4e3828a6a96471b148153853d3f31ceeb56"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/ru.js",
+        "sha256": "323df7ab7ac897740ea87822ef707a4346863e2b2889386bdaedc04570ac34dc"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/si.js",
+        "sha256": "e0810a8bf36ae7611732a4024ee59f4d4795291e159445cff29f2027631f06cd"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/sk.js",
+        "sha256": "a36e5e31b8235e553a92f8dcf1e60e04bb4626da0f20cd7337247833d039ba58"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/sl.js",
+        "sha256": "b282164fc64f8ae976f4f174d9d8f0c7c62fa3f9cb61419595739cf2ee758ddf"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/sv.js",
+        "sha256": "2520fb06ce08f3cef171829bee6ffef1480df73bc20a2b7c0e4f5b17759274cb"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/tr.js",
+        "sha256": "7f49813ea75dd0b692ab1a465bc1e2d42869bc7c0c43e56984774b8bbd975a5a"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/uk.js",
+        "sha256": "ae726bfa150d19351433277ac4c0ce8ed7fd51fcb0aeebb4eb438b9a2418145b"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/vi.js",
+        "sha256": "c5a43da5bc434178e0e0ab265f7c4b62bc93259e602c74f97f92a5e5302f9fc1"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/zh_CN.js",
+        "sha256": "b4a54e4247d242bffe561d50c3249b82dab84592233de0491b4fdbccdaf797cb"
+      },
+      {
+        "file": "common/loginpage/noconnect/l10n/zh_TW.js",
+        "sha256": "c91ab587c5cfa6d00f014ac9dce025d40ca9f30bd243a7cf602577f320edad32"
+      },
+      {
+        "file": "common/loginpage/noconnect/styles.css",
+        "sha256": "68fd97cf2dcf4ccd28f02fe72ab997df06854f876f8d2076489cc54b28e1144f"
+      },
+      {
+        "file": "common/loginpage/providers/box/assets/buttonlogo.svg",
+        "sha256": "655a4e27badb87125c55f85afc99023204921af7c92f90853e4f40136b6fac09"
+      },
+      {
+        "file": "common/loginpage/providers/box/assets/buttonlogo_dark.svg",
+        "sha256": "52bd4ed8b7fd479c6d86339718f6575aee918bf7c125bbd89dbe2d3fa26a568e"
+      },
+      {
+        "file": "common/loginpage/providers/box/assets/listicon.svg",
+        "sha256": "cb046c80ec9ee66f90058f11b177100d1041f2fd787535484e7babe8b6fc8708"
+      },
+      {
+        "file": "common/loginpage/providers/box/assets/listicon_dark.svg",
+        "sha256": "48a44cf0dde5b1b76cc2ac6b1841cc8d26a8db2f705a12f56f7bfa0dae3713b7"
+      },
+      {
+        "file": "common/loginpage/providers/box/config.json",
+        "sha256": "7d9df16715f2c68fb0846c3fab04afb5419c0400adcf4a96a5083f6d539f7c8e"
+      },
+      {
+        "file": "common/loginpage/providers/dropbox/assets/buttonlogo.svg",
+        "sha256": "d8a66a359eb34855d749c5183ee377671ba4cbe4bc483ae38bca4d4458fe1955"
+      },
+      {
+        "file": "common/loginpage/providers/dropbox/assets/buttonlogo_dark.svg",
+        "sha256": "7521a0bfde7a8ec859c5e725a4633b5b36cbf74c60aca79376f4b116fd9055f3"
+      },
+      {
+        "file": "common/loginpage/providers/dropbox/assets/listicon.svg",
+        "sha256": "d75d52576f62c826022ea577ee32448e817fa266158ca5bce4c07b82cb20d021"
+      },
+      {
+        "file": "common/loginpage/providers/dropbox/assets/listicon_dark.svg",
+        "sha256": "e4f57633e32e9f064b34167ef5ddbc0067db719dd41ec388606455f7a1abad89"
+      },
+      {
+        "file": "common/loginpage/providers/dropbox/config.json",
+        "sha256": "66ca95fc7b08679fd42d7416412fcb2133c8e0181fdf5ba273b8fc6a8249112a"
+      },
+      {
+        "file": "common/loginpage/providers/kdrive/assets/buttonlogo.svg",
+        "sha256": "00876b4768b42fb106897b9f82e268ea60e56fd990ca02ff57881def4b553c01"
+      },
+      {
+        "file": "common/loginpage/providers/kdrive/assets/buttonlogo_dark.svg",
+        "sha256": "287dcdbbcd662e155480fc2ffb03c9cc36b2ad47a61dd5261d706b7fb7186605"
+      },
+      {
+        "file": "common/loginpage/providers/kdrive/assets/listicon.svg",
+        "sha256": "acb6e91c79ca985d907aca876c35cedeaa4b5fb99b90201cb1ba39cc8d718802"
+      },
+      {
+        "file": "common/loginpage/providers/kdrive/assets/listicon_dark.svg",
+        "sha256": "c60f1e36bcdc136ef03ba633182e39308c2a0b0ec580e9964fcf8a1785757439"
+      },
+      {
+        "file": "common/loginpage/providers/kdrive/config.json",
+        "sha256": "d0e62642557a8b45d2932047bd9c6ca3eb60c5d1702618861e82ed19d4485766"
+      },
+      {
+        "file": "common/loginpage/providers/liferay/assets/buttonlogo.svg",
+        "sha256": "742b953bb95264b57b9011a08b4cd41b16924ae48d20f0b4c4a6d09dd3f6bf8f"
+      },
+      {
+        "file": "common/loginpage/providers/liferay/assets/buttonlogo_dark.svg",
+        "sha256": "673b0ceedd007b6b1415f8ad84abdfd2832455207ad1a9cccac1c8f3b49d6d41"
+      },
+      {
+        "file": "common/loginpage/providers/liferay/assets/listicon.svg",
+        "sha256": "b1aa6835aa1915f4e320ed58ca78c64039a2295521bcafa8907b078bb3a09622"
+      },
+      {
+        "file": "common/loginpage/providers/liferay/assets/listicon_dark.svg",
+        "sha256": "b1aa6835aa1915f4e320ed58ca78c64039a2295521bcafa8907b078bb3a09622"
+      },
+      {
+        "file": "common/loginpage/providers/liferay/config.json",
+        "sha256": "f2bc997a4f3cb2ef692f07dd6880fc88c899e45d6f3d1aef4076294e73aca634"
+      },
+      {
+        "file": "common/loginpage/providers/moodle/assets/buttonlogo.svg",
+        "sha256": "f739c1dc34319f86b7e27015453694019cf01976a9fd067836e4c4d2db662da5"
+      },
+      {
+        "file": "common/loginpage/providers/moodle/assets/buttonlogo_dark.svg",
+        "sha256": "47c351cedb6c5566f7d38ab43aa47ed8999b1f8b3439888f3fb78e39c23213ee"
+      },
+      {
+        "file": "common/loginpage/providers/moodle/assets/listicon.svg",
+        "sha256": "0c5b09274e4a9ccf115a7f8eb11b8ed46224010544e25767ce8412b12c6eefaa"
+      },
+      {
+        "file": "common/loginpage/providers/moodle/assets/listicon_dark.svg",
+        "sha256": "be593f0eb6e20c65b550587a7bdf07277313cbdb4176f0102af9075c6c1f667b"
+      },
+      {
+        "file": "common/loginpage/providers/moodle/config.json",
+        "sha256": "71cce7398f47608d43cd43f0ea45d07a0e74963a1361e60d4de3e3e029de0266"
+      },
+      {
+        "file": "common/loginpage/providers/nextcloud/assets/buttonlogo.svg",
+        "sha256": "d19f46b3f1d65b13d0d2a408680fff3858d30cb3778ea348b0f782d7d671ce8a"
+      },
+      {
+        "file": "common/loginpage/providers/nextcloud/assets/buttonlogo_dark.svg",
+        "sha256": "dbabad3c90c81e844c47200c7108ade49194a0220be1120887ee7c633de514d3"
+      },
+      {
+        "file": "common/loginpage/providers/nextcloud/assets/listicon.svg",
+        "sha256": "05134771c03ee4f78a6aef41badf4e34e0f3b944c60424ab400f9f605daacd83"
+      },
+      {
+        "file": "common/loginpage/providers/nextcloud/assets/listicon_dark.svg",
+        "sha256": "05134771c03ee4f78a6aef41badf4e34e0f3b944c60424ab400f9f605daacd83"
+      },
+      {
+        "file": "common/loginpage/providers/nextcloud/config.json",
+        "sha256": "a55e7fa5fd15f4e57bb8520eeb53798d2b8d7d125c017ba4ab620e03bd7302a6"
+      },
+      {
+        "file": "common/loginpage/providers/onlyoffice/assets/buttonlogo.svg",
+        "sha256": "6b894726d7dbfef2d1487ea485b082bd7e4d01d9b1de5fcaa777a146e2ae9ea9"
+      },
+      {
+        "file": "common/loginpage/providers/onlyoffice/assets/buttonlogo_dark.svg",
+        "sha256": "353e4aba7740fb8325605502e605547342c8be8afccee7b598a42055e1f6a438"
+      },
+      {
+        "file": "common/loginpage/providers/onlyoffice/assets/listicon.svg",
+        "sha256": "422ad5f4e1c7bb46a9422cb885a6bc08a52be5e4695bb581317037b113502c49"
+      },
+      {
+        "file": "common/loginpage/providers/onlyoffice/assets/listicon_dark.svg",
+        "sha256": "306f768f5a3f91fc8243204288d7a54c05eceb6622d56cd2ecab854a59e7b407"
+      },
+      {
+        "file": "common/loginpage/providers/onlyoffice/config.json",
+        "sha256": "72f7d482968856d69f20037c13eb9dd0e290153d99c35c1c0eadac8d4aea580e"
+      },
+      {
+        "file": "common/loginpage/providers/owncloud/assets/buttonlogo.svg",
+        "sha256": "60e5e688bb1effd0d4209e1606ba20d0646ab61b8b8557650257455a5bbfe8d0"
+      },
+      {
+        "file": "common/loginpage/providers/owncloud/assets/buttonlogo_dark.svg",
+        "sha256": "3e0bae1b7da261d4e3f87d4e4a9ba40add89bc16a3239313d5eb55f11959c757"
+      },
+      {
+        "file": "common/loginpage/providers/owncloud/assets/listicon.svg",
+        "sha256": "706d4a0c3f91249c648bef4a2c9cfff6c52caf89a753589ed60c4a95523368df"
+      },
+      {
+        "file": "common/loginpage/providers/owncloud/assets/listicon_dark.svg",
+        "sha256": "8bf2355fe8e214bd47d5da7ced83fc127e73ba6161047111965e94e5e7639949"
+      },
+      {
+        "file": "common/loginpage/providers/owncloud/config.json",
+        "sha256": "e299f9e5283ad7b44e39702d51b3bd0d2cfb61f7362091a01419282479ca151f"
+      },
+      {
+        "file": "common/loginpage/providers/seafile/assets/buttonlogo.svg",
+        "sha256": "d22ecda308bde75aa875f46d2df3c1ff6c9e0e12e03f3cddc30b67837d17d1c1"
+      },
+      {
+        "file": "common/loginpage/providers/seafile/assets/buttonlogo_dark.svg",
+        "sha256": "8db072c3e2a4cbbffea030cfd3505d85e220b1657cb48baf4c43955310da39e3"
+      },
+      {
+        "file": "common/loginpage/providers/seafile/assets/listicon.svg",
+        "sha256": "c7775cb1b2e3ce5ee64910775bd8f6ec2f7f08e3378adec02c40b9547ab1852f"
+      },
+      {
+        "file": "common/loginpage/providers/seafile/assets/listicon_dark.svg",
+        "sha256": "c7775cb1b2e3ce5ee64910775bd8f6ec2f7f08e3378adec02c40b9547ab1852f"
+      },
+      {
+        "file": "common/loginpage/providers/seafile/config.json",
+        "sha256": "22f68474039afdc5ad98d819af5c6507947f5580880a7bf2593e806863a417a1"
+      },
+      {
+        "file": "common/loginpage/res/img/cloud-icon@1.25x.png",
+        "sha256": "ec803d61094c591b749924a521eb7ef97878c66e2dcb8eb70f556f8c3a90fca8"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/docx-big-dark.svg",
+        "sha256": "88de420cfbc5695d327f94b8913354a5e9fb7c7991ceceb7c2c495626b54e9b2"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/docx-big.svg",
+        "sha256": "50848cc4cbd51d2eeac688263e48bd8ff8c6fc0591d19ee1d2d833967510c21e"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/folder-big.svg",
+        "sha256": "7259c17c797afaa6b8b2f9ed86b4db966764a0ef3a3089b3412cc27b0dddc50a"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/folder-small.svg",
+        "sha256": "bfdcc5d7d1e0b330c992eef5fc368db0bc5577345651f9a2e9d2edc011e27fb0"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/logout-2.svg",
+        "sha256": "922232b29ac5770078f87376ecdfd9349fea587dc01ec92c0057e4d9c764baba"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/logout.svg",
+        "sha256": "5dcae999b5f84fcb2fb8dad7cd5084688fb02aa7ddcccf03171e642d1b42306a"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/nothing-found-dark.svg",
+        "sha256": "eb7c14c1d645c7256ba94c65cebba19ef32a138af6906372fd65fb1f51267ff0"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/nothing-found-light.svg",
+        "sha256": "5116ce77a1b587fac1d8514dddd1b17b8999d77549ae77e6c9912a2c07bcab56"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/pdf-big-dark.svg",
+        "sha256": "4063d1e35501ffce6344ab173f0916e3cf3d08d56ad69931b054b839b0e09d57"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/pdf-big.svg",
+        "sha256": "107298f1c9aa084ac64996a30a567d1498ef87147ea0ebdfab14e77bc55e870e"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/pptx-big-dark.svg",
+        "sha256": "0f5ef8cc6d4934725b4bac906f2c2a98c37cf9278eedd8f99fa9549c4d545dc5"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/pptx-big.svg",
+        "sha256": "60859aaf29057449776872d0a84d5fdba1e06e0b0d5ff5458d581f6d1e9c79aa"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/shield.svg",
+        "sha256": "a68d8807b222d1eb40ddc13bfc9c3fa83e007becd5f3a687b04f2ea3bd81c0c3"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/template-item.svg",
+        "sha256": "319acd5368dbc360486587398185cd3b17bcb9d8cd3bc57bc7fe9bca729db0a4"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/xlsx-big-dark.svg",
+        "sha256": "97be935ff35d292df891f521f5fca97a5a888fc56eb39a4cbb5e044e5d13615a"
+      },
+      {
+        "file": "common/loginpage/res/img/common-svg/xlsx-big.svg",
+        "sha256": "d5905e2547d4acb762b580ddc20d0b157943d4455a3d52ee1e31da8f6593481e"
+      },
+      {
+        "file": "common/loginpage/res/img/connect1-dark.svg",
+        "sha256": "50fb9b457a449f3a9e20134d0468a29878f6f4a6c8400d78896a950d09fb1f32"
+      },
+      {
+        "file": "common/loginpage/res/img/connect1-light.svg",
+        "sha256": "84d8f8ff25aa7bcfcdad60d9b1d3f21c7e6ccafa027f1608abc403064fd5d038"
+      },
+      {
+        "file": "common/loginpage/res/img/connect2-dark.svg",
+        "sha256": "0494eb8e2db72e8021e271e8641b57de98a56cd6f45b01eb78924d0007009d18"
+      },
+      {
+        "file": "common/loginpage/res/img/connect2-light.svg",
+        "sha256": "a47e3b57c6d9253086860da28be6510e9f327e0e14f8d4978f33da7818011429"
+      },
+      {
+        "file": "common/loginpage/res/img/connect3-dark.svg",
+        "sha256": "6a2eeb733ac068f65496e0d164a6cca44dc68d5502e4218269838fe7936a4ece"
+      },
+      {
+        "file": "common/loginpage/res/img/connect3-light.svg",
+        "sha256": "5b4b605bf3e6a943c562252ed7848f2e5e676fe09d5be1e14938213eb13d3544"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/csv.svg",
+        "sha256": "194f5db2f7fb8296e2fc5ca3fbc19f57fecf1b9b4e046e78a8cd455012486662"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/djvu.svg",
+        "sha256": "14aa94a58a81072daa0c649654518bdb39748a1c4fd3299f634c90a57b29fd77"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/doc.svg",
+        "sha256": "08acff9f42bc7b9e12e4bc41f129e75e9f51677add1f9af2bcadf3ee13d39559"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/docm.svg",
+        "sha256": "e6e2efc771d52a2958410a6c929bd92f0e9a81d7ffef5d5b65fc576b30305319"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/docx.svg",
+        "sha256": "e6e2efc771d52a2958410a6c929bd92f0e9a81d7ffef5d5b65fc576b30305319"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/docxf.svg",
+        "sha256": "fc9ef8333fa4e54c34d87a24d4da3d3a340dfa04b8a38fc1bbf969739a30260b"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/dotm.svg",
+        "sha256": "e6e2efc771d52a2958410a6c929bd92f0e9a81d7ffef5d5b65fc576b30305319"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/dotx.svg",
+        "sha256": "e6e2efc771d52a2958410a6c929bd92f0e9a81d7ffef5d5b65fc576b30305319"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/epub.svg",
+        "sha256": "14aa94a58a81072daa0c649654518bdb39748a1c4fd3299f634c90a57b29fd77"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/fb2.svg",
+        "sha256": "14aa94a58a81072daa0c649654518bdb39748a1c4fd3299f634c90a57b29fd77"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/fodp.svg",
+        "sha256": "1c79bded29eeded92b4057d6dc8b778bcb3e9c8b6434737ad83f8520953834d7"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/fods.svg",
+        "sha256": "194f5db2f7fb8296e2fc5ca3fbc19f57fecf1b9b4e046e78a8cd455012486662"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/fodt.svg",
+        "sha256": "08acff9f42bc7b9e12e4bc41f129e75e9f51677add1f9af2bcadf3ee13d39559"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/html.svg",
+        "sha256": "3fc67f1f6cb0aedfe34df1d6a65eea0639d5381c8208590333a08f62b15163ee"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/hwp.svg",
+        "sha256": "c1f2ca0edb1004c678b56d76873cb6a5ff7d3336b5afddba67e08abd55313759"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/hwpx.svg",
+        "sha256": "c1f2ca0edb1004c678b56d76873cb6a5ff7d3336b5afddba67e08abd55313759"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/key.svg",
+        "sha256": "1c79bded29eeded92b4057d6dc8b778bcb3e9c8b6434737ad83f8520953834d7"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/md.svg",
+        "sha256": "85a7d2d7238104dff37d64542c533a0d1140c9b60e0f16909ad35f992be0b1b8"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/mht.svg",
+        "sha256": "3fc67f1f6cb0aedfe34df1d6a65eea0639d5381c8208590333a08f62b15163ee"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/neutral.svg",
+        "sha256": "657cfa88371be8b32332a89e3738e5fc0f77d5dee9608ccf8be04fd4a7e4bf24"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/numbers.svg",
+        "sha256": "194f5db2f7fb8296e2fc5ca3fbc19f57fecf1b9b4e046e78a8cd455012486662"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/odg.svg",
+        "sha256": "1c79bded29eeded92b4057d6dc8b778bcb3e9c8b6434737ad83f8520953834d7"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/odp.svg",
+        "sha256": "1c79bded29eeded92b4057d6dc8b778bcb3e9c8b6434737ad83f8520953834d7"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/ods.svg",
+        "sha256": "194f5db2f7fb8296e2fc5ca3fbc19f57fecf1b9b4e046e78a8cd455012486662"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/odt.svg",
+        "sha256": "08acff9f42bc7b9e12e4bc41f129e75e9f51677add1f9af2bcadf3ee13d39559"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/oform.svg",
+        "sha256": "fc9ef8333fa4e54c34d87a24d4da3d3a340dfa04b8a38fc1bbf969739a30260b"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/otp.svg",
+        "sha256": "1c79bded29eeded92b4057d6dc8b778bcb3e9c8b6434737ad83f8520953834d7"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/ots.svg",
+        "sha256": "194f5db2f7fb8296e2fc5ca3fbc19f57fecf1b9b4e046e78a8cd455012486662"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/ott.svg",
+        "sha256": "08acff9f42bc7b9e12e4bc41f129e75e9f51677add1f9af2bcadf3ee13d39559"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/pages.svg",
+        "sha256": "08acff9f42bc7b9e12e4bc41f129e75e9f51677add1f9af2bcadf3ee13d39559"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/pdf.svg",
+        "sha256": "cf2e273b10d9f0f9e36d73b5ab143503e733874b9d69ca568ece2f5c3f26006e"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/potm.svg",
+        "sha256": "adfdee98f8843123a740bbd8d9b69ce9f56312f90d55904d3576dd367fac0540"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/potx.svg",
+        "sha256": "adfdee98f8843123a740bbd8d9b69ce9f56312f90d55904d3576dd367fac0540"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/pps.svg",
+        "sha256": "1c79bded29eeded92b4057d6dc8b778bcb3e9c8b6434737ad83f8520953834d7"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/ppsm.svg",
+        "sha256": "adfdee98f8843123a740bbd8d9b69ce9f56312f90d55904d3576dd367fac0540"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/ppsx.svg",
+        "sha256": "adfdee98f8843123a740bbd8d9b69ce9f56312f90d55904d3576dd367fac0540"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/ppt.svg",
+        "sha256": "1c79bded29eeded92b4057d6dc8b778bcb3e9c8b6434737ad83f8520953834d7"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/pptm.svg",
+        "sha256": "adfdee98f8843123a740bbd8d9b69ce9f56312f90d55904d3576dd367fac0540"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/pptx.svg",
+        "sha256": "adfdee98f8843123a740bbd8d9b69ce9f56312f90d55904d3576dd367fac0540"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/rtf.svg",
+        "sha256": "08acff9f42bc7b9e12e4bc41f129e75e9f51677add1f9af2bcadf3ee13d39559"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/txt.svg",
+        "sha256": "27aa024f15f3d4af0228f01ea6e67bb54207d4f333d84d2b7e8a5baee12a9753"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/vsdx.svg",
+        "sha256": "f151b9c1c88c92d5832ba6e902075e3e6189fca574cc66b0f2acda8ae02bace6"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/xls.svg",
+        "sha256": "194f5db2f7fb8296e2fc5ca3fbc19f57fecf1b9b4e046e78a8cd455012486662"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/xlsb.svg",
+        "sha256": "88cbce0b44ea22f01235570a08fe3d34131b89a0beb37e02a32cc1e38298cb85"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/xlsm.svg",
+        "sha256": "88cbce0b44ea22f01235570a08fe3d34131b89a0beb37e02a32cc1e38298cb85"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/xlsx.svg",
+        "sha256": "88cbce0b44ea22f01235570a08fe3d34131b89a0beb37e02a32cc1e38298cb85"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/xltm.svg",
+        "sha256": "88cbce0b44ea22f01235570a08fe3d34131b89a0beb37e02a32cc1e38298cb85"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/xltx.svg",
+        "sha256": "88cbce0b44ea22f01235570a08fe3d34131b89a0beb37e02a32cc1e38298cb85"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/xml.svg",
+        "sha256": "3fc67f1f6cb0aedfe34df1d6a65eea0639d5381c8208590333a08f62b15163ee"
+      },
+      {
+        "file": "common/loginpage/res/img/formats-svg/xps.svg",
+        "sha256": "3fc67f1f6cb0aedfe34df1d6a65eea0639d5381c8208590333a08f62b15163ee"
+      },
+      {
+        "file": "common/loginpage/res/img/formats@1.25x.png",
+        "sha256": "40d7ecf0b7c0e599d7e95bbc50df42734ab6a11fee26237da80915ddc07909ee"
+      },
+      {
+        "file": "common/loginpage/res/img/formats@1.5x.png",
+        "sha256": "7fe41f87b4a6c24e56fec3a8876505c0d0595912c6a37387e0e2d11d6a33a21d"
+      },
+      {
+        "file": "common/loginpage/res/img/formats@1.75x.png",
+        "sha256": "1020ca2bdad24b11d257efdbb94541588965b1ce65dd5f00a38d48649c81d61a"
+      },
+      {
+        "file": "common/loginpage/res/img/icon_portals.svg",
+        "sha256": "7d126594b6fe0b9b390db9bf6a2491e438d609fb23041c38a80b0f8ec0fc03ae"
+      },
+      {
+        "file": "common/loginpage/res/img/idx-logo-dark.svg",
+        "sha256": "5c99aade0dad339b9122676356b770c8f66e73e3332b0bb673c7d3f9f177761c"
+      },
+      {
+        "file": "common/loginpage/res/img/idx-logo-light.svg",
+        "sha256": "5c99aade0dad339b9122676356b770c8f66e73e3332b0bb673c7d3f9f177761c"
+      },
+      {
+        "file": "common/loginpage/res/img/spinner-dark.png",
+        "sha256": "ba955586607d31ed079e47a0acd9b52688922b8118895b9a45847f4135458145"
+      },
+      {
+        "file": "common/loginpage/res/img/spinner-dark@2x.png",
+        "sha256": "653f759f6cb5f9e31164e20b5add89ebbd7b82fafb24cf892bec65a7c7055fe6"
+      },
+      {
+        "file": "common/loginpage/res/img/spinner-light.png",
+        "sha256": "53816ea932bf52a256fdc93d50363d16a5eb965bd5ac8ce0156d3d8c8ffb3afa"
+      },
+      {
+        "file": "common/loginpage/res/img/spinner-light@2x.png",
+        "sha256": "73c1087d3c06bf25cc11f7be9272ae445bb3bd2b04e350e27a48919c3d501618"
+      },
+      {
+        "file": "common/loginpage/res/img/sprite@1.25x.png",
+        "sha256": "68f4e238edecb19d9ffa58f237fd3b56973e88e82b18fe62aeeadb1e98296890"
+      },
+      {
+        "file": "common/loginpage/res/img/sprite@1.5x.png",
+        "sha256": "20d6e191341a615469781dd7b95d9b37b735f93b020761a72a3bd097a7b41f8d"
+      },
+      {
+        "file": "common/loginpage/res/img/sprite@1.75x.png",
+        "sha256": "d425731d7fee698b1023a066d270587ca52e3f09c49b05bc94e24d9348c51cf0"
+      },
+      {
+        "file": "common/loginpage/res/img/template-type/tpltype-cell.svg",
+        "sha256": "c2639fc4457605d20d2575bd6f913c3b4e9365289a9020198a5ffce4a5db87de"
+      },
+      {
+        "file": "common/loginpage/res/img/template-type/tpltype-pdf.svg",
+        "sha256": "b61270124168ec762dce6a5612a9262137c09a1c6bf82d423623f26ef4416513"
+      },
+      {
+        "file": "common/loginpage/res/img/template-type/tpltype-slide.svg",
+        "sha256": "fb1ee22ef004ac6d05df94d5b361da5ecf52a05c9957e51e97cf671392af795b"
+      },
+      {
+        "file": "common/loginpage/res/img/template-type/tpltype-word.svg",
+        "sha256": "f83b8d62f939889a3bcdfa1052f990981cb90cc63fcac9a3d86790aebc9d8f9d"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.25x/.css.handlebars",
+        "sha256": "118f4c7b7fcacd0e7d070559bc79f1b0867b12ed1172391eb2bdd7bcdf1c103f"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.25x/about.png",
+        "sha256": "c32f729f5001148650fb905f5c57bfe0a119f1f2f69189decdab59bcb12efec2"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.25x/aichat.png",
+        "sha256": "5cccc5cb2cd5c06b8d662753e43436cfe2462c785361e6fe8f55eeb04c517438"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.25x/folder.png",
+        "sha256": "1bae5b733d104c21d848c43d9117d2d8095621bcc4d833d5a4e21afcf5c535e7"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.25x/home.png",
+        "sha256": "f828b00c83c125bf12cba187a36613b74886d7bc7555f0ae6633931cd2211068"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.25x/more.png",
+        "sha256": "3e61393636fd9e36bb9cb196b8c3890166e1d9146f331716e9d9ab13b56a1755"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.25x/pin.png",
+        "sha256": "1f93ad2fe4d03e5cb58890e21bd84f71ac52483c30442247c864036a9bb14ac3"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.25x/plugin.png",
+        "sha256": "06c7e31c51f4609750f58ace884fc3831bd6712eaafc364cef322d0940d64067"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.25x/search.png",
+        "sha256": "8d8bff405124264fc622fe2c4b7aa77565197c8c857094dd75f4942ce6d32d25"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.25x/settings.png",
+        "sha256": "d03077bc173b07df926d5b579bd443e049f6f219f1602dd5e47e5f49a70104c9"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.25x/templates.png",
+        "sha256": "a0c66ff3f39066a7aca9cb2839e11bc34a3554ffad2d8fc4a1194aaf9ef8114f"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.25x/unpin.png",
+        "sha256": "7cde190b474ccacf1bbdeb2bbda28e151646a954eb410918082885a0abaa0c03"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.5x/.css.handlebars",
+        "sha256": "ed7506753acc49c59b7633787ee0a11a692ed2f6469cef543c6479bc87759172"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.5x/about.png",
+        "sha256": "a7d41d2527d42c0ac24c292e8fbb7059f6e25ce45560e0c474717865f8e4baa8"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.5x/aichat.png",
+        "sha256": "e3bd14ce0cf770f40c5324d7dd0cc0851bd23a24ec8075ca3f9531bc9384df49"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.5x/folder.png",
+        "sha256": "5a2270016406a7150fbb9feb539fffe07771b48494b4f2b83b6aeb86177ea823"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.5x/home.png",
+        "sha256": "b9893d5fb8245e12087cf81216f831d710fc1ebb54d2c6b13a25dfb6ca2fdaed"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.5x/more.png",
+        "sha256": "90198b4d4047b80937b0286afb0e76a1de6427630c9515cd4f259b28e32d2ae6"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.5x/pin.png",
+        "sha256": "792f474cb131babc132234b44f4fd793274e583d0b8fe9cce742b0a3e927c287"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.5x/plugin.png",
+        "sha256": "73b1817663854cfbd6a2b8efa142ccd5b371da212c2f9b830948ae9e3ace3841"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.5x/search.png",
+        "sha256": "e5b26fd05823167b3313f9986a7de00e40bb1d630a768f7bf4d7dff237fdc01f"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.5x/settings.png",
+        "sha256": "496b4f3e0cd8ad430440d8e0349cb771774a275439c428621d38bee718c3efa7"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.5x/templates.png",
+        "sha256": "7b26bc17899a3f755e30961c283afe77c1d3711d17fba48414d3525cd2004ba4"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.5x/unpin.png",
+        "sha256": "cfd002d3a3a94a22e1bc4e76f38cf097a42e329a9bdc7184499163e0e4ca5004"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.75x/.css.handlebars",
+        "sha256": "209d448b818d062008695107035782dbf955d4780c01018d59c47085c7396b61"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.75x/about.png",
+        "sha256": "aec91ff2c59d34c3d6bd459fd1de1c2d8cf4a4872e8ae73a1318e9c836108a6b"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.75x/aichat.png",
+        "sha256": "a206d6bbecabefd628ad7d911accc5380893ff22214e18b2e37c45bec718b110"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.75x/folder.png",
+        "sha256": "01cb19a9935c23b232fd312e6cd974dba0a122eb5e83ec3b73d72a78b01acbfe"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.75x/home.png",
+        "sha256": "004ccafe858fac17c2d3bec2b7a7bd665802191027825e14cbde961badc3b3e7"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.75x/more.png",
+        "sha256": "7332c878c6600d8143afc031fbfa6be0a0bda7bcb9480eaf19cd472e67df1015"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.75x/pin.png",
+        "sha256": "4c78a6f0febb9ffe0616867417ebb3447b30239dc0d4e1dae1d555361df10b6f"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.75x/plugin.png",
+        "sha256": "7ca32656ca2dd02a2a5474581b45db432866733ddfbd17dd5ee9c8f8a8ade6d3"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.75x/search.png",
+        "sha256": "b3e3af7135b2acdf6f01d585a0febce55476e98626600c023cb677814c3050ac"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.75x/settings.png",
+        "sha256": "4905374b2dc967d2878d3f5ec8c8ee077d1baf7141b9a13101bcd6ff275c34b7"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.75x/templates.png",
+        "sha256": "0285e8e862827e61c5ec9469b770f94a2f1750ec93655f1d0baa2f422f20dbaf"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1.75x/unpin.png",
+        "sha256": "dde679fd2e591cebef26a727395fe1f35434a589c0c3cf111818af5e950b6626"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1x/about.svg",
+        "sha256": "693c0861c396d3e1ad7d1bc2494d6a4ee38aa2e44fab3ba6b4d62e278af2a059"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1x/aichat.svg",
+        "sha256": "98f7f904e32e80e9cd2c485a27daf2c32cf7831c3940c0d840a7004b897c601a"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1x/folder.svg",
+        "sha256": "a2250a0ab3edf289ed70fdf447a905194ad227d24c951e912682a5baf05311da"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1x/home.svg",
+        "sha256": "cfc3ce843cd28a39b73d5cc215bf7e399d9fbfd4ddd9aa3f643c895c9d9ad44a"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1x/more.svg",
+        "sha256": "34e40a88652affaddbcfd180b672a5359e4f2d141a38e6d31dc96b9d57216adb"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1x/pin.svg",
+        "sha256": "7cca3da2df653dc5aa4dc60aa66d94f9365d18806beafef1f118902d08ea07d1"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1x/plugin.svg",
+        "sha256": "a7da7dd150d462834364f187f22e1d717a2565204f7bd3a542fdf4f5712268ae"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1x/search.svg",
+        "sha256": "49b7480d406f5be7a1fb5cc8a3fefabcbf4d8c8dde579d54742585e79628b5f5"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1x/settings.svg",
+        "sha256": "40f2d7245b1aedd8dd46086dd2cfa22aab31f7527c31710961c347c6718c0be7"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1x/templates.svg",
+        "sha256": "607fe778e5a2d519d0000fb8006d7ec2321216e09fd7c6013a10dac062ae2778"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons/1x/unpin.svg",
+        "sha256": "87298d7652944c532a8d002238f79a0948cebca3bae94bf6c28a2386879fdadb"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.25x/.css.handlebars",
+        "sha256": "603c880a6bfeb842e235ed7376ffd2dcfd3e574f4da83ba1770fcaa063d6bec7"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.25x/gofolder.png",
+        "sha256": "9574639f9e19f9dbd26906e04236213036640775c96e28d12937e9edef54aa3f"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.25x/location-cloud.png",
+        "sha256": "9b1f89035d66be89e6f59d2ee244612682d929a686ff48681e7a92271a9a95f5"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.25x/location-local.png",
+        "sha256": "d9b712f84815d612019a6175e58bce1b314b525505e3c6ba609eebce06a685d4"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.25x/pin20.png",
+        "sha256": "b4ea6cd689d81d8012b81088e3c250328973ab301b25749c53b10e6d589d3827"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.25x/plus.png",
+        "sha256": "967763681db4b8034126764664a161d978bb8e8a653260e4513ebf1efc472d7d"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.25x/remove.png",
+        "sha256": "fad4eb7bf27634790d01f991da70dbcf973a26eab304f336ef291deb65b0fc8a"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.25x/unpin20.png",
+        "sha256": "1a571374ad665ccf011c3e4bec7642dfabd4decbf6ee05266d7e2ae614bc7e63"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.5x/.css.handlebars",
+        "sha256": "285d7013cd7dd115c1d23ed5be4909274ee49fdc319c2b3e8b1cf37ecef4affb"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.5x/gofolder.png",
+        "sha256": "9779d37a446c4e9d051f12face05d92d443e85744cb22ad2ee51324195d9cb4c"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.5x/location-cloud.png",
+        "sha256": "87c4d1ceee4f10d0f7963e21f0809ab3841013ae97a1c2aacf3a1821c952a6b7"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.5x/location-local.png",
+        "sha256": "4fbbcd25c70e13631ade11b21f9089c735724a2c3c6839e267e99aee316f5a8b"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.5x/pin20.png",
+        "sha256": "c87cc0f489546506de0a326ddca856326a17dd589e171bc44b39129cc83f0a9f"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.5x/plus.png",
+        "sha256": "c501f848b0b003ce96aa7cd7524e5ff7ff7f49ef05bba7f1e3cbb1b3ab283241"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.5x/remove.png",
+        "sha256": "ffdb40d0c88c7ab438076e1a1b7a61f5a683c647ba93cdc5d1a20025035f7049"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.5x/unpin20.png",
+        "sha256": "fb54e701505ef44d37307e5938df2c229823563e991fb719ab6f6a1ecfdc5a1b"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.75x/.css.handlebars",
+        "sha256": "c1aa2986d2be25d553d07d7f2fdd277fdfeb11e38693db419260f39add9f0427"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.75x/gofolder.png",
+        "sha256": "91031ebf69be01c2c3428734e7a16ff5e6ebe2f0e7d1f0d5792050dbb282bca4"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.75x/location-cloud.png",
+        "sha256": "2ec4daa2aa0d774f41197e664976b24f98782baa9c0141396d868e2389a51029"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.75x/location-local.png",
+        "sha256": "46dc5b19e8069ee63a748b9690b4bd39fff39a7252b004460e0f00fdf2341a20"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.75x/pin20.png",
+        "sha256": "f591b633be90a8fe485c02cb506bbb3525aacbb3665b1a31404e2a6da833efcd"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.75x/plus.png",
+        "sha256": "86921afd4d4f258ee40b0f14c79f86129334f14c9a6e5752e7fe662c3337e993"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.75x/remove.png",
+        "sha256": "0f47aa3957f2cb3ea9cb7f3ad7d0aec2fbfcfaf632204c583b8b110b78e034a8"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1.75x/unpin20.png",
+        "sha256": "e5c9860e4187b5470fe202de00be09688075788a29bbab0399f7a1c46b36c9a1"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1x/gofolder.svg",
+        "sha256": "4c52383d0693cc5b55a10f136bce585c53dc36df2550c143b1267862be2bbe69"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1x/location-cloud.svg",
+        "sha256": "dcfabe9e239295e97bd96b02ac9209650a1f858b33636e880eadb7a89516e8ff"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1x/location-local.svg",
+        "sha256": "27a2e62400932c2338c2e448da3f1a615b04023c4cbbe00b80d5a982672a58b7"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1x/pin20.svg",
+        "sha256": "eed928b561293b64f50028923a8dae79a45d9d1a279f3459af6d570b7058d5eb"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1x/plus.svg",
+        "sha256": "f2b7467c29850d88bf51b41cf6cb15ec45f20311cc597556a8fdfa2294fd6ef9"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1x/remove.svg",
+        "sha256": "d2f5f6340414be0894007b2c7d0ccb66c42e298d3ca6927174297ddcd4fd129a"
+      },
+      {
+        "file": "common/loginpage/res/img/toolicons20/1x/unpin20.svg",
+        "sha256": "596c4bdaf9d149d040a3979616985d8b77430514ec899ca168a59e5c9193f5e3"
+      },
+      {
+        "file": "common/loginpage/res/img/tpltype@1.25x.png",
+        "sha256": "ff905aee33f62a3137c37680700d8786d9aeb834dded9435804310e4d0585e81"
+      },
+      {
+        "file": "common/loginpage/res/img/tpltype@1.5x.png",
+        "sha256": "c738295bf85a27ed5d95b4417fecdfaded235975052b03a7cb003e41a87c9c49"
+      },
+      {
+        "file": "common/loginpage/res/img/tpltype@1.75x.png",
+        "sha256": "fffc06ad577a83794a7b02dc831acd2381cd1cd98682cd0940341e446dd83b97"
+      },
+      {
+        "file": "common/loginpage/res/img/update_status/error.svg",
+        "sha256": "5263c31509c091be8c30f0be087f7cdac218da4c18d512950e476a63c6a9b1d0"
+      },
+      {
+        "file": "common/loginpage/res/img/update_status/lastcheck.svg",
+        "sha256": "d2744324dbb1df3a9c84776673c4c965bc4741f8a11522a5f304eb2362c6119f"
+      },
+      {
+        "file": "common/loginpage/res/img/update_status/load.svg",
+        "sha256": "2dd5ee085b6e7bf76ada2807a857ee4433cdd8b3aa5a1e15e84a9e2679f5c6d0"
+      },
+      {
+        "file": "common/loginpage/res/img/update_status/success.svg",
+        "sha256": "2002299dd4c4c64e399645eeef4c49059a74e61f5f80749cbefe48d0387994d7"
+      },
+      {
+        "file": "common/loginpage/res/img/welcome-dark.svg",
+        "sha256": "42b05d354a28a2cf0e41d9427e07680160534d7619683157a2338fda90ce576a"
+      },
+      {
+        "file": "common/loginpage/res/img/welcome-light.svg",
+        "sha256": "eb39ac95a118585c309ec9cbb6f12e10ff567ca3923136c7eb07e4671b069b16"
+      },
+      {
+        "file": "common/loginpage/src/base.js",
+        "sha256": "bab92778fe9f9ca7bac73c0d0ed21bc4ea13965ba23fac075f9c8b37a31572a2"
+      },
+      {
+        "file": "common/loginpage/src/css/colors.less",
+        "sha256": "5d7802548d0b0471ac517b1182f8209e8507394036100b575e2ef06ebd463477"
+      },
+      {
+        "file": "common/loginpage/src/css/colors_classic.less",
+        "sha256": "7947ef6d1e907fc302d294c2a855d52c2c7cf4c71c6a97c903680f0eb9add59a"
+      },
+      {
+        "file": "common/loginpage/src/css/colors_contrast_dark.less",
+        "sha256": "5c3c3e5ae1a4f0a7e0177f852166a7ab0aa01fb32b99d260fabebf76bd3e2482"
+      },
+      {
+        "file": "common/loginpage/src/css/colors_dark.less",
+        "sha256": "0250c2f03a1eb87445dceccab3ec7ccb810ebeb0d102d5d710355a2f08e5edbc"
+      },
+      {
+        "file": "common/loginpage/src/css/colors_gray.less",
+        "sha256": "7e4abc153b71022781343a0de7be693db21ee47dba577a8da49bc01b2777720a"
+      },
+      {
+        "file": "common/loginpage/src/css/colors_night.less",
+        "sha256": "c0679a8da7af014ec3962d910ded68ff055e08e1d924d07da71da84a28c1a605"
+      },
+      {
+        "file": "common/loginpage/src/css/colors_white.less",
+        "sha256": "9f98e8dca110122cc33f67e2d1b0496688beb75ff269ed83e899b8ad9fa508b6"
+      },
+      {
+        "file": "common/loginpage/src/css/component.less",
+        "sha256": "8573b1fbd6332274335c6f00fb9d226fe7e054dde1d8ff217bb8aac003b5013f",
+        "frozen_sha256": "3d63e266c37b8f8b6343f58bf58f0cdd578417287a91bb0b1e6201339774ad1a",
+        "frozen_source": "sources/desktop-apps/common/loginpage/src/css/component.less"
+      },
+      {
+        "file": "common/loginpage/src/css/loader.less",
+        "sha256": "c8cd464116eecd921117959fbb48a9d490ff1310acb7877bb745d3bd9646db42"
+      },
+      {
+        "file": "common/loginpage/src/css/rtl.less",
+        "sha256": "b2bcca6e01ce96bda117edc22b79f9b5664d35037b400b0deb16a644e29476c0"
+      },
+      {
+        "file": "common/loginpage/src/css/styles.less",
+        "sha256": "8c9ed042a0cd66fe20397798b595d0d3cbba053b9fa1945073737158b51711ad",
+        "frozen_sha256": "d7773907f0fb22e2bcf8b9bb136f2ac3ec4e02d41d8e263cd0c74eb22c62b992",
+        "frozen_source": "sources/desktop-apps/common/loginpage/src/css/styles.less"
+      },
+      {
+        "file": "common/loginpage/src/css/variables.less",
+        "sha256": "2e2881c52f801d7c6754a1a39257f80658d0b4fa40c4e11cbf4d597bdbe35b56"
+      },
+      {
+        "file": "common/loginpage/src/css/window.less",
+        "sha256": "fe68bb718b6ebc79a9fda0ba238dc9bfa30058932b9dbd85fc2eff97418d50b5"
+      },
+      {
+        "file": "common/loginpage/src/dialogabout.js",
+        "sha256": "acf9f6ba9006d81d78398deda6b89375a1fed3b14ba4ad38178b4f713c823962"
+      },
+      {
+        "file": "common/loginpage/src/dialogbase.js",
+        "sha256": "e6d2f4b0281197ffc8c60c79b50262daf1ab1f9cc12cb9ab0e40a347856fa2fa"
+      },
+      {
+        "file": "common/loginpage/src/dialogconnect.js",
+        "sha256": "71a763cccf61d09131e9938485eaa41bf3069c090cf9d05284f466ff670ae198"
+      },
+      {
+        "file": "common/loginpage/src/dialogpreview.js",
+        "sha256": "67d53b0068a9b102def87c0116688f1d5e195201587dceb414af4da52d67ba2d"
+      },
+      {
+        "file": "common/loginpage/src/dialogproviders.js",
+        "sha256": "647941b5e03f701e6dc423a6df7e0e6f0f50a40e6bd82cf9f33ffd5c82655fab"
+      },
+      {
+        "file": "common/loginpage/src/dlglogin.js",
+        "sha256": "4fb722f348b324f06aef28d1b09ef644d52aa1c0cacd85dd79f4cae95da7bfdc"
+      },
+      {
+        "file": "common/loginpage/src/dnd-file-zone.js",
+        "sha256": "de9bea28fa5e4a4de2e8d3ed8229daf7d6a836753f372586f85af3fe2671667c"
+      },
+      {
+        "file": "common/loginpage/src/document-creation-grid.js",
+        "sha256": "b28dd48a5d22ff368fd3871edaa95b1e8cc9fdca8eb6b60b396b60271f02eaac",
+        "frozen_sha256": "f9ab46a218d505c53b5860a1919da17ce16e9838745fe15b91e32d51259e74c1",
+        "frozen_source": "sources/desktop-apps/common/loginpage/src/document-creation-grid.js"
+      },
+      {
+        "file": "common/loginpage/src/events.js",
+        "sha256": "87bbc388a45a83038845b47549a1073c92015667ae62b1cfd16dbb2f84d68adc"
+      },
+      {
+        "file": "common/loginpage/src/htmlutils.js",
+        "sha256": "1c70de01b2db13af69cf50028a9d6c394f0714603a8de2073f54a88eecb48204"
+      },
+      {
+        "file": "common/loginpage/src/index.html",
+        "sha256": "5eb7a30b57125139e735b323c472cec66f54caa5ef2a3351faee5c3310e7912c"
+      },
+      {
+        "file": "common/loginpage/src/index.html.deploy",
+        "sha256": "18467cfa40361404477755924cbbb9ab1e941e323bc74da04f1e81168521ac65"
+      },
+      {
+        "file": "common/loginpage/src/locale.js",
+        "sha256": "eae90c99ac21690d545b1a9a83a21e6e7ffd687e409b7631fa781e7fdc384f7b",
+        "frozen_sha256": "22808fd2e667bababcb0e49695b8b0b283538772b561126c06cc2ac3590df67a",
+        "frozen_source": "sources/desktop-apps/common/loginpage/src/locale.js"
+      },
+      {
+        "file": "common/loginpage/src/menu.js",
+        "sha256": "686ffa1f40b1ad946324933810027aa083eeea3719ec69326e22591466cd1468"
+      },
+      {
+        "file": "common/loginpage/src/model.js",
+        "sha256": "fd1ea40924318668693bc7c0de12fc62bf38fed14594c64740204a6447821bd4"
+      },
+      {
+        "file": "common/loginpage/src/panelabout.js",
+        "sha256": "558166436a7b3836e32add7489ec71b96cec2238337fdf4feb37b27405f6598d"
+      },
+      {
+        "file": "common/loginpage/src/panelconnect.js",
+        "sha256": "f96bf2c4a4018f472cb48ffa08d198b65f951817b92a0c097a9040976d1a21b6"
+      },
+      {
+        "file": "common/loginpage/src/panelexternal.js",
+        "sha256": "b929cbd2842081d03c48b57ad185217b4690f804ef4e3f04b9671cd5114fbe9f"
+      },
+      {
+        "file": "common/loginpage/src/panelfolders.js",
+        "sha256": "9fe8d29dfc2339f44d278b84fdc6b82f4f84f2e4329812ddc2b9642a29b5f01a"
+      },
+      {
+        "file": "common/loginpage/src/panelrecent.js",
+        "sha256": "14b21754f37d6580ec78a53be9fc0167800fceb7ee6862fb3a5874f855bed206",
+        "frozen_sha256": "6e342d82e24d1912b1f0c775494586be9c53c945634da1cebad269e3836232bf",
+        "frozen_source": "sources/desktop-apps/common/loginpage/src/panelrecent.js"
+      },
+      {
+        "file": "common/loginpage/src/panels.js",
+        "sha256": "f9ad62d1c6d08cdcf5a04ce58ec2990b179ace4aa44a8a175cdd71dfb7da9972",
+        "frozen_sha256": "d8524ac49b0ee097beeb5c751d6ae38f08a823a0537a87d4a76ec81153b03203",
+        "frozen_source": "sources/desktop-apps/common/loginpage/src/panels.js"
+      },
+      {
+        "file": "common/loginpage/src/panelsettings.js",
+        "sha256": "6eb62b460428dd79f8da8ad022446e63bb05c2ea215535ccb680d019af386cb6"
+      },
+      {
+        "file": "common/loginpage/src/paneltemplates.js",
+        "sha256": "09ca3de7ee2c223192e3a38093b235572e3856cc8f17aa37b7246061bf078336"
+      },
+      {
+        "file": "common/loginpage/src/panelwelcome.js",
+        "sha256": "acdd01dec5ff5b59a8d2d474e134f922d78dbf16d816a5732be3f019fdbc10c9"
+      },
+      {
+        "file": "common/loginpage/src/sdk.js",
+        "sha256": "2a407b3a74661243855bc48f860b5900f3e81f2c483bea7b44d2a7eaa2b892e7"
+      },
+      {
+        "file": "common/loginpage/src/utils.js",
+        "sha256": "bb19241e03196b88fa83ce014ad0347ff49e1c00d62c961b48d7489dd9d9231e"
+      },
+      {
+        "file": "common/loginpage/src/welcome_image_small.png",
+        "sha256": "13e3f12cd1c2b07c6c7dfaff548cee0c8210b358e7bca84e44c7487d812f3c15"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/LICENSE",
+        "sha256": "ed86ea7858ba7e9e2918291dd1a17767a50c5dd2e5a374150c1c639197ea64a1"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/bower.json",
+        "sha256": "85e36b19790992c90b3f75e7da22a60ebfbe8afe16a60504f90800bfcdaed818"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/composer.json",
+        "sha256": "dc1dcafaef94a112c0a0ce0d294f2eac2848f9ca4a6e92d56da6b691e9aca9a1"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/css/bootstrap-select.css",
+        "sha256": "6e95890730977a355ccc5efe54962d62f0755346c946a06f2662df236930a81b"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/css/bootstrap-select.css.map",
+        "sha256": "dbd490f1f8cc13171a208b7d1cc8816d4cd61ac884be70c533662db58261dd89"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/css/bootstrap-select.min.css",
+        "sha256": "a58e1dc9c68f4888eabb28a3929fb4123ad4899a9868d583981a5f3c12318a40"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/bootstrap-select.js",
+        "sha256": "608558050feb5388a17f691cc2303e723a783db2bd294e13dd1ffdbc4cf3013e"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/bootstrap-select.js.map",
+        "sha256": "2f2ddc8abd7c5c544f815126aa611417e3c466adb08d8c9dcffe0139054a16bc"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/bootstrap-select.min.js",
+        "sha256": "aa8d026a6e17274410d3a5e70a20856018771835d4e398f7969529f9e9b6c815"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/bootstrap-select.min.js.map",
+        "sha256": "c047586e0cd97360d99edaf2929b5cda349eef2b68adcf14fd8215500075f2d4"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-am_ET.js",
+        "sha256": "1410edfc991246c954d9c0ede36598f285694151b58d92bd75b8dc625967855a"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-am_ET.js.map",
+        "sha256": "10a14151e4df4b9d82530b055648d6261ed3a13abf954092f5f6f106c5171aec"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-am_ET.min.js",
+        "sha256": "98093d30d786dc0cd570f5c55ab57f4952fe6d0722cb438153cd6cd4a86b2674"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ar_AR.js",
+        "sha256": "ed259305b12f3b1a06653c7b6e141b77d765a8a32cd7f4f7c68b571d8c7a1d0a"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ar_AR.js.map",
+        "sha256": "2f1ee047c0e72c624599deedcad4e76b9058195a5ed37812707c7c2b45836e71"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ar_AR.min.js",
+        "sha256": "01a3b70ff889856759bd6836878bc0d48e4038867fced130be24a81cf026aec6"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-bg_BG.js",
+        "sha256": "614c4a1204a5b1d95066452193dd8c55c95bb8498e41d40b02c4fbdedbc53810"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-bg_BG.js.map",
+        "sha256": "77d73317da7442e1faf9f550aecfefc44f6fdd3f1507aa3445eecfea2b71bec9"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-bg_BG.min.js",
+        "sha256": "efb4b64dcf0d0d9adfb078c47aa22cedde26a33b0a0d45c316faa0cfb92e2977"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-cs_CZ.js",
+        "sha256": "a70977fc457bee07b8b4f855cefdf24f31733c3943a7fa9431506de0d1028f86"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-cs_CZ.js.map",
+        "sha256": "78c452c4d354e1c8bf399e7be1acc332aa18f5bde3e321b3f15a5dbd553333e6"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-cs_CZ.min.js",
+        "sha256": "c7547ccf08ff712c0ac76f24fff51a1b24f7abbf4af79fc2dc4a157d6cc78757"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-da_DK.js",
+        "sha256": "c23ec188891332efda153bff37ec428712354ac4513b4a9a8360ae04d971aad3"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-da_DK.js.map",
+        "sha256": "71d110fdcf699d6e69d8b86ad29027ab0033c69522c5708b54ad32b5967106e4"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-da_DK.min.js",
+        "sha256": "85b2967a15d227ce594fb0f9fc204033be78412066cff8af8dd0e0fcf10d9b55"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-de_DE.js",
+        "sha256": "4c5e31ac9d3a902c9d4e4fc9b81de88899937f4da54b8254beb794722bbd8206"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-de_DE.js.map",
+        "sha256": "21c7c69487f0553afe81c783eb9a59d492786f00e2b71cb5c0922e213780f6bd"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-de_DE.min.js",
+        "sha256": "9bac1c90c8d30bf33a2e5752b6243eaad0442c48a91105d4ab974e0031d4739c"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-en_US.js",
+        "sha256": "90d0ee6181409b5ba48df3617701a2be1fbc6a96029ab3d0b3e99f7eafdd13ff"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-en_US.js.map",
+        "sha256": "b88f9d37bca9116ab0faaf0d48b02e4746cc4fab5b6f159c68f9f0e9c0ffa05e"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-en_US.min.js",
+        "sha256": "414a2c015a092a22e28dca59ed92e91470321f593d61de85e36d9d1f4440915c"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-es_CL.js",
+        "sha256": "356daea2dc3751414943088b698737fcca2f3d123d74ec1753c52c52d40e3c47"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-es_CL.js.map",
+        "sha256": "59436cc8c4b0b4d63028e6a92b3849f18f70d347f88d8e20eb33b4f7cc8dd9ac"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-es_CL.min.js",
+        "sha256": "560706c348e3e7c29a812926d69037debd47a220b25ab3f0020cef33988198f8"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-es_ES.js",
+        "sha256": "7480ae63a051c17e9c876d60542f1b473d43cd1cb5e69ec2701e8683b1c562ab"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-es_ES.js.map",
+        "sha256": "f998f3c595b0d98f92d1daaae53aba96f44e4d2cbe79e77067c84c5a4e529dc9"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-es_ES.min.js",
+        "sha256": "560706c348e3e7c29a812926d69037debd47a220b25ab3f0020cef33988198f8"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-et_EE.js",
+        "sha256": "114ba50da12c83addd5409559e26cf0eebcdab7451cd37c1618fd7906019cf83"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-et_EE.js.map",
+        "sha256": "14b3a92ee9be9b644f42ca5ef6ed2a047be1f33adf182e1a63d380fefba9bb05"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-et_EE.min.js",
+        "sha256": "8ff9d1c1688ee569d02d83cf289e5176b764d579e5804d8e1aec4e56ce95ed53"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-eu.js",
+        "sha256": "5b097def016c97e1ef30756158462d7245c8b6e291f05b3d02d4b60164bbf4d4"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-eu.js.map",
+        "sha256": "4799eec9c8eb8d841f474c2b5d2b66be4a3aa585fb43b40c364569ea0ad906fb"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-eu.min.js",
+        "sha256": "249e4e9aa3c87413ea8a194dbd4f5ec9aebe86b1beed40d9e8c57c3c0d1981a4"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-fa_IR.js",
+        "sha256": "d557d11bab5b837f24e083ec126a95a794c5a3c12955e712ce9d41351f6d0316"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-fa_IR.js.map",
+        "sha256": "32085ac8218e261c9eb684267bb0fc308390ae9e9f09706e6943c5a8f88ef911"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-fa_IR.min.js",
+        "sha256": "46e02a2c578c679b937a76850734e6a17bdf21c7f417aca431955230c8252c1b"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-fi_FI.js",
+        "sha256": "91cd7dcb9d258844e8162b9709b53e5550151aed59c085cf8d9f63d6afc647af"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-fi_FI.js.map",
+        "sha256": "dd6942a053d50b757c51bcedabb99d719c0842f32749e4e621ac9d0ed239f773"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-fi_FI.min.js",
+        "sha256": "118360f035524782eaaefabda20135aa00df78fc2959a232b1c612e4d0b55807"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-fr_FR.js",
+        "sha256": "c632d0484fb1a214d2fee8db3477adf79e87e1e53bfb5f264965ce2790ea7776"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-fr_FR.js.map",
+        "sha256": "00dc40b4e2bc1228d22776ac78a2d0c9fa5a3a1eb891b5de359afdaab1f48cd7"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-fr_FR.min.js",
+        "sha256": "21bb91012576cf0e80ba9d58638a1866c9867dcfca155685f97ebfae44fa71ed"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-hr_HR.js",
+        "sha256": "bde3e1e8abbb3df00f3d0da87bc3a955ecb23b18d2d4b40fd77c0e94221a6658"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-hr_HR.js.map",
+        "sha256": "ff7d7b5a4f540626f9d8b9273e5d8526dbd16908b01aab19f0f1877f2b21f9f4"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-hr_HR.min.js",
+        "sha256": "60562eb98b76afde04a77b15bd5186d7fcc2e44e4061394b25512d60d1d474d7"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-hu_HU.js",
+        "sha256": "952722852c7e16152b60d984ffefb865b6f9acd2b75b82c678dc65c5708485ed"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-hu_HU.js.map",
+        "sha256": "17cd7c43be1a062478bcb6c243d010474a8f6048d4dc633fe9be0e69e6b76da3"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-hu_HU.min.js",
+        "sha256": "ba02dc6b2b02e72747c3fe86ff2a62c410d819c0117ecbae0ddb9f4ab098e1ac"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-id_ID.js",
+        "sha256": "8b908a3dc29c65222e6176b47b7c739019d0169dd8003b9e26aa11f0c626bb79"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-id_ID.js.map",
+        "sha256": "9d6313ce1268e3c3459ae9af20a1d685dc46dc4b6f9a70a3e14fe9899a1fa9d7"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-id_ID.min.js",
+        "sha256": "4b1e3c2ff76eba3e65468065175d1b749e21e6337b00170a7c9c49d31de91061"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-it_IT.js",
+        "sha256": "c2b5b53896e5a59bc091e785e3d03963b286088da2819183c7cdb008a363a791"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-it_IT.js.map",
+        "sha256": "4c91c744d525707724509a66207849a6c4a9785011a656e7b7b64ae74a12fad0"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-it_IT.min.js",
+        "sha256": "801f6c9bad3328ea839f109703e6570638fd2ec00131318eed4cdf6221b84628"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ja_JP.js",
+        "sha256": "dcb8cffedf72be8a30b34a008887f44a51dc3c5e1d36296a7cfc2dc55511284f"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ja_JP.js.map",
+        "sha256": "fab9f5b88725b288fc9d725827e46d15e3a10a15f855c226cb79832ea1ac49cf"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ja_JP.min.js",
+        "sha256": "1cfa33bd2d67999581b3890690b0874df8f1970d3703fbcfde918fdd02fadeea"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-kh_KM.js",
+        "sha256": "e4a475282a31cd5fc480dc0864c99416fcef7111e99fe3006a36c25bb4578769"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-kh_KM.js.map",
+        "sha256": "c214d08fc9477366a97931ba557a68e1a0a453dc66191985b30bd5a669fcd9a4"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-kh_KM.min.js",
+        "sha256": "969c3c4c319baf5cd14bd1b314150d0e8eba41e34f7e6c7cb69f18205584954d"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ko_KR.js",
+        "sha256": "2932ee7310fc8751f781f64d7000556b5c15c6b750632cf61aaabd4da1f484e6"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ko_KR.js.map",
+        "sha256": "b2b276eb59357cee42131f095e9c822e34998660cc8523d3b12dd84ecbe828dd"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ko_KR.min.js",
+        "sha256": "19deb50b93008e413255f19f9d21be19cfdf59a934864ab1a88cde2395d61503"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-lt_LT.js",
+        "sha256": "adcc409e4dd5f752ad98921cfabb4e0800847a05dca3503db8906db86c6658e4"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-lt_LT.js.map",
+        "sha256": "cd56b01d631a5cf50a347efde349cda01ab199f059acc1eef403cb4941cd1128"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-lt_LT.min.js",
+        "sha256": "78840118a86ddceae38fe38b2f45ae1ccb0810548a43a65e8410a1005551261a"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-lv_LV.js",
+        "sha256": "780b375f0e9bd757a32a1f5fc168f2d8252e63d8a5f692394714085615dd7bd8"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-lv_LV.js.map",
+        "sha256": "f47c03801321860c6c2182fc42db95536a7e993232468e54a654e05cff578ed7"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-lv_LV.min.js",
+        "sha256": "ae459d19c8e10f2312a069582e861d0ce1253459cc2f7e9c02868b734f1aee0e"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-nb_NO.js",
+        "sha256": "d375b4f27d04709f153ab1e72e5813357d2facdfa2cefe902e83c29dc2ca491a"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-nb_NO.js.map",
+        "sha256": "00d0051e4997de4021c3cd389a605c5f87e7c7d84a01c6d64044f878d0b608f0"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-nb_NO.min.js",
+        "sha256": "0339bffe6ec57498b98ca3352284da0d49ce01296fdce6473be2892ceb1bb641"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-nl_NL.js",
+        "sha256": "dcdd11475f0d869bba46813dfbfc065bb6201f01399e5a59585252403b271388"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-nl_NL.js.map",
+        "sha256": "4354985ea1d4a94a50acc83d15edf12e71db30e92314c2e074941a9b43229080"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-nl_NL.min.js",
+        "sha256": "772249aea87f58d58fc2278ef699826ae5e2b6354b124dd22c33da4368a95f9d"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-pl_PL.js",
+        "sha256": "355bfc9ce44eb7c2fde84b82f5f2928275fc6a9aec00c1142dfbfa042fddc3a8"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-pl_PL.js.map",
+        "sha256": "983c6a2cffe56faa58b4081e91f68b1abc47a47a9c02047f5601ec80282f0a09"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-pl_PL.min.js",
+        "sha256": "2f4cecd68bc7dad7821f6267ae0d5ed232c5c3a4f30e5d337de48a15b459c9c7"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-pt_BR.js",
+        "sha256": "1ae952ca8355d60dca0dc43b9a15b30dbc2e7aabb1a6afb0f9ad28c5e99739fd"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-pt_BR.js.map",
+        "sha256": "d72091512465d5cdd09638162eff23e03634f3316cd474708c17e0987772e06e"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-pt_BR.min.js",
+        "sha256": "61da5da10ed796d4e84c9ea244dadef5f3e19a7a54921424790ff4c22f9f7933"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-pt_PT.js",
+        "sha256": "090e319e830453c19a4721055c30fd609d38fdb5eeff6d57a3e014d16f7472d3"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-pt_PT.js.map",
+        "sha256": "63f594a9192c7f6b72aa4797f6f6a33ac48b92a09cf121c0fd8b944c0be3a3f9"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-pt_PT.min.js",
+        "sha256": "5247439cc498391e55aaa0c67f482220922532bd519072fff8a9610a6b7e97ec"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ro_RO.js",
+        "sha256": "3b5666e5312b06daad750504e853dc3d4ba5a5b0af74efae8851ebffc6e11d1d"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ro_RO.js.map",
+        "sha256": "d4c29ae597fa3395baf657bbde614a1f0ddd12e85f3f1f8ef8232a812cbf2065"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ro_RO.min.js",
+        "sha256": "0a20a12b0c53592a80855bc82ed27b43fa22ff3fa6022249a19a46e409b255ef"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ru_RU.js",
+        "sha256": "82e86627bc91f115fae5495d5a4fca8c52c035a6a8db5dd7cd15ee971a2ccbd2"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ru_RU.js.map",
+        "sha256": "b3e4cbf13f9bf3a9195e9c291b44273532bf78d40ee39624e8cad8a4c5ea76ed"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ru_RU.min.js",
+        "sha256": "b0ad6178fe1e8edd938bdaf7a74605f89acf0be3e089f361b22da215aba73157"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-sk_SK.js",
+        "sha256": "e800cae78b8cb3bb2d6c9309d8c286f6fad72e21d0f2c0d40d9d206171ddc987"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-sk_SK.js.map",
+        "sha256": "d2c74195f45cae51c5790e9b1227f1601ca80f8ffb6c5198645410aa3f789ee1"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-sk_SK.min.js",
+        "sha256": "ce50151e32e901e2689b5c3436b7d3967819ab86e2e537ed70c4bca0852b0c19"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-sl_SI.js",
+        "sha256": "ecffbbf359f31d4b32a9f51871abc6686e31d2248094797d1f151bb2e8bd624b"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-sl_SI.js.map",
+        "sha256": "bd581fd5215d829c8e3b23da343202223e7b2c4a70b135bbd7ec24092011d460"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-sl_SI.min.js",
+        "sha256": "5fddc4228c9f854e0d0d453f17a1e9f8374782b7effa3aa65343b321dac07840"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-sr_SP.js",
+        "sha256": "55311bba79920078676b04087e4373e9b06f90301134ac8a5f2f78a2b44ea91c"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-sr_SP.js.map",
+        "sha256": "eb8a11b6a93d17e43dc385009a8b720da34e2ec1f2b1e0610c0768c77e7d58b5"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-sr_SP.min.js",
+        "sha256": "35b3f15a253abd6b04971fbb18d94076b9f1d672e83a93ee3795daa9463964d4"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-sv_SE.js",
+        "sha256": "e324a00aefe3d3382ae57d51308b41b225abdc4e9fa00dd6bab3b66277ca75e2"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-sv_SE.js.map",
+        "sha256": "b545f42889a2ee76efebc87ab486586867291a75f0ccacc70394938fe52ed576"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-sv_SE.min.js",
+        "sha256": "c1d8f98dd60c1c97e2ca0f031d6dc29f41c5c76dbcaf5d2f4759d45764355490"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-th_TH.js",
+        "sha256": "889e708e9d63234e340dcfaa0bf00e3e04908b262e259aaa603a2fdc68f5369a"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-th_TH.js.map",
+        "sha256": "c0095e2231717b822fb42563c4e8414093d2f28ef8dc030cf9d996e60a2380ce"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-th_TH.min.js",
+        "sha256": "1b085ca738e59393aba6bea4214485c8da371e37c8ebaff0ec19c86653c9cd93"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-tr_TR.js",
+        "sha256": "06e003ad7789ef160cab0b175a7d055eab7ec4ca4909ca7d68678af712a7c39a"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-tr_TR.js.map",
+        "sha256": "f4873c0a5206c797ef117d608d7beda74677c8bad947d09a39c23ac4396e7f6b"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-tr_TR.min.js",
+        "sha256": "81a11cc30b4ac722d1d9ed5c1d0bbb5d724f3ad6bb6fd051258a686221a0351d"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ua_UA.js",
+        "sha256": "161d71fc2d79ea53af741e9ba94d1902f09c5a0c6257a1dcaa43acbe19ebc7fa"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ua_UA.js.map",
+        "sha256": "b9b273b5fc6e3054462b7c920e3251e9436fe6a369de5c67c18cad71f26426e2"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-ua_UA.min.js",
+        "sha256": "9ebbec1d71dc5358463dfae5216db02f823783c1c422baaaf5862400830f9a03"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-vi_VN.js",
+        "sha256": "89d7880d33530270983cff18a0a9e93dab34680b7e1c96ce91dba46109483372"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-vi_VN.js.map",
+        "sha256": "43c72f7f1c4bb5de80804464122cfb9e08b00822499a28fa1bc97d81ce5bad22"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-vi_VN.min.js",
+        "sha256": "f786a2300baac1162629ad80b9854ab623f20dddfb3ea7505b95a266ebcf1f98"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-zh_CN.js",
+        "sha256": "56f1e5f5839915638de623cb60b979e08ac975b4bf318cfdabea679917ea3846"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-zh_CN.js.map",
+        "sha256": "5e191cf85ce52e63b4f485c6766be044ce9c900d2b549e15170b3dae86ff9088"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-zh_CN.min.js",
+        "sha256": "cc707652744e271f3f568ad49e44fe9ec50a9d3b19ec77a6544a9e332399a7f4"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-zh_TW.js",
+        "sha256": "c904bc3c409dc4fb515d5c8cd8b93987ccb64eafeec3c52ec082246d57ca965c"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-zh_TW.js.map",
+        "sha256": "1dbabd63976752427e6a1ae3af485aeea0319eb62fb736b393a21c3ea1df26df"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/js/i18n/defaults-zh_TW.min.js",
+        "sha256": "0fcf4c2a5d47872429bb762c9d31934fe0cc12c915aa4b6772fc268ba0dddbd2"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap-select/package.json",
+        "sha256": "b9fea5df6226659df00d8fb4e7c4a8b65c49840ed950dd4456f9b8b10e42d1b6"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap/bootstrap.mods.js",
+        "sha256": "cbce5136146d25c66b16ca10b3dd82bfb6d65b0927925087377215701cdc66a5"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap/dropdown.js",
+        "sha256": "cbce5136146d25c66b16ca10b3dd82bfb6d65b0927925087377215701cdc66a5"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap/dropdowns.less",
+        "sha256": "9fa1f99c51d0552c1d4fd1ff4403f8b6a39fab6b48f16f7ba65969518186e3a6"
+      },
+      {
+        "file": "common/loginpage/vendor/bootstrap/variables.less",
+        "sha256": "e2af224f4d6629f4b5aaa55a2d3ebc70020931aa7b6be2278348809ff002b9a7"
+      },
+      {
+        "file": "common/loginpage/vendor/jquery/.bower.json",
+        "sha256": "c75f97193799c7649063d5a91191cedbb8ac73efe37720badea5c09281182a2a"
+      },
+      {
+        "file": "common/loginpage/vendor/jquery/.gitignore",
+        "sha256": "f10ec3ffef16a8dace9b58801e0da28819c98af4c8933410d7e7cacc952f9e9b"
+      },
+      {
+        "file": "common/loginpage/vendor/jquery/README.md",
+        "sha256": "8df5ecd7536a33334c8a2e83825224af6adbe153f50a4f4c2703a575699ebb24"
+      },
+      {
+        "file": "common/loginpage/vendor/jquery/bower.json",
+        "sha256": "4f375f6f2643e7132a9791a6fc9fc677f34bc9f0bacc7039b8aa55e12a3139f5"
+      },
+      {
+        "file": "common/loginpage/vendor/jquery/component.json",
+        "sha256": "dacca90a20b110aacd3cdd2818476106515923191d0c98d42e9466ee5e77297d"
+      },
+      {
+        "file": "common/loginpage/vendor/jquery/composer.json",
+        "sha256": "8d7d751dfa4f2ab2f38744f7af4ce113b0b7d3983afd7138c309e39bd4afbb53"
+      },
+      {
+        "file": "common/loginpage/vendor/jquery/jquery-migrate.js",
+        "sha256": "fd23ab8ce969cdbc761e041f63d763e11a5864a5428e61d006042f5a49464334"
+      },
+      {
+        "file": "common/loginpage/vendor/jquery/jquery-migrate.min.js",
+        "sha256": "accc55ec16d4936f2b833342cc1291655a1638fc823541e0bf5347c7f1d63354"
+      },
+      {
+        "file": "common/loginpage/vendor/jquery/jquery.js",
+        "sha256": "9427fe2df51f7d4c6bf35f96d19169714d0b432b99dc18f41760d0342c538122"
+      },
+      {
+        "file": "common/loginpage/vendor/jquery/jquery.min.js",
+        "sha256": "a57b5242b9a9adc4c1ef846c365147b89c472b9cd770face331efcb965346b25"
+      },
+      {
+        "file": "common/loginpage/vendor/jquery/jquery.min.map",
+        "sha256": "8e571eaf0f66201e9107060ceba389639cdadf3d5efcae799fd8bfc00dc4968b"
+      },
+      {
+        "file": "common/loginpage/vendor/jquery/package.json",
+        "sha256": "c34a70812408e8c7e826142e42aae899e2f1fe0079b51a558a8da9c93f1ae543"
+      },
+      {
+        "file": "common/loginpage/vendor/less/.bower.json",
+        "sha256": "6333acf53866263d35c18dcbff5083476d94b3c4bf6a5799a99bf3e055907d5f"
+      },
+      {
+        "file": "common/loginpage/vendor/less/dist/less.js",
+        "sha256": "8cc50fe254030771c9dded74c4b5941b7e3e50b6e00da52d1af6bee6f971458f"
+      },
+      {
+        "file": "common/loginpage/vendor/less/dist/less.min.js",
+        "sha256": "098b6dcc4e72a5e7cd93b7776c230048a35a9c832adb568050112d9547c9ec2f"
+      },
+      {
+        "file": "common/loginpage/vendor/less/dist/less.min.js.map",
+        "sha256": "20b543526050e79d8174140083f5e1951d1d03bc3e96bcd5b510f235fe4e8a96"
+      },
+      {
+        "file": "common/loginpage/vendor/svg-injector/svg-injector.map.js",
+        "sha256": "f8309c5a4964c32815d006e51f8d1a7224c68840416a115ce1dbe42b2b1e1ab1"
+      },
+      {
+        "file": "common/loginpage/vendor/svg-injector/svg-injector.min.js",
+        "sha256": "0a306526fc6a2c25361cccc5ba74de9592c51c225daa00e81e2fea18959d4499"
+      }
+    ]
+  },
+  "overlays": [
+    {
+      "file": "common/loginpage/locale/zh-CN.js",
+      "parent_sha256": "c9ead1cd5ef410a6c4abd86a5f499d359d48cc462e69da9ee9a5aa8f6521fafd",
+      "sha256": "60bc716706716ff248fffce33252306168c73d5f37ece87f6ca229b808f47ecd",
+      "source": "ui-sources/desktop-apps/common/loginpage/locale/zh-CN.js",
+      "patch": "ui-patches/zh-CN.js.patch",
+      "patch_sha256": "2ea29b8fce6f9ea5ad236d65263c632815b0fee717469da222831fc775f55364"
+    },
+    {
+      "file": "common/loginpage/src/css/styles.less",
+      "parent_sha256": "d7773907f0fb22e2bcf8b9bb136f2ac3ec4e02d41d8e263cd0c74eb22c62b992",
+      "sha256": "7ba3b4e541d0c1a7b12835ac2514c42084717720645a384d94ea1bcb535996c2",
+      "source": "ui-sources/desktop-apps/common/loginpage/src/css/styles.less",
+      "patch": "ui-patches/styles.less.patch",
+      "patch_sha256": "01f1c65334b7164995bfde14193acb72ca60d297992a3bc31d900f4b0c075249"
+    },
+    {
+      "file": "common/loginpage/src/css/workbench-quality.less",
+      "parent_sha256": null,
+      "sha256": "52ee617aaf200c7ca4a88188fdb7d63cf0b17edcbed3b72b9b3cd533af9dea12",
+      "source": "ui-sources/desktop-apps/common/loginpage/src/css/workbench-quality.less",
+      "patch": "ui-patches/workbench-quality.less.patch",
+      "patch_sha256": "7726ba7c8c5bc069625e93de2307378512647510c51be450bb6c8a4fb60671d7"
+    },
+    {
+      "file": "common/loginpage/src/document-creation-grid.js",
+      "parent_sha256": "f9ab46a218d505c53b5860a1919da17ce16e9838745fe15b91e32d51259e74c1",
+      "sha256": "5dad2cf73e956c239e19727d19b1a2754011644cfe015016f1bd75d59107c9ed",
+      "source": "ui-sources/desktop-apps/common/loginpage/src/document-creation-grid.js",
+      "patch": "ui-patches/document-creation-grid.js.patch",
+      "patch_sha256": "639eaa4bf6151e579ab2eb65537852f996dc6a5cdaa5f4a66ea56a736649fcfa"
+    },
+    {
+      "file": "common/loginpage/src/locale.js",
+      "parent_sha256": "22808fd2e667bababcb0e49695b8b0b283538772b561126c06cc2ac3590df67a",
+      "sha256": "18d397efa80a102fdbdc64ec4d06ae6ca0867dd4f83a3a6712968340a728d7b0",
+      "source": "ui-sources/desktop-apps/common/loginpage/src/locale.js",
+      "patch": "ui-patches/locale.js.patch",
+      "patch_sha256": "1ad6bd95559bf8c21ec2c385cfdbe0fe9dab1952db6c2628d4430e04a9e450f5"
+    },
+    {
+      "file": "common/loginpage/src/panelrecent.js",
+      "parent_sha256": "6e342d82e24d1912b1f0c775494586be9c53c945634da1cebad269e3836232bf",
+      "sha256": "76f75759815fe5180030ecdf7c334cf85ec81cc5ca29486d7bdf7164f1b2889a",
+      "source": "ui-sources/desktop-apps/common/loginpage/src/panelrecent.js",
+      "patch": "ui-patches/panelrecent.js.patch",
+      "patch_sha256": "c5d43f04f91868139213b4a41796a6c80395b7ca91b78017992adaa5899097cf"
+    }
+  ],
+  "scope": "Actual desktop start-page sources; native bridge acceptance is separate"
+}

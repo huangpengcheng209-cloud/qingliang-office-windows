@@ -1,0 +1,319 @@
+--- a/common/loginpage/src/panelrecent.js
++++ b/common/loginpage/src/panelrecent.js
+@@ -36,6 +36,7 @@
+ *   panel 'recent'
+ */
+ 
++// Qingliang community, 2026-10-23: searchable, keyboard accessible workbench.
+ +function () {
+     'use strict'
+     var ControllerRecent = function (args = {}) {
+@@ -60,6 +61,12 @@
+         args.tplPage = `
+             <div class="action-panel ${args.action}">
+                 <div class="recent-panel-container">
++                    <header class="ql-workbench-header">
++                        <div><p class="ql-eyebrow" l10n="qlHomeEyebrow">${_lang.qlHomeEyebrow}</p>
++                        <h1 l10n="qlHomeTitle">${_lang.qlHomeTitle}</h1>
++                        <p class="ql-workbench-description" l10n="qlHomeDescription">${_lang.qlHomeDescription}</p></div>
++                        <button type="button" class="ql-open-existing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h6l2 2h10l-2 11H3zM3 7V4h6l2 3h8v2"/></svg><span l10n="qlOpenFile">${_lang.qlOpenFile}</span></button>
++                    </header>
+                     <section id="area-document-creation-grid" aria-label="${_lang.qlCreateTitle}"></section>
+                     <section id="area-dnd-file" aria-hidden="true"></section>
+ 
+@@ -76,17 +83,33 @@
+                             <div class="file-list-body scrollable"></div>
+                         </div>
+ 
+-                        <div id="box-recent" class="empty">
++                        <div id="box-recent" class="empty" aria-labelledby="ql-recent-title">
+                             <div class="file-list-title">
+-                                <h2 l10n>${_lang.qlRecentTitle}</h2>
++                                <div class="ql-recent-heading"><h2 id="ql-recent-title" l10n>${_lang.qlRecentTitle}</h2><span class="ql-recent-count" role="status" aria-live="polite" aria-atomic="true"></span></div>
+                                 <button type="button" class="ql-more-recent"><span class="ql-more-label" l10n>${_lang.qlMoreRecent}</span><span aria-hidden="true">›</span></button>
++                            </div>
++                            <div class="ql-recent-controls">
++                                <div class="ql-filter-types" role="group" aria-label="${_lang.qlFilterLabel}">
++                                    ${[['all',_lang.qlFilterAll],['word',_lang.newDoc],['cell',_lang.qlTable],['slide',_lang.newPptx],['pdf','PDF'],['pinned',_lang.qlFilterPinned]].map(([key,label]) => `<button type="button" data-filter="${key}" aria-pressed="${key === 'all'}">${label}</button>`).join('')}
++                                </div>
++                                <div class="ql-recent-search">
++                                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
++                                    <input id="idx-recent-filter" type="search" autocomplete="off" spellcheck="false" aria-label="${_lang.qlSearchFiles}" placeholder="${_lang.qlSearchFiles}" aria-controls="ql-recent-files" />
++                                    <button type="button" class="ql-clear-search" aria-label="${_lang.qlClearSearch}" hidden>×</button>
++                                </div>
+                             </div>
+                             <div class="file-list-head text-normal">
+                                 <div class="col-name" l10n>${_lang.colFileName}</div>
+                                 <div class="col-location" l10n>${_lang.colLocation}</div>
+                                 <div class="col-date" l10n>${_lang.colLastOpened}</div>
+                             </div>
+-                            <div class="file-list-body scrollable"></div>
++                            <div id="ql-recent-files" class="file-list-body scrollable"></div>
++                            <div class="ql-no-results" hidden>
++                                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
++                                <strong l10n="qlNoResults">${_lang.qlNoResults}</strong>
++                                <p l10n="qlNoResultsHint">${_lang.qlNoResultsHint}</p>
++                                <button type="button" class="ql-reset-filter" l10n="qlResetFilter">${_lang.qlResetFilter}</button>
++                            </div>
+                             <div class="ql-recent-empty">
+                                 <strong l10n>${_lang.qlRecentEmpty}</strong>
+                                 <p l10n>${_lang.qlRecentEmptyHint}</p>
+@@ -124,14 +147,10 @@
+             info.crypted === undefined && (info.crypted = false);
+             const dotIndex = info.name.lastIndexOf('.');
+             const fullName = info.name;
+-            if (dotIndex !== -1) {
+-                info.ext = info.name.substring(dotIndex);
+-                info.name = info.name.substring(0, dotIndex);
+-            } else {
+-                info.ext = '';
+-            }
+-            const safeName = escapeText(info.name);
+-            const safeExt = escapeText(info.ext);
++            const extension = dotIndex !== -1 ? info.name.substring(dotIndex) : '';
++            const displayName = dotIndex !== -1 ? info.name.substring(0, dotIndex) : info.name;
++            const safeName = escapeText(displayName);
++            const safeExt = escapeText(extension);
+             const safeFullName = escapeText(fullName);
+             const safeDescription = escapeText(info.descr);
+             const safeDate = escapeText(info.date);
+@@ -141,7 +160,7 @@
+             //language=HTML
+             let _tpl = `
+                 <div ${id} class="row text-normal">
+-                    <div class="col-name" title="${safeFullName}">
++                    <div class="col-name" role="button" tabindex="0" aria-label="${safeFullName}" title="${safeFullName}">
+                         <div class="icon">
+                             <svg class="icon" data-iconname="${info.type === 'folder' ? 'folder' : `${info.format}`}"
+                                  data-precls="tool-icon">
+@@ -166,7 +185,7 @@
+             //language=HTML
+             _tpl += `
+                 <div class="col-pin">
+-                    <button id="${info.uid}-pin-btn" class="btn-quick">
++                    <button type="button" id="${info.uid}-pin-btn" class="btn-quick" aria-pressed="${!!info.pinned}" aria-label="${escapeText(info.pinned ? utils.Lang.menuFileUnpin : utils.Lang.menuFilePin)}">
+                         <svg class="icon">
+                             <use xlink:href="#pin"/>
+                         </svg>
+@@ -182,7 +201,7 @@
+                 //language=HTML
+                 _tpl += `
+                     <div class="col-more">
+-                        <button id="${info.uid}-more-btn" class="btn-quick more">
++                        <button type="button" id="${info.uid}-more-btn" class="btn-quick more" aria-label="${escapeText(utils.Lang.qlFileActions)}" aria-haspopup="menu">
+                             <svg class="icon">
+                                 <use xlink:href="#more"/>
+                             </svg>
+@@ -288,7 +307,8 @@
+         let ppmenu;
+         const ITEMS_LOAD_RANGE = 40;
+ 
+-        const _add_recent_block = function () {
++        const _add_recent_block = function (generation) {
++            if (generation !== this.recentGeneration) return;
+             if (!this.rawRecents || !Object.keys(this.rawRecents).length) return;
+ 
+             const _raw_block = this.rawRecents.slice(this.recentIndex, this.recentIndex + ITEMS_LOAD_RANGE);
+@@ -315,10 +335,10 @@
+                 Object.assign(this.check_list, _check_block);
+             }
+ 
+-            if (_new_items_count === ITEMS_LOAD_RANGE) {
++            this.recentIndex += _raw_block.length;
++            if (this.recentIndex < this.rawRecents.length) {
+                 setTimeout(e => {
+-                    this.recentIndex += ITEMS_LOAD_RANGE;
+-                    _add_recent_block.call(this);
++                    _add_recent_block.call(this, generation);
+                 }, 10);
+             } else {
+                 this.rawRecents = undefined;
+@@ -334,13 +354,15 @@
+ 
+         var _on_recents = function (params) {
+             this.rawRecents = undefined;
++            const generation = this.recentGeneration = (this.recentGeneration || 0) + 1;
+ 
+             setTimeout(e => {
+-                this.rawRecents = params;
++                if (generation !== this.recentGeneration) return;
++                this.rawRecents = Array.isArray(params) ? params : [];
+                 this.recentIndex = 0;
+ 
+                 collectionRecents.empty();
+-                _add_recent_block.call(this);
++                _add_recent_block.call(this, generation);
+             }, 10)
+         };
+ 
+@@ -446,6 +468,7 @@
+ 
+             collectionRecents.events.erased.attach(collection => {
+                 collection.list.parent().addClass('empty');
++                _schedule_recent_filter.call(this);
+                 this.view.$boxRecent.removeClass('ql-has-more ql-expanded');
+                 this.view.$boxRecent.find('.ql-more-label').text(utils.Lang.qlMoreRecent);
+             });
+@@ -469,7 +492,7 @@
+                 addContextMenuEventListener(collection, model, this.view.$panel, 'recent');
+ 
+                 collection.list.parent().removeClass('empty');
+-                this.view.$boxRecent.toggleClass('ql-has-more', collection.size() > 4);
++                _schedule_recent_filter.call(this);
+             });
+ 
+             collectionRecents.events.click.attach((collection, model) => {
+@@ -489,19 +512,21 @@
+                 ppmenu.show({left: e.clientX, top: e.clientY}, model);
+             });
+ 
+-            collectionRecents.events.changed.attach(function (collection, model, property) {
++            collectionRecents.events.changed.attach((collection, model, property) => {
+                 let $el = collection.list.find('#' + model.uid);
+                 if ($el) {
+                     $el[model.exist ? 'removeClass' : 'addClass']('unavail');
+                     if (property['pinned'] !== undefined) {
+                         sdk.setRecentFilePinned(model.get('fileid'), property['pinned']);
+                         $el[model.pinned ? 'addClass' : 'removeClass']('pinned');
++                        $el.find('.col-pin button').attr('aria-pressed', String(!!model.pinned)).attr('aria-label', model.pinned ? utils.Lang.menuFileUnpin : utils.Lang.menuFilePin);
+                     }
+ 
+                     if (property.pinid != undefined) {
+                         handlePin(collection, model);
+                     }
+                 }
++                _schedule_recent_filter.call(this);
+             });
+ 
+             collectionRecents.empty();
+@@ -605,28 +630,48 @@
+             }
+         };
+ 
+-        // note: search function
+-        function _on_filter_recents(e) {
+-            console.log('on recents filter', e.target.value)
+-
+-            const _filter = e.target.value;
+-            if (!_filter.length) {
+-                $('.table-files tr.hidden', this.view.$panel).removeClass('hidden')
+-
+-                collectionRecents.items.forEach(model => model.set('hidden', false));
+-            } else {
+-                const re = new RegExp(_filter, "gi");
+-                collectionRecents.items.forEach(model => {
+-                    const _path = model.get('path');
+-                    if (!re.test(_path)) {
+-                        $('#' + model.uid, this.view.$panel).addClass('hidden');
+-                        model.set('hidden', true);
+-                    } else if (model.get('hidden')) {
+-                        $('#' + model.uid, this.view.$panel).removeClass('hidden');
+-                        model.set('hidden', false);
+-                    }
+-                });
+-            }
++        function _apply_recent_filter() {
++            const $box = this.view.$boxRecent;
++            const query = String($box.find('#idx-recent-filter').val() || '').normalize('NFKC').toLowerCase().trim();
++            const type = this.recentFilter || 'all';
++            const filtering = !!query || type !== 'all';
++            const expanded = $box.hasClass('ql-expanded');
++            let matches = 0;
++            const models = new Map(collectionRecents.items.map(model => [model.uid, model]));
++            collectionRecents.list.children('.row').each(function () {
++                const model = models.get(this.id);
++                if (!model) return;
++                const family = (Number(model.type) & 0xffc0);
++                const isPdf = model.format === 'pdf' || model.format === 'pdfa' || model.type === 0x57;
++                const typeMatch = type === 'all' || (type === 'pinned' && !!model.pinned) ||
++                    (type === 'word' && family === 0x40 && !isPdf) || (type === 'cell' && family === 0x100) ||
++                    (type === 'slide' && family === 0x80) || (type === 'pdf' && isPdf);
++                const text = String(model.path || '').normalize('NFKC').toLowerCase();
++                const match = typeMatch && (!query || text.includes(query));
++                if (match) matches++;
++                const row = document.getElementById(model.uid);
++                if (row) row.hidden = !match || (!filtering && !expanded && matches > 4);
++            });
++            $box.toggleClass('ql-has-more', !filtering && collectionRecents.size() > 4);
++            $box.find('.ql-more-recent').attr('aria-expanded', String(expanded));
++            $box.find('.ql-more-label').text(expanded ? utils.Lang.qlLessRecent : utils.Lang.qlMoreRecent);
++            $box.find('.ql-recent-count').text(utils.Lang.qlResultCount.replace('{count}', matches));
++            $box.find('.ql-no-results').prop('hidden', !(filtering && matches === 0));
++            $box.find('.ql-recent-empty').prop('hidden', filtering);
++            $box.find('.file-list-body').toggleClass('ql-zero-matches', filtering && matches === 0);
++            $box.find('.ql-clear-search').prop('hidden', !query);
++        }
++
++        function _schedule_recent_filter() {
++            if (this.recentFilterFrame) return;
++            this.recentFilterFrame = requestAnimationFrame(() => {
++                this.recentFilterFrame = 0;
++                _apply_recent_filter.call(this);
++            });
++        }
++
++        function _on_filter_recents() {
++            _apply_recent_filter.call(this);
+         }
+ 
+ 
+@@ -681,9 +726,8 @@
+                 this.dndZone = new DnDFileZone();
+                 this.dndZone.render(this.view.$panel.find("#area-dnd-file"));
+                 this.view.$boxRecent.find('.ql-more-recent').on('click', () => {
+-                    const expanded = this.view.$boxRecent.toggleClass('ql-expanded').hasClass('ql-expanded');
+-                    this.view.$boxRecent.find('.ql-more-label').text(
+-                        expanded ? utils.Lang.qlLessRecent : utils.Lang.qlMoreRecent);
++                    this.view.$boxRecent.toggleClass('ql-expanded');
++                    _apply_recent_filter.call(this);
+                 });
+ 
+                 const docGrid = new DocumentCreationGrid({
+@@ -751,6 +795,47 @@
+                 docGrid.render(this.view.$panel.find("#area-document-creation-grid"));
+ 
+                 $('#idx-recent-filter', this.view.$panel).on('input', _on_filter_recents.bind(this));
++                const $search = this.view.$boxRecent.find('#idx-recent-filter');
++                const selectFilter = key => {
++                    this.recentFilter = key;
++                    this.view.$boxRecent.find('[data-filter]').each(function () {
++                        this.setAttribute('aria-pressed', String(this.getAttribute('data-filter') === key));
++                    });
++                    _apply_recent_filter.call(this);
++                };
++                this.view.$boxRecent.on('click', '[data-filter]', e => selectFilter(e.currentTarget.getAttribute('data-filter')));
++                this.view.$boxRecent.on('click', '.ql-clear-search', () => { $search.val('').trigger('input').focus(); });
++                this.view.$boxRecent.on('click', '.ql-reset-filter', () => { $search.val(''); selectFilter('all'); $search.focus(); });
++                $search.on('keydown', e => {
++                    if (e.key === 'Escape') { e.preventDefault(); $search.val('').trigger('input'); }
++                    if (e.key === 'ArrowDown') {
++                        const target = this.view.$boxRecent.find('.row:not([hidden]) .col-name').first();
++                        if (target.length) { e.preventDefault(); target.focus(); }
++                    }
++                });
++                this.view.$panel.on('keydown', '.col-name[role="button"]', e => {
++                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $(e.currentTarget).closest('.row').trigger('click'); }
++                });
++                $(document).on('keydown.qlRecentSearch', e => {
++                    if ((e.ctrlKey || e.metaKey) && !e.altKey && e.key.toLowerCase() === 'f' && this.view.$panel.is(':visible')) {
++                        e.preventDefault(); $search.focus().select();
++                    }
++                });
++                this.view.$panel.find('.ql-open-existing').on('click', () => openFile(OPEN_FILE_FOLDER, ''));
++                _apply_recent_filter.call(this);
++                CommonEvents.on('lang:changed', () => {
++                    $search.attr('placeholder', utils.Lang.qlSearchFiles).attr('aria-label', utils.Lang.qlSearchFiles);
++                    this.view.$boxRecent.find('.ql-clear-search').attr('aria-label', utils.Lang.qlClearSearch);
++                    this.view.$boxRecent.find('.ql-filter-types').attr('aria-label', utils.Lang.qlFilterLabel);
++                    const labels = {all: utils.Lang.qlFilterAll, word: utils.Lang.newDoc, cell: utils.Lang.qlTable,
++                        slide: utils.Lang.newPptx, pdf: 'PDF', pinned: utils.Lang.qlFilterPinned};
++                    this.view.$boxRecent.find('[data-filter]').each(function () { $(this).text(labels[this.getAttribute('data-filter')]); });
++                    this.view.$panel.find('.col-more button').attr('aria-label', utils.Lang.qlFileActions);
++                    this.view.$panel.find('.col-pin button').each(function () {
++                        $(this).attr('aria-label', this.getAttribute('aria-pressed') === 'true' ? utils.Lang.menuFileUnpin : utils.Lang.menuFilePin);
++                    });
++                    _apply_recent_filter.call(this);
++                });
+ 
+                 return this;
+             },

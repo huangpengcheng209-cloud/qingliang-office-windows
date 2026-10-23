@@ -1,0 +1,11 @@
+--- a/common/loginpage/src/document-creation-grid.js
++++ b/common/loginpage/src/document-creation-grid.js
+@@ -77,7 +77,7 @@
+                         <span class="ql-card-icon" aria-hidden="true"><svg viewBox="0 0 36 36">${icons[doc.id]}</svg></span>
+                         <span class="ql-card-arrow" aria-hidden="true">›</span>
+                         <span class="title" l10n="${doc.langKey}">${doc.title}</span>
+-                        <span class="description">${doc.formatLabel.value}</span>
++                        <span class="description">${doc.formatLabel.value}</span><span class="ql-card-hint">${utils.Lang[({word: "qlCreateDocHint", cell: "qlCreateSheetHint", slide: "qlCreateSlidesHint", form: "qlCreateFormHint"})[doc.id]] || ""}</span>
+                     </button>
+                 `).join('')}
+                 </div>`;

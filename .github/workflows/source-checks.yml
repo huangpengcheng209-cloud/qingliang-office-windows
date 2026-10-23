@@ -3,6 +3,17 @@ name: Source checks
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'ui-sources/**'
+      - 'ui-patches/**'
+      - 'ui.inputs.lock.json'
+      - 'tools/build_workbench.py'
+      - 'tests/ui/**'
+      - 'tests/run_workbench_tests.py'
+      - 'tests/test_workbench_tools.py'
+      - 'docs/WORKBENCH-QUALITY.md'
+      - 'docs/PRODUCT-QUALITY-PLAN.md'
+      - '.github/workflows/workbench-checks.yml'
   pull_request:
   workflow_dispatch:
 
@@ -11,7 +22,7 @@ permissions:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   source-checks:
@@ -52,6 +63,8 @@ jobs:
         run: python tools/build_converter.py verify
       - name: Check desktop Hunspell source and adaptations
         run: python tools/build_desktop.py verify
+      - name: Check workbench inputs and separate quality overlay
+        run: python tools/build_workbench.py verify
       - name: Test preservation and tamper detection
         env:
           QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-tests

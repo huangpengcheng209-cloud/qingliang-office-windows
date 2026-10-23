@@ -1,0 +1,66 @@
+name: Workbench quality
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ui-sources/**'
+      - 'ui-patches/**'
+      - 'ui.inputs.lock.json'
+      - 'sources/desktop-apps/**'
+      - 'tools/build_workbench.py'
+      - 'tests/ui/**'
+      - 'tests/run_workbench_tests.py'
+      - 'tests/test_workbench_tools.py'
+      - '.github/workflows/workbench-checks.yml'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: workbench-quality-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  workbench:
+    name: Build actual workbench and run browser acceptance
+    runs-on: windows-2022
+    timeout-minutes: 25
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Verify fixed sources and workbench adaptations
+        run: python tools/build_workbench.py verify
+      - name: Run source preservation and tamper checks
+        env:
+          QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-tests
+        run: python -m unittest discover -s tests -v
+      - name: Build actual pinned desktop start page
+        run: python tools/build_workbench.py build --work-dir '${{ runner.temp }}/qingliang-ui-build'
+      - name: Prepare browser validation
+        shell: pwsh
+        run: |
+          $validation = Join-Path '${{ runner.temp }}' 'qingliang-ui-validation'
+          python -m venv $validation
+          & (Join-Path $validation 'Scripts/python.exe') -m pip install --disable-pip-version-check playwright==1.55.0
+      - name: Exercise compiled page, native command boundary, themes and reduced motion
+        shell: pwsh
+        run: |
+          $validation = Join-Path '${{ runner.temp }}' 'qingliang-ui-validation/Scripts/python.exe'
+          & $validation tests/run_workbench_tests.py --work-dir '${{ runner.temp }}/qingliang-ui-build' --evidence-dir '${{ runner.temp }}/qingliang-ui-evidence'
+      - name: Preserve browser screenshots, cases and build evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: workbench-quality-evidence
+          retention-days: 14
+          if-no-files-found: ignore
+          path: |
+            ${{ runner.temp }}/qingliang-ui-evidence/
+            ${{ runner.temp }}/qingliang-ui-build/workbench-build-report.json
+            ${{ runner.temp }}/qingliang-ui-build/workbench-build.log
