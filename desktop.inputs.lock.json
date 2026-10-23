@@ -1,0 +1,236 @@
+{
+  "core": {
+    "archive": "core-b18715ae.zip",
+    "bytes": 243117941,
+    "sha256": "ed31408ca1f5e477e4ffc9acdcbba1f2cf46b84098d4a85b52f2efc05e0fc340",
+    "url": "https://codeload.github.com/ONLYOFFICE/core/zip/b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b",
+    "root": "core-b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b",
+    "repository": "https://github.com/ONLYOFFICE/core",
+    "revision": "b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b",
+    "destination": ".",
+    "skipped_symlinks": {},
+    "files": [
+      {
+        "file": "Common/3dParty/hunspell/HEAD",
+        "sha256": "61071b0d3ded66cff4efc189d1ae91c7da059d3315a66401d9d1e5a2d16f8190"
+      },
+      {
+        "file": "Common/3dParty/hunspell/before.py",
+        "sha256": "66db159534a40230302ac01fde6a413935c55072c1c26e43fc304c1727c5ce8f"
+      },
+      {
+        "file": "Common/3dParty/hunspell/qt/hunspell.pro",
+        "sha256": "50d920a1c42b28ec3219d8d9c156f9e11971de0c810ecf4e7e20435abe28ee23"
+      },
+      {
+        "file": "Common/3dParty/hunspell/qt/hunspell.pri",
+        "sha256": "1352f9b78768e5d531866366861f7226425459bcc69f2991ac332a4145ac3bcd"
+      }
+    ]
+  },
+  "hunspell": {
+    "repository": "https://github.com/hunspell/hunspell",
+    "revision": "8a2fdfe5a6bb1cbafc04b0c8486abcefd17ad903",
+    "archive": "hunspell-8a2fdfe5a6bb1cbafc04b0c8486abcefd17ad903.zip",
+    "url": "https://codeload.github.com/hunspell/hunspell/zip/8a2fdfe5a6bb1cbafc04b0c8486abcefd17ad903",
+    "root": "hunspell-8a2fdfe5a6bb1cbafc04b0c8486abcefd17ad903",
+    "destination": "Common/3dParty/hunspell/hunspell",
+    "files": [
+      {
+        "file": "AUTHORS",
+        "sha256": "a0f915313286a6e359ffb3e6586adb445849a79f2e9f0380fae14365fc064519"
+      },
+      {
+        "file": "COPYING",
+        "sha256": "640d90f6ee401241ff62834d0d1b33f83049e99b8bfdfa04ed1b0a1635dde3e7"
+      },
+      {
+        "file": "COPYING.LESSER",
+        "sha256": "7c6699c75f87b52bdc542db26d6b1b92892577cda46e20eceb79e2790a1c291b"
+      },
+      {
+        "file": "COPYING.MPL",
+        "sha256": "53692a2ed6c6a2c6ec9b32dd0b820dfae91e0a1fcdf625ca9ed0bdf8705fcc4f"
+      },
+      {
+        "file": "README.md",
+        "sha256": "be589036a56163b1d4487a62cb152f5a57cbee8d29b3f91174910c459a232896"
+      },
+      {
+        "file": "license.hunspell",
+        "sha256": "422198d8d2f3118f8e2b06db2b0bbecfc5f150b0d3c88191fa984d6c8dafd420"
+      },
+      {
+        "file": "src/hunspell/Makefile.am",
+        "sha256": "efe5acd11b3dd82cf29c2e278939dd1258059411a29ea58f4c1c54468196d12a"
+      },
+      {
+        "file": "src/hunspell/affentry.cxx",
+        "sha256": "362517e410c132184e57e7393f0cd2320f52c406ea41d1cd8519468d7a11df00"
+      },
+      {
+        "file": "src/hunspell/affentry.hxx",
+        "sha256": "0cd3b8b48de603dfe007e103d8769afac10ab07d1580785d1c0a8507b7d551f6"
+      },
+      {
+        "file": "src/hunspell/affixmgr.cxx",
+        "sha256": "79f695a72b2843494b17bdd71b4e54c7d21189b786b5218b5c9dd3844a63c585"
+      },
+      {
+        "file": "src/hunspell/affixmgr.hxx",
+        "sha256": "6405831438b5202de92f68b6c63059a9995b554ce1a033cd268d9511b0643690"
+      },
+      {
+        "file": "src/hunspell/atypes.hxx",
+        "sha256": "6d514561bbb3a2cb46f7d8662693ec648df8b5ad2863915a33122fc224be8503"
+      },
+      {
+        "file": "src/hunspell/baseaffix.hxx",
+        "sha256": "77a72db21acaef8a21135c91ecf543b6dd5e1ae49a25f11e14491e416a7652df"
+      },
+      {
+        "file": "src/hunspell/csutil.cxx",
+        "sha256": "8e411ac816350eb2ac2ea0a412d62a66fe93eccfd8708fd9c25facab9870c752"
+      },
+      {
+        "file": "src/hunspell/csutil.hxx",
+        "sha256": "56dfa0861ac1d7ab1d7e0f2f951645d32aaea15360fd5719b4f2597eb6c9705b"
+      },
+      {
+        "file": "src/hunspell/filemgr.cxx",
+        "sha256": "2e90fc0a0409a3380218244d4311285599af022f25de20897f0256164ae65a75"
+      },
+      {
+        "file": "src/hunspell/filemgr.hxx",
+        "sha256": "d8d9afd50dfc4f92f8d70a1d4667cee8c352de84b50a47e0a002d414a106f5d5"
+      },
+      {
+        "file": "src/hunspell/hashmgr.cxx",
+        "sha256": "26b10a2ca09981df5d60c4f5f8eb507c0b55509cc82ecef0ee5a8e122066c964"
+      },
+      {
+        "file": "src/hunspell/hashmgr.hxx",
+        "sha256": "798af89fdab12b0e35b504d569112577bfa6588ca81656f8239d95fafa4ab7dc"
+      },
+      {
+        "file": "src/hunspell/htypes.hxx",
+        "sha256": "561b127c70411ad54bb26e9759e07eb0027a688400b6a558e4d576e16054ba20"
+      },
+      {
+        "file": "src/hunspell/hunspell.cxx",
+        "sha256": "16edf73a82931cbece02cefcec8d95c6bd6dd7adb5814511a3e751e8d8150839"
+      },
+      {
+        "file": "src/hunspell/hunspell.h",
+        "sha256": "2ee510bfffe71eb07a4cb6bbda01acf2ccffc959b4d836d938b4ef5e308e4775"
+      },
+      {
+        "file": "src/hunspell/hunspell.hxx",
+        "sha256": "ab64d896a661a77868d48584830350ce6005338543685c92889d2c191aa0266f"
+      },
+      {
+        "file": "src/hunspell/hunvisapi.h",
+        "sha256": "7bda44c1dad647e4bd1de1345aef32b9de88222a5b19d7ca395f02932ddcc1ac"
+      },
+      {
+        "file": "src/hunspell/hunvisapi.h.in",
+        "sha256": "9dea3f382503feb660f1435ede7cd9fafe371c633d8eba95bd9c3f229c043517"
+      },
+      {
+        "file": "src/hunspell/hunzip.cxx",
+        "sha256": "bcf9d8f29cf2ccc2bbd197d0131a51463884360643c7a73095471f7304d99169"
+      },
+      {
+        "file": "src/hunspell/hunzip.hxx",
+        "sha256": "c4eb7cb7aab0dd51b0d1ab1238ec08d1f7ab7ee4b7b3816cbcbcd29761e0154f"
+      },
+      {
+        "file": "src/hunspell/langnum.hxx",
+        "sha256": "b083c9b6e2159e7274ab4da3fc9764a266a23a19f0056b5c8ba978245e2a2ace"
+      },
+      {
+        "file": "src/hunspell/phonet.cxx",
+        "sha256": "d5eac40f0af24a8922c8d2fcc10a76d01fafb22fa4ac76acb411aff28ec64a19"
+      },
+      {
+        "file": "src/hunspell/phonet.hxx",
+        "sha256": "b66ed3023f56138b28d81939e8718198791d893182eb948e92d64e77c52a6f5f"
+      },
+      {
+        "file": "src/hunspell/replist.cxx",
+        "sha256": "174a00b013c49d8a10ad92aa55d8bb3971749b1124e9875953efa5522022d704"
+      },
+      {
+        "file": "src/hunspell/replist.hxx",
+        "sha256": "0b404301a593f8c47af0292f44ff0b4a129e368741d040703da3f5502d43b12c"
+      },
+      {
+        "file": "src/hunspell/suggestmgr.cxx",
+        "sha256": "afdad3accbd9712564f25853c27b3a999294615246c05bddb7378f40917efa45"
+      },
+      {
+        "file": "src/hunspell/suggestmgr.hxx",
+        "sha256": "93251c75c3c1fa813669b3193527a8d606a7858641b6088aca543e0de51a5642"
+      },
+      {
+        "file": "src/hunspell/utf_info.hxx",
+        "sha256": "bfd6841fe8f137717d138c304c81ed108de294335571c437de49568e451650d2"
+      },
+      {
+        "file": "src/hunspell/w_char.hxx",
+        "sha256": "d4a506a798eff56281eeeedbbda56738001f0f622de06a89a0d36b77e2512e05"
+      }
+    ],
+    "patches": [
+      {
+        "file": "src/hunspell/atypes.hxx",
+        "base_sha256": "6d514561bbb3a2cb46f7d8662693ec648df8b5ad2863915a33122fc224be8503",
+        "result_sha256": "1ad8ea4d89abb4a8bc32f047337ec36d5adabadc91cfc6ac5adff59546979154",
+        "patch": "desktop-patches/hunspell-atypes.patch",
+        "patch_sha256": "d8aa1fa25a32beabd77b18c88ec3e00b46538687ab3b70240605c68e1d63d72a",
+        "modified_source": "desktop-sources/hunspell/src/hunspell/atypes.hxx"
+      },
+      {
+        "file": "src/hunspell/csutil.cxx",
+        "base_sha256": "8e411ac816350eb2ac2ea0a412d62a66fe93eccfd8708fd9c25facab9870c752",
+        "result_sha256": "9da8200847f9c58b0d1562112ffe7d8698b618152bddf571d8c68f80efb5d831",
+        "patch": "desktop-patches/hunspell-csutil.patch",
+        "patch_sha256": "ffcb3ed8311466b2a94b82299ea933f8686c5102e9c529809b151a084bcc709d",
+        "modified_source": "desktop-sources/hunspell/src/hunspell/csutil.cxx"
+      },
+      {
+        "file": "src/hunspell/filemgr.hxx",
+        "base_sha256": "d8d9afd50dfc4f92f8d70a1d4667cee8c352de84b50a47e0a002d414a106f5d5",
+        "result_sha256": "f07d480a0557848b4c8f3da9ed22a8c520325b0d508ef5471432461dc2cf6464",
+        "patch": "desktop-patches/hunspell-filemgr.patch",
+        "patch_sha256": "d4477d6a458ecefc87210e80aa5f9abeefbaef694ee068a275bb9f3f305c3fc6",
+        "modified_source": "desktop-sources/hunspell/src/hunspell/filemgr.hxx"
+      }
+    ],
+    "sha256": "b73892628f84f9ef67c1ee5eb22059a1abd8f2d2e27fe02967bc73862a51b909",
+    "skipped_symlinks": {
+      "README": "README.md"
+    }
+  },
+  "sources": [
+    "src/hunspell/affentry.cxx",
+    "src/hunspell/affixmgr.cxx",
+    "src/hunspell/csutil.cxx",
+    "src/hunspell/filemgr.cxx",
+    "src/hunspell/hashmgr.cxx",
+    "src/hunspell/hunspell.cxx",
+    "src/hunspell/hunzip.cxx",
+    "src/hunspell/phonet.cxx",
+    "src/hunspell/replist.cxx",
+    "src/hunspell/suggestmgr.cxx"
+  ],
+  "defines": [
+    "WIN32",
+    "_WINDOWS",
+    "NDEBUG",
+    "NOMINMAX",
+    "BUILDING_LIBHUNSPELL",
+    "_CRT_SECURE_NO_WARNINGS"
+  ],
+  "scope": "Native desktop spell-check dependency, not the editor GUI"
+}

@@ -51,3 +51,7 @@ x2t 首组前置库入口为 `tools/build_x2t_dependencies.py build --work-dir D
 ## 完整 x2t 后续构建
 
 前序阶段完成后，继续在同一目录运行 `python tools/build_converter.py build --work-dir D:\CodexCache\qingliang-community-build --test-python <独立读取器环境的 python.exe>`。该入口源码构建剩余格式/渲染库、OpenSSL、V8、完整 x2t 和四套 SDKJS，并执行 25 项真实文件检查。Java/Node、固定读取器、来源审计及范围见 [CONVERTER-BUILD.md](CONVERTER-BUILD.md)；桌面程序和安装器仍需后续工作。
+
+## 桌面宿主前置
+
+`python tools/build_desktop.py build --work-dir D:\CodexCache\qingliang-community-build` 源码构建 Hunspell 桌面拼写检查 DLL，运行 22 项真实词典操作；可复用同一缓存，也可独立运行。固定输入、三份既有适配、Qt/CEF 材料复核及桌面构建顺序见 [DESKTOP-BUILD.md](DESKTOP-BUILD.md)。

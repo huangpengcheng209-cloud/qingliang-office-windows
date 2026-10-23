@@ -1,0 +1,59 @@
+{
+  "checked_date": "2026-10-23",
+  "scope": "Dependency material identity and project inspection; no Qt/CEF or desktop-host build",
+  "qt": {
+    "version": "5.15.2",
+    "toolchain_flavor": "msvc2019_64",
+    "source_archive": "qt-everywhere-src-5.15.2.tar.xz",
+    "source_url": "https://download.qt.io/archive/qt/5.15/5.15.2/single/qt-everywhere-src-5.15.2.tar.xz",
+    "source_sha256": "3a530d1b243b5dec00bc54937455471aaa3e56849d2593edb8ded07228202240",
+    "bytes": 586690220,
+    "source_archive_verified": true,
+    "qt_rebuilt": false,
+    "runtime_binary_identity_verified_in_this_stage": false
+  },
+  "cef": {
+    "version": "150.0.22+gc1a097e+chromium-150.0.7871.256",
+    "cef_revision": "c1a097eaa7738483abe2ea9d6297a937d6a884c0",
+    "chromium_version": "150.0.7871.256",
+    "archives": [
+      {
+        "archive": "cef-c1a097eaa7738483abe2ea9d6297a937d6a884c0.zip",
+        "sha256": "512450284b6eee5720be59ccff00ac0f9b64df45426f7ec7a7c7b5a9d8a97a16",
+        "bytes": 4078141
+      },
+      {
+        "archive": "cef_binary_150.0.22+gc1a097e+chromium-150.0.7871.256_windows64_minimal.tar.bz2",
+        "sha256": "a6afba8ee3d1cc9ef64318a734dfeb5ceafc0384a46df2af37b857e7d76c0544",
+        "bytes": 164266201
+      }
+    ],
+    "wrapper_source_url": "https://codeload.github.com/chromiumembedded/cef/zip/c1a097eaa7738483abe2ea9d6297a937d6a884c0",
+    "sdk_url": "https://cef-builds.spotifycdn.com/cef_binary_150.0.22%2Bgc1a097e%2Bchromium-150.0.7871.256_windows64_minimal.tar.bz2",
+    "archive_hashes_and_generated_version_header_verified": true,
+    "cef_or_chromium_rebuilt": false,
+    "complete_chromium_source_and_build_tool_closure_verified": false
+  },
+  "project_order": [
+    "hunspell.dll",
+    "ascdocumentscore.dll plus matching CEF wrapper and client utilities",
+    "qtascdocumentscore.dll",
+    "videoplayer.dll with original selected backend",
+    "DesktopEditors.exe",
+    "desktop SDKJS and web-apps assets",
+    "installer and GUI acceptance"
+  ],
+  "remaining": [
+    "Pinned desktop-sdk and desktop-apps complete input profiles and clean MSVC build/link",
+    "Qt modules, tools and runtime source/configuration correspondence",
+    "CEF wrapper/client source selection, libcef binary and full Chromium dependency correspondence",
+    "Source-built PDF/XPS/DjVu/signature/renderer DLL linkage for desktop host",
+    "Desktop SDKJS, web-apps, dictionaries, plugins and OCR runtime material",
+    "VLC x64 downstream patches, static dependency versions and backend selection",
+    "Independent GUI edit/save/reopen/convert and installation/uninstallation tests"
+  ],
+  "native_spelling_built": true,
+  "desktop_host_built": false,
+  "application_gui_tested": false,
+  "installer_built": false
+}

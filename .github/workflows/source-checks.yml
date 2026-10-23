@@ -50,6 +50,8 @@ jobs:
         run: python tools/build_docx.py verify
       - name: Check complete converter, V8, SDKJS and separate fixes
         run: python tools/build_converter.py verify
+      - name: Check desktop Hunspell source and adaptations
+        run: python tools/build_desktop.py verify
       - name: Test preservation and tamper detection
         env:
           QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-tests
@@ -69,6 +71,30 @@ jobs:
           persist-credentials: false
       - name: Compile published save component and run real file tests
         run: python tools/build_windows.py save-transaction --work-dir "${{ runner.temp }}/qingliang-native-build"
+
+  desktop-spelling:
+    name: Windows desktop spelling dependency
+    runs-on: windows-2022
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Build fixed Hunspell and test real dictionary operations
+        run: python tools/build_desktop.py build --work-dir "${{ runner.temp }}/qingliang-desktop-build"
+      - name: Preserve desktop component evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: desktop-spelling-evidence
+          retention-days: 7
+          if-no-files-found: ignore
+          path: |
+            ${{ runner.temp }}/qingliang-desktop-build/desktop-*.json
+            ${{ runner.temp }}/qingliang-desktop-build/desktop-*.log
+            ${{ runner.temp }}/qingliang-desktop-build/desktop-imports.txt
 
   unicode-dependencies:
     name: Windows dependencies, formats and complete x2t converter

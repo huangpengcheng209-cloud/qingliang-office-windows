@@ -1,0 +1,26 @@
+--- a/Common/3dParty/hunspell/hunspell/src/hunspell/filemgr.hxx
++++ b/Common/3dParty/hunspell/hunspell/src/hunspell/filemgr.hxx
+@@ -1,3 +1,4 @@
++// Qingliang community: retain the fixed ONLYOFFICE hunspell/before.py adaptations.
+ /* ***** BEGIN LICENSE BLOCK *****
+  * Version: MPL 1.1/GPL 2.0/LGPL 2.1
+  *
+@@ -76,11 +77,18 @@
+ #include <stdio.h>
+ #include <string>
+ #include <fstream>
++#ifdef HUNSPELL_WASM_MODULE
++#include "string_buffer_stream.h"
++#endif
++
+ 
+ class FileMgr {
+  private:
+   FileMgr(const FileMgr&);
+   FileMgr& operator=(const FileMgr&);
++#ifdef HUNSPELL_WASM_MODULE
++string_buffer_stream memin;
++#endif
+ 
+  protected:
+   std::ifstream fin;
