@@ -9,7 +9,15 @@
  
      const paths = {
          file: '<path d="M4 5h16M4 12h16M4 19h16"/>',
-@@ -26,18 +28,30 @@
+@@ -18,6 +20,7 @@
+         alignright: '<path d="M3 5h18M9 9h12M3 13h18M9 17h12"/>',
+         image: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="m4 18 6-6 4 4 2-2 5 5"/>',
+         table: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/>',
++        play: '<path d="m9 5 11 7-11 7V5Z"/>',
+         slide: '<rect x="3" y="4" width="18" height="15" rx="2"/><path d="M8 23h8M12 19v4M12 8v7M8.5 11.5h7"/>',
+         sort: '<path d="M5 4v16m-3-3 3 3 3-3M12 7h9M12 12h6M12 17h3"/>',
+         text: '<path d="M4 5h16M12 5v15M8 20h8"/>',
+@@ -26,18 +29,30 @@
          chevron: '<path d="m8 5 7 7-7 7"/>'
      };
      const style = `
@@ -47,7 +55,7 @@
          #toolbar.ql-simple .ql-action:disabled { opacity:.36; cursor:default; }
          #toolbar.ql-simple .ql-action svg { width:22px; height:22px; display:block; flex:none; }
          #toolbar.ql-simple .ql-action .ql-letter { height:22px; font:bold 22px/22px Georgia,serif; }
-@@ -45,30 +59,48 @@
+@@ -45,30 +60,48 @@
          #toolbar.ql-simple .ql-action .ql-letter.ql-under { text-decoration:underline; text-underline-offset:4px; }
          #toolbar.ql-simple .ql-action.ql-wide { min-width:68px; }
          #toolbar.ql-simple .ql-action.ql-more { min-width:60px; }
@@ -111,7 +119,7 @@
      `;
      function icon(name) {
          if (name === 'bold') return '<span class="ql-letter">B</span>';
-@@ -103,6 +135,7 @@
+@@ -103,6 +136,7 @@
          const back = document.createElement('button');
          back.type = 'button';
          back.className = 'ql-back';
@@ -119,7 +127,25 @@
          back.textContent = '返回简洁';
          const viewportController = webapp.getController('Viewport');
          const layout = viewportController && viewportController.viewport && viewportController.viewport.vlayout;
-@@ -320,6 +353,14 @@
+@@ -154,6 +188,7 @@
+             ['image', '图片', null, 'image', 'ins'],
+             ['table', '表格', null, 'table', 'ins']
+         ]);
++        if (kind === 'presentation') groups.push([['slideshow', '开始放映', 'btnPreview', 'play']]);
+         groups.push([['commands', '找功能', null, 'search'], ['more', '全部功能', null, 'more', 'full']]);
+ 
+         function tabNode(tab) {
+@@ -234,7 +269,8 @@
+                 entries.push({id:'tools-' + entry[0], title:entry[1], detail:'打开完整工具栏 · ' + entry[2].split(' ').slice(0,4).join('、'), aliases:entry[2], run:function () { showFull(entry[0]); }});
+             });
+             if (kind === 'presentation' && toolbar.btnPreview) {
+-                entries.push({id:'slideshow', title:'开始放映', detail:'从当前幻灯片开始播放', aliases:'播放 幻灯片 演示 放映', enabled:!toolbar.btnPreview.disabled, run:function () { toolbar.btnPreview.click(); }});
++                entries.push({id:'slideshow', title:'从当前页放映', detail:'从正在编辑的幻灯片开始播放 · Esc 结束', aliases:'播放 幻灯片 演示 放映', enabled:!toolbar.btnPreview.disabled, run:function () { toolbar.btnPreview.click(); }});
++                entries.push({id:'slideshow-first', title:'从头开始放映', detail:'从第一张幻灯片开始播放 · ← → 换页 · Esc 结束', aliases:'播放 幻灯片 演示 放映 首页', enabled:!toolbar.btnPreview.disabled, run:function () { controller.onPreview(0, false, false); }});
+             }
+             entries.push({id:'all-tools', title:'全部功能', detail:'展开完整工具栏，按选项卡选择专业功能', run:function () { showFull('full'); }});
+             return entries;
+@@ -320,6 +356,14 @@
              render();
              input.focus();
          }
@@ -134,7 +160,7 @@
          const tracked = [];
          const combos = [];
          function makeCombo(item) {
-@@ -331,6 +372,7 @@
+@@ -331,6 +375,7 @@
              const select = document.createElement('select');
              select.dataset.qlAction = item[0];
              select.setAttribute('aria-label', item[1]);
@@ -142,7 +168,7 @@
              const placeholder = document.createElement('option');
              placeholder.value = '';
              placeholder.textContent = isFont ? '选择文字后设置' : '字号';
-@@ -378,17 +420,13 @@
+@@ -378,17 +423,13 @@
                  const button = document.createElement('button');
                  button.type = 'button';
                  button.className = 'ql-action' + (item[1].length > 4 ? ' ql-wide' : '') + (item[0] === 'more' ? ' ql-more' : '');
@@ -150,7 +176,8 @@
 +                button.setAttribute('oo_editor_input', 'true');
                  button.dataset.qlAction = item[0];
                  button.innerHTML = icon(item[3]) + '<span>' + item[1] + '</span>';
-                 const hints = {file:'另存为、导出 PDF、打印与查找', open:'打开文件 · Ctrl+O', save:'保存 · Ctrl+S', undo:'撤销 · Ctrl+Z', redo:'恢复 · Ctrl+Y', commands:'按中文关键词查找常用与专业功能', more:'展开完整工具栏'};
+-                const hints = {file:'另存为、导出 PDF、打印与查找', open:'打开文件 · Ctrl+O', save:'保存 · Ctrl+S', undo:'撤销 · Ctrl+Z', redo:'恢复 · Ctrl+Y', commands:'按中文关键词查找常用与专业功能', more:'展开完整工具栏'};
++                const hints = {file:'另存为、导出 PDF、打印与查找', open:'打开文件 · Ctrl+O', save:'保存 · Ctrl+S', undo:'撤销 · Ctrl+Z', redo:'恢复 · Ctrl+Y', slideshow:'从当前幻灯片开始放映 · ← → 换页 · Esc 结束', commands:'按中文关键词查找常用与专业功能', more:'展开完整工具栏'};
                  button.title = hints[item[0]] || item[1];
 -                const model = item[2] && toolbar[item[2]];
 -                if (item[2] && !model) {
@@ -163,7 +190,7 @@
                  button.addEventListener('click', function () {
                      if (item[0] === 'file' || item[0] === 'commands') {
                          openCommands(item[0] === 'file', button);
-@@ -396,8 +434,9 @@
+@@ -396,14 +437,15 @@
                          native.execCommand('editor:event', JSON.stringify({action:'file:open'}));
                      } else if (item[4]) {
                          showFull(item[4]);
@@ -175,7 +202,14 @@
                      }
                  });
                  group.appendChild(button);
-@@ -411,8 +450,10 @@
+             });
+             if (items[0][0] === 'file') bar.insertBefore(group, scroll);
+-            else (items[0][0] === 'commands' ? tools : scroll).appendChild(group);
++            else (items[0][0] === 'commands' || items[0][0] === 'slideshow' ? tools : scroll).appendChild(group);
+         });
+         root.appendChild(bar);
+         root.appendChild(back);
+@@ -411,8 +453,10 @@
          setFull(false);
          function sync() {
              tracked.forEach(function (pair) {

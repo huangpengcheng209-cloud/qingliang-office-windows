@@ -150693,12 +150693,12 @@
       {
         "file": "apps/common/main/lib/controller/SimpleToolbar.js",
         "base_sha256": null,
-        "sha256": "b6c966a4e89dfac8a4a74c6aff6995ffacae7672d6c9f8326faa70f3a9b2c730",
+        "sha256": "83c8e02e3e06c8a85c3821eede639e75bafe3a848f4f9ba268c69dfbdbccb263",
         "origin": "quality-overlay-on-frozen",
         "source": "editor-sources/web-apps/apps/common/main/lib/controller/SimpleToolbar.js",
         "parent_sha256": "553dd850f0e0915435c38ead48e54f2c64f31ef68b126b7fcb03ba1303f44421",
         "patch": "editor-patches/quick-toolbar-quality.patch",
-        "patch_sha256": "6ac75dc42f73a95366af9d47db049db507b3b6b588cfecfb66080805c8cc3b61"
+        "patch_sha256": "cfde806b6a467753ebe33103e40759c7d02bd41ddc14b98716890cc7dc557831"
       }
     ]
   },

@@ -28,7 +28,9 @@ TXT↔DOCX 阶段已补齐并构建 217 个格式支持单元，可通过命令�
 
 ## 当前内容
 
-表格与编辑区质量继续推进：**50 项真实 XLSX 检查、40 项 DOCX 回归通过**，覆盖基础多表/公式/排序/格式、保存重开与新建另存。修复快捷排序错误禁用、完整工具栏遮挡返回按钮及菜单键盘焦点，补齐快捷栏和文件菜单的明暗主题、短动效与减少动效。真实窗口截图、构建命令及未覆盖范围见 [EDITOR-QUALITY.md](docs/EDITOR-QUALITY.md)。图表视觉、完整筛选/剪贴板、演示/PDF 表单、恢复和安装仍需完善。
+演示编辑继续推进：**47 项真实 PPTX 检查通过**，覆盖文字/格式、形状移动、页面增加与撤销、保存重开、放映及 PDF 输出。右侧常驻“开始放映”，功能搜索区分当前页和首页放映；修复预览正常退出后被误判仍在运行的问题。截图、命令及范围见 [PRESENTATION-QUALITY.md](docs/PRESENTATION-QUALITY.md)。多媒体、对象动画和复杂演示仍需扩展。
+
+表格与编辑区质量继续推进：**50 项真实 XLSX 检查、40 项 DOCX 回归通过**，覆盖基础多表/公式/排序/格式、保存重开与新建另存。修复快捷排序错误禁用、完整工具栏遮挡返回按钮及菜单键盘焦点，补齐快捷栏和文件菜单的明暗主题、短动效与减少动效。真实窗口截图、构建命令及未覆盖范围见 [EDITOR-QUALITY.md](docs/EDITOR-QUALITY.md)。图表视觉、完整筛选/剪贴板、PDF 表单、恢复和安装仍需完善。
 
 新桌面已接通实际编辑区：四套桌面 SDKJS、五类编辑器界面、空模板、词典及 17,215 次运行资源复制有固定来源记录。本机 **39 项真实 DOCX 编辑保存、正常退出重开、新建另存和 PDF 导出检查通过**；另修复 60 个缺失中文字符串和大写保存后缀重复追加问题。命令与具体范围见 [EDITOR-BUILD.md](docs/EDITOR-BUILD.md)。表格、演示、PDF 表单、插件、媒体、完整视觉/动效和安装仍需继续完善。
 
@@ -62,6 +64,7 @@ TXT↔DOCX 阶段已补齐并构建 217 个格式支持单元，可通过命令�
 | [docs/CONVERTER-BUILD.md](docs/CONVERTER-BUILD.md) | 完整 x2t、V8、SDKJS 源码构建和 25 项真实文件检查 |
 | [docs/EDITOR-BUILD.md](docs/EDITOR-BUILD.md) | 桌面编辑资源构建、中文/保存后缀修复和 39 项真实 DOCX/PDF 检查 |
 | [docs/EDITOR-QUALITY.md](docs/EDITOR-QUALITY.md) | 50 项真实表格流程、40 项文档回归与编辑区主题/焦点/动效修复 |
+| [docs/PRESENTATION-QUALITY.md](docs/PRESENTATION-QUALITY.md) | 47 项真实演示编辑、保存重开、放映与 PDF 导出检查 |
 | [docs/STATUS.md](docs/STATUS.md) | 已有验收范围与已知问题 |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | 从源码预览到可安装 Beta 的交付顺序 |
 | [CHANGELOG.md](CHANGELOG.md) | 源码版本及固定标签说明 |

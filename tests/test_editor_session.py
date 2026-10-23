@@ -7,6 +7,7 @@ from argparse import Namespace
 from pathlib import Path
 from run_editor_tests import Acceptance, ROOT, sha
 from run_spreadsheet_tests import SpreadsheetAcceptance
+from run_presentation_tests import PresentationAcceptance
 
 
 class AcceptanceFixtureTests(unittest.TestCase):
@@ -41,3 +42,6 @@ class AcceptanceFixtureTests(unittest.TestCase):
 
     def test_xlsx_fixture_preflight_preserves_all_files_on_late_unknown_edit(self):
         self.assert_late_unknown_edit_preserves_earlier_output(SpreadsheetAcceptance, '.qingliang-spreadsheet-acceptance', 'spreadsheet-test-result.json')
+
+    def test_pptx_fixture_preflight_preserves_all_files_on_late_unknown_edit(self):
+        self.assert_late_unknown_edit_preserves_earlier_output(PresentationAcceptance, '.qingliang-presentation-acceptance', 'presentation-test-result.json')

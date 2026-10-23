@@ -1,5 +1,7 @@
 # 社区版下一步
 
+2026-10-23 演示进展：47 项真实 PPTX 编辑、保存重开、原生另存、放映和 PDF 输出检查通过；常用放映入口已固定到工具栏右侧。普通 DOCX/XLSX/PPTX 的基础流程已覆盖，下一批优先 PDF 表单、图表视觉和完整表格，再扩展复杂演示/文档、对象动画与媒体、失败恢复、整体 UI/动效及安装。边界见 [PRESENTATION-QUALITY.md](PRESENTATION-QUALITY.md)，完整目标保持不变。
+
 2026-10-23 最新质量进展：50 项真实 XLSX 和 40 项 DOCX 回归通过，编辑快捷栏/菜单的排序、主题、焦点和短动效已修复。下一批继续演示、PDF 表单、图表视觉和完整表格、复杂文档与失败恢复，再补齐其余视觉/动效、插件/媒体、性能及安装；完整目标仍以 [PRODUCT-QUALITY-PLAN.md](PRODUCT-QUALITY-PLAN.md) 为准，证据范围见 [EDITOR-QUALITY.md](EDITOR-QUALITY.md)。
 
 2026-10-23 最新进展：Qt 桌面和实际编辑资源已接通，普通 DOCX 编辑保存/重开、新建另存和 PDF 导出 39 项真实检查通过。下一批继续表格、演示、PDF 表单和复杂文档，再扩展失败恢复、插件/媒体、完整视觉/动效和安装验收。整体目标仍在进行，具体完成标准见 [PRODUCT-QUALITY-PLAN.md](PRODUCT-QUALITY-PLAN.md)，构建与本轮范围见 [EDITOR-BUILD.md](EDITOR-BUILD.md)。以下是各前序阶段当时的下一步记录。

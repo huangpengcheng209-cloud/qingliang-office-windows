@@ -9,9 +9,12 @@ on:
       - 'editor-patches/**'
       - 'tools/build_editors.py'
       - 'tools/editor_grunt_hook.js'
+      - 'tools/launch_qt_preview.py'
       - 'tests/run_editor_tests.py'
       - 'tests/run_spreadsheet_tests.py'
+      - 'tests/run_presentation_tests.py'
       - 'tests/test_editor*.py'
+      - 'tests/test_preview_process.py'
       - '.github/workflows/editor-checks.yml'
   pull_request:
     paths:
@@ -20,9 +23,12 @@ on:
       - 'editor-patches/**'
       - 'tools/build_editors.py'
       - 'tools/editor_grunt_hook.js'
+      - 'tools/launch_qt_preview.py'
       - 'tests/run_editor_tests.py'
       - 'tests/run_spreadsheet_tests.py'
+      - 'tests/run_presentation_tests.py'
       - 'tests/test_editor*.py'
+      - 'tests/test_preview_process.py'
       - '.github/workflows/editor-checks.yml'
   workflow_dispatch:
 
@@ -59,4 +65,6 @@ jobs:
       - name: Test editor source, SDK reuse and fixture preservation
         env:
           QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-editor-tests
-        run: python -m unittest discover -s tests -p "test_editor*.py" -v
+        run: |
+          python -m unittest discover -s tests -p "test_editor*.py" -v
+          python -m unittest discover -s tests -p "test_preview_process.py" -v

@@ -1,6 +1,6 @@
 {
   "checked_date": "2026-10-23",
-  "scope": "Source-built desktop with limited DOCX/XLSX lifecycle, editor toolbar/theme/motion and workbench checks; remaining editors, complete UI, plugins/media/recovery and installation are incomplete",
+  "scope": "Source-built desktop with limited DOCX/XLSX/PPTX lifecycles, slideshow/PDF export, editor toolbar/theme/motion and workbench checks; complete UI, complex editing, plugins/media/recovery and installation are incomplete",
   "qt": {
     "version": "5.15.2",
     "toolchain_flavor": "msvc2019_64",
@@ -46,8 +46,8 @@
   "remaining": [
     "Complete Qt/CEF/VLC static dependency and downstream source/distribution material correspondence",
     "Complete default plugins and OCR runtime integration and acceptance",
-    "Remaining XLSX functions/chart visuals, PPTX/PDF forms, complex documents and real native IME/clipboard acceptance",
-    "Real media playback, presentation, save failure/recovery and performance regression",
+    "Remaining XLSX functions/chart visuals, PDF forms, complex presentations/documents and real native IME/clipboard acceptance",
+    "Real media playback, object animations/transition timing, save failure/recovery and performance regression",
     "Complete visual system, dark theme, accessibility, scaling and motion/real status feedback",
     "Installer, installation/upgrade/uninstallation and user document preservation acceptance"
   ],
@@ -58,10 +58,13 @@
   "qt_shell_built": true,
   "office_edit_save_tested": true,
   "qt_gui_cases_passed": 16,
-  "office_edit_save_scope": "Ordinary DOCX and XLSX typing/formatting/undo/save, fresh-process reopen and native Save As; DOCX PDF export; limited worksheet/formula/sort operations",
+  "office_edit_save_scope": "Ordinary DOCX/XLSX/PPTX typing/formatting/undo/save, fresh-process reopen and native Save As; DOCX/PPTX PDF export; limited worksheet/formula/sort and slide/shape operations",
   "desktop_editor_resources_built": true,
   "editor_gui_cases_passed": 40,
   "spreadsheet_gui_cases_passed": 50,
   "editor_toolbar_theme_and_motion_tested": true,
-  "complete_visual_system_accepted": false
+  "complete_visual_system_accepted": false,
+  "presentation_gui_cases_passed": 47,
+  "presentation_basic_lifecycle_tested": true,
+  "complete_presentation_acceptance": false
 }

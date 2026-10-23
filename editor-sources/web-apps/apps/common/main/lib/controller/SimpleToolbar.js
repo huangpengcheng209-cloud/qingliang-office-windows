@@ -20,6 +20,7 @@ define([], function () {
         alignright: '<path d="M3 5h18M9 9h12M3 13h18M9 17h12"/>',
         image: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="m4 18 6-6 4 4 2-2 5 5"/>',
         table: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/>',
+        play: '<path d="m9 5 11 7-11 7V5Z"/>',
         slide: '<rect x="3" y="4" width="18" height="15" rx="2"/><path d="M8 23h8M12 19v4M12 8v7M8.5 11.5h7"/>',
         sort: '<path d="M5 4v16m-3-3 3 3 3-3M12 7h9M12 12h6M12 17h3"/>',
         text: '<path d="M4 5h16M12 5v15M8 20h8"/>',
@@ -187,6 +188,7 @@ define([], function () {
             ['image', '图片', null, 'image', 'ins'],
             ['table', '表格', null, 'table', 'ins']
         ]);
+        if (kind === 'presentation') groups.push([['slideshow', '开始放映', 'btnPreview', 'play']]);
         groups.push([['commands', '找功能', null, 'search'], ['more', '全部功能', null, 'more', 'full']]);
 
         function tabNode(tab) {
@@ -267,7 +269,8 @@ define([], function () {
                 entries.push({id:'tools-' + entry[0], title:entry[1], detail:'打开完整工具栏 · ' + entry[2].split(' ').slice(0,4).join('、'), aliases:entry[2], run:function () { showFull(entry[0]); }});
             });
             if (kind === 'presentation' && toolbar.btnPreview) {
-                entries.push({id:'slideshow', title:'开始放映', detail:'从当前幻灯片开始播放', aliases:'播放 幻灯片 演示 放映', enabled:!toolbar.btnPreview.disabled, run:function () { toolbar.btnPreview.click(); }});
+                entries.push({id:'slideshow', title:'从当前页放映', detail:'从正在编辑的幻灯片开始播放 · Esc 结束', aliases:'播放 幻灯片 演示 放映', enabled:!toolbar.btnPreview.disabled, run:function () { toolbar.btnPreview.click(); }});
+                entries.push({id:'slideshow-first', title:'从头开始放映', detail:'从第一张幻灯片开始播放 · ← → 换页 · Esc 结束', aliases:'播放 幻灯片 演示 放映 首页', enabled:!toolbar.btnPreview.disabled, run:function () { controller.onPreview(0, false, false); }});
             }
             entries.push({id:'all-tools', title:'全部功能', detail:'展开完整工具栏，按选项卡选择专业功能', run:function () { showFull('full'); }});
             return entries;
@@ -424,7 +427,7 @@ define([], function () {
                 button.setAttribute('oo_editor_input', 'true');
                 button.dataset.qlAction = item[0];
                 button.innerHTML = icon(item[3]) + '<span>' + item[1] + '</span>';
-                const hints = {file:'另存为、导出 PDF、打印与查找', open:'打开文件 · Ctrl+O', save:'保存 · Ctrl+S', undo:'撤销 · Ctrl+Z', redo:'恢复 · Ctrl+Y', commands:'按中文关键词查找常用与专业功能', more:'展开完整工具栏'};
+                const hints = {file:'另存为、导出 PDF、打印与查找', open:'打开文件 · Ctrl+O', save:'保存 · Ctrl+S', undo:'撤销 · Ctrl+Z', redo:'恢复 · Ctrl+Y', slideshow:'从当前幻灯片开始放映 · ← → 换页 · Esc 结束', commands:'按中文关键词查找常用与专业功能', more:'展开完整工具栏'};
                 button.title = hints[item[0]] || item[1];
                 if (item[2]) tracked.push([button, item[2], button.title]);
                 button.addEventListener('click', function () {
@@ -442,7 +445,7 @@ define([], function () {
                 group.appendChild(button);
             });
             if (items[0][0] === 'file') bar.insertBefore(group, scroll);
-            else (items[0][0] === 'commands' ? tools : scroll).appendChild(group);
+            else (items[0][0] === 'commands' || items[0][0] === 'slideshow' ? tools : scroll).appendChild(group);
         });
         root.appendChild(bar);
         root.appendChild(back);

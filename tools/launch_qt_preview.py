@@ -15,6 +15,32 @@ from build_qt import verify_inputs, verify_sdk
 from verify_sources import ROOT
 
 
+def preview_is_running(pid, expected_image):
+    """A retained process object or a reused PID is not a running owned preview."""
+    from ctypes import wintypes as wt
+    kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+    kernel.OpenProcess.restype = wt.HANDLE
+    kernel.OpenProcess.argtypes = [wt.DWORD, wt.BOOL, wt.DWORD]
+    kernel.WaitForSingleObject.argtypes = [wt.HANDLE, wt.DWORD]
+    kernel.QueryFullProcessImageNameW.argtypes = [wt.HANDLE, wt.DWORD, wt.LPWSTR, ctypes.POINTER(wt.DWORD)]
+    kernel.CloseHandle.argtypes = [wt.HANDLE]
+    handle = kernel.OpenProcess(0x101000, False, pid)
+    if not handle:
+        error = ctypes.get_last_error()
+        if error == 87: return False  # No such process.
+        raise ctypes.WinError(error)
+    try:
+        state = kernel.WaitForSingleObject(handle, 0)
+        if state == 0: return False  # Exited; another handle can keep its object alive.
+        if state != 258: raise ctypes.WinError(ctypes.get_last_error())
+        image, size = ctypes.create_unicode_buffer(32768), wt.DWORD(32768)
+        if not kernel.QueryFullProcessImageNameW(handle, 0, image, ctypes.byref(size)):
+            raise ctypes.WinError(ctypes.get_last_error())
+        return Path(image.value).resolve() == expected_image.resolve()
+    finally:
+        kernel.CloseHandle(handle)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--work-dir', required=True, type=Path)
@@ -45,14 +71,8 @@ def main():
     record = work / 'qt-runtime-launch.json'
     if record.exists():
         prior = json.loads(record.read_text('utf-8'))
-        if prior.get('pid'):
-            kernel = ctypes.WinDLL('kernel32', use_last_error=True)
-            kernel.OpenProcess.restype = ctypes.c_void_p
-            kernel.CloseHandle.argtypes = [ctypes.c_void_p]
-            handle = kernel.OpenProcess(0x1000, False, prior['pid'])
-            if handle:
-                kernel.CloseHandle(handle)
-                raise ValueError('The previously recorded test process is still running; close that preview normally first')
+        if prior.get('pid') and preview_is_running(prior['pid'], work / 'bin/DesktopEditors.exe'):
+            raise ValueError('The previously recorded test process is still running; close that preview normally first')
     folder, profile = work / 'bin', work / 'qt-acceptance-profile'
     profile.mkdir(exist_ok=True)
     fd = os.open(work / '.build.lock', os.O_CREAT | os.O_EXCL | os.O_WRONLY)
