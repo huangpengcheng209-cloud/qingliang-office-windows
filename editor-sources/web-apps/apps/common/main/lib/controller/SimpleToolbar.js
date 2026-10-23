@@ -20,6 +20,7 @@ define([], function () {
         alignright: '<path d="M3 5h18M9 9h12M3 13h18M9 17h12"/>',
         image: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="m4 18 6-6 4 4 2-2 5 5"/>',
         table: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/>',
+        edit: '<path d="m14 4 6 6M3 21l5-1L21 7a2 2 0 0 0-4-4L4 16l-1 5Z"/>',
         play: '<path d="m9 5 11 7-11 7V5Z"/>',
         slide: '<rect x="3" y="4" width="18" height="15" rx="2"/><path d="M8 23h8M12 19v4M12 8v7M8.5 11.5h7"/>',
         sort: '<path d="M5 4v16m-3-3 3 3 3-3M12 7h9M12 12h6M12 17h3"/>',
@@ -179,6 +180,7 @@ define([], function () {
         }
         if (kind === 'presentation') groups.push([['slide', '新建幻灯片', 'btnAddSlide', 'slide']]);
         if (kind === 'sheet') groups.push([['sort', '升序排列', 'btnSortDown', 'sort']]);
+        if (kind === 'pdf' && toolbar.btnEditMode) groups.push([['pdfmode', '编辑 PDF', 'btnEditMode', 'edit']]);
         if (kind === 'pdf') groups.push([
             ['text', '添加文字', 'btnTextComment', 'text'],
             ['highlight', '高亮', 'btnHighlight', 'highlight'],
@@ -226,6 +228,9 @@ define([], function () {
                 {id:'find', title:'查找内容', detail:'在当前文件中搜索文字', keys:'Ctrl+F', enabled:!!left, run:function () { left.onShowHideSearch(true); }}
             ];
             if (filesOnly) return entries;
+            if (kind === 'pdf' && toolbar.btnEditMode && options.canSwitchMode) {
+                entries.push({id:'pdfmode', title:options.isPDFEdit ? '返回阅读与批注' : '编辑 PDF', detail:options.isPDFEdit ? '结束内容编辑，返回阅读和填写模式' : '切换到原生 PDF 内容编辑模式，显示可用的专业工具', aliases:'编辑 模式 表单 文字 页面', enabled:!toolbar.btnEditMode.disabled, run:function () { toolbar.btnEditMode.click(); }});
+            }
             const catalogs = {
                 document: [
                     ['home','文字与段落','字体 字号 加粗 斜体 行距 列表 对齐'],
@@ -427,7 +432,7 @@ define([], function () {
                 button.setAttribute('oo_editor_input', 'true');
                 button.dataset.qlAction = item[0];
                 button.innerHTML = icon(item[3]) + '<span>' + item[1] + '</span>';
-                const hints = {file:'另存为、导出 PDF、打印与查找', open:'打开文件 · Ctrl+O', save:'保存 · Ctrl+S', undo:'撤销 · Ctrl+Z', redo:'恢复 · Ctrl+Y', slideshow:'从当前幻灯片开始放映 · ← → 换页 · Esc 结束', commands:'按中文关键词查找常用与专业功能', more:'展开完整工具栏'};
+                const hints = {file:'另存为、导出 PDF、打印与查找', open:'打开文件 · Ctrl+O', save:'保存 · Ctrl+S', undo:'撤销 · Ctrl+Z', redo:'恢复 · Ctrl+Y', pdfmode:'切换 PDF 编辑/阅读批注模式', slideshow:'从当前幻灯片开始放映 · ← → 换页 · Esc 结束', commands:'按中文关键词查找常用与专业功能', more:'展开完整工具栏'};
                 button.title = hints[item[0]] || item[1];
                 if (item[2]) tracked.push([button, item[2], button.title]);
                 button.addEventListener('click', function () {

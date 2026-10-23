@@ -13,8 +13,10 @@ on:
       - 'tests/run_editor_tests.py'
       - 'tests/run_spreadsheet_tests.py'
       - 'tests/run_presentation_tests.py'
+      - 'tests/run_pdf_tests.py'
       - 'tests/test_editor*.py'
       - 'tests/test_preview_process.py'
+      - 'tests/ui/pdf_font_loading_fixture.js'
       - '.github/workflows/editor-checks.yml'
   pull_request:
     paths:
@@ -27,8 +29,10 @@ on:
       - 'tests/run_editor_tests.py'
       - 'tests/run_spreadsheet_tests.py'
       - 'tests/run_presentation_tests.py'
+      - 'tests/run_pdf_tests.py'
       - 'tests/test_editor*.py'
       - 'tests/test_preview_process.py'
+      - 'tests/ui/pdf_font_loading_fixture.js'
       - '.github/workflows/editor-checks.yml'
   workflow_dispatch:
 
@@ -61,6 +65,8 @@ jobs:
       - name: Check editor and build hook JavaScript syntax
         run: |
           node --check editor-sources/web-apps/apps/common/main/lib/controller/SimpleToolbar.js
+          node --check editor-sources/web-apps/apps/pdfeditor/main/app/controller/DocumentHolderExt.js
+          node --check editor-sources/sdkjs/pdf/src/document.js
           node --check tools/editor_grunt_hook.js
       - name: Test editor source, SDK reuse and fixture preservation
         env:

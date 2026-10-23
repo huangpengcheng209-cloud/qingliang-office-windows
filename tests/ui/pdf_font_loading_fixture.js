@@ -1,0 +1,28 @@
+'use strict';
+const fs = require('fs');
+const assert = require('assert');
+const source = fs.readFileSync(process.argv[2], 'utf8').replace(/\r\n/g, '\n');
+const start = source.indexOf('    CPDFDoc.prototype.checkFieldFont = function(');
+const end = source.indexOf('\n\tCPDFDoc.prototype.checkFonts = ', start);
+assert(start >= 0 && end > start);
+function CPDFDoc() {}
+const AscFonts = {FontPickerByCharacter: {getFontsByString() {}, extendFonts(fonts) {fonts.push({name:'CJK'});}}};
+new Function('CPDFDoc', 'AscFonts', 'AscPDF', source.slice(start, end))(CPDFDoc, AscFonts, {FIELD_TYPES:{button:0}});
+const field = {GetType:()=>1, IsHindiDigits:()=>false, GetTextFontActual:()=>'TestFont', content:{getAllText:()=>'表'}};
+let notifications = 0, loads = 0;
+const sync = new CPDFDoc(); sync.loadedFonts = [];
+sync.fontLoader = {LoadFonts(fonts, done) {loads++; done();}};
+assert.strictEqual(sync.checkFieldFont(field, ()=>notifications++), true);
+assert.strictEqual(notifications, 0, 'synchronous completion must let the caller continue exactly once');
+assert.deepStrictEqual(sync.loadedFonts, ['TestFont','CJK']);
+assert.strictEqual(sync.checkFieldFont(field), true);
+assert.strictEqual(loads, 1, 'ready fonts must not be loaded again');
+let finish;
+const asyncDoc = new CPDFDoc(); asyncDoc.loadedFonts = [];
+asyncDoc.fontLoader = {LoadFonts(fonts, done) {finish=done;}};
+assert.strictEqual(asyncDoc.checkFieldFont(field, ()=>notifications++), false);
+assert.strictEqual(notifications, 0);
+finish();
+assert.strictEqual(notifications, 1, 'deferred input must resume once when fonts finish loading');
+assert.strictEqual(asyncDoc.checkFieldFont(field), true);
+console.log(JSON.stringify({synchronous_ready:true, deferred_resume_once:true, already_loaded:true}));

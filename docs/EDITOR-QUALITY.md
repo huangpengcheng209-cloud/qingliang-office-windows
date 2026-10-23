@@ -1,5 +1,7 @@
 # 表格与编辑区交互质量
 
+最新 PDF 的 40 项普通流程、16 项空白字段专项，以及 SDK 字体加载修复见 [PDF-QUALITY.md](PDF-QUALITY.md)；同一资源布局重跑本页 DOCX/XLSX 及 PPTX 回归通过，工具检查现为 152 项通过、1 项权限跳过。以下保留各前序阶段当时的计数。
+
 后续同一资源布局新增 47 项真实 PPTX 验收，并重跑本页的 DOCX 40 项、XLSX 50 项检查；工具检查现为 146 项通过、1 项权限跳过。放映入口与启动工具修复见 [PRESENTATION-QUALITY.md](PRESENTATION-QUALITY.md)，以下保留最初表格质量阶段的细节与计数。
 
 2026-10-23，本机统一重建五类桌面编辑器界面后，50 项真实 XLSX 流程检查和 40 项 DOCX 回归通过。新增修复集中在排序、工具栏切换、主题、键盘焦点及短动效。整体软件完善目标仍在进行；这不代表表格全部功能或整个界面已经验收。
@@ -46,7 +48,7 @@ python tests/run_editor_tests.py --work-dir D:\CodexCache\qingliang-community-bu
 
 同一布局的 DOCX 40/40 回归覆盖原有编辑/格式、加粗后继续输入、保存、正常退出重开、新建另存及 PDF 输出。工具检查共 143 项，142 项通过，1 项因 Windows 符号链接权限跳过。
 
-结果 JSON 记录主程序、宿主 DLL、编辑资源构建、运行布局及测试源码身份，DOCX/XLSX 原始输入保留。各测试报告的未覆盖标记只描述该套测试的范围；实际构建成功、真实 GUI 结果和整体产品完成状态分别记录。[Editor source checks](../.github/workflows/editor-checks.yml) 在 Windows/Linux 验证锁、补丁、JavaScript 语法和 11 项编辑器保护测试，另有三个 Windows 真实进程检查（Linux 跳过）；不宣称云端执行了 GUI 验收。
+结果 JSON 记录主程序、宿主 DLL、编辑资源构建、运行布局及测试源码身份，DOCX/XLSX 原始输入保留。各测试报告的未覆盖标记只描述该套测试的范围；实际构建成功、真实 GUI 结果和整体产品完成状态分别记录。[Editor source checks](../.github/workflows/editor-checks.yml) 在 Windows/Linux 验证锁、补丁、JavaScript 语法和 17 项编辑器保护/SDK 字体方法测试，另有三个 Windows 真实进程检查（Linux 跳过）；不宣称云端执行了 GUI 验收。
 
 ## 界面样例与剩余范围
 

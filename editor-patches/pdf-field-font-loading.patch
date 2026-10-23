@@ -1,0 +1,27 @@
+--- a/pdf/src/document.js
++++ b/pdf/src/document.js
+@@ -9103,17 +9103,20 @@
+ 		if (!fontsToLoad.length)
+ 			return true;
+ 		
+-		let _t = this;
++		// Qingliang community, 2026-10-23: already-loaded fallback fonts complete synchronously.
++		// Returning false in that case discards the first character; a sync callback would also re-enter callers.
++		let _t = this, loading = true, loaded = false;
+ 		this.fontLoader.LoadFonts(fontMap,
+ 			function()
+ 			{
+ 				_t.loadedFonts = _t.loadedFonts.concat(fontsToLoad);
+-				if (callback)
++				loaded = true;
++				if (!loading && callback)
+ 					callback();
+ 			}
+ 		);
+-	
+-		return false;
++		loading = false;
++		return loaded;
+ 	};
+ 	CPDFDoc.prototype.checkFonts = function(aFontsNames, callback) {
+ 		let fontsToLoad = [];

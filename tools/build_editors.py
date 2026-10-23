@@ -20,6 +20,42 @@ EDITORS = ['documenteditor', 'spreadsheeteditor', 'presentationeditor', 'pdfedit
 SDKS = ['word', 'cell', 'slide', 'visio']
 
 
+def sdk_overlays(lock, parent):
+    indexed = {r['file']: r['sha256'] for r in parent['files']}
+    result = {}
+    for row in lock.get('sdk_overlays', []):
+        name = row['file']
+        safe_relative(name)
+        for key in ('source', 'patch'): safe_relative(row[key])
+        if name.casefold() in result or row['source'] != 'editor-sources/sdkjs/' + name or not row['patch'].startswith('editor-patches/'):
+            raise ValueError('Duplicate or invalid desktop SDK overlay')
+        if indexed.get(name) != row['parent_sha256']:
+            raise ValueError('Desktop SDK overlay parent differs from fixed converter input')
+        if any(not re.fullmatch('[a-f0-9]{64}', row[key]) for key in ('parent_sha256', 'sha256', 'patch_sha256')):
+            raise ValueError('Invalid desktop SDK overlay identity')
+        if sha(ROOT / row['source']) != row['sha256'] or sha(ROOT / row['patch']) != row['patch_sha256']:
+            raise ValueError('Published desktop SDK overlay differs')
+        result[name.casefold()] = row
+    return result
+
+
+def sdk_input_paths(lock, source, names):
+    parent = json.loads((ROOT / 'converter.inputs.lock.json').read_text('utf-8'))['sdkjs']
+    indexed = {r['file']: r['sha256'] for r in parent['files']}
+    overlays = sdk_overlays(lock, parent)
+    paths, inputs = {}, {}
+    for name in names:
+        safe_relative(name)
+        if indexed.get(name) != sha(source / name):
+            raise ValueError('Desktop SDK fixed parent source differs')
+        row = overlays.get(name.casefold())
+        paths[name] = ROOT / row['source'] if row else source / name
+        inputs[name] = sha(paths[name])
+        if inputs[name] != (row['sha256'] if row else indexed[name]):
+            raise ValueError('Desktop SDK effective input differs')
+    return paths, inputs
+
+
 def verify_inputs():
     qt = verify_qt_inputs()
     converter = verify_converter_inputs()
@@ -65,6 +101,9 @@ def verify_inputs():
         for name in profile['min'] + profile['common']:
             safe_relative(name)
             if name not in sdk_files: raise ValueError('Desktop SDK input omitted from fixed SDKJS archive')
+    overlays = sdk_overlays(lock, converter['sdkjs'])
+    selected = {n.casefold() for p in lock['sdk_profiles'].values() for n in p['min'] + p['common']}
+    if not set(overlays).issubset(selected): raise ValueError('Unused desktop SDK overlay')
     for name in lock['sdk_assets']['files'] + lock['sdk_assets']['prefixes'] + [lock['sdk_assets']['stamp_prefix']]:
         safe_relative(name)
     for row in lock['image_tools']:
@@ -154,8 +193,6 @@ def prepare(lock, work, cache):
 def build_sdk(lock, work, source, jar, env, java):
     header = (source / 'build/license.header').read_text('utf-8')
     for a, b in {'@@AppCopyright': 'Copyright (C) Ascensio System SIA 2012-2026. All rights reserved', '@@PublisherUrl': 'https://www.onlyoffice.com/', '@@Version': '9.4.0', '@@Build': '129'}.items(): header = header.replace(a, b)
-    sdk_lock = json.loads((ROOT / 'converter.inputs.lock.json').read_text('utf-8'))['sdkjs']
-    indexed = {r['file']: r['sha256'] for r in sdk_lock['files']}
     externs = json.loads((source / 'configs/externs.json').read_text('utf-8'))['externs']
     results = {}
     for editor in SDKS:
@@ -163,14 +200,13 @@ def build_sdk(lock, work, source, jar, env, java):
         profile = {'min': config['min'] + config['desktop']['min'], 'common': config['common'] + config['desktop']['common']}
         if profile != lock['sdk_profiles'][editor]: raise ValueError('Desktop SDK profile differs')
         minimum, common = profile['min'], profile['common']
-        inputs = {n: sha(source / n) for n in externs + minimum + common}
-        if any(indexed.get(n) != digest for n, digest in inputs.items()): raise ValueError('Desktop SDK input differs')
+        paths, inputs = sdk_input_paths(lock, source, externs + minimum + common)
         target = work / 'bin/editors/sdkjs' / editor
         target.mkdir(parents=True, exist_ok=True)
-        arguments = ['-Xmx4096m', '-jar', jar.as_posix()] + ['--externs=' + (source / n).as_posix() for n in externs]
+        arguments = ['-Xmx4096m', '-jar', jar.as_posix()] + ['--externs=' + paths[n].as_posix() for n in externs]
         arguments += ["--define=window.AscCommon.g_cCompanyName='onlyoffice'", "--define=window.AscCommon.g_cProductVersion='9.4.0'", "--define=window.AscCommon.g_cBuildNumber='129'", "--define=window.AscCommon.g_cIsBeta='false'", '--rewrite_polyfills=true', '--warning_level=QUIET', '--language_out=ECMASCRIPT5', '--compilation_level=ADVANCED']
-        arguments += ['--js=' + (source / n).as_posix() for n in minimum] + ['--chunk=sdk-all-min:' + str(len(minimum))]
-        arguments += ['--js=' + (source / n).as_posix() for n in common] + ['--chunk=sdk-all:' + str(len(common)) + ':sdk-all-min', '--chunk_output_path_prefix=' + target.as_posix() + '/']
+        arguments += ['--js=' + paths[n].as_posix() for n in minimum] + ['--chunk=sdk-all-min:' + str(len(minimum))]
+        arguments += ['--js=' + paths[n].as_posix() for n in common] + ['--chunk=sdk-all:' + str(len(common)) + ':sdk-all-min', '--chunk_output_path_prefix=' + target.as_posix() + '/']
         argfile = work / ('desktop-sdk-' + editor + '.rsp')
         argfile.write_text('\n'.join('"' + s.replace('\\', '\\\\').replace('"', '\\"') + '"' for s in arguments), 'utf-8')
         print('Compiling desktop SDK ' + editor, flush=True)
@@ -184,7 +220,7 @@ def build_sdk(lock, work, source, jar, env, java):
             path.write_text(header + '\n' + text, 'utf-8')
             execute([shutil.which('node'), '--check', str(path)], source, env, log)
             outputs[name] = sha(path)
-        if any(sha(source / name) != digest for name, digest in inputs.items()): raise ValueError('Desktop SDK source changed while compiling')
+        if sdk_input_paths(lock, source, list(inputs))[1] != inputs: raise ValueError('Desktop SDK source changed while compiling')
         results[editor] = {'source_units': len(minimum) + len(common), 'inputs': inputs, 'outputs': outputs, 'profile': 'desktop native API'}
     (work / 'desktop-sdk-build-report.json').write_text(json.dumps(results, indent=2) + '\n', 'utf-8')
     return results
@@ -198,19 +234,12 @@ def reuse_sdk(lock, work, source):
     """Reuse one prior desktop SDK build only after checking its complete profile, actual inputs and outputs."""
     report = json.loads((work / 'desktop-sdk-build-report.json').read_text('utf-8'))
     if set(report) != set(SDKS): raise ValueError('Build all desktop SDK profiles before reusing them')
-    indexed = {r['file']: r['sha256'] for r in json.loads((ROOT / 'converter.inputs.lock.json').read_text('utf-8'))['sdkjs']['files']}
     externs = json.loads((source / 'configs/externs.json').read_text('utf-8'))['externs']
-    checked = {}
     for editor in SDKS:
         config = json.loads((source / ('configs/' + editor + '.json')).read_text('utf-8'))['sdk']
         profile = {'min': config['min'] + config['desktop']['min'], 'common': config['common'] + config['desktop']['common']}
         if profile != lock['sdk_profiles'][editor]: raise ValueError('Desktop SDK reuse profile differs')
-        inputs = {}
-        for name in externs + profile['min'] + profile['common']:
-            safe_relative(name)
-            if name not in checked: checked[name] = sha(source / name)
-            if indexed.get(name) != checked[name]: raise ValueError('Desktop SDK reuse source differs')
-            inputs[name] = checked[name]
+        paths, inputs = sdk_input_paths(lock, source, externs + profile['min'] + profile['common'])
         row = report[editor]
         if row['inputs'] != inputs or row['source_units'] != len(profile['min']) + len(profile['common']) or row['profile'] != 'desktop native API':
             raise ValueError('Prior desktop SDK input report differs')

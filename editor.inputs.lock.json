@@ -47844,7 +47844,11 @@
       {
         "file": "apps/pdfeditor/main/app/controller/DocumentHolderExt.js",
         "base_sha256": "25efc95695e8a68ac063475144f785373b51786fa2298ec574ad3cb43647f072",
-        "sha256": "25efc95695e8a68ac063475144f785373b51786fa2298ec574ad3cb43647f072"
+        "sha256": "48a8e880f6c11d69395754cb26ba8d55b6d31118d089396b2abc98500e252fa0",
+        "source": "editor-sources/web-apps/apps/pdfeditor/main/app/controller/DocumentHolderExt.js",
+        "patch": "editor-patches/pdf-form-selection.patch",
+        "patch_sha256": "4e3eb007ce7c8ef0d73a44f071f57c9ce89d310b33c243123c0cc5b52870d0b9",
+        "parent_sha256": "25efc95695e8a68ac063475144f785373b51786fa2298ec574ad3cb43647f072"
       },
       {
         "file": "apps/pdfeditor/main/app/controller/FormsTab.js",
@@ -150693,12 +150697,12 @@
       {
         "file": "apps/common/main/lib/controller/SimpleToolbar.js",
         "base_sha256": null,
-        "sha256": "83c8e02e3e06c8a85c3821eede639e75bafe3a848f4f9ba268c69dfbdbccb263",
+        "sha256": "1ee02310deaa02ff2e3a82ebcd694c6099be8f06333add27c5f2f08edacef8cf",
         "origin": "quality-overlay-on-frozen",
         "source": "editor-sources/web-apps/apps/common/main/lib/controller/SimpleToolbar.js",
         "parent_sha256": "553dd850f0e0915435c38ead48e54f2c64f31ef68b126b7fcb03ba1303f44421",
         "patch": "editor-patches/quick-toolbar-quality.patch",
-        "patch_sha256": "cfde806b6a467753ebe33103e40759c7d02bd41ddc14b98716890cc7dc557831"
+        "patch_sha256": "c54897c59cd531cb61d49929e9f644684fd11b4a9cc418b46f341ec13d302228"
       }
     ]
   },
@@ -155799,5 +155803,15 @@
     "stamp_prefix": "pdf/src/annotations/stamps/"
   },
   "checked_in_wasm_policy": "Use hash-locked upstream SDKJS WASM assets; WASM was not rebuilt in this stage",
-  "scope": "Desktop assets and limited DOCX GUI acceptance; other editors, plugins, playback and installation acceptance remain incomplete"
+  "scope": "Desktop assets and limited DOCX GUI acceptance; other editors, plugins, playback and installation acceptance remain incomplete",
+  "sdk_overlays": [
+    {
+      "file": "pdf/src/document.js",
+      "parent_sha256": "e9d73b6f47267a0206b1450ca07c1a5ab687c38eb4c44847823b45211dc93718",
+      "sha256": "f4c242f2e6eb073fead7e33b7a237883da5ca8cd2b3c5278451c8d0975fdf2d2",
+      "source": "editor-sources/sdkjs/pdf/src/document.js",
+      "patch": "editor-patches/pdf-field-font-loading.patch",
+      "patch_sha256": "8be6eabb6a06a94eeec8fc449c3257308df76ea20e5ecd34896506cd5728aca7"
+    }
+  ]
 }

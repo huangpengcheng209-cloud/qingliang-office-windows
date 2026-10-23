@@ -1,0 +1,14 @@
+--- a/apps/pdfeditor/main/app/controller/DocumentHolderExt.js
++++ b/apps/pdfeditor/main/app/controller/DocumentHolderExt.js
+@@ -1495,9 +1495,8 @@
+                     items: []
+                 });
+                 menu.on('item:click', function(menu, item) {
+-                    setTimeout(function(){
+-                        (item.value!==-1) && me.api.asc_SelectPDFFormListItem(item.value);
+-                    }, 1);
++                    // Qingliang community, 2026-10-23: commit before Tab can change the active field.
++                    (item.value!==-1) && me.api.asc_SelectPDFFormListItem(item.value);
+                 });
+ 
+                 // Prepare menu container

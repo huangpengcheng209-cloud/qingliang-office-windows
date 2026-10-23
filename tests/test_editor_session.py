@@ -8,6 +8,7 @@ from pathlib import Path
 from run_editor_tests import Acceptance, ROOT, sha
 from run_spreadsheet_tests import SpreadsheetAcceptance
 from run_presentation_tests import PresentationAcceptance
+from run_pdf_tests import PdfAcceptance, EmptyPdfAcceptance
 
 
 class AcceptanceFixtureTests(unittest.TestCase):
@@ -45,3 +46,9 @@ class AcceptanceFixtureTests(unittest.TestCase):
 
     def test_pptx_fixture_preflight_preserves_all_files_on_late_unknown_edit(self):
         self.assert_late_unknown_edit_preserves_earlier_output(PresentationAcceptance, '.qingliang-presentation-acceptance', 'presentation-test-result.json')
+
+    def test_pdf_fixture_preflight_preserves_all_files_on_late_unknown_edit(self):
+        self.assert_late_unknown_edit_preserves_earlier_output(PdfAcceptance, '.qingliang-pdf-acceptance', 'pdf-test-result.json')
+
+    def test_empty_pdf_fixture_preflight_preserves_all_files_on_late_unknown_edit(self):
+        self.assert_late_unknown_edit_preserves_earlier_output(EmptyPdfAcceptance, '.qingliang-pdf-empty-acceptance', 'pdf-empty-field-result.json')
