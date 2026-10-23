@@ -111,6 +111,10 @@
   [hidden] { display: none !important; }
 }
 .ql-recent-controls { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 2px 0 16px; flex-wrap: wrap; }
+.theme-type-dark .recents #box-recent .file-list-body,
+.theme-type-dark .recents #box-recent .file-list-body .row { background: var(--ql-surface); border-color: var(--ql-line); }
+.theme-type-dark .recents #box-recent .file-list-body .row:hover,
+.theme-type-dark .recents #box-recent .file-list-body .row:focus-within { background: var(--ql-soft); }
 .ql-filter-types {
   display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
   button { height: 32px; padding: 0 12px; border-radius: 7px; background: transparent; color: var(--ql-muted); font-size: 12px; white-space: nowrap;

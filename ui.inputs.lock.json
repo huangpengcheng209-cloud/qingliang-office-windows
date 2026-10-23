@@ -2223,10 +2223,10 @@
     {
       "file": "common/loginpage/src/css/workbench-quality.less",
       "parent_sha256": null,
-      "sha256": "52ee617aaf200c7ca4a88188fdb7d63cf0b17edcbed3b72b9b3cd533af9dea12",
+      "sha256": "bcf091ca4e1ae5c947cfaae069e8d3ebb238cb74db52e8f25ad232a6fe2d56e9",
       "source": "ui-sources/desktop-apps/common/loginpage/src/css/workbench-quality.less",
       "patch": "ui-patches/workbench-quality.less.patch",
-      "patch_sha256": "7726ba7c8c5bc069625e93de2307378512647510c51be450bb6c8a4fb60671d7"
+      "patch_sha256": "f32e5a5f3d9871bd847df546c4095a77301eef71725668a143520118728a6ad8"
     },
     {
       "file": "common/loginpage/src/document-creation-grid.js",

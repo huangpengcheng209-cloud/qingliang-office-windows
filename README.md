@@ -20,7 +20,7 @@ HEIF 阶段增加 x265/libde265/libheif 固定源码构建，以及单独的 YCb
 
 绘图阶段已编译并链接固定 Windows 工程全部 515 个 C/C++ 单元，修复 HEIF 透明度和 SVG 内存加载问题，21 项原生运行检查本机通过。输入、补丁与完整修改文件见 `graphics.inputs.lock.json`、`graphics-patches/`、`graphics-sources/`；[构建说明](docs/GRAPHICS-BUILD.md)记录范围与命令。
 
-VBA/文本前置阶段已生成 4+7 单元静态库及两个 POLE/Unicode 支持单元，36 项底层流解析和文本读写场景本机通过。修复与固定输入见 `format-patches/`、`format-sources/`、`formats.inputs.lock.json`；完整 VBA XML 导出仍待验证。
+VBA/文本前置阶段已生成 4+7 单元静态库及两个 POLE/Unicode 支持单元，37 项底层流解析和文本读写场景本机通过。修复与固定输入见 `format-patches/`、`format-sources/`、`formats.inputs.lock.json`；完整 VBA XML 导出仍待验证。
 
 TXT↔DOCX 阶段已补齐并构建 217 个格式支持单元，可通过命令行生成真实 DOCX 和提取正文/表格。23 项实际文件测试及本机 5 项 python-docx 独立交叉检查通过；修复特殊字符、制表符和表格空列问题。命令、输入限制和验证范围见 [DOCX-BUILD.md](docs/DOCX-BUILD.md)。
 
@@ -28,7 +28,7 @@ TXT↔DOCX 阶段已补齐并构建 217 个格式支持单元，可通过命令�
 
 ## 当前内容
 
-功能与界面完善正在推进：[工作台首批改进](docs/WORKBENCH-QUALITY.md)包含真实首页的搜索、类型/置顶筛选、键盘操作、明暗主题和短过渡，本机 36 项浏览器检查通过。测试的原生接口为独立边界适配器，尚未代表桌面编辑保存成功；完整范围与剩余工作见[质量清单](docs/PRODUCT-QUALITY-PLAN.md)。
+功能与界面完善正在推进：[工作台首批改进](docs/WORKBENCH-QUALITY.md)包含真实首页的搜索、类型/置顶筛选、键盘操作、明暗主题和短过渡，本机 37 项浏览器检查通过。测试的原生接口为独立边界适配器，尚未代表桌面编辑保存成功；完整范围与剩余工作见[质量清单](docs/PRODUCT-QUALITY-PLAN.md)。
 
 2026-10-23 桌面前置继续推进：已从固定源码构建 Hunspell 拼写检查 DLL，22 项真实词典操作本机通过，并记录 Qt/CEF 材料身份和桌面宿主剩余依赖。入口与范围见 [DESKTOP-BUILD.md](docs/DESKTOP-BUILD.md)；桌面界面和安装包仍待构建验收。
 
@@ -49,7 +49,7 @@ TXT↔DOCX 阶段已补齐并构建 217 个格式支持单元，可通过命令�
 | [docs/FONT-BUILD.md](docs/FONT-BUILD.md) | FreeType/Brotli/HarfBuzz 源码构建、上游字形/位置预期比对和 32 项运行测试 |
 | [docs/HEIF-BUILD.md](docs/HEIF-BUILD.md) | x265/libde265/libheif 源码构建、16 项 HEIC 像素/元数据/错误场景与本机独立解码比对 |
 | [docs/GRAPHICS-BUILD.md](docs/GRAPHICS-BUILD.md) | 完整绘图 DLL 源码构建、编译器实际输入审计及 21 项原生渲染检查 |
-| [docs/FORMAT-BUILD.md](docs/FORMAT-BUILD.md) | VBA/文本静态库、36 项隔离解析和文本读写检查及完整转换边界 |
+| [docs/FORMAT-BUILD.md](docs/FORMAT-BUILD.md) | VBA/文本静态库、37 项隔离解析和文本读写检查及完整转换边界 |
 | [docs/DOCX-BUILD.md](docs/DOCX-BUILD.md) | TXT↔DOCX 命令行预览、217 单元格式依赖和 23 项实际文件检查 |
 | [docs/CONVERTER-BUILD.md](docs/CONVERTER-BUILD.md) | 完整 x2t、V8、SDKJS 源码构建和 25 项真实文件检查 |
 | [docs/STATUS.md](docs/STATUS.md) | 已有验收范围与已知问题 |

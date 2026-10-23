@@ -153,6 +153,7 @@ def main():
             history(records)
             page.set_viewport_size({'width': 1440, 'height': 1000})
             check('dark_theme_uses_dark_workbench_surfaces', page.locator('#placeholder').evaluate("e => getComputedStyle(e).getPropertyValue('--ql-surface').trim() === '#232934'"))
+            check('dark_recent_rows_use_the_actual_workbench_surface', page.locator('#box-recent .row').first.evaluate("e => getComputedStyle(e).backgroundColor === 'rgb(35, 41, 52)'"))
             page.screenshot(path=str(evidence / 'workbench-dark.png'), full_page=True)
             page.evaluate("utils.Lang.change('en')")
             check('language_switch_updates_search_filters_and_result_status', search.get_attribute('placeholder') == 'Search files or locations' and page.locator('[data-filter="all"]').inner_text() == 'All files' and 'files' in page.locator('.ql-recent-count').inner_text())
