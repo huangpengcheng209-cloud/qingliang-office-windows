@@ -1,0 +1,10 @@
+--- a/win-linux/src/platform_win/singleapplication.h
++++ b/win-linux/src/platform_win/singleapplication.h
+@@ -58,6 +58,7 @@
+     HANDLE      m_hMutex = nullptr;
+     HWND        m_hWnd = nullptr;
+     bool        m_isPrimary;
++    QString     m_receiverClass;
+ 
+ private slots:
+     void invokeSignal(const QString&);

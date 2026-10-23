@@ -1,0 +1,11 @@
+--- a/win-linux/src/prop/utils.cpp
++++ b/win-linux/src/prop/utils.cpp
+@@ -37,7 +37,7 @@
+ {
+     // Allow acceptance runs to keep recoveries, fonts and plugin state in a
+     // dedicated profile without changing the regular profile location.
+-    const QString testDataRoot = QString::fromUtf8(qgetenv("OFFICE_USER_DATA_ROOT"));
++    const QString testDataRoot = qEnvironmentVariable("OFFICE_USER_DATA_ROOT");
+     if (!testDataRoot.isEmpty() && QDir::isAbsolutePath(testDataRoot))
+         return QDir::fromNativeSeparators(testDataRoot);
+     return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);

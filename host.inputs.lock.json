@@ -31377,10 +31377,13 @@
       },
       {
         "file": "ChromiumBasedEditors/lib/src/cefwrapper/client_renderer_wrapper.cpp",
-        "sha256": "a7162ea872f01040ab9cfee3676d147715131ab6638e24f3d6f1259673d6cd20",
+        "sha256": "c88bbe0411207327723c83603d5a2f4d002afd1a428fc8eb8f461ee7493f89ac",
         "base_sha256": "767b346ad81cfadf51a1d0bebca569cc58985fb7ac9750291707a8efc05cdbde",
-        "origin": "frozen-overlay",
-        "modified_source": "sources/desktop-sdk/ChromiumBasedEditors/lib/src/cefwrapper/client_renderer_wrapper.cpp"
+        "origin": "community-overlay",
+        "modified_source": "host-sources/desktop-sdk/ChromiumBasedEditors/lib/src/cefwrapper/client_renderer_wrapper.cpp",
+        "frozen_parent_sha256": "a7162ea872f01040ab9cfee3676d147715131ab6638e24f3d6f1259673d6cd20",
+        "patch": "host-patches/native-bridge-reinit.patch",
+        "patch_sha256": "1d990f0b03f65c95dcd160e7d87ee2be469a879eb6b3f1e5f11630bdc3599d82"
       },
       {
         "file": "ChromiumBasedEditors/lib/src/cefwrapper/client_resource_handler_async.cpp",
@@ -54244,7 +54247,7 @@
     },
     {
       "file": "@desktop-sdk/ChromiumBasedEditors/lib/src/cefwrapper/client_renderer_wrapper.cpp",
-      "sha256": "a7162ea872f01040ab9cfee3676d147715131ab6638e24f3d6f1259673d6cd20"
+      "sha256": "c88bbe0411207327723c83603d5a2f4d002afd1a428fc8eb8f461ee7493f89ac"
     },
     {
       "file": "@desktop-sdk/ChromiumBasedEditors/lib/src/cefwrapper/client_resource_handler_async.cpp",

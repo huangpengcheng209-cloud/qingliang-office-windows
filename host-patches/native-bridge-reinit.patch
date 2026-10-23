@@ -1,0 +1,11 @@
+--- a/ChromiumBasedEditors/lib/src/cefwrapper/client_renderer_wrapper.cpp
++++ b/ChromiumBasedEditors/lib/src/cefwrapper/client_renderer_wrapper.cpp
+@@ -2471,7 +2471,7 @@
+ window.AscDesktopEditor._saveAndOpenCallback = callback;\n\
+ return window.AscDesktopEditor._saveAndOpen(content, formatSrc, pathDst, formatDst);\n\
+ };\n\
+-Object.defineProperty(window.AscDesktopEditor, 'CryptoMode', {\n\
++if (!Object.getOwnPropertyDescriptor(window.AscDesktopEditor, 'CryptoMode')) Object.defineProperty(window.AscDesktopEditor, 'CryptoMode', {\n\
+ get: function() { return window.AscDesktopEditor.Property_GetCryptoMode(); },\n\
+ set: function(value) { window.AscDesktopEditor.Property_SetCryptoMode(value); }\n\
+ });\n\

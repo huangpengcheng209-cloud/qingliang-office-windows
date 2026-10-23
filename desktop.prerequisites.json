@@ -1,6 +1,6 @@
 {
   "checked_date": "2026-10-23",
-  "scope": "Dependency material identity and project inspection; no Qt/CEF or desktop-host build",
+  "scope": "Native host and Qt workbench build and interface checks; complete editor resources, edit/save/playback and installation acceptance remain incomplete",
   "qt": {
     "version": "5.15.2",
     "toolchain_flavor": "msvc2019_64",
@@ -10,7 +10,7 @@
     "bytes": 586690220,
     "source_archive_verified": true,
     "qt_rebuilt": false,
-    "runtime_binary_identity_verified_in_this_stage": false
+    "runtime_binary_identity_verified_in_this_stage": true
   },
   "cef": {
     "version": "150.0.22+gc1a097e+chromium-150.0.7871.256",
@@ -44,16 +44,16 @@
     "installer and GUI acceptance"
   ],
   "remaining": [
-    "Pinned desktop-sdk and desktop-apps complete input profiles and clean MSVC build/link",
-    "Qt modules, tools and runtime source/configuration correspondence",
-    "CEF wrapper/client source selection, libcef binary and full Chromium dependency correspondence",
-    "Source-built PDF/XPS/DjVu/signature/renderer DLL linkage for desktop host",
-    "Desktop SDKJS, web-apps, dictionaries, plugins and OCR runtime material",
-    "VLC x64 downstream patches, static dependency versions and backend selection",
+    "Complete Qt/CEF/VLC static dependency and downstream source/distribution material correspondence",
+    "Desktop SDKJS, web-apps, empty templates, dictionaries, plugins and OCR runtime integration",
+    "Real media playback and presentation regression",
     "Independent GUI edit/save/reopen/convert and installation/uninstallation tests"
   ],
   "native_spelling_built": true,
-  "desktop_host_built": false,
-  "application_gui_tested": false,
-  "installer_built": false
+  "desktop_host_built": true,
+  "application_gui_tested": true,
+  "installer_built": false,
+  "qt_shell_built": true,
+  "office_edit_save_tested": false,
+  "qt_gui_cases_passed": 16
 }

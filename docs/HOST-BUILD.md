@@ -26,7 +26,7 @@ python tools/build_host.py build --work-dir D:\CodexCache\qingliang-community-bu
 
 ## 验证范围
 
-本机宿主实际编译读取的 1,524 个固定源码/头文件输入已核对；工具链头文件单独记录。Boost 新使用的源码/头文件与固定 Boost 归档核对，ICU 头文件与固定源码 ZIP 核对。源文件路径、归档哈希、额外 core 输入、Boost/ICU 输入及两份独立修改均记录在锁中。
+本机宿主实际编译读取的 1,524 个固定源码/头文件输入已核对；工具链头文件单独记录。Boost 新使用的源码/头文件与固定 Boost 归档核对，ICU 头文件与固定源码 ZIP 核对。源文件路径、归档哈希、额外 core 输入、Boost/ICU 输入及独立修改均记录在锁中。
 
 原生测试真正加载新 DLL、CEF 运行库及新绘图/PDF 依赖，调用导出的配置、DPI 计算和格式识别接口，并执行 Windows/Boost 中文与 Emoji 路径的创建、复制、遍历、缺失源错误和删除副本保留原文件。它验证 DLL 加载和接口边界，**没有启动 CEF 浏览器或 Qt 窗口**；125%/150% 检查是计算接口检查，不能作为桌面实际缩放验收。
 
@@ -34,6 +34,6 @@ python tools/build_host.py build --work-dir D:\CodexCache\qingliang-community-bu
 
 ## 接下来的桌面集成
 
-继续构建 `editors_helper.exe`、Qt 包装、播放器与 `DesktopEditors.exe`，再准备桌面 SDKJS/web-apps、词典、插件和其他载荷，将已改进工作台接入真实宿主。历史候选的播放器依赖 VLC，不能为了编译直接改用 Qt Multimedia 并据此声称保留原后端；其固定来源和功能回归仍需处理。
+后续 Qt 集成已构建 `editors_helper.exe`、Qt 包装、保留 VLC 后端的播放器与 `DesktopEditors.exe`，并将真实工作台接入宿主；16 项实际窗口检查通过，另修复主题切换时桥接属性的重复定义。见 [QT-DESKTOP-BUILD.md](QT-DESKTOP-BUILD.md)。桌面 SDKJS/web-apps、词典、插件等完整载荷和编辑保存仍待完成；播放器还未做实际播放回归。
 
 Qt/CEF/VLC 对应材料及分发条件、实际编辑保存、播放/放映、打印、安装卸载与文档保留仍待完成。完整目标见 [PRODUCT-QUALITY-PLAN.md](PRODUCT-QUALITY-PLAN.md)。本批仅发布源码和构建工具，没有发布应用安装包。

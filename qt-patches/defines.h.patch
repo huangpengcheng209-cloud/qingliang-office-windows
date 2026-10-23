@@ -1,0 +1,34 @@
+--- a/win-linux/src/defines.h
++++ b/win-linux/src/defines.h
+@@ -32,6 +32,10 @@
+ 
+ #ifndef DEFINES_H
+ #define DEFINES_H
++
++#include <QSettings>
++#include <QDir>
++#include <memory>
+ 
+ #define rePortalName        "^https?:\\/\\/(.+)"
+ #define reFileExtension     "\\.(\\w{1,10})$"
+@@ -68,8 +72,19 @@
+ #define URL_SITE                "http://www.onlyoffice.com"
+ #define URL_SIGNUP              "https://onlyoffice.com/registration.aspx?desktop=true"
+ 
++// Qingliang community, 2026-10-23: allow an explicit isolated settings file for acceptance profiles.
++namespace QingliangDesktop {
++inline std::unique_ptr<QSettings> createUserSettings()
++{
++    const QString file = qEnvironmentVariable("QINGLIANG_SETTINGS_FILE");
++    if (!file.isEmpty() && QDir::isAbsolutePath(file))
++        return std::unique_ptr<QSettings>(new QSettings(file, QSettings::IniFormat));
++    return std::unique_ptr<QSettings>(new QSettings(QSettings::NativeFormat, QSettings::UserScope, REG_GROUP_KEY, REG_APP_NAME));
++}
++}
+ #define GET_REGISTRY_USER(variable) \
+-    QSettings variable(QSettings::NativeFormat, QSettings::UserScope, REG_GROUP_KEY, REG_APP_NAME);
++    auto variable##_qingliang_owner = QingliangDesktop::createUserSettings(); \
++    QSettings& variable = *variable##_qingliang_owner;
+ #define GET_REGISTRY_SYSTEM(variable) \
+     QSettings variable(QSettings::SystemScope, REG_GROUP_KEY, REG_APP_NAME);
+ 

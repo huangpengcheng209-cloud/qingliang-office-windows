@@ -1,0 +1,106 @@
+--- a/win-linux/src/platform_win/singleapplication.cpp
++++ b/win-linux/src/platform_win/singleapplication.cpp
+@@ -35,6 +35,8 @@
+ #include "singleapplication.h"
+ #include "defines.h"
+ #include <QThread>
++#include <QCryptographicHash>
++#include <QFileInfo>
+ 
+ #define RECEIVER_WINDOW WINDOW_CLASS_NAME
+ #define RETRIES_COUNT 10
+@@ -43,10 +45,22 @@
+ 
+ SingleApplication::SingleApplication(int &argc, char *argv[]) :
+     QApplication(argc, argv),
+-    m_isPrimary(false)
++    m_isPrimary(false),
++    m_hWnd(nullptr),
++    m_hMutex(nullptr)
+ {
+-    m_hMutex = CreateMutex(NULL, FALSE, TEXT(APP_MUTEX_NAME));
+-    if (GetLastError() != ERROR_ALREADY_EXISTS) {
++    // Qingliang community, 2026-10-23: separate explicit settings profiles from the regular instance.
++    m_receiverClass = QString::fromWCharArray(RECEIVER_WINDOW);
++    QString mutexName = QStringLiteral(APP_MUTEX_NAME);
++    const QString settingsFile = qEnvironmentVariable("QINGLIANG_SETTINGS_FILE");
++    if (!settingsFile.isEmpty() && QDir::isAbsolutePath(settingsFile)) {
++        const QString key = QDir::cleanPath(QDir::fromNativeSeparators(QFileInfo(settingsFile).absoluteFilePath())).toCaseFolded();
++        const QString suffix = "." + QString::fromLatin1(QCryptographicHash::hash(key.toUtf8(), QCryptographicHash::Sha256).toHex().left(24));
++        mutexName += suffix;
++        m_receiverClass += suffix;
++    }
++    m_hMutex = CreateMutexW(NULL, FALSE, mutexName.toStdWString().c_str());
++    if (m_hMutex && GetLastError() != ERROR_ALREADY_EXISTS) {
+         m_isPrimary = true;
+         startPrimary();
+     }
+@@ -54,7 +68,7 @@
+ 
+ SingleApplication::~SingleApplication()
+ {
+-    if (m_isPrimary && m_hMutex != nullptr)
++    if (m_hMutex != nullptr)
+         CloseHandle(m_hMutex);
+ 
+     if (m_hWnd)
+@@ -74,9 +88,11 @@
+     HWND hwnd = NULL;
+     int retries = RETRIES_COUNT;
+     do {
++        // The receiver is an HWND_MESSAGE window, not a top-level editor window.
++        hwnd = FindWindowExW(HWND_MESSAGE, NULL, m_receiverClass.toStdWString().c_str(), NULL);
++        if (hwnd) break;
+         QThread::msleep(RETRIES_DELAY_MS);
+-        hwnd = FindWindow(RECEIVER_WINDOW, NULL);
+-    } while (retries-- > 0 && hwnd == NULL);
++    } while (retries-- > 0);
+ 
+     if (hwnd != NULL) {
+         QString msg(message);
+@@ -87,9 +103,11 @@
+         COPYDATASTRUCT MyCDS = {1};
+         MyCDS.cbData = sizeof(WCHAR) * (wcslen(cm_line) + 1);
+         MyCDS.lpData = cm_line;
+-        SendMessage(hwnd, WM_COPYDATA, WPARAM(0), LPARAM((LPVOID)&MyCDS));
++        DWORD_PTR response = 0;
++        const bool sent = SendMessageTimeoutW(hwnd, WM_COPYDATA, WPARAM(0), LPARAM((LPVOID)&MyCDS),
++                                             SMTO_ABORTIFHUNG | SMTO_BLOCK, 2000, &response) != 0;
+         delete[] cm_line;
+-        return true;
++        return sent && response != 0;
+     }
+     return false;
+ }
+@@ -100,10 +118,11 @@
+     WNDCLASSEX wcx{sizeof(WNDCLASSEX)};
+     wcx.hInstance = hInstance;
+     wcx.lpfnWndProc = WndProc;
+-    wcx.lpszClassName = RECEIVER_WINDOW;
++    const std::wstring receiverClass = m_receiverClass.toStdWString();
++    wcx.lpszClassName = receiverClass.c_str();
+     RegisterClassEx(&wcx);
+ 
+-    m_hWnd = CreateWindowEx(0, RECEIVER_WINDOW, nullptr, 0, 0, 0, 0, 0, HWND_MESSAGE, nullptr, hInstance, nullptr);
++    m_hWnd = CreateWindowExW(0, receiverClass.c_str(), nullptr, 0, 0, 0, 0, 0, HWND_MESSAGE, nullptr, hInstance, nullptr);
+     SetWindowLongPtr(m_hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+ }
+ 
+@@ -121,9 +140,14 @@
+     switch (msg) {
+     case WM_COPYDATA: {
+         COPYDATASTRUCT* pcds = (COPYDATASTRUCT*)lParam;
+-        if (pcds->dwData == 1 && pcds->lpData)
+-            QMetaObject::invokeMethod(app, "invokeSignal", Qt::QueuedConnection, Q_ARG(QString, QString::fromWCharArray((WCHAR*)pcds->lpData)));
+-        break;
++        if (pcds && pcds->dwData == 1 && pcds->lpData && pcds->cbData >= sizeof(WCHAR) && pcds->cbData % sizeof(WCHAR) == 0) {
++            const WCHAR* text = static_cast<const WCHAR*>(pcds->lpData);
++            const int count = static_cast<int>(pcds->cbData / sizeof(WCHAR));
++            if (text[count - 1] != L'\0') return FALSE;
++            QMetaObject::invokeMethod(app, "invokeSignal", Qt::QueuedConnection, Q_ARG(QString, QString::fromWCharArray(text, count - 1)));
++            return TRUE;
++        }
++        return FALSE;
+     }
+     case UM_INSTALL_UPDATE: {
+         QTimer::singleShot(500, []() {
