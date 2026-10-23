@@ -1,6 +1,6 @@
 {
   "checked_date": "2026-10-23",
-  "scope": "Source-built native desktop, actual workbench and limited DOCX edit/save/reopen/new/PDF export acceptance; complete other editors, UI/motion, plugins/media and installation remain incomplete",
+  "scope": "Source-built desktop with limited DOCX/XLSX lifecycle, editor toolbar/theme/motion and workbench checks; remaining editors, complete UI, plugins/media/recovery and installation are incomplete",
   "qt": {
     "version": "5.15.2",
     "toolchain_flavor": "msvc2019_64",
@@ -46,7 +46,7 @@
   "remaining": [
     "Complete Qt/CEF/VLC static dependency and downstream source/distribution material correspondence",
     "Complete default plugins and OCR runtime integration and acceptance",
-    "XLSX/PPTX/PDF forms and complex document editing, native IME/clipboard and compatibility acceptance",
+    "Remaining XLSX functions/chart visuals, PPTX/PDF forms, complex documents and real native IME/clipboard acceptance",
     "Real media playback, presentation, save failure/recovery and performance regression",
     "Complete visual system, dark theme, accessibility, scaling and motion/real status feedback",
     "Installer, installation/upgrade/uninstallation and user document preservation acceptance"
@@ -58,7 +58,10 @@
   "qt_shell_built": true,
   "office_edit_save_tested": true,
   "qt_gui_cases_passed": 16,
-  "office_edit_save_scope": "Ordinary DOCX typing/undo/redo/bold/save, fresh-process reopen, native Save As and PDF export only",
+  "office_edit_save_scope": "Ordinary DOCX and XLSX typing/formatting/undo/save, fresh-process reopen and native Save As; DOCX PDF export; limited worksheet/formula/sort operations",
   "desktop_editor_resources_built": true,
-  "editor_gui_cases_passed": 39
+  "editor_gui_cases_passed": 40,
+  "spreadsheet_gui_cases_passed": 50,
+  "editor_toolbar_theme_and_motion_tested": true,
+  "complete_visual_system_accepted": false
 }

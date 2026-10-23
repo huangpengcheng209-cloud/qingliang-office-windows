@@ -28,6 +28,8 @@ TXT↔DOCX 阶段已补齐并构建 217 个格式支持单元，可通过命令�
 
 ## 当前内容
 
+表格与编辑区质量继续推进：**50 项真实 XLSX 检查、40 项 DOCX 回归通过**，覆盖基础多表/公式/排序/格式、保存重开与新建另存。修复快捷排序错误禁用、完整工具栏遮挡返回按钮及菜单键盘焦点，补齐快捷栏和文件菜单的明暗主题、短动效与减少动效。真实窗口截图、构建命令及未覆盖范围见 [EDITOR-QUALITY.md](docs/EDITOR-QUALITY.md)。图表视觉、完整筛选/剪贴板、演示/PDF 表单、恢复和安装仍需完善。
+
 新桌面已接通实际编辑区：四套桌面 SDKJS、五类编辑器界面、空模板、词典及 17,215 次运行资源复制有固定来源记录。本机 **39 项真实 DOCX 编辑保存、正常退出重开、新建另存和 PDF 导出检查通过**；另修复 60 个缺失中文字符串和大写保存后缀重复追加问题。命令与具体范围见 [EDITOR-BUILD.md](docs/EDITOR-BUILD.md)。表格、演示、PDF 表单、插件、媒体、完整视觉/动效和安装仍需继续完善。
 
 新 Qt 主程序已接入真实工作台，103 个 Qt 单元构建和实际输入审计通过；本机 16 项真实窗口检查以最新主程序重跑通过，修复主题切换脚本错误及重复启动消息投递。五份配置/Unicode/单实例/保存后缀修改独立公开，原 96 文件保持不变。[Qt 桌面构建说明](docs/QT-DESKTOP-BUILD.md)记录命令与边界。
@@ -59,6 +61,7 @@ TXT↔DOCX 阶段已补齐并构建 217 个格式支持单元，可通过命令�
 | [docs/DOCX-BUILD.md](docs/DOCX-BUILD.md) | TXT↔DOCX 命令行预览、217 单元格式依赖和 23 项实际文件检查 |
 | [docs/CONVERTER-BUILD.md](docs/CONVERTER-BUILD.md) | 完整 x2t、V8、SDKJS 源码构建和 25 项真实文件检查 |
 | [docs/EDITOR-BUILD.md](docs/EDITOR-BUILD.md) | 桌面编辑资源构建、中文/保存后缀修复和 39 项真实 DOCX/PDF 检查 |
+| [docs/EDITOR-QUALITY.md](docs/EDITOR-QUALITY.md) | 50 项真实表格流程、40 项文档回归与编辑区主题/焦点/动效修复 |
 | [docs/STATUS.md](docs/STATUS.md) | 已有验收范围与已知问题 |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | 从源码预览到可安装 Beta 的交付顺序 |
 | [CHANGELOG.md](CHANGELOG.md) | 源码版本及固定标签说明 |

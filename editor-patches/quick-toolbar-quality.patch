@@ -1,0 +1,190 @@
+--- a/apps/common/main/lib/controller/SimpleToolbar.js
++++ b/apps/common/main/lib/controller/SimpleToolbar.js
+@@ -4,6 +4,8 @@
+  */
+ define([], function () {
+     'use strict';
++
++    // Qingliang community, 2026-10-23: native sorting, theme-aware controls and reduced motion.
+ 
+     const paths = {
+         file: '<path d="M4 5h16M4 12h16M4 19h16"/>',
+@@ -26,18 +28,30 @@
+         chevron: '<path d="m8 5 7 7-7 7"/>'
+     };
+     const style = `
++        #toolbar.ql-simple, .ql-command-shade {
++            --ql-surface:var(--background-normal,#fff);
++            --ql-ink:var(--text-normal,#182235);
++            --ql-muted:var(--text-secondary,#64748b);
++            --ql-divider:var(--border-divider,#e3e9f1);
++            --ql-control:var(--border-regular-control,#d9e2ee);
++            --ql-hover:var(--highlight-button-hover,#edf4ff);
++            --ql-selected:var(--highlight-button-pressed,#e6f0ff);
++            --ql-link:var(--text-link,#0875f9);
++            --ql-focus:var(--border-control-focus,#3487ee);
++            --ql-footer:var(--background-toolbar-additional,#f8fafc);
++        }
+         body.ql-simple-mode #app-title { display:none !important; }
+-        #toolbar.ql-simple { position:relative; background:#fff; border-bottom:1px solid #e9edf3; }
++        #toolbar.ql-simple { position:relative; background:var(--ql-surface); border-bottom:1px solid var(--ql-divider); }
+         #toolbar.ql-simple:not(.ql-full) > .toolbar { visibility:hidden; pointer-events:none; }
+-        #toolbar.ql-simple .ql-quickbar { position:absolute; inset:0 10px; z-index:7; display:flex; align-items:center; gap:2px; background:#fff; font-family:"Microsoft YaHei UI","Segoe UI",sans-serif; }
++        #toolbar.ql-simple .ql-quickbar { position:absolute; inset:0 10px; z-index:7; display:flex; align-items:center; gap:2px; background:var(--ql-surface); font-family:"Microsoft YaHei UI","Segoe UI",sans-serif; }
+         #toolbar.ql-simple .ql-scrollbar { display:flex; align-items:center; flex:1; min-width:0; overflow-x:auto; overflow-y:hidden; scrollbar-width:thin; }
+-        #toolbar.ql-simple .ql-tools { display:flex; align-items:center; flex:none; padding-left:5px; border-left:1px solid #e3e9f1; background:#fff; }
++        #toolbar.ql-simple .ql-tools { display:flex; align-items:center; flex:none; padding-left:5px; border-left:1px solid var(--ql-divider); background:var(--ql-surface); }
+         #toolbar.ql-simple.ql-full .ql-quickbar { display:none; }
+-        #toolbar.ql-simple .ql-group { display:flex; align-items:center; gap:2px; padding:0 6px; border-right:1px solid #e3e9f1; flex:none; }
++        #toolbar.ql-simple .ql-group { display:flex; align-items:center; gap:2px; padding:0 6px; border-right:1px solid var(--ql-divider); flex:none; }
+         #toolbar.ql-simple .ql-group:last-child { border-right:0; }
+-        #toolbar.ql-simple .ql-action { box-sizing:border-box; min-width:52px; height:64px; padding:7px 5px 5px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; border:0; border-radius:10px; background:transparent; color:#182235; font:13px/1.1 "Microsoft YaHei UI","Segoe UI",sans-serif; white-space:nowrap; cursor:pointer; }
+-        #toolbar.ql-simple .ql-action:hover:not(:disabled), #toolbar.ql-simple .ql-action:focus-visible { background:#edf4ff; outline:none; }
+-        #toolbar.ql-simple .ql-action[aria-pressed="true"] { background:#e6f0ff; color:#0875f9; }
++        #toolbar.ql-simple .ql-action { box-sizing:border-box; min-width:52px; height:64px; padding:7px 5px 5px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; border:0; border-radius:10px; background:transparent; color:var(--ql-ink); font:13px/1.1 "Microsoft YaHei UI","Segoe UI",sans-serif; white-space:nowrap; cursor:pointer; }
++        #toolbar.ql-simple .ql-action:hover:not(:disabled), #toolbar.ql-simple .ql-action:focus-visible { background:var(--ql-hover); outline:none; }
++        #toolbar.ql-simple .ql-action[aria-pressed="true"] { background:var(--ql-selected); color:var(--text-normal-pressed,var(--ql-ink)); }
+         #toolbar.ql-simple .ql-action:disabled { opacity:.36; cursor:default; }
+         #toolbar.ql-simple .ql-action svg { width:22px; height:22px; display:block; flex:none; }
+         #toolbar.ql-simple .ql-action .ql-letter { height:22px; font:bold 22px/22px Georgia,serif; }
+@@ -45,30 +59,48 @@
+         #toolbar.ql-simple .ql-action .ql-letter.ql-under { text-decoration:underline; text-underline-offset:4px; }
+         #toolbar.ql-simple .ql-action.ql-wide { min-width:68px; }
+         #toolbar.ql-simple .ql-action.ql-more { min-width:60px; }
+-        #toolbar.ql-simple .ql-combo { display:flex; flex-direction:column; gap:5px; justify-content:center; height:64px; padding:0 3px; color:#64748b; font:11px/1 "Microsoft YaHei UI","Segoe UI",sans-serif; }
+-        #toolbar.ql-simple .ql-combo select { box-sizing:border-box; height:32px; width:132px; padding:0 22px 0 9px; border:1px solid #d9e2ee; border-radius:8px; background:#fff; color:#182235; font:13px "Microsoft YaHei UI","Segoe UI",sans-serif; cursor:pointer; }
++        #toolbar.ql-simple .ql-combo { display:flex; flex-direction:column; gap:5px; justify-content:center; height:64px; padding:0 3px; color:var(--ql-muted); font:11px/1 "Microsoft YaHei UI","Segoe UI",sans-serif; }
++        #toolbar.ql-simple .ql-combo select { box-sizing:border-box; height:32px; width:132px; padding:0 22px 0 9px; border:1px solid var(--ql-control); border-radius:8px; background:var(--ql-surface); color:var(--ql-ink); font:13px "Microsoft YaHei UI","Segoe UI",sans-serif; cursor:pointer; }
+         #toolbar.ql-simple .ql-combo.ql-size select { width:69px; }
+-        #toolbar.ql-simple .ql-combo select:focus-visible { outline:2px solid #87b8fb; outline-offset:1px; }
++        #toolbar.ql-simple .ql-combo select:focus-visible { outline:2px solid var(--ql-focus); outline-offset:1px; }
+         #toolbar.ql-simple .ql-combo select:disabled { opacity:.45; cursor:default; }
+-        #toolbar.ql-simple .ql-back { position:absolute; z-index:8; top:1px; right:82px; height:25px; border:1px solid #d7e4f5; border-radius:6px; background:#f5f9ff; color:#116fe8; font:12px "Microsoft YaHei UI","Segoe UI",sans-serif; cursor:pointer; display:none; }
++        #toolbar.ql-simple .ql-back { position:absolute; z-index:1002; top:1px; right:82px; height:25px; border:1px solid var(--ql-control); border-radius:6px; background:var(--ql-hover); color:var(--ql-link); font:12px "Microsoft YaHei UI","Segoe UI",sans-serif; cursor:pointer; display:none; }
+         #toolbar.ql-simple.ql-full .ql-back { display:block; }
+-        .ql-command-shade { position:fixed; inset:0; z-index:2000; background:rgba(23,35,55,.16); display:flex; align-items:flex-start; justify-content:center; padding:54px 16px 20px; box-sizing:border-box; }
+-        .ql-command-panel { width:580px; max-width:100%; max-height:calc(100vh - 74px); display:flex; flex-direction:column; background:#fff; border:1px solid #dce5f0; border-radius:16px; box-shadow:0 16px 50px rgba(23,35,55,.2); color:#182235; font:14px/1.5 "Microsoft YaHei UI","Segoe UI",sans-serif; overflow:hidden; }
++        .ql-command-shade { position:fixed; inset:0; z-index:2000; background:var(--background-scrim,rgba(23,35,55,.16)); display:flex; align-items:flex-start; justify-content:center; padding:54px 16px 20px; box-sizing:border-box; }
++        .ql-command-panel { width:580px; max-width:100%; max-height:calc(100vh - 74px); display:flex; flex-direction:column; background:var(--ql-surface); border:1px solid var(--ql-control); border-radius:16px; box-shadow:0 16px 50px rgba(23,35,55,.2); color:var(--ql-ink); font:14px/1.5 "Microsoft YaHei UI","Segoe UI",sans-serif; overflow:hidden; }
+         .ql-command-head { display:flex; align-items:center; padding:16px 20px 10px; gap:12px; }
+         .ql-command-head h2 { margin:0; font-size:18px; font-weight:600; flex:1; }
+-        .ql-command-close { border:0; border-radius:6px; background:#f1f5fa; padding:3px 10px; font:20px/1.3 sans-serif; cursor:pointer; color:#526176; }
+-        .ql-command-search { box-sizing:border-box; width:calc(100% - 40px); margin:0 20px 10px; padding:11px 13px; border:1px solid #cbd9ea; border-radius:9px; font:14px "Microsoft YaHei UI","Segoe UI",sans-serif; color:#182235; background:#fff; }
+-        .ql-command-search:focus { outline:2px solid #a9ccff; border-color:#3487ee; }
++        .ql-command-close { border:0; border-radius:6px; background:var(--ql-hover); padding:3px 10px; font:20px/1.3 sans-serif; cursor:pointer; color:var(--ql-muted); }
++        .ql-command-search { box-sizing:border-box; width:calc(100% - 40px); margin:0 20px 10px; padding:11px 13px; border:1px solid var(--ql-control); border-radius:9px; font:14px "Microsoft YaHei UI","Segoe UI",sans-serif; color:var(--ql-ink); background:var(--ql-surface); }
++        .ql-command-search:focus { outline:2px solid var(--ql-focus); border-color:var(--ql-focus); }
+         .ql-command-list { overflow-y:auto; padding:0 10px 10px; }
+-        .ql-command-item { display:flex; align-items:center; width:100%; padding:10px; gap:12px; text-align:left; border:0; border-radius:9px; color:#182235; background:#fff; cursor:pointer; font:14px/1.5 "Microsoft YaHei UI","Segoe UI",sans-serif; }
+-        .ql-command-item:hover:not(:disabled), .ql-command-item:focus-visible { background:#edf4ff; outline:2px solid #b7d6ff; outline-offset:-2px; }
++        .ql-command-item { display:flex; align-items:center; width:100%; padding:10px; gap:12px; text-align:left; border:0; border-radius:9px; color:var(--ql-ink); background:var(--ql-surface); cursor:pointer; font:14px/1.5 "Microsoft YaHei UI","Segoe UI",sans-serif; }
++        .ql-command-item:hover:not(:disabled), .ql-command-item:focus-visible { background:var(--ql-hover); outline:2px solid var(--ql-focus); outline-offset:-2px; }
+         .ql-command-item:disabled { opacity:.45; cursor:default; }
+         .ql-command-item span { flex:1; }
+         .ql-command-item strong { display:block; font-weight:500; }
+-        .ql-command-item small { display:block; font-size:12px; color:#68788b; }
+-        .ql-command-item kbd { font:12px "Segoe UI",sans-serif; color:#768498; white-space:nowrap; }
+-        .ql-command-empty, .ql-command-foot { margin:0; padding:10px 20px; color:#68788b; font-size:12px; }
+-        .ql-command-foot { border-top:1px solid #edf0f5; background:#f8fafc; }
++        .ql-command-item small { display:block; font-size:12px; color:var(--ql-muted); }
++        .ql-command-item kbd { font:12px "Segoe UI",sans-serif; color:var(--ql-muted); white-space:nowrap; }
++        .ql-command-empty, .ql-command-foot { margin:0; padding:10px 20px; color:var(--ql-muted); font-size:12px; }
++        .ql-command-foot { border-top:1px solid var(--ql-divider); background:var(--ql-footer); }
++        #toolbar.ql-simple .ql-action, #toolbar.ql-simple .ql-combo select,
++        #toolbar.ql-simple .ql-back, .ql-command-close, .ql-command-item {
++            transition:box-shadow .14s ease, border-color .14s ease, transform .1s ease;
++        }
++        #toolbar.ql-simple .ql-action:hover:not(:disabled) { box-shadow:0 1px 5px rgba(0,0,0,.08); }
++        #toolbar.ql-simple .ql-action:focus-visible, #toolbar.ql-simple .ql-back:focus-visible,
++        .ql-command-close:focus-visible { outline:2px solid var(--ql-focus); outline-offset:2px; }
++        #toolbar.ql-simple .ql-action:active:not(:disabled), .ql-command-close:active,
++        .ql-command-item:active:not(:disabled) { transform:translateY(1px); }
++        .ql-command-shade { animation:ql-backdrop-in .12s ease both; }
++        .ql-command-panel { animation:ql-command-in .16s cubic-bezier(.2,.8,.2,1) both; }
++        @keyframes ql-backdrop-in { from { opacity:0; } to { opacity:1; } }
++        @keyframes ql-command-in { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
++        @media (prefers-reduced-motion:reduce) {
++            #toolbar.ql-simple .ql-action, #toolbar.ql-simple .ql-combo select,
++            #toolbar.ql-simple .ql-back, .ql-command-shade, .ql-command-panel,
++            .ql-command-close, .ql-command-item { transition:none; animation:none; transform:none !important; }
++        }
+     `;
+     function icon(name) {
+         if (name === 'bold') return '<span class="ql-letter">B</span>';
+@@ -103,6 +135,7 @@
+         const back = document.createElement('button');
+         back.type = 'button';
+         back.className = 'ql-back';
++        back.setAttribute('oo_editor_input', 'true');
+         back.textContent = '返回简洁';
+         const viewportController = webapp.getController('Viewport');
+         const layout = viewportController && viewportController.viewport && viewportController.viewport.vlayout;
+@@ -320,6 +353,14 @@
+             render();
+             input.focus();
+         }
++        function actionModel(key) {
++            // The current spreadsheet toolbar creates sorting buttons in DataTab, after initial render.
++            const models = toolbar[key] || (key === 'btnSortDown' && toolbar.btnsSortDown);
++            // injectButtons returns an array-like collection, not a native Array.
++            const candidates = models && typeof models.click !== 'function' && typeof models.length === 'number' ? Array.from(models) : [models];
++            const valid = function (model) { return model && typeof model.click === 'function'; };
++            return candidates.find(function (model) { return valid(model) && !model.disabled; }) || candidates.find(valid);
++        }
+         const tracked = [];
+         const combos = [];
+         function makeCombo(item) {
+@@ -331,6 +372,7 @@
+             const select = document.createElement('select');
+             select.dataset.qlAction = item[0];
+             select.setAttribute('aria-label', item[1]);
++            select.setAttribute('oo_editor_input', 'true');
+             const placeholder = document.createElement('option');
+             placeholder.value = '';
+             placeholder.textContent = isFont ? '选择文字后设置' : '字号';
+@@ -378,17 +420,13 @@
+                 const button = document.createElement('button');
+                 button.type = 'button';
+                 button.className = 'ql-action' + (item[1].length > 4 ? ' ql-wide' : '') + (item[0] === 'more' ? ' ql-more' : '');
++                // Keep keyboard focus on toolbar controls using the SDK input boundary.
++                button.setAttribute('oo_editor_input', 'true');
+                 button.dataset.qlAction = item[0];
+                 button.innerHTML = icon(item[3]) + '<span>' + item[1] + '</span>';
+                 const hints = {file:'另存为、导出 PDF、打印与查找', open:'打开文件 · Ctrl+O', save:'保存 · Ctrl+S', undo:'撤销 · Ctrl+Z', redo:'恢复 · Ctrl+Y', commands:'按中文关键词查找常用与专业功能', more:'展开完整工具栏'};
+                 button.title = hints[item[0]] || item[1];
+-                const model = item[2] && toolbar[item[2]];
+-                if (item[2] && !model) {
+-                    button.disabled = true;
+-                    button.title = '当前编辑器不支持此操作';
+-                } else if (item[2]) {
+-                    tracked.push([button, model]);
+-                }
++                if (item[2]) tracked.push([button, item[2], button.title]);
+                 button.addEventListener('click', function () {
+                     if (item[0] === 'file' || item[0] === 'commands') {
+                         openCommands(item[0] === 'file', button);
+@@ -396,8 +434,9 @@
+                         native.execCommand('editor:event', JSON.stringify({action:'file:open'}));
+                     } else if (item[4]) {
+                         showFull(item[4]);
+-                    } else if (model && !model.disabled) {
+-                        model.click();
++                    } else {
++                        const model = item[2] && actionModel(item[2]);
++                        if (model && !model.disabled) model.click();
+                     }
+                 });
+                 group.appendChild(button);
+@@ -411,8 +450,10 @@
+         setFull(false);
+         function sync() {
+             tracked.forEach(function (pair) {
+-                pair[0].disabled = !!pair[1].disabled;
+-                pair[0].setAttribute('aria-pressed', !!pair[1].pressed);
++                const model = actionModel(pair[1]);
++                pair[0].disabled = !model || !!model.disabled;
++                pair[0].title = model ? pair[2] : '当前编辑器不支持此操作';
++                pair[0].setAttribute('aria-pressed', !!model && !!model.pressed);
+             });
+             combos.forEach(function (entry) {
+                 refreshCombo(entry);

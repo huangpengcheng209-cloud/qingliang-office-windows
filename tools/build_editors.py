@@ -49,7 +49,8 @@ def verify_inputs():
                     safe_relative(item[field])
                     if sha(ROOT / item[field]) != digest: raise ValueError('Editor published source or patch differs')
             if family == 'web-apps' and item['file'] in frozen and item['sha256'] != frozen[item['file']]['sha256']:
-                raise ValueError('Frozen web editor source must remain unchanged')
+                if item.get('parent_sha256') != frozen[item['file']]['sha256'] or not item.get('patch') or not item.get('source', '').startswith('editor-sources/'):
+                    raise ValueError('Frozen web editor parent identity must remain unchanged')
     sdk_parent = json.loads((ROOT / 'host.inputs.lock.json').read_text('utf-8'))['desktop_sdk']
     for module, parent in [('desktop-apps', qt['desktop_apps']), ('desktop-sdk', sdk_parent)]:
         if any(lock['desktop_resources'][module][key] != parent[key] for key in ('revision', 'url', 'archive', 'root', 'sha256')):
@@ -193,14 +194,43 @@ def generated_name(name):
     return re.fullmatch(r'apps/(common|documenteditor|spreadsheeteditor|presentationeditor|pdfeditor|visioeditor)/main/(locale/[^/]+\.json|resources/(img|less)/.+\.(png|svg|less))', name) is not None
 
 
+def reuse_sdk(lock, work, source):
+    """Reuse one prior desktop SDK build only after checking its complete profile, actual inputs and outputs."""
+    report = json.loads((work / 'desktop-sdk-build-report.json').read_text('utf-8'))
+    if set(report) != set(SDKS): raise ValueError('Build all desktop SDK profiles before reusing them')
+    indexed = {r['file']: r['sha256'] for r in json.loads((ROOT / 'converter.inputs.lock.json').read_text('utf-8'))['sdkjs']['files']}
+    externs = json.loads((source / 'configs/externs.json').read_text('utf-8'))['externs']
+    checked = {}
+    for editor in SDKS:
+        config = json.loads((source / ('configs/' + editor + '.json')).read_text('utf-8'))['sdk']
+        profile = {'min': config['min'] + config['desktop']['min'], 'common': config['common'] + config['desktop']['common']}
+        if profile != lock['sdk_profiles'][editor]: raise ValueError('Desktop SDK reuse profile differs')
+        inputs = {}
+        for name in externs + profile['min'] + profile['common']:
+            safe_relative(name)
+            if name not in checked: checked[name] = sha(source / name)
+            if indexed.get(name) != checked[name]: raise ValueError('Desktop SDK reuse source differs')
+            inputs[name] = checked[name]
+        row = report[editor]
+        if row['inputs'] != inputs or row['source_units'] != len(profile['min']) + len(profile['common']) or row['profile'] != 'desktop native API':
+            raise ValueError('Prior desktop SDK input report differs')
+        if set(row['outputs']) != {'sdk-all-min.js', 'sdk-all.js'} or any(sha(work / 'bin/editors/sdkjs' / editor / name) != digest for name, digest in row['outputs'].items()):
+            raise ValueError('Prior desktop SDK output differs; rebuild before reuse')
+    return report
+
+
 def audit_web_source(lock, work):
     source = work / 'sources/web-apps'
     indexed = {r['file']: r['sha256'] for r in lock['web_apps']['files']}
+    overlays = {r['file'] for r in lock['web_apps']['files'] if 'source' in r}
     generated = {}
     for name, digest in indexed.items():
         actual = sha(source / name)
         if actual != digest:
             if not generated_name(name): raise ValueError('Build changed non-generated editor source: ' + name)
+            generated[name] = actual
+        elif name in overlays:
+            # Preserve the identity of a successfully built overlay so a later published overlay can replace it safely.
             generated[name] = actual
     for folder, dirs, files in os.walk(source):
         dirs[:] = [d for d in dirs if d not in ('node_modules', 'deploy', '.git')]
@@ -322,6 +352,7 @@ def main():
     parser.add_argument('--archive-cache', type=Path)
     parser.add_argument('--java', type=Path)
     parser.add_argument('--skip-install', action='store_true', help='Reuse dependencies already installed in this stable directory')
+    parser.add_argument('--reuse-sdk', action='store_true', help='Rebuild the web interface while verifying and reusing the existing desktop SDK inputs and outputs')
     args = parser.parse_args()
     lock = verify_inputs()
     if args.command == 'verify':
@@ -357,12 +388,13 @@ def main():
         env.update({'TEMP': str(work / 'temp'), 'TMP': str(work / 'temp'), 'npm_config_cache': str(work / 'npm-cache'), 'QINGLIANG_WORK_DIR': str(work), 'SYSTEM_ENCODING': 'utf8', 'PRODUCT_VERSION': '9.4.0', 'BUILD_NUMBER': '129', 'DEFAULT_LANG': 'zh-CN'})
         java = str(args.java or shutil.which('java') or '')
         if not java or not shutil.which('node'): raise ValueError('Java 21 and Node.js are required')
-        sdk = build_sdk(lock, work, source, jar, env, java)
+        sdk = reuse_sdk(lock, work, source) if args.reuse_sdk else build_sdk(lock, work, source, jar, env, java)
         web = build_web(lock, work, env, not args.skip_install)
         runtime = layout(lock, work)
         report = {'input_manifest_sha256': sha(ROOT / 'editor.inputs.lock.json'), 'builder_sha256': sha(Path(__file__)), 'grunt_hook_sha256': sha(ROOT / 'tools/editor_grunt_hook.js'),
                   'sdk_profiles': {n: {'units': row['source_units'], 'outputs': row['outputs']} for n, row in sdk.items()}, 'web_editors': {n: {'amd_inputs': len(row['amd_inputs']), 'outputs': row['outputs']} for n, row in web.items()},
-                  'runtime_files': len(runtime), 'node_version': subprocess.check_output([shutil.which('node'), '--version'], text=True).strip(),
+                  'runtime_files': len(runtime), 'sdk_reused_after_input_output_verification': args.reuse_sdk,
+                  'node_version': subprocess.check_output([shutil.which('node'), '--version'], text=True).strip(),
                   'checked_in_wasm_rebuilt': False, 'plugins_complete': False, 'edit_save_tested': False, 'installer_built': False}
         (work / 'editor-build-report.json').write_text(json.dumps(report, indent=2) + '\n', 'utf-8')
         print(json.dumps({'runtime_files': len(runtime), 'web_editors': EDITORS, 'edit_save_tested': False}), flush=True)

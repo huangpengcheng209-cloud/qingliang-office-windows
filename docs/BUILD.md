@@ -1,6 +1,6 @@
 # 源码准备与构建边界
 
-当前最新入口：在同一稳定目录依次构建完整转换器、原生宿主、工作台、Qt 桌面和编辑资源。命令见 [CONVERTER-BUILD.md](CONVERTER-BUILD.md)、[HOST-BUILD.md](HOST-BUILD.md)、[QT-DESKTOP-BUILD.md](QT-DESKTOP-BUILD.md) 和 [EDITOR-BUILD.md](EDITOR-BUILD.md)。普通 DOCX 生命周期和 PDF 导出已有 39 项真实检查；完整产品与安装仍未完成。以下分阶段记录中的限制按各阶段当时范围理解。
+当前最新入口：在同一稳定目录依次构建完整转换器、原生宿主、工作台、Qt 桌面和编辑资源。命令见 [CONVERTER-BUILD.md](CONVERTER-BUILD.md)、[HOST-BUILD.md](HOST-BUILD.md)、[QT-DESKTOP-BUILD.md](QT-DESKTOP-BUILD.md) 和 [EDITOR-BUILD.md](EDITOR-BUILD.md)。最新有 40 项 DOCX、50 项 XLSX 真实流程检查及部分编辑区交互修复，见 [EDITOR-QUALITY.md](EDITOR-QUALITY.md)；完整产品与安装仍未完成。以下分阶段记录中的限制按各阶段当时范围理解。
 
 ## 源码结构
 

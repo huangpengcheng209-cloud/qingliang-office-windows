@@ -1,0 +1,62 @@
+name: Editor source checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.lock.json'
+      - 'editor-sources/**'
+      - 'editor-patches/**'
+      - 'tools/build_editors.py'
+      - 'tools/editor_grunt_hook.js'
+      - 'tests/run_editor_tests.py'
+      - 'tests/run_spreadsheet_tests.py'
+      - 'tests/test_editor*.py'
+      - '.github/workflows/editor-checks.yml'
+  pull_request:
+    paths:
+      - '*.lock.json'
+      - 'editor-sources/**'
+      - 'editor-patches/**'
+      - 'tools/build_editors.py'
+      - 'tools/editor_grunt_hook.js'
+      - 'tests/run_editor_tests.py'
+      - 'tests/run_spreadsheet_tests.py'
+      - 'tests/test_editor*.py'
+      - '.github/workflows/editor-checks.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  editor-inputs:
+    name: Editor source and preservation (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Check frozen source identities
+        run: python tools/verify_sources.py
+      - name: Check desktop SDK/editor input locks and overlays
+        run: python tools/build_editors.py verify
+      - name: Check editor and build hook JavaScript syntax
+        run: |
+          node --check editor-sources/web-apps/apps/common/main/lib/controller/SimpleToolbar.js
+          node --check tools/editor_grunt_hook.js
+      - name: Test editor source, SDK reuse and fixture preservation
+        env:
+          QINGLIANG_TEST_TEMP: ${{ runner.temp }}/qingliang-editor-tests
+        run: python -m unittest discover -s tests -p "test_editor*.py" -v

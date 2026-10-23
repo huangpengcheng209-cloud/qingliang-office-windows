@@ -1,4 +1,5 @@
 import hashlib
+import copy
 import json
 import os
 import subprocess
@@ -68,7 +69,7 @@ class EditorSourcePreparationTests(unittest.TestCase):
             build_editors.materialize(self.row, self.destination, self.archive)
         self.assertFalse(self.destination.exists())
 
-    def test_locale_patches_reconstruct_fixed_parent_and_completed_result(self):
+    def test_editor_patches_reconstruct_fixed_parent_and_completed_result(self):
         lock = build_editors.verify_inputs()
         for row in lock['web_apps']['files']:
             if 'patch' not in row: continue
@@ -84,6 +85,42 @@ class EditorSourcePreparationTests(unittest.TestCase):
             subprocess.run(command + ['--check', str(ROOT / row['patch'])], check=True)
             subprocess.run(command + [str(ROOT / row['patch'])], check=True)
             self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), row['sha256'])
+
+    def test_frozen_overlay_parent_cannot_be_redefined(self):
+        lock = copy.deepcopy(build_editors.verify_inputs())
+        row = next(r for r in lock['web_apps']['files'] if r.get('origin') == 'quality-overlay-on-frozen')
+        row['parent_sha256'] = '0' * 64
+        original = json.loads
+        def substitute(text, *args, **kwargs):
+            value = original(text, *args, **kwargs)
+            return lock if isinstance(value, dict) and 'web_editors' in value else value
+        with patch.object(build_editors.json, 'loads', side_effect=substitute), self.assertRaisesRegex(ValueError, 'Frozen web editor parent'):
+            build_editors.verify_inputs()
+
+    def test_sdk_reuse_rejects_changed_binary_without_overwriting_it(self):
+        source, repo = self.work / 'sdkjs', self.work / 'repo'
+        (source / 'configs').mkdir(parents=True)
+        repo.mkdir()
+        (source / 'a.js').write_bytes(b'fixed source')
+        (source / 'configs/externs.json').write_text('{"externs":[]}', 'utf-8')
+        (repo / 'converter.inputs.lock.json').write_text(json.dumps({'sdkjs': {'files': [{'file': 'a.js', 'sha256': hashlib.sha256(b'fixed source').hexdigest()}]}}), 'utf-8')
+        report, profiles = {}, {}
+        for editor in build_editors.SDKS:
+            (source / ('configs/' + editor + '.json')).write_text('{"sdk":{"min":["a.js"],"common":[],"desktop":{"min":[],"common":[]}}}', 'utf-8')
+            profiles[editor] = {'min': ['a.js'], 'common': []}
+            folder = self.work / 'bin/editors/sdkjs' / editor
+            folder.mkdir(parents=True)
+            outputs = {}
+            for name in ['sdk-all.js', 'sdk-all-min.js']:
+                (folder / name).write_bytes(b'prior build')
+                outputs[name] = hashlib.sha256(b'prior build').hexdigest()
+            report[editor] = {'source_units': 1, 'profile': 'desktop native API', 'inputs': {'a.js': hashlib.sha256(b'fixed source').hexdigest()}, 'outputs': outputs}
+        (self.work / 'desktop-sdk-build-report.json').write_text(json.dumps(report), 'utf-8')
+        changed = self.work / 'bin/editors/sdkjs/word/sdk-all.js'
+        changed.write_bytes(b'unknown changed output')
+        with patch.object(build_editors, 'ROOT', repo), self.assertRaisesRegex(ValueError, 'Prior desktop SDK output differs'):
+            build_editors.reuse_sdk({'sdk_profiles': profiles}, self.work, source)
+        self.assertEqual(changed.read_bytes(), b'unknown changed output')
 
 
 if __name__ == '__main__':

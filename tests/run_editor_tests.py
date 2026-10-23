@@ -76,14 +76,13 @@ class Acceptance:
         self.marker = '真实桌面编辑验收 Native save 2026'
         self.new_marker = '新建并另存为验收 New document save'
         self.pid = None
+        self.fixtures_ready = False
 
     def check(self, name, value):
         self.cases.append({'name': name, 'passed': bool(value)})
         if not value: raise AssertionError(name)
 
     def fixtures(self):
-        from docx import Document
-        from docx.shared import Pt
         marker = self.evidence / '.qingliang-editor-acceptance'
         if self.evidence.exists() and any(self.evidence.iterdir()) and not marker.exists():
             raise ValueError('Select an empty evidence directory or an existing marked acceptance directory')
@@ -97,8 +96,11 @@ class Acceptance:
             if path.exists():
                 if not path.resolve().is_relative_to(self.evidence) or sha(path) != known.get(path.relative_to(self.evidence).as_posix()):
                     raise ValueError('Unknown existing fixture edit preserved: ' + path.name)
-                if path != self.source: path.unlink()
+        for path in (self.edited, self.created, self.pdf):
+            if path.exists(): path.unlink()
         if not self.source.exists():
+            from docx import Document
+            from docx.shared import Pt
             doc = Document()
             doc.core_properties.author = 'Qingliang acceptance'
             doc.styles['Normal'].font.name = 'Calibri'
@@ -108,6 +110,7 @@ class Acceptance:
             doc.save(self.source)
         shutil.copy2(self.source, self.edited)
         self.original_hash = sha(self.source)
+        self.fixtures_ready = True
 
     def start(self):
         subprocess.run([sys.executable, str(ROOT / 'tools/launch_qt_preview.py'), '--work-dir', str(self.work),
@@ -204,6 +207,12 @@ class Acceptance:
         self.check('keyboard_selects_only_inserted_paragraph', frame.evaluate('editor.pluginMethod_GetSelectedText({Numbering:false})').strip() == self.marker)
         frame.locator('.ql-quickbar [data-ql-action="bold"]').click()
         self.check('bold_action_updates_state', frame.locator('.ql-quickbar [data-ql-action="bold"]').get_attribute('aria-pressed') == 'true')
+        page.keyboard.press('Control+End')
+        suffix = ' 后续输入'
+        page.keyboard.insert_text(suffix)
+        self.marker += suffix
+        page.keyboard.press('Control+A')
+        self.check('formatting_returns_to_document_for_continued_typing', self.marker in frame.evaluate('editor.pluginMethod_GetSelectedText({Numbering:false,ParaSeparator:"\\n"})'))
         frame.locator('.ql-quickbar [data-ql-action="save"]').click()
         saved = None
         for attempt in range(100):
@@ -337,12 +346,14 @@ def main():
         report['execution_error'] = str(error)
         raise
     finally:
-        if acceptance.evidence.exists() and (acceptance.evidence / '.qingliang-editor-acceptance').exists():
+        if acceptance.fixtures_ready:
             report['owned_fixtures'] = {p.relative_to(acceptance.evidence).as_posix(): sha(p) for p in (acceptance.source, acceptance.edited, acceptance.created, acceptance.pdf) if p.exists()}
             report['passed'] = sum(c['passed'] for c in acceptance.cases)
             report['failed'] = max(sum(not c['passed'] for c in acceptance.cases), int('execution_error' in report))
             (acceptance.evidence / 'editor-test-result.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', 'utf-8')
             print(json.dumps({'passed': report['passed'], 'failed': report['failed'], 'installer_acceptance': False}), flush=True)
+        elif acceptance.evidence.exists() and (acceptance.evidence / '.qingliang-editor-acceptance').exists():
+            (acceptance.evidence / 'fixture-preflight-error.json').write_text(json.dumps({'execution_error': report.get('execution_error'), 'prior_ownership_report_preserved': True}, indent=2) + '\n', 'utf-8')
 
 
 if __name__ == '__main__':
